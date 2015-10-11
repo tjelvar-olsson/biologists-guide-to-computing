@@ -1,22 +1,18 @@
-.. The Biologists Guide to Computing documentation master file, created by
-   sphinx-quickstart on Sun Oct 11 03:59:07 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+The Biologists Guide to Computing
+=================================
 
-Welcome to The Biologists Guide to Computing's documentation!
-=============================================================
-
-Contents:
+Table of Contents
+-----------------
 
 .. toctree::
    :maxdepth: 2
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   prefix
+   why-should-i-care-about-computing
+   how-to-think-like-a-computer
+   first-steps-towards-automation
+   the-power-of-plain-text-files
+   keeping-track-of-your-work-using-revision-control
+   scripting-101-formatting-data
+   using-scripts-for-data-analysis
+   coding-best-practices
