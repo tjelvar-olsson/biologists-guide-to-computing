@@ -53,22 +53,11 @@ Character encodings
 If a computer only works in terms of zeros and ones how can we use it to read
 and write text? Basically this comes down to the subject of character encodings.
 
-One of the most prevalent character encodings is ASCII (American Standard Code for
-Information Interchange).
-
-- Roots in telegraphic codes
-- First published in 1963
-- Based on English alphabet
-- Encodes 128 characters into 7-bit integers
-- 0-9, a-z, A-Z, punctuation symbols, control codes originating from Teletype machines and a space character
-- The control characters define how text and space are processed
-- Some of the control characters are now obsolete
-- Line feed vs carriage return
-- How this now manifests itself in different operating systems
-- 8-bit
-- ISO-8859-1 (Latin 1)
-- UTF
-- ASCII is 7-bit encoding for small subset of Unicode/UCS and ASCII when preceded with a zero (to make it 8-bit) is valid UTF-8
+One of the most prevalent character encodings is ASCII (American Standard Code
+for Information Interchange), first published in 1963, has its roots in
+telegraphic codes. It is based on the English alphabet and encodes 128 characters
+into 7-bit integers. These characters include: 0-9, a-z, A-Z, the space character,
+punctuations symbols and control codes stemming from Teletype machines.
 
 .. figure:: https://upload.wikimedia.org/wikipedia/commons/e/e0/ASCII_Code_Chart-Quick_ref_card.png
    :alt: ASII code chart quick reference card.
@@ -78,6 +67,30 @@ Information Interchange).
    communication Product Dept., Waynesboro VA. By Namazu-tron [Public domain],
    `via Wikimedia Commons
    <https://commons.wikimedia.org/wiki/File%3AASCII_Code_Chart-Quick_ref_card.png>`_.
+
+Although many of the control characters are now obsolete some of them still form
+the basis of how we interpret text in computers. For example the "line feed" character,
+which originally caused the moved the paper in the printer forward, is now used to
+represent new lines in text documents.
+
+In going from Teletype machines to computers different operating systems had
+different interpretations on how new lines should be represented. One surviving
+convention, still in use in Windows, requires both the "line feed" and the
+"carriage return" characters. The former representing the advancement of paper
+in the printer and the latter the repositioning of the print-head. Another
+convention , used in Unix-like systems, is to simply use the line feed
+character to represent new lines. This is why, when you open a multi-line file
+from a Unix-like system in Notepad it appears like one long line.
+
+Many other character encodings are based on ASCII. A famous example is
+ISO-8859-1 (Latin 1), which uses an eight bit to expand the ASCII character set
+to include the remaining characters from the Latin script.
+
+These days the emergent standard is Unicode, which provides a standard encoding
+for dealing with most of the worlds writing systems. Unicode is backwards compatible
+with ASCII and ISO-8859-1 in that Unicode's code points, the natural numbers used to
+assign unique characters, have the same values as those of the ASCII and
+ISO-8859-1 encodings.
 
 
 Floating point numbers
@@ -109,7 +122,7 @@ The machine instructions can tell the microprocessor to do three things:
 - Move data from one location to another
 - Make decisions and jump to a new set of instructions based on those decisions
 
-- Describe relevance to algorithms, loops, etc
+- Describe relevance to algorithms, loops, etc.
 
 
 Different types of memory
