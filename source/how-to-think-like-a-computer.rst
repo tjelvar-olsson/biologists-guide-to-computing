@@ -93,23 +93,101 @@ assign unique characters, have the same values as those of the ASCII and
 ISO-8859-1 encodings.
 
 
-Floating point numbers
-----------------------
+Real numbers
+------------
 
-- How real numbers can be represented using binary
-- Describe the problem with using a fixed point
-- Floating point numbers and their implementation
-- The numbers that can be represented are not evenly spaced
-- Rounding errors
+So we have learnt that integers can be represented in computers with zeros and
+ones by making use of the binary numeral system. Let us now discuss how real
+numbers can be represented and some issues that one can come across when working
+with these.
+
+.. sidebar:: Real numbers
+
+   Real numbers include rational numbers such as integers and fractions as well
+   as irrational numbers such as the :math:`\sqrt{2}` and :math:`\pi`.
+
+One way of storing and working with real numbers is to use the fixed-point number
+representation. A fixed-point number is basically an integer that is scaled by an
+implicit factor. So if the implicit scaling factor was :math:`1/10` and the
+explicit integer stored in the computer was :math:`127` then the real number
+represented would be :math:`12.7`.
+
+However, the fixed-point number representation has the disadvantage that the
+range of numbers that can be represented is relatively small.  The
+floating-point number was invented to work around this limitation.
+
+Floating-point numbers basically allow the decimal (radix) point to to float.
+This means that numbers of differing orders of magnitude can be expressed using
+the same units. It is very much similar to scientific notation where the distance
+to the moon can be expressed as :math:`3.844 * 10^8` and the size of a typical
+bacterium can be expressed as :math:`1.0 * 10^{-6}`. A consequence of this is that
+the numbers that can be expressed are not uniformly spaced, i.e. as the size of
+the exponent increases the step size between two representable numbers increases.
+
+All real numbers cannot be represented precisely using floating-point numbers.
+Furthermore, arithmetic operations on floating-point numbers cannot truly
+represent arithmetic operations. This can lead to issues with accuracy. We can
+illustrate this using Python (we will get more details on scripting and Python
+in later chapters).
+
+.. code-block:: python
+
+    >>> 0.6 / 0.2
+    2.9999999999999996
+
 
 Boolean logic
 -------------
 
-- AND, OR, NOT
-- use in arithmetic
-- use in memory
-- use in conditional logic and for algorithms to decide what to do
-- can be implemented using relays
+Boolean logic is a mathematical formalism for describing logical relations.
+In Boolean logic things are either ``False`` or ``True``. These truth values
+are often represented as 0 and 1 respectively.
+There are three basic operators ``AND``, ``OR`` and ``NOT`` for working with
+truth values. These are sometimes referred to as logic gates.
+
+=====  =====  ===========  ==========
+``x``  ``y``  ``x AND y``  ``x OR y``
+=====  =====  ===========  ==========
+  0      0         0           0
+  1      0         0           1
+  0      1         0           1
+  1      1         1           0
+=====  =====  ===========  ==========
+
+=====  =========
+``x``  ``NOT x`` 
+=====  =========
+  0        1  
+  1        0  
+=====  =========
+
+Using these axioms more complex logic gates can be built up. For example, by
+combining ``NOT`` and ``AND`` one can create what is commonly referred to as
+a ``NAND`` gate.
+
+=====  =====  ===========  =================
+``x``  ``y``  ``x AND y``  ``NOT (x AND y)``
+=====  =====  ===========  =================
+  0      0         0           1
+  1      0         0           1
+  0      1         0           1
+  1      1         1           0
+=====  =====  ===========  =================
+
+Importantly one can use Boolean logic gates to implement integer arithmetic
+and memory. This combined with the fact that it is relatively easy to
+physically implement boolean logic using relays led to the construction of
+the first computers.
+
+Although you may not want to create your own computer having a basic
+understanding of Boolean logic will help you when implementing algorithms. For
+example one often need to make conditional logic statements along the lines of
+"``IF`` the cell contains green fluorescent protein ``AND`` it is illuminated
+with light of wavelength 395 nm ``THEN`` it will emit fluorescence at 509 nm".
+
+.. note:: Boolean logic is also used in Boolean networks, a formalism that
+          can be used to describe gene regulatory networks.
+
 
 
 The microprocessor
