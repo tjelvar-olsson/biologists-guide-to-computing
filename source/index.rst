@@ -1,9 +1,6 @@
 The Biologists Guide to Computing
 =================================
 
-Table of Contents
------------------
-
 .. toctree::
    :maxdepth: 2
 
