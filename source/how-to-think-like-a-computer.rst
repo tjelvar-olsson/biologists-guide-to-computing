@@ -5,6 +5,7 @@ These days computers can perform complex task. However, at their core computers
 only have a relatively small set of basic capabilities. Information is stored as
 zeros and ones and Boolean logic is used to perform calculations.
 
+
 Binary, bits and bytes
 ----------------------
 
@@ -193,17 +194,83 @@ with light of wavelength 395 nm ``THEN`` it will emit fluorescence at 509 nm".
 The microprocessor
 ------------------
 
-At the most basic level a microprocessor executes machine instructions.
-The machine instructions can tell the microprocessor to do three things:
+A microprocessor executes machine instructions. Machine instructions tell the
+microprocessor what to do.  At the most basic level there are three things that
+a microprocessor can do: perform mathematical operations, move data from one
+memory location to another, make decisions and jump to new sets of instructions
+based on those decisions.
 
-- Perform mathematical operations
-- Move data from one location to another
-- Make decisions and jump to a new set of instructions based on those decisions
+.. sidebar:: The C programming language
 
-- Describe relevance to algorithms, loops, etc.
+   C is a popular programming language designed by Dennis Ritchie in 1972.
+   It is a low-level language in that it allows the programmer to work close
+   to the hardware by providing direct access to the systems memory. One of the
+   most famous C projects is the Linux kernel, which is a massive open source
+   project with millions of lines of code and thousands of contributors.
+
+Most programming languages provide some sort of abstraction layer so that the
+programmer does not need to think in terms of machine instructions. For example,
+the main purpose of a C compiler is to convert C source code into machine
+instructions.
+
+When working with higher level languages, such as Python, one does not really need
+to worry about what happens at the microprocessor level.
+
+However, knowing that a microprocessor can make decisions and jump to new sets
+of instructions can be useful when trying to understand the concepts such as
+loops. A loop is essentially a set of machine instructions that end with a
+decision to jump back to the beginning of the same set of instructions. Within
+the set of machine instructions defining the loop a criteria for exiting the
+loop is often also defined. If the criteria for exiting the loop is not
+defined, or it cannot be reached, the loop will keep cycling forever in what is
+termed an "infinite loop".
 
 
-Different types of memory
--------------------------
+Computer memory
+---------------
 
-- IO can be a real issue
+Computer memory comes in different forms with different characteristics. The
+hard drive of a computer is a type of memory where data can be stored
+permanently. RAM (Random Access Memory) is a type of memory where data is
+volatile, i.e. it is not retained when the machine reboots. A less well
+known type of memory is the registry, which resides in the CPU. Apart
+from the physical location and whether or not the memory is volatile
+other important characteristics include the speed at which data can be read
+and written to it, its size and cost. Below is a table summarising these
+characteristics.
+
+=========  =========  ==============  ==============  ========
+Location   Speed      Size            Cost            Volatile
+=========  =========  ==============  ==============  ========
+Register   Very fast  Very small      Very expensive  Yes
+RAM        Fast       Small/Moderate  Expensive       Yes
+Hard disk  Slow       Very large      Cheap           No
+=========  =========  ==============  ==============  ========
+
+If one is working with really large data sets the main bottleneck in the
+processing pipeline can be reading and writing the data from and to memory.
+This is known as being IO (input/output) bound.
+
+
+Key concepts
+------------
+
+- A bit is the smallest piece of data that can be stored in a computer, it can
+  be set to either zero or one
+- A byte is 8-bits
+- An unsigned 8-bit integer can represent any of the integers between 0 and 255
+- A character encoding maps characters to integers, common character encodings
+  include ASCII and Unicode
+- Real numbers tend to be handled using floating-point representation
+- There are some inherent limitations when working with floating-point numbers
+  which can lead to issues with accuracy
+- Boolean logic is one of the main tools employed by the computer to do work
+  and store data
+- The microprocessor in the computer executes machine instructions
+- Machine instructions can tell the microprocessor to perform mathematical
+  operations, moved data around and to make decisions to jump to new sets of
+  machine instructions
+- The hard disk, RAM and the register are different types of memory with
+  different characteristics
+- Processes that spend most of their time reading and writing data are said to
+  be IO bound
