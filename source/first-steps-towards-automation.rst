@@ -4,7 +4,7 @@ First steps towards automation
 One of the first steps towards automating repetitive tasks is to become
 familiar with the command line. In this chapter we will do this by using
 the command line to extract the UniProt identifiers for all human proteins
-Swiss-Prot.
+in Swiss-Prot.
 
 You will get the most benefit from this chapter if you work through the example
 as well as you go along. You are therefore encouraged to open up a terminal now!
@@ -20,6 +20,29 @@ known as the shell. The shell allows you to interact with the operating systems
 services and programs. Just like there is a diversity of terminal emulators
 there are also a number of different shells. The most widely used shell and the
 default on Mac and most Linux based distributions is ``bash``.
+
+
+First things first, how to find help
+------------------------------------
+
+Most of the commands on the command line have built in help that can be accessed by
+providing either the argument ``-h`` or ``--help``. For example to access help for
+the ``curl`` command, which we will use later, you can run as such::
+
+    curl --help
+
+More descriptive documentation can usually be found using the ``man`` (manual)
+command. For example to view the manual page of the ``ls`` command you can run
+the command below.
+
+::
+
+    man ls
+
+To get out of the "man-page" press the "q" key. Just like I encourage you to try
+out the examples outlined in this chapter I also encourage you to examine the
+help and man-page documentation for the commands that we use to get a better
+understanding of what they do.
 
 
 Creating a new directory for our project
@@ -46,8 +69,8 @@ command.
 
 Now that we know where we are and what files and directories are present let us
 create a new directory for our project. This is achieved using the ``mkdir``
-command, short for "make directory". After having created the directory make it
-your working directory by moving into it using the ``cd`` command.
+command, short for "make directory". After having created the directory move
+into it using the ``cd`` command.
 
 ::
 
@@ -60,8 +83,8 @@ your working directory by moving into it using the ``cd`` command.
           However, one could just as well have used hyphens. This comes down to personal
           preference. It is possible to represent file names with spaces in them on the
           command line by using the escape ``\`` character, for example
-          ``first\ steps\ towards\ automation``. However, this is discouraged as it soon
-          becomes very tedious.
+          ``first\ steps\ towards\ automation`` or by surrounding the text in quotes
+          ``"first steps towards automation"``.
 
 
 Downloading the Swiss-Prot knowledge base
@@ -70,25 +93,29 @@ Downloading the Swiss-Prot knowledge base
 It is time to download the Swiss-Prot knowledge base from the UniProt. We can
 use the ``curl`` program to do this.  The ``curl`` command is a C program that
 allows us to stream data from URLs and FTP sites.  By default the ``curl``
-program prints the content of the URL to the standard output stream. To see
+program writes the content of the URL to the standard output stream. To see
 this in action try running the command::
 
     curl www.bbc.com
+
+You should see a whole lot of HTML text printed in your terminal window.
 
 However, because we are going to be downloading a larger file we would like to
 write it to disk for future use. Many command line programs allow the user to
 specify additional options. In this particular case we can use the
 ``--remote-name`` option to specify that the output should be written to a file
-named as the remote file. Let us now download the gzipped FASTA file from the
-UniProt FTP site::
+named as the remote file.
+
+Let us download the gzipped FASTA file from the UniProt FTP site::
 
     curl --remote-name ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
 
 
-The downloaded file ``uniprot_sprot.fasta.gz`` has been compressed using the ``gzip`` protocol. 
-We can extract it using the ``gunzip`` command.  However, when extracted it
-more than doubles in size. So rather than extract the file to disk we will
-simply extract it on the fly when we need it.
+The downloaded file ``uniprot_sprot.fasta.gz`` has been compressed using the
+``gzip`` protocol.  We can extract it using the ``gunzip`` command.  However,
+when extracted it more than doubles in size. So we will use the ``--to-stdout``
+option to extract the content to the standard output stream whilst leaving the
+original file compressed.
 
 Try running the command::
 
@@ -102,59 +129,271 @@ Creating a work flow using pipes
 --------------------------------
 
 Now it is time to introduce one of the greatest features of the command line: piping!
-Explain what a pipe is...
+Pipes are a means to redirect the output from one command into another. The character
+used to represent a pipe is the vertical bar: ``|``.
 
-To illustrate the use of pipes we will redirect the output to the word count program
-``wc``. Try running the command below::
+To illustrate the use of pipes we will redirect the output of the previous
+``gunzip`` command to the word count program ``wc``. Try running the command
+below::
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | wc
+
+.. sidebar:: Re-using previous command
+
+    Rather than having to retype commands try using the "Up" and "Down" arrows
+    to get access to previous commands.
 
 It should give you three numbers, these are the line, word and character counts. To
 only see the line count one could use the ``-l`` option::
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | wc -l
 
-You may ask yourself why this is such a great feature.
-Explanation...
+Pipes are powerful because they allow a set of simple commands to be combined
+to perform tasks that are beyond the scope of any of the individual commands.
+This has led to a central Unix philosophy of having simple programs that do one
+task well and a rich ecosystem of such programs. The user is then free to
+combine these programs to create personalised tools to automate repetitive
+processing tasks.
 
 
 Examining files, without modifying them
 ---------------------------------------
 
+Unix-based systems make a distinction between programs that are used for
+examining files, known as pagers, and programs that are used for editing files,
+known as text editors. The reason for making this distinction is to help users
+avoid making accidental changes to files when they simply want to read them.
 
-Finding FASTA identifiers corresponding to human proteins
----------------------------------------------------------
+To view the beginning of a file one can use the ``head`` command. Let us examine
+the first lines of the ``uniprot.fasta.gz`` file by pipeing the output of the
+``gunzip`` command into ``head``::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | head
+
+You should see something like the output below being written to the terminal
+window.
+
+::
+
+    >sp|Q6GZX4|001R_FRG3G Putative transcription factor 001R OS=Frog virus 3 (isolate Goorha) GN=FV3-001R PE=4 SV=1
+    MAFSAEDVLKEYDRRRRMEALLLSLYYPNDRKLLDYKEWSPPRVQVECPKAPVEWNNPPS
+    EKGLIVGHFSGIKYKGEKAQASEVDVNKMCCWVSKFKDAMRRYQGIQTCKIPGKVLSDLD
+    AKIKAYNLTVEGVEGFVRYSRVTKQHVAAFLKELRHSKQYENVNLIHYILTDKRVDIQHL
+    EKDLVKDFKALVESAHRMRQGHMINVKYILYQLLKKHGHGPDGPDILTVKTGSKGVLYDD
+    SFRKIYTDLGWKFTPL
+    >sp|Q6GZX3|002L_FRG3G Uncharacterized protein 002L OS=Frog virus 3 (isolate Goorha) GN=FV3-002L PE=4 SV=1
+    MSIIGATRLQNDKSDTYSAGPCYAGGCSAFTPRGTCGKDWDLGEQTCASGFCTSQPLCAR
+    IKKTQVCGLRYSSKGKDPLVSAEWDSRGAPYVRCTYDADLIDTQAQVDQFVSMFGESPSL
+    AERYCMRGVKNTAGELVSRVSSDADPAGGWCRKWYSAHRGPDQDAALGSFCIKNPGAADC
+
+By default the ``head`` command writes out the first ten lines. However, this
+can be modified using the ``-n`` option, for example to write out the first 20
+lines::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | head -n 20
+
+Similarly, there is a ``tail`` command for displaying the tail end of a file,
+again ten lines by default.
+
+::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | tail
+
+You may have noticed that this series of commands took a little longer to
+complete.  That is because we needed to decompress the whole file before we
+could access the last ten lines of it.
+
+To page though an entire file one can use the ``less`` command.
+
+::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | less
+
+One can use the "Up" and "Down" arrows to navigate through the file.  One can
+also use the "Space" key to move forward by an entire page, hence the term
+pager. To page back one page press the "b" key. When you are finished examining
+the file press "q" to quit ``less``.
+
+.. sidebar:: How am I supposed to be able to remember that ``less`` is a pager?
+
+    As you may have noticed, if one does not use a pager, the standard output
+    is simply written to the terminal. This can be frustrating if the file is
+    large and one wants to start reading at the top of the file and then move
+    through it as one reads along. This is what pagers are for, moving
+    through files one page at a time.  One of the original pager programs was
+    called ``more``.  It simply displayed one page of output at a time and when
+    one wanted "more" output one simply pressed the space key. A usability
+    issue with the ``more`` program was that it did not allow a user to go back
+    up a page. The ``less`` pager was therefore developed to work around this
+    issue. It implemented backwards scrolling and a number of other additional
+    features not present in ``more``. However, ``less`` also implemented all
+    the original features of the ``more`` program, resulting in the mnemonic
+    "less is more".
+
+
+Finding FASTA idendifier lines corresponding to human proteins
+--------------------------------------------------------------
+
+Now that we have an idea of what the file looks like it is time to extract the
+FASTA identifiers that correspond to human proteins.
+
+A powerful command for finding lines of interest in text is the ``grep``
+program, which can be used to search for strings and patterns. Let us use it to
+search for the string "Homo"::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | grep Homo | less
+
+To make the match more visible we can add the ``--color=always`` option, which
+will highlight the matched string as red.
+
+::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | grep --color=always Homo | less
+
+If you scroll through the matches you will notice that we have some false
+positives. We can highlight these by performing anther ``grep`` command that
+finds lines that do not contain the string "sapiens".
+
+::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | grep Homo | grep --invert-match sapiens
+
+To make the search more specific we can search for the string "OS=Homo sapiens".
+To do this we need to surround the search pattern by quotes, which tells the shell that
+the two parts separated by a white space should be treated as one argument.
+
+::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens'
+
+To work out how many lines were matched we can pipe the output of ``grep`` to
+the ``wc`` command.
+
+::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | wc -l
 
 
 Extracting the UniProt identifiers
 ----------------------------------
 
+Below are the first three lines identified using the ``grep`` command.
+
+::
+
+    >sp|P31946|1433B_HUMAN 14-3-3 protein beta/alpha OS=Homo sapiens GN=YWHAB PE=1 SV=3
+    >sp|P62258|1433E_HUMAN 14-3-3 protein epsilon OS=Homo sapiens GN=YWHAE PE=1 SV=1
+    >sp|Q04917|1433F_HUMAN 14-3-3 protein eta OS=Homo sapiens GN=YWHAH PE=1 SV=4
+
+
+Now that we can identify lines of interest we want to extract the UniProt
+identifiers from them. In this instance we will use the command ``cut`` to chop
+the line into smaller fragments, based on a delimiter character, and printing out
+the relevant fragment. In this instance the delimiter we are going to use is
+the vertical bar ("|"). This has got nothing to do with pipeing, it is simply
+the character surrounding the UniProt identifier. By splitting the line by "|"
+the UniProt id will be available in the second fragment.
+
+::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2
+
+Ensuring that all the identifiers are unique
+--------------------------------------------
+
+In this instance we hope that all the identifiers are unique. However, it is
+difficult to know whether they are or not given that there are over 20,000 of
+them. Fortunately, one can use the ``uniq`` command to filtering out any
+duplicate lines.
+
+::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq
+
 
 Using pipes to create an output file
 ------------------------------------
+
+Now we will use a different redirection command, ``>``, to save the output to a file
+on disk::
+
+    gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq > human_uniprot_ids.txt
+
+Now if you run the ``ls`` command you will see the file
+``human_uniprot_ids.txt`` in the directory and you can view its contents using
+``less``::
+
+    ls
+    less human_uniprot_ids.txt
+
+Well done! You have just extracted the UniProt identifiers for all human
+proteins in Swiss-Prot. Have a cup of tea and a biscuit.
+
+The remainder of this chapter will go over some more useful commands for
+working on the command line, provide a summary of useful commands and
+reiterate some of the key take home messages.
+
+
+Viewing the command history
+---------------------------
+
+Okay, so you have had a relaxing cup of tea and your head is no longer buzzing
+from information overload. However, you have also forgotten how you managed to
+extract those UniProt identifiers.
+
+Not to worry. You can view the history of your previous commands using ``history``::
+
+    history
+
+Note that each command has a history number associated with it. For example you may have something
+along the lines of the below in your terminal.
+
+::
+
+    593  gunzip --to-stdout uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" | cut -d "|" -f 2 | uniq
+    594  gunzip --to-stdout uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" | cut -d "|" -f 2 | uniq > human_uniprot_ids.txt
+    595  ls
+    596  less human_uniprot_ids.txt
+    597  gunzip --to-stdout uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" | cut -d "|" -f 2 | uniq
+    598  history
+
+You can use the number in the history this to rerun a previous command without
+having to retype it. For example to rerun command number 593 you would type
+in::
+
+    !593
+    
+
+
+Clearing the terminal window
+----------------------------
+
+After having run the ``history`` command the terminal window is full of information.
+However, you find it distracting to have all those commands staring at you whilst
+you are trying to think.
+
+To clear the screen of output one can use the ``clear`` command::
+
+    clear
 
 
 Removing files and directories
 ------------------------------
 
 
+
+
+
 More useful commands
 --------------------
 
-- history
-- clear
 - reset
 - which
 - whereis
 - whoami
 - find
 - locate
-
-
-Getting help
-------------
-
--h, --help, man, info
+- info
 
 
 Summary of useful commands
