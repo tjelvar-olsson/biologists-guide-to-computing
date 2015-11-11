@@ -16,7 +16,7 @@ are a number of terminal emulators available for Linux. If you are using the
 Gnome-based desktop the default is likely to be the Gnome Terminal.
 
 A terminal emulator is an application that gives you access to another program
-known as the shell. The shell allows you to interact with the operating systems
+known as the shell. The shell allows you to interact with the operating system's
 services and programs. Just like there is a diversity of terminal emulators
 there are also a number of different shells. The most widely used shell and the
 default on Mac and most Linux based distributions is ``bash``.
@@ -330,8 +330,7 @@ Well done! You have just extracted the UniProt identifiers for all human
 proteins in Swiss-Prot. Have a cup of tea and a biscuit.
 
 The remainder of this chapter will go over some more useful commands for
-working on the command line, provide a summary of useful commands and
-reiterate some of the key take home messages.
+working on the command line and reiterate some of the key take home messages.
 
 
 Viewing the command history
@@ -345,24 +344,11 @@ Not to worry. You can view the history of your previous commands using ``history
 
     history
 
-Note that each command has a history number associated with it. For example you may have something
-along the lines of the below in your terminal.
+Note that each command has a history number associated with it.  You can use
+the number in the history this to rerun a previous command without having to
+retype it. For example to rerun command number 597 you would type in::
 
-::
-
-    593  gunzip --to-stdout uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" | cut -d "|" -f 2 | uniq
-    594  gunzip --to-stdout uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" | cut -d "|" -f 2 | uniq > human_uniprot_ids.txt
-    595  ls
-    596  less human_uniprot_ids.txt
-    597  gunzip --to-stdout uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" | cut -d "|" -f 2 | uniq
-    598  history
-
-You can use the number in the history this to rerun a previous command without
-having to retype it. For example to rerun command number 593 you would type
-in::
-
-    !593
-    
+    !597
 
 
 Clearing the terminal window
@@ -376,29 +362,70 @@ To clear the screen of output one can use the ``clear`` command::
 
     clear
 
+Copying and renaming files
+--------------------------
+
+You want to store a copy of your ``human_uniprot_id.txt`` file in a backup
+directory.
+
+For this exercise let us start by creating a backup directory.
+
+::
+
+    mkdir backup
+
+Now we can copy the file into the backup directory using the ``cp`` command.
+
+::
+    
+    cp human_uniprot_id.txt backup/
+
+The command above uses the original name of the file. However, we could have
+given it a different name, for example including the date.
+
+::
+    
+    cp human_uniprot_id.txt backup/human_uniprot_id_2015-11-10.txt
+
+Finally, suppose that one wanted to rename the original file to use hyphens
+rather than under scores. To to this one would use the ``mv`` command, mnemonic
+"move". 
+
+::
+    
+    mv human_uniprot_id.txt human-uniprot-id.txt
+
 
 Removing files and directories
 ------------------------------
 
+Having experimented with the command line we want to clean up by removing
+unwanted files and directories. 
 
+One can remove files using the ``rm`` command::
 
+    rm backup/human_uniprot_id.txt
 
+Empty directories can be removed using the ``rmdir`` command::
+    
+    mkdir empty
+    rmdir empty
 
-More useful commands
---------------------
+To remove directories with files in them one can use the ``rm`` command with
+the recursive option::
 
-- reset
-- which
-- whereis
-- whoami
-- find
-- locate
-- info
+    rm -r backup
 
-
-Summary of useful commands
---------------------------
+.. warning:: Think twice before deleting files, they will be deleted permanently.
 
 
 Key concepts
 ------------
+
+- The command line is an excellent tool for automating repetitive tasks
+- A terminal application provides access to a shell
+- A shell allows you to interact with the operating system's services and programs
+- The most commonly used shell is Bash
+- Pipes can be used to combine different programs into more complicated work flows
+- In general it is better to create small tools that do one thing well
+- Think twice before deleting files
