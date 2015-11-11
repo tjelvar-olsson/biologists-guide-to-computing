@@ -311,8 +311,8 @@ duplicate lines.
     gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq
 
 
-Using pipes to create an output file
-------------------------------------
+Using redirection to create an output file
+------------------------------------------
 
 Now we will use a different redirection command, ``>``, to save the output to a file
 on disk::

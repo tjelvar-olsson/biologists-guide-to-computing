@@ -13,3 +13,4 @@ The Biologists Guide to Computing
    scripting-101-formatting-data
    using-scripts-for-data-analysis
    coding-best-practices
+   recommended-reading
