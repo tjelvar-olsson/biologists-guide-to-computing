@@ -230,7 +230,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'TheBiologistsGuidetoComputing.tex', u'The Biologists Guide to Computing Documentation',
+  (master_doc, 'TheBiologistsGuidetoComputing.tex', u'The Biologists Guide to Computing',
    u'Tjelvar Olsson', 'manual'),
 ]
 
@@ -260,7 +260,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'thebiologistsguidetocomputing', u'The Biologists Guide to Computing Documentation',
+    (master_doc, 'thebiologistsguidetocomputing', u'The Biologists Guide to Computing',
      [author], 1)
 ]
 
@@ -274,7 +274,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'TheBiologistsGuidetoComputing', u'The Biologists Guide to Computing Documentation',
+  (master_doc, 'TheBiologistsGuidetoComputing', u'The Biologists Guide to Computing',
    author, 'TheBiologistsGuidetoComputing', 'One line description of project.',
    'Miscellaneous'),
 ]

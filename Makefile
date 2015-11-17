@@ -119,6 +119,8 @@ mylatex:
 	sed -i -e "s/%\(.*paperwidth}{7in}\)/\1/" $(BUILDDIR)/latex/sphinx.sty
 	sed -i -e "s/definecolor{VerbatimColor}{rgb}{1,1,1}/definecolor{VerbatimColor}{rgb}{0.94,0.94,0.94}/"  $(BUILDDIR)/latex/sphinx.sty
 	sed -i -e "s/definecolor{VerbatimBorderColor}{rgb}{0,0,0}/definecolor{VerbatimBorderColor}{rgb}{0.5,0.5,0.5}/" $(BUILDDIR)/latex/sphinx.sty
+	sed -i -e "s/\(, \\\py@release\)//" $(BUILDDIR)/latex/sphinx.sty
+	sed -i -e "/release{/d" $(BUILDDIR)/latex/TheBiologistsGuidetoComputing.tex
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
 	@echo "mylatex finished; the PDF files are in $(BUILDDIR)/latex."
 
