@@ -27,7 +27,9 @@ First things first, how to find help
 
 Most of the commands on the command line have built in help that can be accessed by
 providing either the argument ``-h`` or ``--help``. For example to access help for
-the ``curl`` command, which we will use later, you can run as such::
+the ``curl`` command, which we will use later, you can run as such:
+
+.. code-block:: none
 
     curl --help
 
@@ -35,7 +37,7 @@ More descriptive documentation can usually be found using the ``man`` (manual)
 command. For example to view the manual page of the ``ls`` command you can run
 the command below.
 
-::
+.. code-block:: none
 
     man ls
 
@@ -50,7 +52,7 @@ Creating a new directory for our project
 
 First of all let us make sure that we are working in our home directory.
 
-::
+.. code-block:: none
 
     cd
 
@@ -62,7 +64,7 @@ We can print out the name of the current working directory using the ``pwd``
 command. Furthermore we can list the contents of a directory using the ``ls``
 command.
 
-::
+.. code-block:: none
 
     pwd
     ls
@@ -72,7 +74,7 @@ create a new directory for our project. This is achieved using the ``mkdir``
 command, short for "make directory". After having created the directory move
 into it using the ``cd`` command.
 
-::
+.. code-block:: none
 
     mkdir first_step_towards_automation
     cd first_step_towards_automation
@@ -94,7 +96,9 @@ It is time to download the Swiss-Prot knowledge base from the UniProt. We can
 use the ``curl`` program to do this.  The ``curl`` command is a C program that
 allows us to stream data from URLs and FTP sites.  By default the ``curl``
 program writes the content of the URL to the standard output stream. To see
-this in action try running the command::
+this in action try running the command:
+
+.. code-block:: none
 
     curl www.bbc.com
 
@@ -117,7 +121,9 @@ when extracted it more than doubles in size. So we will use the ``--to-stdout``
 option to extract the content to the standard output stream whilst leaving the
 original file compressed.
 
-Try running the command::
+Try running the command:
+
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz
 
@@ -134,7 +140,9 @@ used to represent a pipe is the vertical bar: ``|``.
 
 To illustrate the use of pipes we will redirect the output of the previous
 ``gunzip`` command to the word count program ``wc``. Try running the command
-below::
+below:
+
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | wc
 
@@ -144,7 +152,9 @@ below::
     to get access to previous commands.
 
 It should give you three numbers, these are the line, word and character counts. To
-only see the line count one could use the ``-l`` option::
+only see the line count one could use the ``-l`` option:
+
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | wc -l
 
@@ -166,14 +176,16 @@ avoid making accidental changes to files when they simply want to read them.
 
 To view the beginning of a file one can use the ``head`` command. Let us examine
 the first lines of the ``uniprot.fasta.gz`` file by pipeing the output of the
-``gunzip`` command into ``head``::
+``gunzip`` command into ``head``:
+
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | head
 
 You should see something like the output below being written to the terminal
 window.
 
-::
+.. code-block:: none
 
     >sp|Q6GZX4|001R_FRG3G Putative transcription factor 001R OS=Frog virus 3 (isolate Goorha) GN=FV3-001R PE=4 SV=1
     MAFSAEDVLKEYDRRRRMEALLLSLYYPNDRKLLDYKEWSPPRVQVECPKAPVEWNNPPS
@@ -188,14 +200,16 @@ window.
 
 By default the ``head`` command writes out the first ten lines. However, this
 can be modified using the ``-n`` option, for example to write out the first 20
-lines::
+lines:
+
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | head -n 20
 
 Similarly, there is a ``tail`` command for displaying the tail end of a file,
 again ten lines by default.
 
-::
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | tail
 
@@ -205,7 +219,7 @@ could access the last ten lines of it.
 
 To page though an entire file one can use the ``less`` command.
 
-::
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | less
 
@@ -239,14 +253,16 @@ FASTA identifiers that correspond to human proteins.
 
 A powerful command for finding lines of interest in text is the ``grep``
 program, which can be used to search for strings and patterns. Let us use it to
-search for the string "Homo"::
+search for the string "Homo":
+
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | grep Homo | less
 
 To make the match more visible we can add the ``--color=always`` option, which
 will highlight the matched string as red.
 
-::
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | grep --color=always Homo | less
 
@@ -254,7 +270,7 @@ If you scroll through the matches you will notice that we have some false
 positives. We can highlight these by performing anther ``grep`` command that
 finds lines that do not contain the string "sapiens".
 
-::
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | grep Homo | grep --invert-match sapiens
 
@@ -262,14 +278,14 @@ To make the search more specific we can search for the string "OS=Homo sapiens".
 To do this we need to surround the search pattern by quotes, which tells the shell that
 the two parts separated by a white space should be treated as one argument.
 
-::
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens'
 
 To work out how many lines were matched we can pipe the output of ``grep`` to
 the ``wc`` command.
 
-::
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | wc -l
 
@@ -279,7 +295,7 @@ Extracting the UniProt identifiers
 
 Below are the first three lines identified using the ``grep`` command.
 
-::
+.. code-block:: none
 
     >sp|P31946|1433B_HUMAN 14-3-3 protein beta/alpha OS=Homo sapiens GN=YWHAB PE=1 SV=3
     >sp|P62258|1433E_HUMAN 14-3-3 protein epsilon OS=Homo sapiens GN=YWHAE PE=1 SV=1
@@ -294,7 +310,7 @@ the vertical bar ("|"). This has got nothing to do with pipeing, it is simply
 the character surrounding the UniProt identifier. By splitting the line by "|"
 the UniProt id will be available in the second fragment.
 
-::
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2
 
@@ -306,7 +322,7 @@ difficult to know whether they are or not given that there are over 20,000 of
 them. Fortunately, one can use the ``uniq`` command to filtering out any
 duplicate lines.
 
-::
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq
 
@@ -315,13 +331,17 @@ Using redirection to create an output file
 ------------------------------------------
 
 Now we will use a different redirection command, ``>``, to save the output to a file
-on disk::
+on disk:
+
+.. code-block:: none
 
     gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq > human_uniprot_ids.txt
 
 Now if you run the ``ls`` command you will see the file
 ``human_uniprot_ids.txt`` in the directory and you can view its contents using
-``less``::
+``less``:
+
+.. code-block:: none
 
     ls
     less human_uniprot_ids.txt
@@ -340,13 +360,17 @@ Okay, so you have had a relaxing cup of tea and your head is no longer buzzing
 from information overload. However, you have also forgotten how you managed to
 extract those UniProt identifiers.
 
-Not to worry. You can view the history of your previous commands using ``history``::
+Not to worry. You can view the history of your previous commands using ``history``:
+
+.. code-block:: none
 
     history
 
 Note that each command has a history number associated with it.  You can use
 the number in the history this to rerun a previous command without having to
-retype it. For example to rerun command number 597 you would type in::
+retype it. For example to rerun command number 597 you would type in:
+
+.. code-block:: none
 
     !597
 
@@ -358,7 +382,9 @@ After having run the ``history`` command the terminal window is full of informat
 However, you find it distracting to have all those commands staring at you whilst
 you are trying to think.
 
-To clear the screen of output one can use the ``clear`` command::
+To clear the screen of output one can use the ``clear`` command:
+
+.. code-block:: none
 
     clear
 
@@ -370,20 +396,20 @@ directory.
 
 For this exercise let us start by creating a backup directory.
 
-::
+.. code-block:: none
 
     mkdir backup
 
 Now we can copy the file into the backup directory using the ``cp`` command.
 
-::
+.. code-block:: none
     
     cp human_uniprot_id.txt backup/
 
 The command above uses the original name of the file. However, we could have
 given it a different name, for example including the date.
 
-::
+.. code-block:: none
     
     cp human_uniprot_id.txt backup/human_uniprot_id_2015-11-10.txt
 
@@ -391,7 +417,7 @@ Finally, suppose that one wanted to rename the original file to use hyphens
 rather than under scores. To to this one would use the ``mv`` command, mnemonic
 "move". 
 
-::
+.. code-block:: none
     
     mv human_uniprot_id.txt human-uniprot-id.txt
 
@@ -402,17 +428,23 @@ Removing files and directories
 Having experimented with the command line we want to clean up by removing
 unwanted files and directories. 
 
-One can remove files using the ``rm`` command::
+One can remove files using the ``rm`` command:
+
+.. code-block:: none
 
     rm backup/human_uniprot_id.txt
 
-Empty directories can be removed using the ``rmdir`` command::
+Empty directories can be removed using the ``rmdir`` command:
     
+.. code-block:: none
+
     mkdir empty
     rmdir empty
 
 To remove directories with files in them one can use the ``rm`` command with
-the recursive option::
+the recursive option:
+
+.. code-block:: none
 
     rm -r backup
 
