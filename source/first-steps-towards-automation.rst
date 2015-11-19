@@ -107,12 +107,25 @@ You should see a whole lot of HTML text printed in your terminal window.
 However, because we are going to be downloading a larger file we would like to
 write it to disk for future use. Many command line programs allow the user to
 specify additional options. In this particular case we can use the
-``--remote-name`` option to specify that the output should be written to a file
-named as the remote file.
+``--output`` option to specify a file name that the output should be
+written to.
 
-Let us download the gzipped FASTA file from the UniProt FTP site::
+Here we will use a URL shortened using `bitly <https://bitly.com/>`_ to save on
+typing. The shortened URL contains a redirect to the relevant SwissProt FASTA
+file hosted on the UniProt FTP site. To find out where the shortned URL redirects
+to run the command:
 
-    curl --remote-name ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
+.. code-block:: none
+
+    curl http://bit.ly/1l6SAKb
+
+
+To allow the redirection to occur we need to use the ``--location`` option.
+Let us download the gzipped FASTA file from the UniProt FTP site:
+
+.. code-block:: none
+
+    curl --location --output uniprot_sprot.fasta.gz http://bit.ly/1l6SAKb
 
 
 The downloaded file ``uniprot_sprot.fasta.gz`` has been compressed using the
