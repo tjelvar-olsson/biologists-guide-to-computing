@@ -5,7 +5,7 @@ The Biologists Guide to Computing
    :maxdepth: 2
 
    prefix
-   why-should-i-care-about-computing
+   getting-some-motivation
    how-to-think-like-a-computer
    first-steps-towards-automation
    the-power-of-plain-text-files

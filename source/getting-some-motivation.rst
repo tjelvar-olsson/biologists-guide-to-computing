@@ -1,5 +1,8 @@
+Getting some motivation
+=======================
+
 Why should I care about computing and coding?
-=============================================
+---------------------------------------------
 
 Computers can be powerful allies. The are ideal for automating repetitive tasks.
 Furthermore, they can perform calculations and analysis that would be infeasible
@@ -28,3 +31,22 @@ Also by getting more familiar with computing your interactions with programmers
 and data analysis folk will improve. So even if you never end up writing a
 script by yourself learning to code will help you express your ideas to people
 that enjoy programming.
+
+
+What you can expect to learn here
+---------------------------------
+
+Many books on computing assume that the reader has a basic knowledge of how a
+computer operates and associated jargon. This booklet attempts not to make any
+such assumptions and important concepts are explained in
+:doc:`how-to-think-like-a-computer`. Furthermore, important terms and their
+background are explained throughout in attempt to demystify some of the jargon
+used in computing. This should stand you in good stead when faced with more
+advanced material on computing.
+
+Use of the command line is required for many bioinformatics tools and access to
+high-performance computing clusters. The essence of the Unix command line, used
+in both Linux and Macs, is introduced in :doc:`first-steps-towards-automation`.
+After which the command line is used persistently to interact with a variety of
+useful programs. At the end you should feel comfortable using the command line
+to interact with your computer and to automate tasks.
