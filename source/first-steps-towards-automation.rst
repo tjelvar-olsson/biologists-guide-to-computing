@@ -296,11 +296,12 @@ will highlight the matched string as red.
 
 If you scroll through the matches you will notice that we have some false
 positives. We can highlight these by performing anther ``grep`` command that
-finds lines that do not contain the string "sapiens".
+finds lines that do not contain the string "sapiens", using the
+``--invert-match`` option or the equivalent ``-v`` short option.
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep Homo | grep --invert-match sapiens
+    gunzip -c uniprot_sprot.fasta.gz | grep Homo | grep -v sapiens
 
 To make the search more specific we can search for the string "OS=Homo sapiens".
 To do this we need to surround the search pattern by quotes, which tells the shell that
