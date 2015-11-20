@@ -188,7 +188,7 @@ known as text editors. The reason for making this distinction is to help users
 avoid making accidental changes to files when they simply want to read them.
 
 To view the beginning of a file one can use the ``head`` command. Let us examine
-the first lines of the ``uniprot.fasta.gz`` file by pipeing the output of the
+the first lines of the ``uniprot_sprot.fasta.gz`` file by pipeing the output of the
 ``gunzip`` command into ``head``:
 
 .. code-block:: none
