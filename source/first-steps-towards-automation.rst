@@ -143,6 +143,18 @@ Try running the command:
 You should see a lot of FASTA lines printed to your terminal, or more formally speaking
 the standard output stream.
 
+Options starting with two dashes, ``--``, are known as long options. Many of
+these long options also have abbreviated "short" options. For example, the
+``-c`` option of ``gunzip`` is equivalent to the  ``--to-stdout`` option. Try
+running the command:
+
+.. code-block:: none
+
+    gunzip -c uniprot_sprot.fasta.gz
+
+From now on the text will use the short ``-c`` option rather than the long
+``--to-stdout`` option to save on typing.
+
 
 Creating a work flow using pipes
 --------------------------------
@@ -157,7 +169,7 @@ below:
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | wc
+    gunzip -c uniprot_sprot.fasta.gz | wc
 
 .. sidebar:: Re-using previous command
 
@@ -169,7 +181,7 @@ only see the line count one could use the ``-l`` option:
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | wc -l
+    gunzip -c uniprot_sprot.fasta.gz | wc -l
 
 Pipes are powerful because they allow a set of simple commands to be combined
 to perform tasks that are beyond the scope of any of the individual commands.
@@ -193,7 +205,7 @@ the first lines of the ``uniprot_sprot.fasta.gz`` file by pipeing the output of 
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | head
+    gunzip -c uniprot_sprot.fasta.gz | head
 
 You should see something like the output below being written to the terminal
 window.
@@ -220,14 +232,14 @@ lines:
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | head -n 20
+    gunzip -c uniprot_sprot.fasta.gz | head -n 20
 
 Similarly, there is a ``tail`` command for displaying the tail end of a file,
 again ten lines by default.
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | tail
+    gunzip -c uniprot_sprot.fasta.gz | tail
 
 You may have noticed that this series of commands took a little longer to
 complete.  That is because we needed to decompress the whole file before we
@@ -237,7 +249,7 @@ To page though an entire file one can use the ``less`` command.
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | less
+    gunzip -c uniprot_sprot.fasta.gz | less
 
 One can use the "Up" and "Down" arrows to navigate through the file.  One can
 also use the "Space" key to move forward by an entire page, hence the term
@@ -273,14 +285,14 @@ search for the string "Homo":
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | grep Homo | less
+    gunzip -c uniprot_sprot.fasta.gz | grep Homo | less
 
 To make the match more visible we can add the ``--color=always`` option, which
 will highlight the matched string as red.
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | grep --color=always Homo | less
+    gunzip -c uniprot_sprot.fasta.gz | grep --color=always Homo | less
 
 If you scroll through the matches you will notice that we have some false
 positives. We can highlight these by performing anther ``grep`` command that
@@ -288,7 +300,7 @@ finds lines that do not contain the string "sapiens".
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | grep Homo | grep --invert-match sapiens
+    gunzip -c uniprot_sprot.fasta.gz | grep Homo | grep --invert-match sapiens
 
 To make the search more specific we can search for the string "OS=Homo sapiens".
 To do this we need to surround the search pattern by quotes, which tells the shell that
@@ -296,14 +308,14 @@ the two parts separated by a white space should be treated as one argument.
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens'
+    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens'
 
 To work out how many lines were matched we can pipe the output of ``grep`` to
 the ``wc`` command.
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | wc -l
+    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | wc -l
 
 
 Extracting the UniProt identifiers
@@ -331,7 +343,7 @@ the UniProt id will be available in the second fragment.
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2
+    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2
 
 Ensuring that all the identifiers are unique
 --------------------------------------------
@@ -343,7 +355,7 @@ duplicate lines.
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq
+    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq
 
 
 Using redirection to create an output file
@@ -354,7 +366,7 @@ on disk:
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq > human_uniprot_ids.txt
+    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq > human_uniprot_ids.txt
 
 Now if you run the ``ls`` command you will see the file
 ``human_uniprot_ids.txt`` in the directory and you can view its contents using
