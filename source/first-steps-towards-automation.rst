@@ -342,9 +342,15 @@ the vertical bar ("|"). This has got nothing to do with pipeing, it is simply
 the character surrounding the UniProt identifier. By splitting the line by "|"
 the UniProt id will be available in the second fragment.
 
+The command below makes use of the ``\`` character at the end of the first
+line.  This tells bash that the command continues on the next line. You can use
+this syntax in your scripts and in the terminal. Alternatively, you can simply
+include the content of both lines below in a single line, omitting the ``\``.
+
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2
+    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' \
+    | cut -d '|' -f 2
 
 Ensuring that all the identifiers are unique
 --------------------------------------------
@@ -356,7 +362,8 @@ duplicate lines.
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq
+    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' \
+    | cut -d '|' -f 2 | uniq
 
 
 Using redirection to create an output file
@@ -367,7 +374,8 @@ on disk:
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | cut -d '|' -f 2 | uniq > human_uniprot_ids.txt
+    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' \
+    | cut -d '|' -f 2 | uniq > human_uniprot_ids.txt
 
 Now if you run the ``ls`` command you will see the file
 ``human_uniprot_ids.txt`` in the directory and you can view its contents using
