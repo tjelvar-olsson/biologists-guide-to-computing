@@ -199,14 +199,17 @@ You should see something like the output below being written to the terminal
 window.
 
 .. code-block:: none
+   :caption: First ten lines of the ``uniprot_sprot.fasta.gz`` file. Note that
+             the identifier lines have been truncated to only display the first
+             65 characters.
 
-    >sp|Q6GZX4|001R_FRG3G Putative transcription factor 001R OS=Frog virus 3 (isolate Goorha) GN=FV3-001R PE=4 SV=1
+    >sp|Q6GZX4|001R_FRG3G Putative transcription factor 001R OS=Frog ...
     MAFSAEDVLKEYDRRRRMEALLLSLYYPNDRKLLDYKEWSPPRVQVECPKAPVEWNNPPS
     EKGLIVGHFSGIKYKGEKAQASEVDVNKMCCWVSKFKDAMRRYQGIQTCKIPGKVLSDLD
     AKIKAYNLTVEGVEGFVRYSRVTKQHVAAFLKELRHSKQYENVNLIHYILTDKRVDIQHL
     EKDLVKDFKALVESAHRMRQGHMINVKYILYQLLKKHGHGPDGPDILTVKTGSKGVLYDD
     SFRKIYTDLGWKFTPL
-    >sp|Q6GZX3|002L_FRG3G Uncharacterized protein 002L OS=Frog virus 3 (isolate Goorha) GN=FV3-002L PE=4 SV=1
+    >sp|Q6GZX3|002L_FRG3G Uncharacterized protein 002L OS=Frog virus ...
     MSIIGATRLQNDKSDTYSAGPCYAGGCSAFTPRGTCGKDWDLGEQTCASGFCTSQPLCAR
     IKKTQVCGLRYSSKGKDPLVSAEWDSRGAPYVRCTYDADLIDTQAQVDQFVSMFGESPSL
     AERYCMRGVKNTAGELVSRVSSDADPAGGWCRKWYSAHRGPDQDAALGSFCIKNPGAADC
@@ -309,10 +312,13 @@ Extracting the UniProt identifiers
 Below are the first three lines identified using the ``grep`` command.
 
 .. code-block:: none
+   :caption: First three lines of the ``uniprot_sprot.fasta.gz`` file
+             identified using the ``grep`` command. Note that the lines have
+             been truncated to only display the first 65 characters.
 
-    >sp|P31946|1433B_HUMAN 14-3-3 protein beta/alpha OS=Homo sapiens GN=YWHAB PE=1 SV=3
-    >sp|P62258|1433E_HUMAN 14-3-3 protein epsilon OS=Homo sapiens GN=YWHAE PE=1 SV=1
-    >sp|Q04917|1433F_HUMAN 14-3-3 protein eta OS=Homo sapiens GN=YWHAH PE=1 SV=4
+    >sp|P31946|1433B_HUMAN 14-3-3 protein beta/alpha OS=Homo sapiens ...
+    >sp|P62258|1433E_HUMAN 14-3-3 protein epsilon OS=Homo sapiens GN=...
+    >sp|Q04917|1433F_HUMAN 14-3-3 protein eta OS=Homo sapiens GN=YWHA...
 
 
 Now that we can identify lines of interest we want to extract the UniProt
