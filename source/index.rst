@@ -11,6 +11,7 @@ The Biologists Guide to Computing
    structuring-and-storing-data
    keeping-track-of-your-work
    data-munching
+   data-visualisation
    collaborating-on-manuscripts
    automation-is-your-friend
    next-steps
