@@ -1,0 +1,2 @@
+Automation is your friend
+=========================

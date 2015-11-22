@@ -1,2 +1,0 @@
-Coding best practices
-=====================

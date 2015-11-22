@@ -1,5 +1,5 @@
-Keeping track of your work using revision control
-=================================================
+Keeping track of your work
+==========================
 
 Introduction
 ------------
@@ -122,7 +122,7 @@ Add the script to version control.
 Using your editor of choice create the file ``.gitignore`` and add the content
 below to it.
 
-.. code-block::
+.. code-block:: none
 
     data/*
 
