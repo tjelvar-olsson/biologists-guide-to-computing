@@ -79,7 +79,7 @@ Plain text files are great because you can open and edit them on any computer.
 The operating system does not matter as ASCII and Unicode are universal
 standards.  With the slight caveat that you may occasionally have to deal with
 converting between Windows and Unix line endings (as discussed earlier in
-:doc:`how-to-think-like-a-compuer`).
+:doc:`how-to-think-like-a-comptuer`).
 
 Furthermore, they are easy to use. You can simply open them in your text editor
 of choice and start typing away.
