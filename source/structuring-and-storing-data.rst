@@ -65,10 +65,69 @@ disappear when the program exits. As outlined in
 :doc:`how-to-think-like-a-computer` RAM is volatile. Therefore if the latter is
 the case you will want to make your tree persistent by writing it to disk.
 
-Binary vs plain text...
+At this point you have a choice: you can store the data in a binary format that
+only your program understands or you can store the data as a plain text file.
+Storing your data in a binary format has advantages in that the resulting files
+will be smaller and they will load quicker. However, in the next section you will
+find out why you should (almost) always choose to store your data as plain text
+files.
 
 The beauty of plain text files
 ------------------------------
 
+Plain text files are great because you can open and edit them on any computer.
+The operating system does not matter as ASCII and Unicode are universal
+standards.  With the slight caveat that you may occasionally have to deal with
+converting between Windows and Unix line endings (as discussed earlier in
+:doc:`how-to-think-like-a-compuer`).
+
+Furthermore, they are easy to use. You can simply open them in your text editor
+of choice and start typing away.
+
+Some software companies rely on their software being the only software to be
+able to work with the binary files that their software produces to ensure that
+users have to renew their licence. This is not great from the users point of
+view. It also makes it hard to share data with people that do not have a
+licence to the software in question. Making use of plain text files and
+software that can output data in plain text works around this problem.
+
+Finally, there is a rich ecosystem of tools available for working with plain
+text files.  Apart from text editors, there are all of the Unix command line
+tools. We looked at some of these in :doc:`first-steps-towards-automation`.
+In the next chapter, :doc:`keeping-track-of-your-work`, we will look at a
+tool called ``git`` that can be used to track changes to plain text files.
+
+Also, there are many well established file formats for representing data
+in plain text. We will look at some of these next.
+
+
 Useful plain text file formats
 ------------------------------
+
+- csv
+- json
+- yaml
+- md
+
+Find a good text editor and learn how to use it
+-----------------------------------------------
+
+
+Key concepts
+------------
+
+- Lists, also known as arrays, are ordered collections of elements
+- Dictionaries, also known as maps and associative arrays, are unordered
+  collections of key-value pairs
+- Graphs, also known as trees, links nodes via edges and is of relevance to
+  phylogenetic trees
+- In computing persistence refers to data outliving the program that generated
+  it
+- If you want any data structures that you have generated to persist you need
+  to write them to disk
+- Saving your data as plain text files is almost always preferable to saving it
+  as a binary blobs
+- There are a number of useful plain text file formats for you to make the most
+  of
+- Don't invent your own file format
+- Learn how to make the most out of your text editor of choice
