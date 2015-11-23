@@ -1,5 +1,5 @@
-The Biologists Guide to Computing
-=================================
+The Biologist's Guide to Computing
+==================================
 
 .. toctree::
    :maxdepth: 2

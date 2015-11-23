@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# The Biologists Guide to Computing documentation build configuration file, created by
+# The Biologist's Guide to Computing documentation build configuration file, created by
 # sphinx-quickstart on Sun Oct 11 03:59:07 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -49,7 +49,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'The Biologists Guide to Computing'
+project = u"The Biologist's Guide to Computing"
 copyright = u'2015, Tjelvar Olsson'
 author = u'Tjelvar Olsson'
 
@@ -203,7 +203,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'TheBiologistsGuidetoComputingdoc'
+htmlhelp_basename = 'BiologistsGuidetoComputing'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -230,7 +230,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'TheBiologistsGuidetoComputing.tex', u'The Biologists Guide to Computing',
+  (master_doc, 'BiologistsGuidetoComputing.tex', u"The Biologist's Guide to Computing",
    u'Tjelvar Olsson', 'manual'),
 ]
 
@@ -260,7 +260,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'thebiologistsguidetocomputing', u'The Biologists Guide to Computing',
+    (master_doc, 'thebiologistsguidetocomputing', u"The Biologist's Guide to Computing",
      [author], 1)
 ]
 
@@ -274,8 +274,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'TheBiologistsGuidetoComputing', u'The Biologists Guide to Computing',
-   author, 'TheBiologistsGuidetoComputing', 'One line description of project.',
+  (master_doc, 'BiologistsGuidetoComputing', u"The Biologist's Guide to Computing",
+   author, 'BiologistsGuidetoComputing', 'One line description of project.',
    'Miscellaneous'),
 ]
 
