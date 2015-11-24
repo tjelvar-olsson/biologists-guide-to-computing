@@ -97,20 +97,159 @@ tools. We looked at some of these in :doc:`first-steps-towards-automation`.
 In the next chapter, :doc:`keeping-track-of-your-work`, we will look at a
 tool called ``git`` that can be used to track changes to plain text files.
 
-Also, there are many well established file formats for representing data
-in plain text. We will look at some of these next.
-
 
 Useful plain text file formats
 ------------------------------
 
-- csv
-- json
-- yaml
-- md
+There are many well established file formats for representing data in plain
+text. These have arisen to solve different types of problems.
+
+Plain text files are commonly used to store notes, for example the minutes of a
+meeting or a list of ideas. When writing these types of documents one wants to
+be able to make use of headers, bullet points etc. A popular file format for
+creating such documents is `markdown
+<https://daringfireball.net/projects/markdown/>`_. Markdown (MD) provides a
+simple way to add formatting such as headers and bullet lists by providing a
+set of rules of for how certain plain text constructs should be converted to
+HTML and other document formats.
+
+.. code-block:: none
+
+    # Level 1 header
+
+    ## Level 2 header
+
+    Here is some text in a paragraph.
+    It is possible to *emphasize words with italic*.
+    It is also possible to **strongly emphansize words in bold**.
+
+    - First item in a bullet list
+    - Second item in a bullet list
+
+    1. First item in a numbered list
+    2. Second item in a numbered list
+
+    [Link to BBC website](www.bbc.com)
+
+    ![example image](path/to/example/image.png)
+
+Hopefully the example above is self explanatory. For more information have a
+look at the `official markdown syntax page
+<https://daringfireball.net/projects/markdown/syntax>`_.
+
+Another scenario may be wanting to record tabular data, for example the results
+of a scientific experiment. In other words the type of data you would want to
+store in a  spreadsheet. Comma separated value (CSV) files are ideally suited
+for this. This file format is relatively basic, values are simply separated by
+commas and the file can optionally start with a header. It is worth noting
+that you can include a comma in a value by surrounding it by double quotes. Below
+is an example of a CSV file containing two rows and three columns containing
+
+.. code-block:: none
+
+    Last name,First name(s),Age
+    Smith,Alice,34
+    Smith,"Bob, Carter",56
+
+Another scenario, when coding, is the ability to store richer data structures,
+such as lists or dictionaries, possibly nested within each other. There are two
+popular file formats for doing this `JavaScript Object Notation
+<http://www.json.org/>`_ (JSON) and `YAML Ain't Markup Language
+<http://www.json.org/>`_ (YAML).
+
+.. sidebar:: Recursive acronyms
+
+    You may ask yourself why the full name of YAML includes the word YAML.
+    This is because programmers are fond of `recursion
+    <https://en.wikipedia.org/wiki/Recursion_%28computer_science%29>`_,
+    procedures whose implementation call themselves. Other famous
+    recursive acronyms include GNU (GNU's Not Unix), curl (C URL Request
+    Library) and Fiji (Fiji Is Just ImageJ).
+
+JSON was designed to be easy to for machines to generate and parse and is used
+extensively in web applications as it can be directly converted to JavaScript
+objects. Below is an example of JSON representing a list of scientific discoveries, where
+each discovery contains a set of key value pairs.
+
+.. code-block:: json
+
+    [
+      {
+        "year": 1965,
+        "scientist": "Robert Hooke",
+        "experiment": "light microscopy",
+        "discovery": "cells"
+      },
+      {
+        "year": 1944,
+        "scientist": "Barbara McClintock",
+        "experiment": "breeding maize plants for colour",
+        "discovery": "jumping genes"
+      }
+    ]
+
+YAML is similar to JSON in that it is a data serialisation standard. However, it
+places more focus on being human readable. Below is the same data structure
+represented using YAML.
+
+.. code-block:: yaml
+
+    ---
+      - 
+        year: 1965
+        scientist: "Robert Hooke"
+        experiment: "light microscopy"
+        discovery: "cells"
+      -
+        year: 1944
+        scientist: "Barbara McClintock"
+        experiment: "breeding maize plants for colour"
+        discovery: "jumping genes"
+
+A nice feature of YAML is the ability to add comments to the data giving further explanation
+to the reader. These comments are ignored by programs parsing the files.
+
+.. code-block:: yaml
+
+    ---
+      # TODO: include an entry for Anton van Leeuwenhoek here.
+      - 
+        year: 1965
+        scientist: "Robert Hooke"
+        experiment: "light microscopy"
+        discovery: "cells"
+      -
+        year: 1944
+        scientist: "Barbara McClintock"
+        experiment: "breeding maize plants for colour"
+        discovery: "jumping genes"
+
 
 Find a good text editor and learn how to use it
 -----------------------------------------------
+
+A key step to boost your productivity is to find a text editor that suits you, and
+learning how to make the most of it.
+
+Popular text editors include `Sublime Text <http://www.sublimetext.com/>`_,
+`Geany <http://www.geany.org/Main/HomePage>`_ and `Atom <https://atom.io/>`_.
+
+If you enjoy working on the command line I would highly recommend experimenting
+with command line editors. Popular choices include `nano
+<http://www.nano-editor.org/>`_, `emacs <https://www.gnu.org/software/emacs/>`_
+and `vim <http://www.vim.org/>`_. The former is easy to learn, whereas the latter
+two give much more power, but are somewhat more difficult to learn.
+
+.. sidebar:: Vim is great!
+
+    Personally, I use ``vim`` for everything. It is one of the few editors that
+    is installed by default on any Unix based system. Furthermore, it is
+    extremely powerful and allows you to do everything using the keyboard. I
+    like this because using the mouse for extended periods of time makes my
+    index finger hurt.
+
+    If you have half an hour spare I highly recommend that you try running
+    the ``vimtutor`` command in a terminal.
 
 
 Key concepts
