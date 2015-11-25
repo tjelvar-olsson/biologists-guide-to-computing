@@ -158,6 +158,23 @@ Explain glob pattern...
 Create script for counting the number of proteins in a genome
 -------------------------------------------------------------
 
+Add the lines below to the file ``scripts/protein_count.bash``.
+
+.. code-block:: none
+
+    #!/bin/bash
+
+    gunzip -c data/uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' \
+    | cut -d '|' -f 2 | uniq | wc -l
+
+Make the file executable and test the script.
+
+.. code-block:: none
+
+    $ chmod +x scripts/protein_count.bash
+    $ ./scripts/protein_count.bash
+
+
 
 Improve script for downloading SwissProt FASTA file
 ---------------------------------------------------
@@ -175,6 +192,34 @@ Improve script for counting the number of proteins in a genome
 --------------------------------------------------------------
 
 - Allow user to specify input file and species as a command line arguments
+
+At the moment the species in hard coded into the script. It would be nice
+if we could turn this into a command line argument.
+
+Note that we needed to use double quotes to access the value stored in the
+``$SPECIES`` variable, if we were to use single quotes the ``grep`` command
+would search for the literal string ``$SPECIES``.
+
+.. code-block:: none
+
+    #!/bin/bash
+
+    SPECIES=$1
+    echo $SPECIES
+
+    gunzip -c data/uniprot_sprot.fasta.gz | grep "OS=$SPECIES" \
+    | cut -d '|' -f 2 | uniq | wc -l
+
+Let us test the script again.
+
+.. code-block:: none
+
+    $ ./scripts/protein_count.bash "Homo sapiens"
+    Homo sapiens
+       20194
+    $ ./scripts/protein_count.bash "Escherichia coli (strain K12)"
+    Escherichia coli (strain K12)
+        4433
 
 
 More useful git commands
