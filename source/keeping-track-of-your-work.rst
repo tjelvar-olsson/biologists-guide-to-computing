@@ -136,11 +136,16 @@ to stage and commit snapshots of your project to version control.
 Create a script for downloading the SwissProt FASTA file
 --------------------------------------------------------
 
+We will now convert the command we used to download the SwissProt FASTA file
+from :doc:`first-steps-towards-automation` into a script. To add some
+organisation we will put this script in a directory named ``scripts``.
+
 .. code-block:: none
 
     mkdir scripts data
 
-
+Using your favorite text editor enter the text below into the file
+``scripts/get_data.bash``.
 
 .. code-block:: none
 
@@ -148,20 +153,46 @@ Create a script for downloading the SwissProt FASTA file
 
     curl --location --output data/uniprot_sprot.fasta.gz http://bit.ly/1l6SAKb
 
+The only difference between this script and the command we entered on the command
+line is the first line ``#!/bin/bash``. This is a special construct, called the
+shebang, and is used to specify the shell to use when executing the content of the
+file.
+
+However, in order to be able to execute the file, i.e. run it as a program, it
+needs to have execute permissions. One can view the current set of permissions
+of a file by using ``ls -l``.
 
 .. code-block:: none
 
-    $ chmod +x scripts/get_data.bash
+    $ ls -l scripts/get_data.bash
+    -rw-r--r--  1 olssont  1340193827  88 29 Nov 10:45 scripts/get_data.bash
+
+Note the first ten characters, the first specifies the file type and the
+remaining nine relate to the permissions of the file.  There are three modes
+that can  be turned on or off: read (``r``), write (``w``) and execute (``x``).
+Furthermore, these can be specified for the owner (``u``), group (``g``) and
+all users (``a`` or ``o``). The nine characters above state that the owner has
+read and write permissions on the file ``rw-`` and whereas both the group and
+all other users only have permission to read the file ``r--``.
+
+Let us give the file execute permissions. This is achieved using the ``chmod``
+command, mnemonic "change file modes".
+
+.. code-block:: none
+
+    $ chmod a+x scripts/get_data.bash
+    $ ls -l scripts/get_data.bash
+    -rwxr-xr-x  1 olssont  1340193827  88 29 Nov 10:45 scripts/get_data.bash
+
+Let us test the script by running it.
+
+.. code-block:: none
+
     $ ./scripts/get_data.bash
 
-Make sure that the script downloaded the file to the intended destination
-directory.
 
-.. code-block:: none
-
-    $ ls data
-
-Add the script to version control.
+The file was downloaded to the ``data`` directory, success!
+This is a good time to add the script to version control.
 
 .. code-block:: none
 
@@ -171,12 +202,11 @@ Add the script to version control.
      1 file changed, 3 insertions(+)
      create mode 100755 scripts/get_data.bash
 
-.. code-block:: none
-
-    git status
+Let us check the status of our project.
 
 .. code-block:: none
 
+    $ git status
     On branch master
     Untracked files:
       (use "git add <file>..." to include in what will be committed)
@@ -185,21 +215,30 @@ Add the script to version control.
 
     nothing added to commit but untracked files present (use "git add" to track)
 
-Using your editor of choice create the file ``.gitignore`` and add the content
-below to it.
+Git is basically telling us that there are files in the ``data`` directory that are
+currently not being tracked. However, in this project the data directory
+will contain files downloaded from a canonical resource and the download script is in
+version control we do not need or want to track the files in this directory.
+
+It is possible to tell Git to ignore files.  Using your text editor of choice
+create the file ``.gitignore`` and add the content below to it.
 
 .. code-block:: none
 
     data/*
 
-Explain glob pattern...
+This tells Git to ignore all files in the ``data`` directory.
+
+.. sidebar:: What does the ``*`` symbol mean?
+
+    The ``*`` symbol is a wild card symbol that can match any number of characters.
+    It can be used in the .gitignore file, but more commonly it is used in the shell
+    itself. For example if you wanted to list all PNG file in a directory you could
+    use the command ``ls *.png``.
 
 .. code-block:: none
 
     $ git status
-
-.. code-block:: none
-
     On branch master
     Untracked files:
       (use "git add <file>..." to include in what will be committed)
@@ -208,6 +247,8 @@ Explain glob pattern...
 
     nothing added to commit but untracked files present (use "git add" to track)
 
+Git now ignores the content of the ``data`` directory and tells us that the
+``.gitignore`` file is untracked. Let us add this file.
 
 .. code-block:: none
 
@@ -221,11 +262,15 @@ Explain glob pattern...
     nothing to commit, working directory clean
 
 
-
 Improve script for downloading SwissProt FASTA file
 ---------------------------------------------------
 
-Date the file
+However, the current setup has got an issue in terms of reproducibility.
+Depending on when the SwissProt FASTA file was downloaded one may obtain
+different results. It would therefore be useful to include the date of
+access in the file name. This can be achieved using the ``date`` command,
+which can be configured to create custom output formats using the ``+``
+argument.
 
 .. code-block:: none
 
@@ -233,6 +278,21 @@ Date the file
     Thu 26 Nov 2015 09:20:32 GMT
     $ date +'%Y-%m-%d'
     2015-11-26
+
+To get the output of the ``date`` command into the file name string one
+can use bash's concept of command substitution. To see this in action
+we can use the ``echo`` command, which simply echoes the input string.
+
+.. code-block::
+
+    $ echo "Today it is $(date +'%d')th"
+    Today it is 29th
+
+For this little script we will also introduce the concept of variables.
+A variable is basically a means of storing a piece of information using
+a descriptive name. In bash one can assign a variable using the ``=``
+character. After assignment the value of the variable can be accessed
+by prefixing variable name with a ``$`` character.
 
 .. code-block:: none
 
