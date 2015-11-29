@@ -26,16 +26,38 @@ solution is to use a version control system. Here we will use Git, one of the
 most popular version control systems, to keep track of our work.
 
 
+First time configuration of Git
+-------------------------------
+
+Although we won't go into it in this chapter, Git is fundamentally a collaboration
+tool that helps people work on projects together. This means that we need to give
+Git some information about us for it to be able to keep track of who has done what,
+specifically our name and email address.
+
+.. code-block:: none
+
+    git config --global user.name "Tjelvar Olsson"
+    git config --global user.email "tjelvar.olsson@example.com"
+
+We will look at the collaboration aspect of git in the
+:doc:`collaborating-on-manuscripts` chapter.
+
+
 Initialise the project
 ----------------------
+
+The first thing to do is to initialise the project using the ``git init`` command.
+If run with no argument it will setup tracking of files in the current working
+directory. If given an argument, such as ``protein-number-vs-size``, git will
+create a new directory with this name and setup tracking of files within it.
 
 .. code-block:: none
 
     git init protein-number-vs-size
     cd protein-number-vs-size/
 
-Use your new found editor of choice and create the file ``README.md`` and add
-the content below to it.
+Use your editor of choice and create the file ``README.md`` and add the content
+below to it.
 
 .. code-block:: none
 
@@ -53,14 +75,13 @@ the content below to it.
     those proteins across all species.
 
 
+Files in a Git repository, the project directory, can be in one of four states:
+untracked, unmodified, modified and staged. To view the state one can use the
+command ``git status``.
 
 .. code-block:: none
 
-    git status
-
-
-.. code-block:: none
-
+    $ git status
     On branch master
 
     Initial commit
@@ -72,16 +93,44 @@ the content below to it.
 
     nothing added to commit but untracked files present (use "git add" to track)
 
-.. code-block:: none
-
-    git add README.md
-    git commit -m "Added readme file."
+This tells us that the ``README.md`` file is untracked. However, we would like to
+track it, so we add it to the Git repository using the ``git add`` command.
 
 .. code-block:: none
 
+    $ git add README.md
+    $ git status
+    On branch master
+
+    Initial commit
+
+    Changes to be committed:
+      (use "git rm --cached <file>..." to unstage)
+
+            new file:   README.md
+
+This stages the ``README.md`` file to be committed. To commit the current
+snapshot of the project to the Git repository we use the ``git commit``
+command.
+
+.. code-block:: none
+
+    $ git commit -m "Added readme file."
     [master (root-commit) e1dc880] Added readme file.
      1 file changed, 12 insertions(+)
      create mode 100644 README.md
+    $ git status
+    On branch master
+    nothing to commit, working directory clean
+
+.. note:: The ``-m`` option allows us to specify a commit message on
+          the command line. If you do not use this option your default editor
+          will be used, which is likely to be ``vim`` if you have not
+          configured it to be something else.
+
+That's all you need to know to get stared with Git. Start by initialising a
+project using ``git init``. Then use ``git add`` and ``git commit`` iteratively
+to stage and commit snapshots of your project to version control.
 
 
 Create a script for downloading the SwissProt FASTA file
