@@ -189,6 +189,8 @@ Let us test the script by running it.
 .. code-block:: none
 
     $ ./scripts/get_data.bash
+    $ ls data/
+    uniprot_sprot.fasta.gz
 
 
 The file was downloaded to the ``data`` directory, success!
@@ -283,16 +285,19 @@ To get the output of the ``date`` command into the file name string one
 can use bash's concept of command substitution. To see this in action
 we can use the ``echo`` command, which simply echoes the input string.
 
-.. code-block::
+.. code-block:: none
 
     $ echo "Today it is $(date +'%d')th"
-    Today it is 29th
+    Today it is 26th
 
 For this little script we will also introduce the concept of variables.
 A variable is basically a means of storing a piece of information using
 a descriptive name. In bash one can assign a variable using the ``=``
-character. After assignment the value of the variable can be accessed
-by prefixing variable name with a ``$`` character.
+character and the value of the variable can be accessed by prefixing
+variable name with a ``$`` character.
+
+We now have all the information we need to improve the script. Edit the
+``script/get_data.bash`` file to look like the below.
 
 .. code-block:: none
 
@@ -301,20 +306,19 @@ by prefixing variable name with a ``$`` character.
     FNAME="data/uniprot_sprot.$(date +'%Y-%m-%d').fasta.gz"
     curl --location --output $FNAME http://bit.ly/1l6SAKb
 
-Test.
+Now we can test that the script is working as expected.
 
 .. code-block:: none
 
     $ ./scripts/get_data.bash
-      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                     Dload  Upload   Total   Spent    Left  Speed
-    100   192  100   192    0     0    108      0  0:00:01  0:00:01 --:--:--   108
-    100 79.3M  100 79.3M    0     0   150k      0  0:09:00  0:09:00 --:--:--   99k
     $ ls data/
     uniprot_sprot.2015-11-26.fasta.gz uniprot_sprot.fasta.gz
 
 
-Check what we have changed.
+We have added a piece of functionality and have tested that it works as expected.
+This is a good time to check in our changes to Git. However, before we do that
+let us examine how the state of the project has changed since the last commit
+using the ``git diff`` command.
 
 .. code-block:: none
 
@@ -330,7 +334,11 @@ Check what we have changed.
     +FNAME="data/uniprot_sprot.$(date +'%Y-%m-%d').fasta.gz"
     +curl --location --output $FNAME http://bit.ly/1l6SAKb
 
-Commit to git.
+The command above tells us that one line has been removed, the one prefixed by a
+minus sign, and that two lines have been added, the ones prefixed by a plus sign.
+In fact we have modified one line and added one, but the effect is the same.
+
+Let us now add and commit the changes to Git.
 
 .. code-block:: none
 
@@ -339,7 +347,25 @@ Commit to git.
     [master 7512894] Updated download script to include date in file name.
      1 file changed, 2 insertions(+), 1 deletion(-)
     
-Make it read only
+By adding the date of download to the file name reproducibility is improved and
+it means that we can download the file on different dates and ensure that no data
+is lost.
+
+However, it is still possible to accidentally delete or modify the data file.
+To overcome this, and further improve reproducibility, it is good practise to
+give the data file read-only permissions. To do this we will make use of the
+``chmod`` command. In this instance we will make use of an absolute mode.
+Absolute modes encode the permissions using the numbers 1, 2 and 4 represent
+execute, write and read modes respectively. By adding these up one get
+different combinations of permission modes for a file, for example 7 represents
+read, write and execute permissions and 5 represents read and execute
+permissions. To set the permissions for the owner, group and all other users
+one simply uses three such numbers. For example to give the owner read and
+write permissions and the group and all other users read-only permissions one
+would use the absolute mode 644.
+
+In this instance we want to set the file to read-only for the owner, group and
+all other users so we will use the absolute mode 444.
 
 .. code-block:: none
 
@@ -349,25 +375,27 @@ Make it read only
     curl --location --output $FNAME http://bit.ly/1l6SAKb
     chmod 444 $FNAME
 
-Commit it to git.
+If you run the script now you will see that it changes the permissions of the
+downloaded file.  If you then try to run it again, on the same day, you will
+notice that the script complains that it has not got permissions to write to
+the file. This is expected as the downloaded file is now read only.
+
+This is a good time to add and commit the changes to Git.
 
 .. code-block:: none
 
     $ git add scripts/get_data.bash
-    [-- olssont@ exit=0 ~/sandbox/protein-number-vs-size --]
     $ git commit -m "Added command to set permissions of data file to read only."
     [master a672257] Added command to set permissions of data file to read only.
      1 file changed, 1 insertion(+)
 
-- Illustrate ``git diff``
-
-
-File permissions recap
-----------------------
-
 
 Create script for counting the number of proteins in a genome
 -------------------------------------------------------------
+
+Now that we have a script for downloading the SwissProt FASTA file let us
+convert what we learnt in :doc:`first-steps-towards-automation` into a script
+for counting the number of proteins for a particular species.
 
 Add the lines below to the file ``scripts/protein_count.bash``.
 
@@ -384,11 +412,12 @@ Make the file executable and test the script.
 
     $ chmod +x scripts/protein_count.bash
     $ ./scripts/protein_count.bash
-
+       20194
 
 At the moment the path to the data file and the species are hard coded into the
 script. It would be nice if we could turn these two parameters into command
-line arguments.
+line arguments. We can do this using the special variables ``$1`` and ``$2`` that
+represent the first and second command line arguments, respectively.
 
 .. code-block:: none
 
@@ -402,11 +431,14 @@ line arguments.
     gunzip -c $DATA_FILE_PATH | grep "OS=$SPECIES" \
     | cut -d '|' -f 2 | uniq | wc -l
 
-.. note:: We needed to use double quotes to access the value stored in the
-          ``$SPECIES`` variable, if we were to use single quotes the ``grep``
-          command would search for the literal string ``$SPECIES``.
+.. warning:: Bash makes a distinction between single and double quotes. To expand
+             variables one needs to use double quotes. If not one will get the
+             literal value of the string within the single quotes. Foe example,
+             the command ``echo 'Species: $SPECIES'`` would print the literal
+             string ``Species: $SPECIES``.
 
-Let us test the script again.
+
+This is a good point to test if things are working as expected.
 
 .. code-block:: none
 
@@ -415,7 +447,7 @@ Let us test the script again.
     Species: Homo sapiens
        20194
 
-Let us save the script to version control.
+Success! Let us add and commit the script to Git.
 
 .. code-block:: none
 
@@ -429,6 +461,10 @@ Let us save the script to version control.
 More useful git commands
 ------------------------
 
+We've covered a lot of ground in this chapter. Can you remember everything that
+we did and the motivation behind each individual step? If not, that is okay,
+we can use Git to remind us using the ``git log`` command.
+
 .. code-block:: none
 
     $ git log --oneline
@@ -438,6 +474,26 @@ More useful git commands
     6c6f65b Added gitignore file.
     f80731e Added script for downloading SwissProt FASTA file.
     e1dc880 Added readme file.
+
+Note that the comments above give a decent description of what was done. However,
+it would have been useful to include more information about the motive behind a
+change. If one does not make use of the ``-m`` argument when using ``git commit``
+one can use the default text editor to write a more comprehensive commit message.
+For example, a more informative commit message for commit ``a672257`` could have
+looked something along the lines of:
+
+.. code-block:: none
+
+    Added command to set permissions of data file to read only.
+
+    The intention of this change is to prevent accidental deletion or
+    modification of the raw data file.
+
+
+Another useful feature of Git is that it allows us to inspect the changes
+between individual and series of commits using the ``git diff`` command.  For
+example to understand what changed in commit ``a672257`` we can compare it to
+the previous commit ``7512894``.
 
 .. code-block:: none
 
