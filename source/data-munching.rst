@@ -131,7 +131,7 @@ does not actually test anything. Let us rectify that now.
 
 .. code-block:: python
     :linenos:
-    :emphasize-lines: 6,7
+    :emphasize-lines: 6
 
     """Module containing utility functions for working with FASTA files."""
 
@@ -142,11 +142,46 @@ does not actually test anything. Let us rectify that now.
 
     test_is_description_line()
 
-Explain code...
+There are quite a few things going on in the newly added line. First of all it
+makes use of three built-in features of Python: the ``assert`` and ``is``
+keywords, as well as the ``True`` constant. Let's work through these in reverse
+order.
 
-Explain that the code will fail and why this is radical and great...
+Python has some `built-in constants
+<https://docs.python.org/2/library/constants.html>`_, most notably ``True``,
+``False`` and ``None``. The ``True`` and ``False`` constants are the only
+instances of the ``bool`` (boolean) type and ``None`` is often used to
+represent the absence of a value.
 
-Show what happens when the code is run...
+In Python ``is`` is an operator that checks for object identity, i.e. if the
+object returned by the :func:`is_description_line` function and ``True`` are
+the same object. If they are the same object the comparison evaluates to
+``True`` if not it evaluates to ``False``.
+
+The ``assert`` keyword is used to insert debugging statements into a program.
+It provides a means to ensure that the state of a program is as expected. If
+the statement being evaluated, in this case ``is_description_line(">This is a
+description line") is True`` evaluates to ``False`` an ``AssertionError`` is
+raised.
+
+So, what will happen if we run the code in its current form?
+Well, we have not yet defined the :func:`is_description_line` function, so
+Python will raise a ``NameError``. Let us run the code.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 8, in <module>
+        test_is_description_line()
+      File "scripts/fasta_utils.py", line 6, in test_is_description_line
+        assert is_description_line(">This is a description line") is True
+    NameError: global name 'is_description_line' is not defined
+
+Great now we are getting somewhere! What? Well, we have impemented some
+code to test the functionality of the :func:`is_description_line` and it
+tells us that the function does not exist. This is useful information.
 
 Make function return True...
 
