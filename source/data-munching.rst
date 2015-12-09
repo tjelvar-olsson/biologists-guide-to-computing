@@ -62,10 +62,18 @@ required to achieve each individual step. By iterating over this process you
 will either get down to steps sizes that do not feel overwhelming or you will
 identify the key aspect that you feel unsure about.
 
-For example, suppose that one felt unsure about how to go about extracting the
-species information from the FASTA description line. This would represent a
-good place to start experimenting with some actual code. Can we come up with a
-code snippet that can extract the relevant information from a string?
+For example, suppose that one felt unsure about how to go about identifying all
+the description lines in the FASTA file we could decompose this step even further.
+
+1. Create a list for storing the description lines
+2. Iterate over all the lines in the input file
+3. For each line check if it is a description line
+4. If it is add the line to the list
+
+Now suppose one felt unsure about how to check if a line was a description
+line. This would represent a good place to start experimenting with some actual
+code. Can we come up with a code snippet that can check if a string is a FASTA
+description line?
 
 
 Measuring success
@@ -182,24 +190,206 @@ Python will raise a ``NameError``. Let us run the code.
 Great now we are getting somewhere! What? Well, we have impemented some
 code to test the functionality of the :func:`is_description_line` and it
 tells us that the function does not exist. This is useful information.
-
-Make function return True...
-
-Add...
+Let us add a placeholder :func:`is_description_line` function to the Python
+module.
 
 .. code-block:: python
+    :linenos:
+    :emphasize-lines: 3,4
 
     """Module containing utility functions for working with FASTA files."""
+
+    def is_description_line(line):
+        """Return True if the line is a FASTA description line."""
 
     def test_is_description_line():
         """Test the is_description_line() function."""
         print("Testing the is_description_line() function...")
         assert is_description_line(">This is a description line") is True
-        assert is_description_line("ACTG") is False
+
+    test_is_description_line()
+
+Note that the function we have added on lines three and four currently does nothing.
+However, when we run the script we should no longer get a ``NameError``. Let's find
+out what happens when we run the code.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 11, in <module>
+        test_is_description_line()
+      File "scripts/fasta_utils.py", line 9, in test_is_description_line
+        assert is_description_line(">This is a description line") is True
+    AssertionError
+
+More progress! Now we see the expected ``AssertionError``. Let us add some code to try
+to get rid of this error message. To achieve this we simply need to make the script
+return ``True``.
+
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 5
+
+    """Module containing utility functions for working with FASTA files."""
+
+    def is_description_line(line):
+        """Return True if the line is a FASTA description line."""
+        return True
+
+    def test_is_description_line():
+        """Test the is_description_line() function."""
+        print("Testing the is_description_line() function...")
+        assert is_description_line(">This is a description line") is True
+
+    test_is_description_line()
+
+Now, we can run the code again.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+
+No error message, the code is now working to the specification described in the test.
+However, the test does not specify what the behaviour should be for a biological
+sequence line. Let us add another assert statement to specify this.
+
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 11
+
+    """Module containing utility functions for working with FASTA files."""
+
+    def is_description_line(line):
+        """Return True if the line is a FASTA description line."""
+        return True
+
+    def test_is_description_line():
+        """Test the is_description_line() function."""
+        print("Testing the is_description_line() function...")
+        assert is_description_line(">This is a description line") is True
+        assert is_description_line("ATCG") is False
+
+    test_is_description_line()
+
+Now we can run the code again.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 13, in <module>
+        test_is_description_line()
+      File "scripts/fasta_utils.py", line 11, in test_is_description_line
+        assert is_description_line("ATCG") is False
+    AssertionError
+
+More progress, we now have a test to ensure that the :func:`is_description_line` function
+returns ``False`` when the input line is a sequence. Let us try to implement the desired
+functionality to make the test pass. For this we will use the
+`startswith() <https://docs.python.org/2/library/stdtypes.html#str.startswith>`_ method,
+that is built into strings, to check if the string starts with a ">" character.
+
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 5-8
+
+    """Module containing utility functions for working with FASTA files."""
+
+    def is_description_line(line):
+        """Return True if the line is a FASTA description line."""
+        if line.startswith(">"):
+            return True
+        else:
+            return False
+
+    def test_is_description_line():
+        """Test the is_description_line() function."""
+        print("Testing the is_description_line() function...")
+        assert is_description_line(">This is a description line") is True
+        assert is_description_line("ATCG") is False
+
+    test_is_description_line()
+
+In the code above we make use of conditional logic, i.e. ``if`` something is
+``True`` do something otherwise do something ``else``. As mentioned previously
+whitespace is important in Python and four are spaces used to indent the lines after
+the ``if`` and ``else`` statements to tell Python which statement(s) belong in the conditional
+code blocks. In this case we only have one statement per conditional, but it is
+possible to group several statements together based on their indentation.
+
+Let us test the code again.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
 
 
-test_is_description_line()
+Fantastic the code behaves in the way that we want it to behave!
 
-Implement real functionality...
+However, the current implementation of the :func:`is_description_line` function
+is a little bit verbose. Do we really need the ``else`` conditional?  What
+would happen if it was not there and the line started with a ">"? The program
+would enter the ``if`` conditional statement and return ``True``. When the
+function returns a value to program jumps out of the function so the next
+``return`` statement would never be reached.
 
-Explain the value of TDD...
+The beauty of tests now become more apparent. We can start experimenting with
+the implementation of a function and feel confident that we are not breaking
+existing functionality. As long as the tests do not fail that is!
+
+Let us test out our hypothesis that the ``else`` conditional is redundant by
+removing it and de-denting the ``return False`` statement.
+
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 7
+
+    """Module containing utility functions for working with FASTA files."""
+
+    def is_description_line(line):
+        """Return True if the line is a FASTA description line."""
+        if line.startswith(">"):
+            return True
+        return False
+
+    def test_is_description_line():
+        """Test the is_description_line() function."""
+        print("Testing the is_description_line() function...")
+        assert is_description_line(">This is a description line") is True
+        assert is_description_line("ATCG") is False
+
+    test_is_description_line()
+
+Now we can simply run the tests to see what happens.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+
+Amazing, we just made a change to our code and can feel pretty sure that it is
+still working as intended. This is very powerful.
+
+The methodology used in this section is known as Test-Driven Development, often
+referred to as TDD. It involves three steps:
+
+1. Write a test
+2. Write minimal code to make the test pass
+3. Refactor the code if necessary
+
+In this instance we started off by writing a test checking that the
+:func:`is_description_line` function returned ``True`` when the input was a
+description line.  We then added *minimal* code to make the test pass, i.e.  we
+simply made the function return ``True``. At this point no refactoring was
+needed so we added another test to check that the function returned ``False``
+when the input was a sequence line. We then added some naive code to make the
+tests pass.  At this point, we believed that there was scope to improve the
+implementation of the function, so we refactored it to remove the redundant
+``else`` statement.
+
+Well done! That was a lot of information. Go make yourself a cup of tea.
