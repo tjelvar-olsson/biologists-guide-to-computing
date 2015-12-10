@@ -393,3 +393,114 @@ implementation of the function, so we refactored it to remove the redundant
 ``else`` statement.
 
 Well done! That was a lot of information. Go make yourself a cup of tea.
+
+
+More string processing
+----------------------
+
+Because both DNA and proteins can be represented as strings of characters many
+aspects of biological data processing involve string manipulations. This
+section will therefore provide a brief summary of how Python can be used for
+such string processing.
+
+Here we will make use of Python in an
+`interactive mode <https://docs.python.org/2/tutorial/interpreter.html#interactive-mode>`_,
+which means that we can type Python commands straight into the terminal. In fact
+when working with Python in an interactive mode one can think of it as switching
+the terminal's shell from Bash to Python.
+
+To start Python in an interactive mode simply type ``python`` into the terminal.
+
+.. code-block:: none
+
+    $ python
+    Python 2.7.10 (default, Jul 14 2015, 19:46:27)
+    [GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>>
+
+The three greater than signs (``>>>``) represent the primary prompt into which
+commands can be entered.
+
+.. code-block:: python
+
+    >>> print("hello")
+    hello
+
+The secondary prompt, used for continuation lines, is represented by three dots
+(``...``).
+
+.. code-block:: python
+
+    >>> line = ">sp|Q6GZX4|001R_FRG3G Putative transcription factor 001R"
+    >>> if line.startswith(">"):
+    ...     print(line)
+    ...
+    >sp|Q6GZX4|001R_FRG3G Putative transcription factor 001R
+
+
+The Python string object
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Now that we know how how to make use of Python in interactive mode let us go
+through some common string processing scenarios.
+
+When parsing in strings from a text file one often has to deal with lines that
+have leading and/or trailing one spaces. Commonly one wants to get rid of them.
+This can be achieved using the ``strip()`` method built into the string object.
+
+.. code-block:: python
+
+    >>> "  text with leading/trailing spaces ".strip()
+    'text with leading/trailing spaces'
+
+Another common use case is to want to replace a word in a line. For example,
+when we strip out the leading and trailing white spaces one might want to
+update the word ``with`` to ``without`` to make the resulting string reflect
+its current state. This can be achieved using the ``replace()`` method.
+
+.. code-block:: python
+
+    >>> "  text with leading/trailing spaces ".strip().replace("with", "without")
+    'text without leading/trailing spaces'
+
+.. note:: In the example above we chain the ``strip()`` and ``replace()`` methods
+          together. In practise this means that the ``replace()`` methods acts
+          on the return value of the ``strip()`` method.
+
+.. sidebar:: What is the difference between a function and a method?
+
+             Often the two terms are used interchangeably. However, a method refers
+             to a function that is part of a class and the term function refers to
+             a function which stands on its own.
+
+
+``endswith()`` "/path/to/my/image.png"
+``lower()`` "/path/to/my/image.PNG"
+``find()`` "Q6GZX4" in ">sp|Q6GZX4|001R_FRG3G"
+``split()`` "text without leading/trailing spaces"
+``split("|")`` ">sp|Q6GZX4|001R_FRG3G"
+
+There are many variations on the string operators described above. It is useful
+to familiarise yourself with the
+`Python documentation on strings <https://docs.python.org/2/library/string.html>`_.
+
+
+Regular expressions
+^^^^^^^^^^^^^^^^^^^
+
+
+Extracting species information
+------------------------------
+
+Add test and functionality for extracting species.
+
+
+Only running tests when the module is called directly
+-----------------------------------------------------
+
+
+Counting the number of species
+------------------------------
+
+
