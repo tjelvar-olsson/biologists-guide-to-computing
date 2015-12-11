@@ -474,12 +474,71 @@ its current state. This can be achieved using the ``replace()`` method.
              to a function that is part of a class and the term function refers to
              a function which stands on its own.
 
+Earlier we saw how the ``startswith()`` method can be used to identify FASTA
+description lines.
 
-``endswith()`` "/path/to/my/image.png"
-``lower()`` "/path/to/my/image.PNG"
-``find()`` "Q6GZX4" in ">sp|Q6GZX4|001R_FRG3G"
-``split()`` "text without leading/trailing spaces"
-``split("|")`` ">sp|Q6GZX4|001R_FRG3G"
+.. code-block:: python
+
+    >>> ">MySeq1|description line".startswith(">")
+    True
+
+The ``endswith()`` method complements the ``startswith()`` method and is often
+used to examine file extensions.
+
+.. code-block:: python
+
+    >>> "/home/olsson/images/profile.png".endswith("png")
+    True
+
+This example above only works if the file extension is in lower case.
+
+.. code-block:: python
+
+    >>> "/home/olsson/images/profile.PNG".endswith("png")
+    False
+
+However, we can overcome this issue by adding a call to the ``lower()`` method,
+which converts the string to lower case.
+
+.. code-block:: python
+
+    >>> "/home/olsson/images/profile.PNG".lower().endswith("png")
+    True
+
+Another common use case is to want to search for a particular string within
+another string. For example one might want to find out if the UniProt
+identifier "Q6GZX4" is present in a FASTA description line. To achieve this one
+can use the ``find()`` method, which returns the index position (zero-based)
+where the search term was first identified.
+
+.. code-block:: python
+
+    >>> ">sp|Q6GZX4|001R_FRG3G".find("Q6GZX4")
+    4
+
+If the search term is not identified ``find()`` returns -1.
+
+.. code-block:: python
+
+    >>> ">sp|P31946|1433B_HUMAN".find("Q6GZX4")
+    -1
+
+When iterating over lines in a file one often want to split the line based on a
+delimiter. This can be achieved using the ``split()`` method. By default this
+splits on white space characters and returns a list of strings.
+
+.. code-block:: python
+
+    >>> "text without leading/trailing spaces".split()
+    ['text', 'without', 'leading/trailing', 'spaces']
+
+A different delimiter can be used by providing it as an argument to the ``split()``
+method.
+
+.. code-block:: python
+
+    >>> ">sp|Q6GZX4|001R_FRG3G".split("|")
+    ['>sp', 'Q6GZX4', '001R_FRG3G']
 
 There are many variations on the string operators described above. It is useful
 to familiarise yourself with the
