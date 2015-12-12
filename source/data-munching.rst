@@ -548,6 +548,122 @@ to familiarise yourself with the
 Regular expressions
 ^^^^^^^^^^^^^^^^^^^
 
+Regular expressions can be defined as a series of characters that define a
+search pattern.
+
+Regular expressions can be very powerful. However, they can be
+difficult to build up. Often it is a process of trial and error. This means
+that once they have been created, and the trial and error process has been
+forgotten, it can be extremely difficult to understand what the regular
+expression does and why it is constructed the way it is.
+
+.. warning:: Use regular expression as a last resort. A good rule of thumb is
+             to always try to use regular string operations to implement the
+             desired functionality and only switch to regular expressions when
+             the code implemented using regular string operations becomes more
+             difficult to understand than the equivalent regular expression.
+
+To use regular expressions in Python we need to import the :mod:`re` module.
+The :mod:`re` module is part of Python's standard library. Importing modules
+in Python is achieved using the ``import`` keyword.
+
+.. sidebar:: What is a standard library?
+
+             In computing a standard library refers to a set of functionality
+             that comes built-in with the core programming language.
+
+.. code-block:: python
+
+    >>> import re
+
+Let us store a FASTA description line in a variable.
+
+.. code-block:: python
+
+    >>> fasta_desc = ">sp|Q6GZX4|001R_FRG3G"
+
+Now, let us search for the UniProt identifer ``Q6GZX4`` within the line.
+
+.. code-block:: python
+
+    >>> re.search(r"Q6GZX4", fasta_desc)  # doctest: +ELLIPSIS
+    <_sre.SRE_Match object at 0x...>
+
+There are two things to note here:
+
+1. We use a raw string to represent our regular expression
+2. The regular expression ``search()`` method returns a match object (or None if no match is found)
+
+.. sidebar:: What is a "raw string"?
+
+    In Python "raw" strings differ from regular strings in that the bashslash
+    ``\`` character is interpreted literally. For example the regular string
+    equivalent of ``r"\n"`` would be ''"\\n" where the first backslash is used
+    to escape the effect of the second (remember that ``\n`` represents a
+    newline).
+
+    Raw strings where introduced in Python to make it easier to create regular
+    expressions that rely heavily on the use of literal backslashes.
+
+The index of the first and last matched characters can be accessed as using the
+match object's ``start()`` and ``end()`` methods.
+
+.. code-block:: python
+
+    >>> match = re.search(r"Q6GZX4", fasta_desc)
+    >>> if match:
+    ...     print(fasta_desc[match.start():match.end()])
+    ...
+    Q6GZX4
+
+In the above we make use of the fact that Python strings support slicing.
+The ``[start:end]`` syntax used for slicing strings, and lists, is inclusive
+for the start index and exclusive for the end index.
+
+.. code-block:: python
+
+    >>> "012345"[2:4]
+    '23'
+
+To see the value of regular expressions we need to create one that can do
+something more than an exact match. For example a regular expression that can
+could match all the patterns ``id0``, ``id1``, ..., ``id9``.
+
+Now suppose that we had a list containing FASTA description lines with these
+types of identifiers.
+
+.. code-block:: python
+
+    >>> fasta_desc_list = [">id0 match this", ">id9 and this", ">id100 but not this"]
+
+Let us loop over the items in this list and print out the lines that match our
+identifier regular expression.
+
+.. code-block:: python
+
+    >>> for line in fasta_desc_list:
+    ...     if re.search(r">id[0-9]\s", line):
+    ...         print(line)
+    ...
+    >id0 match this
+    >id9 and this
+
+There are several things to note in the above. First of all we are using the
+concept of a ``for`` loop to iterate over all the items in the
+``fasta_desc_list``. Secondly, there are two noteworthy aspects of the regular
+expression. The ``[0-9]`` syntax means match any digit. The ``\s`` regular
+expression meta character means match any white space character. 
+
+.. sidebar:: The ``[0-9]`` syntax works in Bash too!
+
+             For example list the files ``photo_0.png``, ``photo_1.png``,
+             ..., ``photo_9.png`` you could use the command.
+
+             .. code-block:: none
+
+                ls photo_[0-9].png
+
+
 
 Extracting species information
 ------------------------------
