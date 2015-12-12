@@ -50,3 +50,23 @@ in both Linux and Macs, is introduced in :doc:`first-steps-towards-automation`.
 After which the command line is used persistently to interact with a variety of
 useful programs. At the end you should feel comfortable using the command line
 to interact with your computer and to automate tasks.
+
+Data forms a central part of the biological sciences. However, dealing with
+large volumes of data can feel overwhelming. One way to regain some control is
+to ensure that there is structure to the data. In
+:doc:`structuring-and-storing-data` important data structures and file formats
+for representing them are discussed. The chapter also highlights the value of
+using pain text files to store data. After reading this chapter you should have
+a good idea of how you can store structured representations of your data as
+plain text files.
+
+Sooner or later when working on a project one wishes that one had done a better
+job of keeping records of one's work. What changes where made when? What
+where the reasons behind the decisions to make those changes? This issue
+becomes even more accentuated when working on scripts and programs, where
+tiny changes can have devastating effects. Because this is such an important
+issue in software development there are great tools for mitigating against it.
+In :doc:`keeping-track-of-your-work` the concept of version control is
+introduced using a popular open source tool called Git. After working through
+the examples in this chapter you should feel comfortable using Git to keep
+track of your work.
