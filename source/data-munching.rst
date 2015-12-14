@@ -634,7 +634,11 @@ types of identifiers.
 
 .. code-block:: python
 
-    >>> fasta_desc_list = [">id0 match this", ">id9 and this", ">id100 but not this"]
+    >>> fasta_desc_list = [">id0 match this",
+    ...                    ">id9 and this",
+    ...                    ">id100 but not this (initially)",
+    ...                    "AATCG"]
+    ...
 
 Let us loop over the items in this list and print out the lines that match our
 identifier regular expression.
@@ -662,6 +666,67 @@ expression meta character means match any white space character.
              .. code-block:: none
 
                 ls photo_[0-9].png
+
+If one wanted to create a regular expression to match an identifier with an
+arbitrary number of digits one can make use of the ``*`` meta character, which
+causes the regular expression to match the preceding expression 0 or more times.
+
+.. code-block:: python
+
+    >>> for line in fasta_desc_list:
+    ...     if re.search(r">id[0-9]*\s", line):
+    ...         print(line)
+    ...
+    >id0 match this
+    >id9 and this
+    >id100 but not this (initially)
+
+It is possible to extract specific pieces of information from a line using
+regular expressions. This uses a concept known as "groups", which are indicated
+using parenthesis. Let us try to extract the UniProt identifier from a FASTA
+description line.
+
+.. code-block:: python
+
+    >>> print(fasta_desc)
+    >sp|Q6GZX4|001R_FRG3G
+    >>> match = re.search(r">sp\|([A-Z,0-9]*)\|", fasta_desc)
+
+.. warning:: Note how horrible and incomprehensible the regular expression is.
+
+It took me a couple of attempts to get this regular expression right as I
+forgot that ``|`` is a regular expression meta character that needs to be
+escaped using a backslash ``\``. Note the regular expression representing the
+UniProt idendifier ``[A-Z,0-9]*`` is enclosed in parenthesis. The parenthesis
+denote that the UniProt identifier is a group that we would like access to.
+
+
+    >>> match.groups()
+    ('Q6GZX4',)
+    >>> match.group(0)
+    '>sp|Q6GZX4|'
+    >>> match.group(1)
+    'Q6GZX4'
+
+Finally Let us have a look at a common pitfall when using regular expressions
+in Python: the difference between the methods search() and match().
+
+.. code-block:: python
+
+    >>> print(re.search(r"cat", "my cat has a hat"))  # doctest: +ELLIPSIS
+    <_sre.SRE_Match object at 0x...>
+    >>> print(re.match(r"cat", "my cat has a hat"))  # doctest: +ELLIPSIS
+    None
+
+Basically ``match()`` only looks for a match at the beginning of the string to
+be searched. For more information see the
+`search() vs match() <https://docs.python.org/2/library/re.html#search-vs-match>`_
+section in the Python documentation.
+
+There is a lot more to regular expressions in particular all the meta
+characters. For more information have a look at the
+`regular expressions operations <https://docs.python.org/2/library/re.html>`_
+section in the Python documentation.
 
 
 
