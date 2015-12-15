@@ -733,7 +733,275 @@ section in the Python documentation.
 Extracting species information
 ------------------------------
 
-Add test and functionality for extracting species.
+Armed with our new found knowledge of string processing let's create a function
+for extracting the species from a SwissProt FASTA description line. In other words
+given the lines:
+
+.. code-block:: none
+
+    >sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2
+    >sp|Q15942|ZYX_HUMAN Zyxin OS=Homo sapiens GN=ZYX PE=1 SV=1
+    >sp|Q6QGT3|A1_BPT5 A1 protein OS=Escherichia phage T5 GN=A1 PE=2 SV=1
+
+We would like to extract the strings:
+
+.. code-block:: none
+
+    Brassica napus
+    Homo sapiens
+    Escherichia phage T5
+
+There are three things which are worth noting:
+
+1. The species string is always preceeded by the key ``OS`` (Organism Name)
+2. The species string can contain more than two words
+3. The two letter key after the species string can vary, in the case above we
+   see both ``PS`` (Protein Existence) and ``GE`` (Gene Name)
+
+.. seealso:: For more information about the UniProt FASTA description line go to
+             `UniProt's FASTA header <http://www.uniprot.org/help/fasta-headers>`_
+             page.
+
+The three FASTA description lines examined above provide an excellent basis for
+creating some tests for the function that we want to create. Add the lines below
+to your ``scripts/fasta_utils.py`` file.
+
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 15-23
+
+    """Module containing utility functions for working with FASTA files."""
+
+    def is_description_line(line):
+        """Return True if the line is a FASTA description line."""
+        if line.startswith(">"):
+            return True
+        return False
+
+    def test_is_description_line():
+        """Test the is_description_line() function."""
+        print("Testing the is_description_line() function...")
+        assert is_description_line(">This is a description line") is True
+        assert is_description_line("ATCG") is False
+
+    def test_extract_species():
+        """Test the extract_species() function."""
+        print("Testing the extract_species() function...")
+        lines = [">sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2",
+            ">sp|Q15942|ZYX_HUMAN Zyxin OS=Homo sapiens GN=ZYX PE=1 SV=1",
+            ">sp|Q6QGT3|A1_BPT5 A1 protein OS=Escherichia phage T5 GN=A1 PE=2 SV=1"]
+        species = ["Brassica napus", "Homo sapiens", "Escherichia phage T5"]
+        for l, s in zip(lines, species):
+            assert extract_species(l) == s
+
+    test_is_description_line()
+
+Let's make sure that the tests fail.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+
+What, no error message, what is going on? Ah, we added the test, but forgot to
+add a line to call it. Let's rectify that.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 25
+    :emphasize-lines: 2
+
+    test_is_description_line()
+    test_extract_species()
+
+Let's try again.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_species() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 26, in <module>
+        test_extract_species()
+      File "scripts/fasta_utils.py", line 23, in test_extract_species
+        assert extract_species(l) == s
+    NameError: global name 'extract_species' is not defined
+
+Success! We now have a failing test informing us that we need to create the
+:func:`extract_species` function. Let's do that.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 15
+    :emphasize-lines: 1,2
+
+    def extract_species(line):
+        """Return the species information from a FASTA description line."""
+
+Let's find out where this minimal implementation gets us.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_species() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 29, in <module>
+        test_extract_species()
+      File "scripts/fasta_utils.py", line 26, in test_extract_species
+        assert extract_species(l) == s
+    AssertionError
+
+So the test fails as expected. However, since we are looping over many input
+lines it would be nice to get an idea of which test failed. We can achieve this
+by making use of the fact that we can provide a custom message to be passed to
+the ``AssertionError``. Let us pass the input line.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 25
+    :emphasize-lines: 2
+
+        for l, s in zip(lines, species):
+            assert extract_species(l) == s, l
+
+Let's see what we get now.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_species() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 29, in <module>
+        test_extract_species()
+      File "scripts/fasta_utils.py", line 26, in test_extract_species
+        assert extract_species(l) == s, l
+    AssertionError: >sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2
+
+Much better! Let us try to implement a basic regular expression to make this
+first failure pass. First of all we need to make sure we import the :mod:`re`
+module.
+
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 3
+
+    """Module containing utility functions for working with FASTA files."""
+
+    import re
+
+Then we can implement a regular expression to try to extract the relevant
+species information.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 17
+    :emphasize-lines: 1-4
+
+    def extract_species(line):
+        """Return the species information from a FASTA description line."""
+        match = re.search(r"OS=(.*) PE=", line)
+        return match.group(1)
+
+Let us see what happens now.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_species() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 34, in <module>
+        test_extract_species()
+      File "scripts/fasta_utils.py", line 31, in test_extract_species
+        assert extract_species(l) == s, l
+    AssertionError: >sp|Q15942|ZYX_HUMAN Zyxin OS=Homo sapiens GN=ZYX PE=1 SV=1
+
+Progress! We are now seeing a different error message. The issue is that the key after
+the regular expression is ``GN`` rather than ``PE``. Let us try to rectify that.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 17
+    :emphasize-lines: 3
+
+    def extract_species(line):
+        """Return the species information from a FASTA description line."""
+        match = re.search(r"OS=(.*) [A-Z]{2}=", line)
+        return match.group(1)
+
+The regular expression now states that instead of ``PE`` it wants any capital
+letter ``[A-Z]`` repeated twice ``{2}``. Let's find out if this fixes the issue.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_species() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 33, in <module>
+        test_extract_species()
+      File "scripts/fasta_utils.py", line 30, in test_extract_species
+        assert extract_species(l) == s, l
+    AssertionError: >sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2
+
+What, back at square one again? As mentioned previously, regular expressions can be painful
+and should only be used as a last resort. Note that this example also highlights why it is
+important to have tests. Sometimes you think you make an innocuous change, but instead things
+just fall apart.
+
+At this stage the error message is not very useful, let us change it to print
+out the value returned by the function instead.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 29
+    :emphasize-lines: 2
+
+        for l, s in zip(lines, species):
+            assert extract_species(l) == s, extract_species(l)
+
+Now, let's see what is going on.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_species() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 33, in <module>
+        test_extract_species()
+      File "scripts/fasta_utils.py", line 30, in test_extract_species
+        assert extract_species(l) == s, extract_species(l)
+    AssertionError: Brassica napus PE=2
+
+Our regular expression is basically matching too much. The reason for this is that the
+``*`` meta character acts in a "greedy" fashion matching as much as possible. In this case
+the ``PE=2`` is included in the match group as ``[A-Z]{2}`` is matched by the ``SV=`` key
+at the end of the line. The fix is to make the ``*`` meta character act in a "non-greedy"
+fashion. This is achieved by adding a ``?`` suffix to it.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 17
+    :emphasize-lines: 3
+
+    def extract_species(line):
+        """Return the species information from a FASTA description line."""
+        match = re.search(r"OS=(.*?) [A-Z]{2}=", line)
+        return match.group(1)
+
+Let's find out what happens now.
+
+.. code-block:: none
+
+$ python scripts/fasta_utils.py
+Testing the is_description_line() function...
+Testing the extract_species() function...
+
+Both the tests pass! Well done, time for another cup of tea.
 
 
 Only running tests when the module is called directly
