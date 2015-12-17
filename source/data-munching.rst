@@ -1007,8 +1007,164 @@ Both the tests pass! Well done, time for another cup of tea.
 Only running tests when the module is called directly
 -----------------------------------------------------
 
+In Python modules provides a means to group related functionality together. For
+example we have already looked at and made use of the :mod:`re` module, which
+groups functionality for working with regular expressions.
+
+In Python any file with a ``.py`` extension is a module. This means that the
+file that we have been creating, ``scripts/fasta_utils.py``, is a module.
+
+To make use of the functionality within a module one needs to ``import`` it.
+To import the ``fasta_utils`` module we need to make sure that we are in the
+``scripts`` directory.
+
+.. code-block:: none
+
+    $ cd scripts
+    $ python
+
+Now we can import the module.
+
+.. code-block:: python
+
+    >>> import fasta_utils  # doctest: +SKIP
+    Testing the is_description_line() function...
+    Testing the extract_species() function...
+    >>>
+
+Note that the tests run just like when we call the ``scripts/fasta_utils.py``
+script directly. This is not really the behaviour that we want. It would be
+better if the tests were not run when the module was imported.
+
+To improve the behaviour of the :mod:`fasta_util` module we will make use of a
+special attribute called ``__name__``, which provides a string representation
+of scope. When commands are run from a script or the interactive prompt this
+variable is set to ``__main__``. When a module is imported the ``__name__``
+attribute is set to the name of the module.
+
+.. code-block:: python
+
+    >>> print(__name__)
+    __main__
+    >>> print(fasta_utils.__name__)  # doctest: +SKIP
+    fasta_utils
+
+Using this information we can update the ``scripts/fasta_utils.py`` file with
+the changes highlighted below.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 32
+    :emphasize-lines: 1-3
+
+    if __name__ == "__main__":
+        test_is_description_line()
+        test_extract_species()
+
+Let us make sure that the tests are still run if we run the script directly.
+Note that the command below assumes that you are working in the top level
+directory ``protein-number-vs-size``.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_species() function...
+
+Now we can reload the module in the interactive prompt we were working in
+earlier to make sure that the tests do no longer get executed.
+
+.. code-block:: python
+
+    >>> reload(fasta_utils)  # doctest: +SKIP
+    <module 'fasta_utils' from 'fasta_utils.py'>
+
+Note that simply calling the ``import fasta_utils`` command again will not
+actually detect the changes that we made to the ``scripts/fasta_utils/py`` file,
+which is why we make use of Python's built-in :func:`reload` function. Alternatively,
+one could have excited the Python shell, using Ctrl-D or the :func:`exit` function,
+and then started a new interactive Python session and imported the :mod:`fasta_utils`
+module again.
+
 
 Counting the number of species
 ------------------------------
 
+We can now use the :mod:`fasta_utils` module to start answering some of the
+biological questions that we posed at the beginning of this chapter. For now
+let us do this using an interactive Python shell. Remember to make sure that you
+are in the ``scripts`` directory when you run the ``python`` command below.
 
+.. code-block:: none
+
+    $ pwd
+    /home/tjelvar/protein-number-vs-size/scripts
+    $ python
+    Python 2.7.10 (default, Jul 14 2015, 19:46:27)
+    [GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>>
+
+Now we will start by importing the modules that we want to use. In this case
+:mod:`fasta_utils` for processing the data and :mod:`gzip` for reading in the
+data.
+
+.. code-block:: python
+
+    >>> import fasta_utils
+    >>> import gzip
+
+Now we create a list for storing all the FASTA description lines.
+
+    >>> fasta_desc_lines = []
+
+We can then open the file using the :func:`gzip.open` function. Note that this
+returns a file handle.
+
+.. code-block:: python
+
+    >>> file_handle = gzip.open("../data/uniprot_sprot.2015-11-26.fasta.gz")
+
+Using a ``for`` loop we can iterate over all the lines in the input file.
+
+    >>> for line in file_handle:
+    ...     if fasta_utils.is_description_line(line):
+    ...          fasta_desc_lines.append(line)
+    ...
+
+When we are done with the input file we must remember to close it.
+
+    >>> file_handle.close()
+
+Let's check that the number of FASTA description lines using the built-in
+:func:`len` function. For lists this function returns the number of items
+in the list, i.e. the length of the list.
+
+    >>> len(fasta_desc_lines)
+    549832
+
+Okay now it is time to find the number of unique species. For this we will make
+use of a data structure called ``set``. In Python sets are used to compare
+collections of unique elements. This means that sets are ideally suited for
+operations that you may associate with Venn diagrams. For example answering
+questions which items are members form the intersection of two sets.
+
+However, in this instance we simply use the ``set`` to ensure that we only get
+one unique representative of each species. In other words even if one calls the
+:func:`set.add` function several times with the same item the item will only
+occur once in the set.
+
+    >>> species = set()
+    >>> for line in fasta_desc_lines:
+    ...     s = fasta_utils.extract_species(line)
+    ...     species.add(s)
+    ...
+    >>> len(species)
+    13251
+
+Great, now we know that there are 13,251 unique species represented in the
+FASTA file.
+
+
+Finding the number of variants per species
+------------------------------------------
