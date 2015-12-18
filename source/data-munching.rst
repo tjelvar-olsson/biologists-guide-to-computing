@@ -997,9 +997,9 @@ Let's find out what happens now.
 
 .. code-block:: none
 
-$ python scripts/fasta_utils.py
-Testing the is_description_line() function...
-Testing the extract_species() function...
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_species() function...
 
 Both the tests pass! Well done, time for another cup of tea.
 
@@ -1166,5 +1166,50 @@ Great, now we know that there are 13,251 unique species represented in the
 FASTA file.
 
 
-Finding the number of variants per species
-------------------------------------------
+Finding the number of variants per species and the number of proteins per variant
+---------------------------------------------------------------------------------
+
+Suppose we had a FASTA file containing only five entries with the description
+lines below.
+
+.. code-block:: none
+
+    >sp|P12334|AZUR1_METJ Azurin iso-1 OS=Methylomonas sp. (strain J) PE=1 SV=2
+    >sp|P12335|AZUR2_METJ Azurin iso-2 OS=Methylomonas sp. (strain J) PE=1 SV=1
+    >sp|P23827|ECOT_ECOLI Ecotin OS=Escherichia coli (strain K12) GN=eco PE=1 SV=1
+    >sp|B6I1A7|ECOT_ECOSE Ecotin OS=Escherichia coli (strain SE11) GN=eco PE=3 SV=1
+
+The analysis in the previous section would have identified these as three
+separate entities.
+
+.. code-block:: none
+
+    Methylomonas sp. (strain J)
+    Escherichia coli (strain K12)
+    Escherichia coli (strain SE11)
+
+Now, suppose that we wanted to find out how many variants there were of each
+species. In the example above there would be be one variant of ``Methylomonas
+sp.`` and two variants of ``Escherichia coli``. Furthermore, suppose that we
+also wanted to find out how many proteins were associated with each variant.
+
+We could achieve this by creating a nested data structure using Python's built
+in dictionary type. At the top level we would have a dictionary
+whose keys were the species, e.g. ``Escherichia coli``. The values of the top
+level dictionary would themselves be dictionaries. The keys of the nested dictionaries
+would be the full organism name, e.g. ``Escherichia coli (strain K12)``. The values
+of the nested dictionary would be an integer representing the number of proteins found
+for that organism. Below is a YAML representation of the data structure that would be
+created from the four entries above.
+
+.. code-block:: yaml
+
+    ---
+    Methylomonas sp.:
+      Methylomonas sp. (strain J): 2
+    Escherichia coli:
+      Escherichia coli (strain K12): 1
+      Escherichia coli (strain SE11): 1
+
+Implement code that writes yaml file...
+Look at yaml file and draw some conclusions...
