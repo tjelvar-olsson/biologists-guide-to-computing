@@ -1309,7 +1309,177 @@ Time to test the code again.
 Great, the function is working! Let us define a new test to test the function that
 will generate the data structure we described at the beginning of this section.
 
-Add test...
-Make test pass...
-Implement code that writes yaml file...
-Look at yaml file and draw some conclusions...
+.. code-block:: python
+    :linenos:
+    :lineno-start: 42
+    :emphasize-lines: 1-23, 29
+
+    def test_summarise_species_protein_data():
+        print("Testing summarise_species_protein_data() function...")
+        fasta_desc_lines = [
+            ">sp|P12334|AZUR1_METJ Azurin iso-1 OS=Methylomonas sp. (strain J) PE=1 SV=2",
+            ">sp|P12335|AZUR2_METJ Azurin iso-2 OS=Methylomonas sp. (strain J) PE=1 SV=1",
+            ">sp|P23827|ECOT_ECOLI Ecotin OS=Escherichia coli (strain K12) GN=eco PE=1 SV=1",
+            ">sp|B6I1A7|ECOT_ECOSE Ecotin OS=Escherichia coli (strain SE11) GN=eco PE=3 SV=1"
+        ]
+        summary = summarise_species_protein_data(fasta_desc_lines)
+        
+        # The top level dictionary will contain two entries.
+        assert len(summary) == 2  
+        assert "Methylomonas sp." in summary
+        assert "Escherichia coli" in summary
+
+        # The value of the Methylomonas sp. entry is a dictionary with one entry in it.
+        assert len(summary["Methylomonas sp."]) == 1
+        assert summary["Methylomonas sp."]["Methylomonas sp. (strain J)"] == 2
+
+        # The value of the Escherichia coli entry is a dictionary with two entries in it.
+        assert len(summary["Escherichia coli"]) == 2
+        assert summary["Escherichia coli"]["Escherichia coli (strain K12)"] == 1
+        assert summary["Escherichia coli"]["Escherichia coli (strain SE11)"] == 1
+
+    if __name__ == "__main__":
+        test_is_description_line()
+        test_extract_org_name()
+        test_org_name2species()
+        test_summarise_species_protein_data()
+
+This should all be getting familiar now. Time to run the tests.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_org_name() function...
+    Testing the org_name2species() function...
+    Testing summarise_species_protein_data() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 70, in <module>
+        test_summarise_species_protein_data()
+      File "scripts/fasta_utils.py", line 50, in test_summarise_species_protein_data
+        summary = summarise_species_protein_data(fasta_desc_lines)
+    NameError: global name 'summarise_species_protein_data' is not defined
+
+Again we start by defining the function.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 42
+    :emphasize-lines: 1-2
+
+    def summarise_species_protein_data(fasta_desc_lines):
+        """Return data structure summarising the SwissProt organism and protein data."""
+
+And then we run the tests again.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_org_name() function...
+    Testing the org_name2species() function...
+    Testing summarise_species_protein_data() function...
+    Traceback (most recent call last):
+      File "scripts/fasta_utils.py", line 74, in <module>
+        test_summarise_species_protein_data()
+      File "scripts/fasta_utils.py", line 57, in test_summarise_species_protein_data
+        assert len(summary) == 2
+    TypeError: object of type 'NoneType' has no len()
+
+Time to add an implementation.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 42
+    :emphasize-lines: 3-10
+
+    def summarise_species_protein_data(fasta_desc_lines):
+        """Return data structure summarising the SwissProt organism and protein data."""
+        summary = dict()
+        for line in fasta_desc_lines:
+            org_name = extract_org_name(line)
+            species_name = org_name2species(org_name)
+            organism_dict = summary.get(species_name, dict())
+            organism_dict[org_name] = organism_dict.get(org_name, 0) + 1
+            summary[species_name] = organism_dict
+        return summary
+
+In the above we make use of the dictionary's built-in ``get()`` method, which
+returns the value associated with the key provided as the first argument. If the
+key does not yet exist in the dictionary it returns the second argument, the
+default value.
+
+Let's see if it the implementation works as expected.
+
+.. code-block:: none
+
+    $ python scripts/fasta_utils.py
+    Testing the is_description_line() function...
+    Testing the extract_org_name() function...
+    Testing the org_name2species() function...
+    Testing summarise_species_protein_data() function...
+
+Hurray!
+
+Finally, let us write a separate script to convert an input FASTA file into a
+YAML summary file. Create the file ``scripts/fasta2yaml_summary.py`` and add the
+code below to it.
+
+.. code-block:: python
+
+    #!/usr/bin/env python
+
+    import sys
+    import yaml
+
+    import fasta_utils
+
+    fasta_desc_lines = list()
+
+    with sys.stdin as fh:
+        for line in fh:
+            if fasta_utils.is_description_line(line):
+                fasta_desc_lines.append(line)
+
+    summary = fasta_utils.summarise_species_protein_data(fasta_desc_lines)
+    yaml_text = yaml.dump(summary, explicit_start=True, default_flow_style=False)
+
+    with sys.stdout as fh:
+        fh.write(yaml_text)
+
+In the code above we make use of the yaml module to convert our data structure
+to the YAML file format. The PyYAML is not part of the Python's standard library,
+but it is easily installed using ``pip``.
+
+.. code-block:: none
+
+    $ sudo pip install pyyaml
+
+The script also makes use of ``sys.stdin`` and ``sys.stdou`` to read from and
+write to the standard input and output streams respectively. This means that we
+can pipe in the content to our script and pipe output form our script. For example
+to examine the YAML output using the ``less`` pager one could use the command below
+from within the scripts directory.
+
+.. code-block:: none
+
+    $ gunzip -c ../data/uniprot_sprot.2015-11-26.fasta.gz | python fasta2yaml_summary.py | less
+
+This immediately reveals that there are organisms in the SwissProt FASTA file
+that have few protein associated with them.
+
+.. code-block:: none
+
+    ---
+    AKT8 murine:
+      AKT8 murine leukemia virus: 1
+    AKV murine:
+      AKV murine leukemia virus: 3
+    Abelson murine:
+      Abelson murine leukemia virus: 3
+    Abies alba:
+      Abies alba: 1
+    Abies balsamea:
+      Abies balsamea: 3
+
+Great work! In the next chapter we will have a go at visualising some of this data.
