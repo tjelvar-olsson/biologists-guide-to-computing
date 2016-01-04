@@ -23,7 +23,9 @@ what changes were introduced since the last working state of the code.
 Because this is a problem that people developing software have been faced with
 for a long time there are now some excellent tools for dealing with it. The
 solution is to use a version control system. Here we will use Git, one of the
-most popular version control systems, to keep track of our work.
+most popular version control systems, to keep track of our work. In its most
+basic form you can think of Git as a tool for providing you with an infinite
+undo-button.
 
 
 First time configuration of Git
@@ -433,7 +435,7 @@ represent the first and second command line arguments, respectively.
 
 .. warning:: Bash makes a distinction between single and double quotes. To expand
              variables one needs to use double quotes. If not one will get the
-             literal value of the string within the single quotes. Foe example,
+             literal value of the string within the single quotes. For example,
              the command ``echo 'Species: $SPECIES'`` would print the literal
              string ``Species: $SPECIES``.
 

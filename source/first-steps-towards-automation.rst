@@ -60,8 +60,8 @@ The ``cd`` command, short for change directory, is used to move between
 directories. If called without a path to a directory of interest it will
 move into your home directory.
 
-We can print out the name of the current working directory using the ``pwd``
-command. Furthermore we can list the contents of a directory using the ``ls``
+We can *print* out the name of the *current working* directory using the ``pwd``
+command. Furthermore we can *list* the contents of a directory using the ``ls``
 command.
 
 .. code-block:: none
@@ -71,7 +71,7 @@ command.
 
 Now that we know where we are and what files and directories are present let us
 create a new directory for our project. This is achieved using the ``mkdir``
-command, short for "make directory". After having created the directory move
+command, short for *make directory*. After having created the directory move
 into it using the ``cd`` command.
 
 .. code-block:: none
@@ -273,7 +273,7 @@ the file press "q" to quit ``less``.
     "less is more".
 
 
-Finding FASTA idendifier lines corresponding to human proteins
+Finding FASTA identifier lines corresponding to human proteins
 --------------------------------------------------------------
 
 Now that we have an idea of what the file looks like it is time to extract the

@@ -117,7 +117,7 @@ However, the fixed-point number representation has the disadvantage that the
 range of numbers that can be represented is relatively small.  The
 floating-point number was invented to work around this limitation.
 
-Floating-point numbers basically allow the decimal (radix) point to to float.
+Floating-point numbers basically allow the decimal (radix) point to float.
 This means that numbers of differing orders of magnitude can be expressed using
 the same units. It is very much similar to scientific notation where the distance
 to the moon can be expressed as :math:`3.844 * 10^8` and the size of a typical
@@ -219,11 +219,11 @@ to worry about what happens at the microprocessor level.
 However, knowing that a microprocessor can make decisions and jump to new sets
 of instructions can be useful when trying to understand the concepts such as
 loops. A loop is essentially a set of machine instructions that end with a
-decision to jump back to the beginning of the same set of instructions. Within
-the set of machine instructions defining the loop a criteria for exiting the
-loop is often also defined. If the criteria for exiting the loop is not
-defined, or it cannot be reached, the loop will keep cycling forever in what is
-termed an "infinite loop".
+decision to jump back to the beginning of the same set of instructions.
+
+Loops often include a criteria for exiting the loop. If the criteria for
+exiting the loop is not defined, or it cannot be reached, the loop will keep
+cycling forever in what is termed an "infinite loop".
 
 
 Computer memory
