@@ -50,8 +50,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u"The Biologist's Guide to Computing"
-copyright = u'2015, Tjelvar Olsson'
-author = u'Tjelvar Olsson'
+copyright = u'2015, Tjelvar S. G. Olsson'
+author = u'Tjelvar S. G. Olsson'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -231,12 +231,12 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   (master_doc, 'BiologistsGuidetoComputing.tex', u"The Biologist's Guide to Computing",
-   u'Tjelvar Olsson', 'manual'),
+   u'Tjelvar S. G. Olsson', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-#latex_logo = None
+latex_logo = "images/cover-image.png"
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
