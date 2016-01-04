@@ -15,3 +15,4 @@ The Biologist's Guide to Computing
    collaborating-on-manuscripts
    automation-is-your-friend
    next-steps
+   glossary
