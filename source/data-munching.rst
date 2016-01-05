@@ -1483,3 +1483,22 @@ that have few protein associated with them.
       Abies balsamea: 3
 
 Great work! In the next chapter we will have a go at visualising some of this data.
+
+Key concepts
+------------
+
+- Think about the problem at hand before you start coding
+- Break down large tasks into smaller more manageable tasks, repeat until the
+  tasks seem trivial
+- Test-driven development is a software development practise that can help
+  break tasks into manageable chunks that can be tested
+- Many aspects of biological data processing boil down to string manipulations
+- Regular expressions are a powerful tool for performing string manipulations,
+  but use with caution as they can result in confusion
+- Python is a powerful scripting language that is popular both in general and
+  in the scientific computing community
+- Python has many built-in packages for performing complex tasks, in this chapter
+  we used the :mod:`re` package for working with regular expressions
+- There are also many third party Python packages that can be installed, in
+  this chapter we made use of the :mod:`yaml` package for writing out a data
+  structure as a YAML file
