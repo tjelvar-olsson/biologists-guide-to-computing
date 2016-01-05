@@ -143,20 +143,26 @@ with these.
 One way of storing and working with real numbers is to use the fixed-point number
 representation. A fixed-point number is basically an integer that is scaled by an
 implicit factor. So if the implicit scaling factor was :math:`1/10` and the
-explicit integer stored in the computer was :math:`127` then the real number
+explicit integer stored on the computer was :math:`127` then the real number
 represented would be :math:`12.7`.
 
-However, the fixed-point number representation has the disadvantage that the
-range of numbers that can be represented is relatively small.  The
-floating-point number was invented to work around this limitation.
+The fixed-point number representation has the disadvantage that the range of
+numbers that can be represented is relatively small. Consider an unsigned 8-bit
+integer. It can represent the range :math:`0` to math:`255`. With an implicit
+scaling factor of :math:`1/10` it can represent the numbers :math:`0.0` to
+:math:`25.5` with a step size of :math:`0.1`. With an implicit scaling factor
+of :math:`1/100` it could represent the numbers :math:`0.00` to :math:`2.55`
+with a step size of :math:`0.01`.
 
-Floating-point numbers basically allow the decimal (radix) point to float.
-This means that numbers of differing orders of magnitude can be expressed using
-the same units. It is very much similar to scientific notation where the distance
-to the moon can be expressed as :math:`3.844 * 10^8` and the size of a typical
-bacterium can be expressed as :math:`1.0 * 10^{-6}`. A consequence of this is that
-the numbers that can be expressed are not uniformly spaced, i.e. as the size of
-the exponent increases the step size between two representable numbers increases.
+The floating-point number was invented to work around the inherent small range
+limitation of fixed-point number representations.  Floating-point numbers
+basically allow the decimal (radix) point to float.  This means that numbers of
+differing orders of magnitude can be expressed using the same units. It is very
+much similar to scientific notation where the distance to the moon can be
+expressed as :math:`3.844 * 10^8` and the size of a typical bacterium can be
+expressed as :math:`1.0 * 10^{-6}`. A consequence of this is that the numbers
+that can be expressed are not uniformly spaced, i.e. as the size of the
+exponent increases the step size between two representable numbers increases.
 
 All real numbers cannot be represented precisely using floating-point numbers.
 Furthermore, arithmetic operations on floating-point numbers cannot truly
@@ -294,7 +300,7 @@ Hard disk  Slow       Very large      Cheap           No
 
 If one is working with really large data sets the main bottleneck in the
 processing pipeline can be reading data from and writing data to memory.
-This is known as being IO (input/output) bound.
+This is known as being :term:`I/O` (input/output) bound.
 
 
 Key concepts
@@ -318,4 +324,4 @@ Key concepts
 - The hard disk, RAM and the register are different types of memory with
   different characteristics
 - Processes that spend most of their time reading and writing data are said to
-  be IO bound
+  be :term:`I/O` bound
