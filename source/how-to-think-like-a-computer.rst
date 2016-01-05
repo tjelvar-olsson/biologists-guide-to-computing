@@ -45,7 +45,8 @@ the base of each exponent is 2.
 
 .. math::
 
-    208 &=  (1*64) + (1*32) + (0*16) + (1*8) + (1*4) + (0*2) + (0*1)  \\
+    208 &= 64 + 32 + 0 + 8 + 4 + 0 + 0 \\
+        &=  (1*64) + (1*32) + (0*16) + (1*8) + (1*4) + (0*2) + (0*1)  \\
         &=  (1 * 2^6) + (1 * 2^5) + (0 * 2^4) + (1 * 2^3) + (1 * 2^2) + (0 * 2^1) + (0 * 2^0)
 
 .. sidebar:: Bit
@@ -53,6 +54,14 @@ the base of each exponent is 2.
     In computing the term "Bit" is an abbreviation of the term "Binary digIT".
 
 So to express 208 as binary we could use the bits ``1101100``.
+
+.. table:: Representing the integer 208 in binary.
+
+    == == == = = = =
+    64 32 16 8 4 2 1
+    == == == = = = =
+    1  1  0  1 1 0 0
+    == == == = = = =
 
 To recap in computing a bit is the smallest unit of information and it can be
 either zero or one. Using several bits we can express integers using the binary
