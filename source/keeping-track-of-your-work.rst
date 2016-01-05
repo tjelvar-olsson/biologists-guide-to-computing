@@ -406,7 +406,7 @@ Add the lines below to the file ``scripts/protein_count.bash``.
     #!/bin/bash
 
     gunzip -c data/uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' \
-    | cut -d '|' -f 2 | uniq | wc -l
+    | cut -d '|' -f 2 | wc -l
 
 Make the file executable and test the script.
 
@@ -431,7 +431,7 @@ represent the first and second command line arguments, respectively.
     echo "Species: $SPECIES"
 
     gunzip -c $DATA_FILE_PATH | grep "OS=$SPECIES" \
-    | cut -d '|' -f 2 | uniq | wc -l
+    | cut -d '|' -f 2 | wc -l
 
 .. warning:: Bash makes a distinction between single and double quotes. To expand
              variables one needs to use double quotes. If not one will get the

@@ -2,14 +2,22 @@ First steps towards automation
 ==============================
 
 One of the first steps towards automating repetitive tasks is to become
-familiar with the command line. In this chapter we will do this by using
+familiar with the command line. In this chapter we will accomplish this using
 the command line to extract the UniProt identifiers for all human proteins
 in Swiss-Prot.
 
 You will get the most benefit from this chapter if you work through the example
-as well as you go along. You are therefore encouraged to open up a terminal now!
+as you go along. You are therefore encouraged to open up a terminal now!
 
-![Terminal]()
+.. figure:: images/terminal.png
+   :alt: Bash shell running in a Mac Terminal.
+
+   Bash shell running in a Terminal application. The prompt displays the the
+   name of the user (olsson), the name of the machine (laptop) and the current
+   working directory (~). Note that the dollar symbol (``$``) is an indication
+   that input is expected, i.e. the shell expects commands to be entered after
+   it. The prompt displayed in the Bash shell can be customised. As such the
+   prompt on your system may look different.
 
 On Macs the command line is available through the Terminal application. There
 are a number of terminal emulators available for Linux. If you are using the
@@ -27,11 +35,12 @@ First things first, how to find help
 
 Most of the commands on the command line have built in help that can be accessed by
 providing either the argument ``-h`` or ``--help``. For example to access help for
-the ``curl`` command, which we will use later, you can run as such:
+the ``curl`` command, which we will use later, enter the command below into the shell
+and press enter:
 
 .. code-block:: none
 
-    curl --help
+    $ curl --help
 
 More descriptive documentation can usually be found using the ``man`` (manual)
 command. For example to view the manual page of the ``ls`` command you can run
@@ -39,12 +48,12 @@ the command below.
 
 .. code-block:: none
 
-    man ls
+    $ man ls
 
 To get out of the "man-page" press the "q" key. Just like I encourage you to try
 out the examples outlined in this chapter I also encourage you to examine the
 help and man-page documentation for the commands that we use to get a better
-understanding of what they do.
+understanding of what the commands do.
 
 
 Creating a new directory for our project
@@ -54,7 +63,7 @@ First of all let us make sure that we are working in our home directory.
 
 .. code-block:: none
 
-    cd
+    $ cd
 
 The ``cd`` command, short for change directory, is used to move between
 directories. If called without a path to a directory of interest it will
@@ -66,8 +75,9 @@ command.
 
 .. code-block:: none
 
-    pwd
-    ls
+    $ pwd
+    /home/olsson
+    $ ls
 
 Now that we know where we are and what files and directories are present let us
 create a new directory for our project. This is achieved using the ``mkdir``
@@ -76,23 +86,29 @@ into it using the ``cd`` command.
 
 .. code-block:: none
 
-    mkdir first_step_towards_automation
-    cd first_step_towards_automation
+    $ mkdir first_step_towards_automation
+    $ cd first_step_towards_automation
 
 .. note:: When using the command line one learns to avoid using white spaces in
           file and directory names. This is because white spaces are used to separate
           arguments. In the example above we used underscores instead of white spaces.
           However, one could just as well have used hyphens. This comes down to personal
           preference. It is possible to represent file names with spaces in them on the
-          command line by using the escape ``\`` character, for example
-          ``first\ steps\ towards\ automation`` or by surrounding the text in quotes
-          ``"first steps towards automation"``.
+          command line by using the backlash character (``\``) to "escape" the
+          whitespace, for example ``first\ steps\ towards\ automation`` or by surrounding
+          the text in quotes ``"first steps towards automation"``.
 
 
 Downloading the Swiss-Prot knowledge base
 -----------------------------------------
 
-It is time to download the Swiss-Prot knowledge base from the UniProt. We can
+UniProt (Universal Protein Resource) is a comprehensive resource of protein
+sequences and annotations. The UniProt Knowledgebase (UniProtKB) consists of 
+Swiss-Prot and TrEMBLE. Both are annotated. However, the procedure in which
+they are annotated differ. TrEMBLE uses an automatic annotation system, whereas
+the annotation in SwissProt is manual and includes a review process.
+
+It is time to download the Swiss-Prot knowledge base from UniProt. We will
 use the ``curl`` program to do this.  The ``curl`` command is a C program that
 allows us to stream data from URLs and FTP sites.  By default the ``curl``
 program writes the content of the URL to the standard output stream. To see
@@ -100,32 +116,33 @@ this in action try running the command:
 
 .. code-block:: none
 
-    curl www.bbc.com
+    $ curl www.bbc.com
 
-You should see a whole lot of HTML text printed in your terminal window.
+You should see a whole lot of HTML text appearing in your terminal window.
 
-However, because we are going to be downloading a larger file we would like to
+However, because we are going to download a large file we would like to
 write it to disk for future use. Many command line programs allow the user to
 specify additional options. In this particular case we can use the
 ``--output`` option to specify a file name that the output should be
 written to.
 
 Here we will use a URL shortened using `bitly <https://bitly.com/>`_ to save on
-typing. The shortened URL contains a redirect to the relevant SwissProt FASTA
+typing. The shortened URL contains a redirect to the relevant Swiss-Prot FASTA
 file hosted on the UniProt FTP site. To find out where the shortned URL redirects
 to run the command:
 
 .. code-block:: none
 
-    curl http://bit.ly/1l6SAKb
+    $ curl http://bit.ly/1l6SAKb
 
 
-To allow the redirection to occur we need to use the ``--location`` option.
+To allow the redirection to occur we need to use the ``--location`` option,
+which will redirect the request to the new location.
 Let us download the gzipped FASTA file from the UniProt FTP site:
 
 .. code-block:: none
 
-    curl --location --output uniprot_sprot.fasta.gz http://bit.ly/1l6SAKb
+    $ curl --location --output uniprot_sprot.fasta.gz http://bit.ly/1l6SAKb
 
 
 The downloaded file ``uniprot_sprot.fasta.gz`` has been compressed using the
@@ -138,7 +155,7 @@ Try running the command:
 
 .. code-block:: none
 
-    gunzip --to-stdout uniprot_sprot.fasta.gz
+    $ gunzip --to-stdout uniprot_sprot.fasta.gz
 
 You should see a lot of FASTA lines printed to your terminal, or more formally speaking
 the standard output stream.
@@ -150,7 +167,7 @@ running the command:
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz
+    $ gunzip -c uniprot_sprot.fasta.gz
 
 From now on the text will use the short ``-c`` option rather than the long
 ``--to-stdout`` option to save on typing.
@@ -169,7 +186,7 @@ below:
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | wc
+    $ gunzip -c uniprot_sprot.fasta.gz | wc
 
 .. sidebar:: Re-using previous command
 
@@ -181,7 +198,7 @@ only see the line count one could use the ``-l`` option:
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | wc -l
+    $ gunzip -c uniprot_sprot.fasta.gz | wc -l
 
 Pipes are powerful because they allow a set of simple commands to be combined
 to perform tasks that are beyond the scope of any of the individual commands.
@@ -205,7 +222,7 @@ the first lines of the ``uniprot_sprot.fasta.gz`` file by pipeing the output of 
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | head
+    $ gunzip -c uniprot_sprot.fasta.gz | head
 
 You should see something like the output below being written to the terminal
 window.
@@ -232,42 +249,42 @@ lines:
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | head -n 20
+    $ gunzip -c uniprot_sprot.fasta.gz | head -n 20
 
 Similarly, there is a ``tail`` command for displaying the tail end of a file,
 again ten lines by default.
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | tail
+    $ gunzip -c uniprot_sprot.fasta.gz | tail
 
-You may have noticed that this series of commands took a little longer to
-complete.  That is because we needed to decompress the whole file before we
-could access the last ten lines of it.
+You may have noticed that the workflow above, to view the last ten lines, took
+a little longer to complete.  That is because we needed to decompress the whole
+file before we could access the last ten lines of it.
 
 To page though an entire file one can use the ``less`` command.
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | less
+    $ gunzip -c uniprot_sprot.fasta.gz | less
 
-One can use the "Up" and "Down" arrows to navigate through the file.  One can
-also use the "Space" key to move forward by an entire page, hence the term
-pager. To page back one page press the "b" key. When you are finished examining
-the file press "q" to quit ``less``.
+One can use the "Up" and "Down" arrows to navigate through the file using
+``less``.  One can also use the "Space" key to move forward by an entire page,
+hence the term pager. To page back one page press the "b" key. When you are
+finished examining the file press "q" to quit ``less``.
 
 .. sidebar:: How am I supposed to be able to remember that ``less`` is a pager?
 
     As you may have noticed, if one does not use a pager, the standard output
     is simply written to the terminal. This can be frustrating if the file is
-    large and one wants to start reading at the top of the file and then move
+    large and one wants to start reading at the top of the file and then page
     through it as one reads along. This is what pagers are for, moving
     through files one page at a time.  One of the original pager programs was
     called ``more``.  It simply displayed one page of output at a time and when
     one wanted "more" output one simply pressed the space key. A usability
     issue with the ``more`` program was that it did not allow a user to go back
     up a page. The ``less`` pager was therefore developed to work around this
-    issue. It implemented backwards scrolling and a number of other additional
+    issue. It implemented reverse scrolling and a number of other additional
     features not present in ``more``. However, ``less`` also implemented all
     the original features of the ``more`` program, resulting in the mnemonic
     "less is more".
@@ -285,14 +302,14 @@ search for the string "Homo":
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep Homo | less
+    $ gunzip -c uniprot_sprot.fasta.gz | grep Homo | less
 
 To make the match more visible we can add the ``--color=always`` option, which
 will highlight the matched string as red.
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep --color=always Homo | less
+    $ gunzip -c uniprot_sprot.fasta.gz | grep --color=always Homo | less
 
 If you scroll through the matches you will notice that we have some false
 positives. We can highlight these by performing anther ``grep`` command that
@@ -301,7 +318,7 @@ finds lines that do not contain the string "sapiens", using the
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep Homo | grep -v sapiens
+    $ gunzip -c uniprot_sprot.fasta.gz | grep Homo | grep -v sapiens
 
 To make the search more specific we can search for the string "OS=Homo sapiens".
 To do this we need to surround the search pattern by quotes, which tells the shell that
@@ -309,14 +326,14 @@ the two parts separated by a white space should be treated as one argument.
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens'
+    $ gunzip -c uniprot_sprot.fasta.gz | grep "OS=Homo sapiens"
 
 To work out how many lines were matched we can pipe the output of ``grep`` to
 the ``wc`` command.
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' | wc -l
+    $ gunzip -c uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" | wc -l
 
 
 Extracting the UniProt identifiers
@@ -334,13 +351,14 @@ Below are the first three lines identified using the ``grep`` command.
     >sp|Q04917|1433F_HUMAN 14-3-3 protein eta OS=Homo sapiens GN=YWHA...
 
 
-Now that we can identify lines of interest we want to extract the UniProt
-identifiers from them. In this instance we will use the command ``cut`` to chop
-the line into smaller fragments, based on a delimiter character, and printing out
-the relevant fragment. In this instance the delimiter we are going to use is
-the vertical bar ("|"). This has got nothing to do with pipeing, it is simply
-the character surrounding the UniProt identifier. By splitting the line by "|"
-the UniProt id will be available in the second fragment.
+Now that we can identify description lines corresponding to human proteins we
+want to extract the UniProt identifiers from them. In this instance we will use
+the command ``cut`` to chop the line into smaller fragments, based on a
+delimiter character, and print out the relevant fragment.  The delimiter we are
+going to use is the vertical bar ("|"). This has got nothing to do with
+pipeing, it is simply the character surrounding the UniProt identifier. By
+splitting the line by "|" the UniProt id will be available in the second
+fragment.
 
 The command below makes use of the ``\`` character at the end of the first
 line.  This tells bash that the command continues on the next line. You can use
@@ -349,21 +367,9 @@ include the content of both lines below in a single line, omitting the ``\``.
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' \
+    $ gunzip -c uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" \
     | cut -d '|' -f 2
 
-Ensuring that all the identifiers are unique
---------------------------------------------
-
-In this instance we hope that all the identifiers are unique. However, it is
-difficult to know whether they are or not given that there are over 20,000 of
-them. Fortunately, one can use the ``uniq`` command to filtering out any
-duplicate lines.
-
-.. code-block:: none
-
-    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' \
-    | cut -d '|' -f 2 | uniq
 
 
 Using redirection to create an output file
@@ -374,8 +380,8 @@ on disk:
 
 .. code-block:: none
 
-    gunzip -c uniprot_sprot.fasta.gz | grep 'OS=Homo sapiens' \
-    | cut -d '|' -f 2 | uniq > human_uniprot_ids.txt
+    $ gunzip -c uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" \
+    | cut -d '|' -f 2 > human_uniprot_ids.txt
 
 Now if you run the ``ls`` command you will see the file
 ``human_uniprot_ids.txt`` in the directory and you can view its contents using
@@ -383,8 +389,22 @@ Now if you run the ``ls`` command you will see the file
 
 .. code-block:: none
 
-    ls
-    less human_uniprot_ids.txt
+    $ ls
+    $ less human_uniprot_ids.txt
+
+.. sidebar:: The ``<`` redirection command
+
+             There is a third type of redirection ``<``. This type of redirection
+             is so common that is often made implicit. The two commands below, for
+             example, are equivalent.
+            
+             .. code-block:: none
+
+                $ wc -l < human_uniprot_ids.txt
+                   20197
+                $ wc -l human_uniprot_ids.txt
+                   20197 human_uniprot_ids.txt
+
 
 Well done! You have just extracted the UniProt identifiers for all human
 proteins in Swiss-Prot. Have a cup of tea and a biscuit.
@@ -404,7 +424,7 @@ Not to worry. You can view the history of your previous commands using ``history
 
 .. code-block:: none
 
-    history
+    $ history
 
 Note that each command has a history number associated with it.  You can use
 the number in the history this to rerun a previous command without having to
@@ -412,7 +432,7 @@ retype it. For example to rerun command number 597 you would type in:
 
 .. code-block:: none
 
-    !597
+    $ !597
 
 
 Clearing the terminal window
@@ -426,7 +446,16 @@ To clear the screen of output one can use the ``clear`` command:
 
 .. code-block:: none
 
-    clear
+    $ clear
+
+Sometimes, for example if you try to view a binary file using a pager, your
+shell can start displaying garbage. In these cases it may help to run the
+``reset`` command.
+
+.. code-block:: none
+
+    $ reset
+
 
 Copying and renaming files
 --------------------------
@@ -438,28 +467,28 @@ For this exercise let us start by creating a backup directory.
 
 .. code-block:: none
 
-    mkdir backup
+    $ mkdir backup
 
 Now we can copy the file into the backup directory using the ``cp`` command.
 
 .. code-block:: none
     
-    cp human_uniprot_id.txt backup/
+    $ cp human_uniprot_id.txt backup/
 
 The command above uses the original name of the file. However, we could have
 given it a different name, for example including the date.
 
 .. code-block:: none
     
-    cp human_uniprot_id.txt backup/human_uniprot_id_2015-11-10.txt
+    $ cp human_uniprot_id.txt backup/human_uniprot_id_2015-11-10.txt
 
 Finally, suppose that one wanted to rename the original file to use hyphens
 rather than under scores. To to this one would use the ``mv`` command, mnemonic
-"move". 
+*move*. 
 
 .. code-block:: none
     
-    mv human_uniprot_id.txt human-uniprot-id.txt
+    $ mv human_uniprot_id.txt human-uniprot-id.txt
 
 
 Removing files and directories
@@ -472,21 +501,21 @@ One can remove files using the ``rm`` command:
 
 .. code-block:: none
 
-    rm backup/human_uniprot_id.txt
+    $ rm backup/human_uniprot_id.txt
 
 Empty directories can be removed using the ``rmdir`` command:
     
 .. code-block:: none
 
-    mkdir empty
-    rmdir empty
+    $ mkdir empty
+    $ rmdir empty
 
 To remove directories with files in them one can use the ``rm`` command with
 the recursive option:
 
 .. code-block:: none
 
-    rm -r backup
+    $ rm -r backup
 
 .. warning:: Think twice before deleting files, they will be deleted permanently.
 
