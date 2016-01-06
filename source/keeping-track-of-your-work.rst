@@ -20,7 +20,7 @@ become more complex one often accidentally break them whilst trying to add
 more functionality. To make things worse it can often be difficult to remember
 what changes were introduced since the last working state of the code.
 
-Because this is a problem that people developing software have been faced with
+Because this is a problem that software engineers have been faced with
 for a long time there are now some excellent tools for dealing with it. The
 solution is to use a version control system. Here we will use Git, one of the
 most popular version control systems, to keep track of our work. In its most
@@ -140,7 +140,10 @@ Create a script for downloading the SwissProt FASTA file
 
 We will now convert the command we used to download the SwissProt FASTA file
 from :doc:`first-steps-towards-automation` into a script. To add some
-organisation we will put this script in a directory named ``scripts``.
+organisation we will put this script in a directory named ``scripts``. We will
+also create a directory named ``data`` for storing the downloaded file. By
+specifying more than one argument to the ``mkdir`` command one can create
+multiple directories.
 
 .. code-block:: none
 
@@ -219,26 +222,30 @@ Let us check the status of our project.
 
     nothing added to commit but untracked files present (use "git add" to track)
 
-Git is basically telling us that there are files in the ``data`` directory that are
-currently not being tracked. However, in this project the data directory
-will contain files downloaded from a canonical resource and the download script is in
-version control we do not need or want to track the files in this directory.
+Git is telling us that there are files in the ``data`` directory that are
+currently not being tracked. However, in this project the data directory will
+contain files downloaded from a canonical resource and as the download script
+is in version control we do not need or want to track the files in this
+directory.
 
 It is possible to tell Git to ignore files.  Using your text editor of choice
 create the file ``.gitignore`` and add the content below to it.
+
+.. sidebar:: Hidden files
+
+    On Unix-like systems dot-files, files starting with a ".", are treated as
+    hidden files. These files are usually used to store configuration settings.
+    The ``~/.bashrc`` file, for example, is used to configure your Bash shell
+    environment. To list hidden files use ``ls -a``.
 
 .. code-block:: none
 
     data/*
 
-This tells Git to ignore all files in the ``data`` directory.
-
-.. sidebar:: What does the ``*`` symbol mean?
-
-    The ``*`` symbol is a wild card symbol that can match any number of characters.
-    It can be used in the .gitignore file, but more commonly it is used in the shell
-    itself. For example if you wanted to list all PNG file in a directory you could
-    use the command ``ls *.png``.
+In Bash the ``*`` symbol represents a wild card pattern that can match any
+string.  The ``*`` symbol can be used in the same fashion in the ``.gitignore``
+file. As such the line we added to our ``.gitignore`` file tells Git to ignore
+all files in the ``data`` directory.
 
 .. code-block:: none
 
@@ -259,9 +266,6 @@ Git now ignores the content of the ``data`` directory and tells us that the
     $ git add .gitignore
     $ git commit -m "Added gitignore file."
     $ git status
-
-.. code-block:: none
-
     On branch master
     nothing to commit, working directory clean
 
@@ -283,8 +287,8 @@ argument.
     $ date +'%Y-%m-%d'
     2015-11-26
 
-To get the output of the ``date`` command into the file name string one
-can use bash's concept of command substitution. To see this in action
+To get the output of the ``date`` command into the file name one
+can use Bash's concept of command substitution. To see this in action
 we can use the ``echo`` command, which simply echoes the input string.
 
 .. code-block:: none
@@ -295,8 +299,30 @@ we can use the ``echo`` command, which simply echoes the input string.
 For this little script we will also introduce the concept of variables.
 A variable is basically a means of storing a piece of information using
 a descriptive name. In bash one can assign a variable using the ``=``
-character and the value of the variable can be accessed by prefixing
-variable name with a ``$`` character.
+character and the value of the variable can then be accessed by prefixing
+the variable name with a ``$`` character.
+
+.. sidebar:: Don't Repeat Yourself
+
+    The use of variables is a key concept in programming. It allows programmers to
+    avoid having to repeat themselves. This is important as repetition increases
+    the chances of introducing errors. Suppose, for example that you had a scaling
+    factor of 1.35611 that you used at ten different places in your script. That
+    presents ten opportunities for typing in the wrong number. Further, suppose
+    that you, later on, needed to change the scaling factor. That presents ten
+    opportunities for forgetting to update a value and another ten opportunities
+    for mistyping the value. In this case it would have been better to create a
+    variable named ``scaling_factor`` and use that variable in the ten places in
+    your script. That way they are guaranteed to be the same value and you only
+    need to edit one line if you need to change the value. In programming avoiding
+    repetition is important enough to warrant it's own acronym :term:`DRY` (Don't
+    Repeat Yourself).
+
+.. code-block:: none
+
+    $ PRIBNOV_BOX="TATAAT"
+    $ echo $PRIBNOV_BOX
+    TATAAT
 
 We now have all the information we need to improve the script. Edit the
 ``script/get_data.bash`` file to look like the below.
@@ -318,8 +344,8 @@ Now we can test that the script is working as expected.
 
 
 We have added a piece of functionality and have tested that it works as expected.
-This is a good time to check in our changes to Git. However, before we do that
-let us examine how the state of the project has changed since the last commit
+This is a good time to commit our changes to Git. However, before we do that
+let us examine the changes to the project since the last commit
 using the ``git diff`` command.
 
 .. code-block:: none
@@ -351,17 +377,31 @@ Let us now add and commit the changes to Git.
     
 By adding the date of download to the file name reproducibility is improved and
 it means that we can download the file on different dates and ensure that no data
-is lost.
+is overwritten.
 
 However, it is still possible to accidentally delete or modify the data file.
 To overcome this, and further improve reproducibility, it is good practise to
-give the data file read-only permissions. To do this we will make use of the
-``chmod`` command. In this instance we will make use of an absolute mode.
-Absolute modes encode the permissions using the numbers 1, 2 and 4 represent
-execute, write and read modes respectively. By adding these up one get
-different combinations of permission modes for a file, for example 7 represents
-read, write and execute permissions and 5 represents read and execute
-permissions. To set the permissions for the owner, group and all other users
+give the data file read-only permissions. This means that the file cannot be
+modified or deleted, only read. To do this we will make use of the ``chmod``
+command. In this instance we will make use of an absolute mode.  Absolute modes
+encode the permissions using the numbers 1, 2 and 4 that represent execute, write
+and read modes respectively. These numbers can be combined to create any
+permission, for example 7 represents read, write and execute permissions and 5
+represents read and execute permissions.
+
+=====  ======================
+Value  Permission
+=====  ======================
+1      execute
+2      write
+3      write & execute
+4      read
+5      read & execute
+6      read & write
+7      read & write & execute
+=====  ======================
+
+To set the permissions for the owner, group and all other users
 one simply uses three such numbers. For example to give the owner read and
 write permissions and the group and all other users read-only permissions one
 would use the absolute mode 644.
@@ -378,9 +418,10 @@ all other users so we will use the absolute mode 444.
     chmod 444 $FNAME
 
 If you run the script now you will see that it changes the permissions of the
-downloaded file.  If you then try to run it again, on the same day, you will
-notice that the script complains that it has not got permissions to write to
-the file. This is expected as the downloaded file is now read only.
+downloaded file.  If you run the script again, on the same day, you will
+notice that the it complains that it has not got permissions to write to
+the file. This is expected as the ``curl`` command is wanting to overwrite
+the existing read-only file.
 
 This is a good time to add and commit the changes to Git.
 
@@ -478,8 +519,8 @@ we can use Git to remind us using the ``git log`` command.
     e1dc880 Added readme file.
 
 Note that the comments above give a decent description of what was done. However,
-it would have been useful to include more information about the motive behind a
-change. If one does not make use of the ``-m`` argument when using ``git commit``
+it would have been useful to include more information about the motive behind some
+changes. If one does not make use of the ``-m`` argument when using ``git commit``
 one can use the default text editor to write a more comprehensive commit message.
 For example, a more informative commit message for commit ``a672257`` could have
 looked something along the lines of:
@@ -515,7 +556,7 @@ Key concepts
 ------------
 
 - When working with files it is often desirable to be able to track changes
-- Whilst programming it is particularly useful to be able to save working
+- When programming it is particularly useful to be able to save working
   states the code
 - This gives one the opportunity to roll-back to a previously working state if
   things go wrong
@@ -525,8 +566,8 @@ Key concepts
 - The overhead of using Git whilst programming is minimal
 - The benefits of using Git are great
 - Start using Git in your day-to-day work right now
-- Files files have write, read and execute permissions that can be turned on
-  and off
+- In Unix-like systems files have write, read and execute permissions that can
+  be turned on and off
 - By making a file executable it can be run as an independent program
 - By giving raw data files read only permissions one can ensure that they are
   not accidentally modified or deleted
