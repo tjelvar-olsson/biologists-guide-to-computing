@@ -3,6 +3,12 @@ Glossary
 
 .. glossary::
 
+    Bit
+        The smallest unit of informaiton, abbreviation of the term Binary digIT.
+
+    Blob
+        Binary Large OBject, typically a large binary file stored in a database.
+
     Class
         In `object-oriented programming` a class is a template that can be used to create
         an :term:`object`.
@@ -10,11 +16,9 @@ Glossary
     CPU
         Central Processing Unit, part of the computer that executes machine instructions.
 
-    Bit
-        The smallest unit of informaiton, abbreviation of the term Binary digIT.
-
-    Blob
-        Binary Large OBject, typically a large binary file stored in a database.
+    DRY
+        Don't repeat yourself. Make use of a variables for frequently used values. Make
+        use of functions for frequently used processing logic.
 
     Function
         A set of instructions for performing a procedure. Most commonly a function takes a
