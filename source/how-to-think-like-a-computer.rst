@@ -216,7 +216,7 @@ a ``NAND`` gate.
 
 Importantly one can use Boolean logic gates to implement integer arithmetic
 and memory. This combined with the fact that it is relatively easy to
-physically implement boolean logic using relays led to the construction of
+physically implement Boolean logic using relays led to the construction of
 the first computers.
 
 Although you may not want to create your own computer having a basic
@@ -225,8 +225,21 @@ example one often need to make conditional logic statements along the lines of
 "``IF`` the cell contains green fluorescent protein ``AND`` it is illuminated
 with light of wavelength 395 nm ``THEN`` it will emit fluorescence at 509 nm".
 
-.. note:: Boolean logic is also used in Boolean networks, a formalism that
-          can be used to describe gene regulatory networks.
+.. note:: Boolean logic is also used in Boolean networks, a formalism that can
+          be used to describe gene regulatory networks at the protein
+          expression level, i.e.  mRNA and protein concentrations are not
+          considered. The expression level of each gene is considered to be
+          either on or off, a.k.a.  1 or 0. The :term:`state` of the model is
+          the set of Boolean values used to describe the gene network
+          transcription levels at that point in time. Inhibition and activation are
+          modeled by creating Boolean rules, which can be further combined using
+          Boolean logic. By iteratively applying the Boolean rules the dynamics
+          of the system can be evaluated over time. As time progresses the
+          number of states of the network decreases as the system is driven
+          towards a relatively small number of dynamic cycles and stable
+          states, known as attractors. The attractors often correspond to
+          specific differentiated states of cells in biological systems.
+          
 
 
 
