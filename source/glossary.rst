@@ -9,12 +9,20 @@ Glossary
     Blob
         Binary Large OBject, typically a large binary file stored in a database.
 
+    Bug
+        Defect in a computer program which stops it from working as intended,
+        see also :term:`debug`.
+
     Class
         In `object-oriented programming` a class is a template that can be used to create
         an :term:`object`.
 
     CPU
         Central Processing Unit, part of the computer that executes machine instructions.
+
+    Debug
+        The activity of identifying and removing a :term:`bug` (defect) from a
+        computer program. 
 
     DRY
         Don't repeat yourself. Make use of a variables for frequently used values. Make

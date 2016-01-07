@@ -23,32 +23,51 @@ How many variants are there per species? Do all variants contain the same
 number of proteins?
 
 To answer these questions we will make use of the Python scripting language.
+
+
+What is Python?
+---------------
+
 Python is a high-level scripting language that is growing in popularity in the
 scientific community. It uses a syntax that is relatively easy to get to grips
 with and which encourages code readability.
+
+Here we use Python because it is easy to learn and because it is becoming the
+*de facto* scripting language in the scientific community.
 
 
 Stop and think
 --------------
 
 One of the most common mistakes when programming is to start coding before the
-problem is one is trying to solve is clearly defined.
+problem is clearly defined.
 
 What do we want to achieve? Pause for a second and try to answer this question
 to yourself. It may help trying to explain it out loud.
+
+.. sidebar:: Rubber duck debugging
+
+    When faced with a tricky :term:`bug` many programmers find that one of
+    the best methods to :term:`debug` their code is to explain it to a
+    colleague. The act of verbalising ones assumptions often identifies the
+    problem at hand without the colleague having to do anything except listen.
+    This technique is so powerful that some programmers use a rubber duck,
+    as a substitute for a colleague, when the latter is unavailable. This method
+    is not limited to debugging, hence the suggestion to verbalise the problem
+    statement out loud.
 
 Now describe all the steps required to achieve this goal. Again it may help
 speaking out loud to yourself or imagining that you are describing the required
 steps to a colleague.
 
 Did you find that easy or difficult? Thinking about what one wants to achieve
-and all the steps required to get there can often be a bit overwhelming. At
-this stage it is easy to think to oneself that the detail will become clear
+and all the steps required to get there can often be quite overwhelming.
+When this happens it is easy to think to oneself that the detail will become clear
 later on and that one should stop wasting time and get on with the coding. Try
 to avoid doing this. Rather, try to think of a simpler goal. 
 
-For example take the simplest goal described so far: working out how many
-different species are in the FASTA file. This goal would require us to:
+For example consider the goal of working out how many different species there
+are in the FASTA file. This goal would require us to:
 
 1. Identify all the description lines in the FASTA file
 2. Extract the organism name from the line
@@ -56,14 +75,14 @@ different species are in the FASTA file. This goal would require us to:
 4. Count the number of entries
 
 If you know the tools and techniques required to do all of the steps above this
-may not seem overwhelming, but if you don't it may. In either case it is
-worthwhile treating each step as a goal in itself and think about what would be
-required to achieve each individual step. By iterating over this process you
+may not seem overwhelming. However, if you don't it will. In either case it is
+worthwhile to treat each step as a goal in itself and work out the sub-steps
+required to achieve these. By iterating over this process you
 will either get down to steps sizes that do not feel overwhelming or you will
 identify the key aspect that you feel unsure about.
 
-For example, suppose that one felt unsure about how to go about identifying all
-the description lines in the FASTA file we could decompose this step even further.
+For example the first step, to identifying all the description lines in the
+FASTA file, can be decomposed into the sub-steps below.
 
 1. Create a list for storing the description lines
 2. Iterate over all the lines in the input file
@@ -116,18 +135,25 @@ function takes no arguments. The end of the function definition is marked using
 a colon.
 
 The body of the function, lines four and five, need to be indented. The standard
-in Python is to use four white spaces to indent code blocks. The first line of the
-function body, line four, is a docstring explaining the intent of the function.
-Line five makes use of the built-in ``print()`` function to write a string to the
-standard out stream. Python's built-in ``print()`` function is similar to the
-``echo`` command used in :doc:`keeping-track-of-your-work`.
+in Python is to use four white spaces to indent code blocks.
+
+.. warning:: Whitespace really matters in Python! If your code is not correctly
+             aligned you will see ``IndentationError`` messages telling you
+             that everything is not as it should be. You will also run into
+             ``IndentationError`` messages if you mix white spaces and tabs.
+
+The first line of the function body, line four, is a docstring explaining the
+intent of the function.  Line five makes use of the built-in ``print()``
+function to write a string to the standard output stream. Python's built-in
+``print()`` function is similar to the ``echo`` command we used earlier in
+:doc:`keeping-track-of-your-work`.
 
 Finally, on line seven the :func:`test_is_description_line` function is called,
 i.e. the logic within the function's body is executed. In this instance this
 means that the ``"Testing the is_description_line() function..."`` string is
 written to the standard output stream.
 
-Let us try out this code in a terminal.
+Let us run this script in a terminal.
 
 .. code-block:: none
 
@@ -169,7 +195,7 @@ the same object. If they are the same object the comparison evaluates to
 The ``assert`` keyword is used to insert debugging statements into a program.
 It provides a means to ensure that the state of a program is as expected. If
 the statement being evaluated, in this case ``is_description_line(">This is a
-description line") is True`` evaluates to ``False`` an ``AssertionError`` is
+description line") is True``, evaluates to ``False`` an ``AssertionError`` is
 raised.
 
 So, what will happen if we run the code in its current form?
@@ -210,8 +236,9 @@ module.
     test_is_description_line()
 
 Note that the function we have added on lines three and four currently does nothing.
-However, when we run the script we should no longer get a ``NameError``. Let's find
-out what happens when we run the code.
+By default the function will return ``None``.  However, when we run the script
+we should no longer get a ``NameError``. Let's find out what happens when we
+run the code.
 
 .. code-block:: none
 
@@ -224,9 +251,9 @@ out what happens when we run the code.
         assert is_description_line(">This is a description line") is True
     AssertionError
 
-More progress! Now we see the expected ``AssertionError``. Let us add some code to try
-to get rid of this error message. To achieve this we simply need to make the script
-return ``True``.
+More progress! Now we see the expected ``AssertionError``, becuase ``None`` is
+not ``True``. Let us add some code to try to get rid of this error message. To
+achieve this we simply need to make the function return ``True``.
 
 .. code-block:: python
     :linenos:
@@ -291,7 +318,7 @@ More progress, we now have a test to ensure that the :func:`is_description_line`
 returns ``False`` when the input line is a sequence. Let us try to implement the desired
 functionality to make the test pass. For this we will use the
 `startswith() <https://docs.python.org/2/library/stdtypes.html#str.startswith>`_ method,
-that is built into strings, to check if the string starts with a ">" character.
+that is built into strings, to check if the string starts with a greater than (``>``) character.
 
 .. code-block:: python
     :linenos:
@@ -316,7 +343,7 @@ that is built into strings, to check if the string starts with a ">" character.
 
 In the code above we make use of conditional logic, i.e. ``if`` something is
 ``True`` do something otherwise do something ``else``. As mentioned previously
-whitespace is important in Python and four are spaces used to indent the lines after
+whitespace is important in Python and four spaces are used to indent the lines after
 the ``if`` and ``else`` statements to tell Python which statement(s) belong in the conditional
 code blocks. In this case we only have one statement per conditional, but it is
 possible to group several statements together based on their indentation.
@@ -334,13 +361,13 @@ Fantastic the code behaves in the way that we want it to behave!
 However, the current implementation of the :func:`is_description_line` function
 is a little bit verbose. Do we really need the ``else`` conditional?  What
 would happen if it was not there and the line started with a ">"? The program
-would enter the ``if`` conditional statement and return ``True``. When the
-function returns a value to program jumps out of the function so the next
-``return`` statement would never be reached.
+would enter the ``if`` conditional statement and return ``True``. When a
+function returns a value the program exits the function. The subsequent
+``return`` statement would therefore never be reached.
 
 The beauty of tests now become more apparent. We can start experimenting with
 the implementation of a function and feel confident that we are not breaking
-existing functionality. As long as the tests do not fail that is!
+it. As long as the tests do not fail that is!
 
 Let us test out our hypothesis that the ``else`` conditional is redundant by
 removing it and de-denting the ``return False`` statement.
@@ -357,14 +384,6 @@ removing it and de-denting the ``return False`` statement.
             return True
         return False
 
-    def test_is_description_line():
-        """Test the is_description_line() function."""
-        print("Testing the is_description_line() function...")
-        assert is_description_line(">This is a description line") is True
-        assert is_description_line("ATCG") is False
-
-    test_is_description_line()
-
 Now we can simply run the tests to see what happens.
 
 .. code-block:: none
@@ -372,7 +391,7 @@ Now we can simply run the tests to see what happens.
     $ python scripts/fasta_utils.py
     Testing the is_description_line() function...
 
-Amazing, we just made a change to our code and can feel pretty sure that it is
+Amazing, we just made a change to our code and we can feel pretty sure that it is
 still working as intended. This is very powerful.
 
 The methodology used in this section is known as Test-Driven Development, often
