@@ -171,7 +171,7 @@ Another scenario, when coding, is the ability to store richer data structures,
 such as lists or dictionaries, possibly nested within each other. There are two
 popular file formats for doing this `JavaScript Object Notation
 <http://www.json.org/>`_ (JSON) and `YAML Ain't Markup Language
-<http://www.json.org/>`_ (YAML).
+<http://www.yaml.org/>`_ (YAML).
 
 .. sidebar:: Recursive acronyms
 
