@@ -18,8 +18,8 @@ Be social
 ---------
 
 Find friends and colleges that are in the same boat as you and talk to them
-about your computing experiences and the problems that you facing. It is much
-more fun to learn together and you will help keep each other motivated.
+about your computing experiences and the problems that you are trying to solve.
+It is much more fun to learn together and you will keep each other motivated.
 
 Find someone more experienced than you and learn from them. Having a mentor
 to point you in the right direction can be a great time saver.
@@ -55,6 +55,16 @@ this is a new and improved version of
 `Dive Into Python <http://www.diveintopython.net/>`_. I recommend that you read
 Dive Into Python 3 as it is more recent and will teach you about the latest and
 greatest version of Python.
+
+Nicolas P. Rougier, Michael Droettboom, Philip E. Bourne's article
+"Ten Simple Rules for Better Figures" is a great resource of practical
+advice to help you create better scientific illustrations.
+DOI: `10.1371/journal.pcbi.1003833 <https://dx.doi.org/10.1371/journal.pcbi.1003833>`_
+
+Geir Kjetil Sandve , Anton Nekrutenko, James Taylor, Eivind Hovig's article
+"Ten Simple Rules for Reproducible Computational Research" provides advice on how
+you can make your research more easily reproducible.
+DOI: `110.1371/journal.pcbi.1003285 <https://dx.doi.org/110.1371/journal.pcbi.1003285>`_
 
 Andrew Hunt and David Thomas'
 `The Pragmatic Programmer <https://pragprog.com/book/tpp/the-pragmatic-programmer>`_
