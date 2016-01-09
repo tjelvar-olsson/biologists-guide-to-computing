@@ -473,9 +473,9 @@ This can be achieved using the ``strip()`` method built into the string object.
     >>> "  text with leading/trailing spaces ".strip()
     'text with leading/trailing spaces'
 
-Another common use case is to want to replace a word in a line. For example,
+Another common use case is to replace a word in a line. For example,
 when we strip out the leading and trailing white spaces one might want to
-update the word ``with`` to ``without`` to make the resulting string reflect
+update the word "with" to "without" to make the resulting string reflect
 its current state. This can be achieved using the ``replace()`` method.
 
 .. code-block:: python
@@ -617,14 +617,14 @@ There are two things to note here:
 
     In Python "raw" strings differ from regular strings in that the bashslash
     ``\`` character is interpreted literally. For example the regular string
-    equivalent of ``r"\n"`` would be ''"\\n" where the first backslash is used
+    equivalent of ``r"\n"`` would be ``"\\n"`` where the first backslash is used
     to escape the effect of the second (remember that ``\n`` represents a
     newline).
 
     Raw strings where introduced in Python to make it easier to create regular
     expressions that rely heavily on the use of literal backslashes.
 
-The index of the first and last matched characters can be accessed as using the
+The index of the first and last matched characters can be accessed using the
 match object's ``start()`` and ``end()`` methods.
 
 .. code-block:: python
@@ -636,20 +636,21 @@ match object's ``start()`` and ``end()`` methods.
     Q6GZX4
 
 In the above we make use of the fact that Python strings support slicing.
-The ``[start:end]`` syntax used for slicing strings, and lists, is inclusive
-for the start index and exclusive for the end index.
+Slicing is a means to access a subsection of a list.  The ``[start:end]``
+syntax is inclusive for the start index and exclusive for the end index.
 
 .. code-block:: python
 
     >>> "012345"[2:4]
     '23'
 
-To see the value of regular expressions we need to create one that can do
-something more than an exact match. For example a regular expression that can
-could match all the patterns ``id0``, ``id1``, ..., ``id9``.
+To see the merit of regular expressions we need to create one that matches more
+than one thing.  For example a regular expression that can could match all the
+patterns ``id0``, ``id1``, ..., ``id9``.
 
 Now suppose that we had a list containing FASTA description lines with these
-types of identifiers.
+types of identifiers. Note that the list also contains a sequence line that we
+never want to match.
 
 .. code-block:: python
 
@@ -679,12 +680,12 @@ expression meta character means match any white space character.
 
 .. sidebar:: The ``[0-9]`` syntax works in Bash too!
 
-             For example list the files ``photo_0.png``, ``photo_1.png``,
+             For example to list the files ``photo_0.png``, ``photo_1.png``,
              ..., ``photo_9.png`` you could use the command.
 
              .. code-block:: none
 
-                ls photo_[0-9].png
+                $ ls photo_[0-9].png
 
 If one wanted to create a regular expression to match an identifier with an
 arbitrary number of digits one can make use of the ``*`` meta character, which
@@ -715,14 +716,16 @@ description line.
 
 It took me a couple of attempts to get this regular expression right as I
 forgot that ``|`` is a regular expression meta character that needs to be
-escaped using a backslash ``\``. Note the regular expression representing the
-UniProt idendifier ``[A-Z,0-9]*`` is enclosed in parenthesis. The parenthesis
-denote that the UniProt identifier is a group that we would like access to.
+escaped using a backslash ``\``.
+
+The regular expression representing the UniProt idendifier ``[A-Z,0-9]*`` is
+enclosed in parenthesis. The parenthesis denote that the UniProt identifier is
+a group that we would like access to.
 
 
     >>> match.groups()
     ('Q6GZX4',)
-    >>> match.group(0)
+    >>> match.group(0)  # Everything matched by the regular expression.
     '>sp|Q6GZX4|'
     >>> match.group(1)
     'Q6GZX4'
@@ -777,31 +780,17 @@ There are three things which are worth noting:
 3. The two letter key after the organism name string can vary, in the case
    above we see both ``PS`` (Protein Existence) and ``GE`` (Gene Name)
 
-.. seealso:: For more information about the UniProt FASTA description line go to
-             `UniProt's FASTA header <http://www.uniprot.org/help/fasta-headers>`_
-             page.
+For more information about the UniProt FASTA description line go to `UniProt's
+FASTA header <http://www.uniprot.org/help/fasta-headers>`_ page.
 
 The three FASTA description lines examined above provide an excellent basis for
-creating some tests for the function that we want to create. Add the lines below
+creating a test for the function that we want. Add the lines below
 to your ``scripts/fasta_utils.py`` file.
 
 .. code-block:: python
     :linenos:
-    :emphasize-lines: 15-23
-
-    """Module containing utility functions for working with FASTA files."""
-
-    def is_description_line(line):
-        """Return True if the line is a FASTA description line."""
-        if line.startswith(">"):
-            return True
-        return False
-
-    def test_is_description_line():
-        """Test the is_description_line() function."""
-        print("Testing the is_description_line() function...")
-        assert is_description_line(">This is a description line") is True
-        assert is_description_line("ATCG") is False
+    :lineno-start: 15
+    :emphasize-lines: 1-9
 
     def test_extract_org_name():
         """Test the extract_org_name() function."""
@@ -814,6 +803,14 @@ to your ``scripts/fasta_utils.py`` file.
             assert extract_org_name(l) == s
 
     test_is_description_line()
+
+In the above we make use of pythons built-in :func:`zip` function. This function takes two
+lists as inputs and returns a list with paired values from the input lists.
+
+.. code-block:: python
+
+    >>> zip(["a", "b", "c"], [1, 2, 3])
+    [('a', 1), ('b', 2), ('c', 3)]
 
 Let's make sure that the tests fail.
 
@@ -875,7 +872,8 @@ Let's find out where this minimal implementation gets us.
 So the test fails as expected. However, since we are looping over many input
 lines it would be nice to get an idea of which test failed. We can achieve this
 by making use of the fact that we can provide a custom message to be passed to
-the ``AssertionError``. Let us pass the input line.
+the ``AssertionError``. Let us pass it the input line. Note the addition of the
+trailing ``, l`` in line 26.
 
 .. code-block:: python
     :linenos:
@@ -884,6 +882,7 @@ the ``AssertionError``. Let us pass the input line.
 
         for l, s in zip(lines, org_names):
             assert extract_org_name(l) == s, l
+
 
 Let's see what we get now.
 
@@ -966,7 +965,7 @@ letter ``[A-Z]`` repeated twice ``{2}``. Let's find out if this fixes the issue.
     AssertionError: >sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2
 
 What, back at square one again? As mentioned previously, regular expressions can be painful
-and should only be used as a last resort. Note that this example also highlights why it is
+and should only be used as a last resort. This also exemplifies why it is
 important to have tests. Sometimes you think you make an innocuous change, but instead things
 just fall apart.
 
@@ -1019,7 +1018,7 @@ Let's find out what happens now.
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
 
-Both the tests pass! Well done, time for another cup of tea.
+All the tests pass! Well done, time for another cup of tea.
 
 
 Only running tests when the module is called directly
@@ -1048,16 +1047,16 @@ Now we can import the module.
     >>> import fasta_utils  # doctest: +SKIP
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
-    >>>
 
 Note that the tests run just like when we call the ``scripts/fasta_utils.py``
-script directly. This is not really the behaviour that we want. It would be
-better if the tests were not run when the module was imported.
+script directly. This is an undesired side effect of the current
+implementation. It would be better if the tests were not run when the module
+was imported.
 
-To improve the behaviour of the :mod:`fasta_util` module we will make use of a
-special attribute called ``__name__``, which provides a string representation
-of scope. When commands are run from a script or the interactive prompt this
-variable is set to ``__main__``. When a module is imported the ``__name__``
+To improve the behaviour of the :mod:`fasta_utils` module we will make use of a
+special Python attribute called ``__name__``, which provides a string representation
+of :term:`scope`. When commands are run from a script or the interactive prompt the
+name attribute is set to ``__main__``. When a module is imported the ``__name__``
 attribute is set to the name of the module.
 
 .. code-block:: python
@@ -1090,7 +1089,7 @@ directory ``protein-number-vs-size``.
     Testing the extract_org_name() function...
 
 Now we can reload the module in the interactive prompt we were working in
-earlier to make sure that the tests do no longer get executed.
+earlier to make sure that the tests no longer get executed.
 
 .. code-block:: python
 
@@ -1098,9 +1097,9 @@ earlier to make sure that the tests do no longer get executed.
     <module 'fasta_utils' from 'fasta_utils.py'>
 
 Note that simply calling the ``import fasta_utils`` command again will not
-actually detect the changes that we made to the ``scripts/fasta_utils/py`` file,
+actually detect the changes that we made to the ``scripts/fasta_utils.py`` file,
 which is why we make use of Python's built-in :func:`reload` function. Alternatively,
-one could have excited the Python shell, using Ctrl-D or the :func:`exit` function,
+one could have exited the Python shell, using Ctrl-D or the :func:`exit` function,
 and then started a new interactive Python session and imported the :mod:`fasta_utils`
 module again.
 
@@ -1124,8 +1123,8 @@ are in the ``scripts`` directory when you run the ``python`` command below.
     >>>
 
 Now we will start by importing the modules that we want to use. In this case
-:mod:`fasta_utils` for processing the data and :mod:`gzip` for reading in the
-data.
+:mod:`fasta_utils` for processing the data and :mod:`gzip` for opening and
+reading in the data from the ``uniprot_sprot.2015-11-26.fasta.gz`` file.
 
 .. code-block:: python
 
@@ -1150,12 +1149,12 @@ Using a ``for`` loop we can iterate over all the lines in the input file.
     ...          fasta_desc_lines.append(line)
     ...
 
-When we are done with the input file we must remember to close it.
+When we are finished with the input file we must remember to close it.
 
     >>> file_handle.close()
 
 Let's check that the number of FASTA description lines using the built-in
-:func:`len` function. For lists this function returns the number of items
+:func:`len` function. This function returns the number of items
 in the list, i.e. the length of the list.
 
     >>> len(fasta_desc_lines)
@@ -1164,13 +1163,12 @@ in the list, i.e. the length of the list.
 Okay now it is time to find the number of unique organisms. For this we will make
 use of a data structure called ``set``. In Python sets are used to compare
 collections of unique elements. This means that sets are ideally suited for
-operations that you may associate with Venn diagrams. For example answering
-questions which items are members form the intersection of two sets.
+operations that you may associate with Venn diagrams.
 
-However, in this instance we simply use the ``set`` to ensure that we only get
-one unique representative of each organism. In other words even if one calls the
-:func:`set.add` function several times with the same item the item will only
-occur once in the set.
+However, in this instance we simply use the ``set`` data structure to ensure
+that we only get one unique representative of each organism. In other words
+even if one calls the :func:`set.add` function several times with the same item
+the item will only occur once in the set.
 
     >>> organisms = set()
     >>> for line in fasta_desc_lines:
@@ -1212,12 +1210,12 @@ sp.`` and two variants of ``Escherichia coli``. Furthermore, suppose that we
 also wanted to find out how many proteins were associated with each variant.
 
 We could achieve this by creating a nested data structure using Python's built
-in dictionary type. At the top level we would have a dictionary
+in dictionary type. At the top level we should have a dictionary
 whose keys were the species, e.g. ``Escherichia coli``. The values of the top
-level dictionary would themselves be dictionaries. The keys of the nested dictionaries
-would be the full organism name, e.g. ``Escherichia coli (strain K12)``. The values
-of the nested dictionary would be an integer representing the number of proteins found
-for that organism. Below is a YAML representation of the data structure that would be
+level dictionary should themselves be dictionaries. The keys of the nested dictionaries
+should be the full organism name, e.g. ``Escherichia coli (strain K12)``. The values
+of the nested dictionary should be an integer representing the number of proteins found
+for that organism. Below is a YAML representation of the data structure that should be
 created from the four entries above.
 
 .. code-block:: yaml
@@ -1336,10 +1334,10 @@ will generate the data structure we described at the beginning of this section.
     def test_summarise_species_protein_data():
         print("Testing summarise_species_protein_data() function...")
         fasta_desc_lines = [
-            ">sp|P12334|AZUR1_METJ Azurin iso-1 OS=Methylomonas sp. (strain J) PE=1 SV=2",
-            ">sp|P12335|AZUR2_METJ Azurin iso-2 OS=Methylomonas sp. (strain J) PE=1 SV=1",
-            ">sp|P23827|ECOT_ECOLI Ecotin OS=Escherichia coli (strain K12) GN=eco PE=1 SV=1",
-            ">sp|B6I1A7|ECOT_ECOSE Ecotin OS=Escherichia coli (strain SE11) GN=eco PE=3 SV=1"
+    ">sp|P12334|AZUR1_METJ Azurin iso-1 OS=Methylomonas sp. (strain J) PE=1 SV=2",
+    ">sp|P12335|AZUR2_METJ Azurin iso-2 OS=Methylomonas sp. (strain J) PE=1 SV=1",
+    ">sp|P23827|ECOT_ECOLI Ecotin OS=Escherichia coli (strain K12) GN=eco PE=1 SV=1",
+    ">sp|B6I1A7|ECOT_ECOSE Ecotin OS=Escherichia coli (strain SE11) GN=eco PE=3 SV=1"
         ]
         summary = summarise_species_protein_data(fasta_desc_lines)
         
@@ -1348,11 +1346,13 @@ will generate the data structure we described at the beginning of this section.
         assert "Methylomonas sp." in summary
         assert "Escherichia coli" in summary
 
-        # The value of the Methylomonas sp. entry is a dictionary with one entry in it.
+        # The value of the Methylomonas sp. entry is a dictionary with one
+        # entry in it.
         assert len(summary["Methylomonas sp."]) == 1
         assert summary["Methylomonas sp."]["Methylomonas sp. (strain J)"] == 2
 
-        # The value of the Escherichia coli entry is a dictionary with two entries in it.
+        # The value of the Escherichia coli entry is a dictionary with two
+        # entries in it.
         assert len(summary["Escherichia coli"]) == 2
         assert summary["Escherichia coli"]["Escherichia coli (strain K12)"] == 1
         assert summary["Escherichia coli"]["Escherichia coli (strain SE11)"] == 1
@@ -1467,16 +1467,16 @@ code below to it.
         fh.write(yaml_text)
 
 In the code above we make use of the yaml module to convert our data structure
-to the YAML file format. The PyYAML is not part of the Python's standard library,
-but it is easily installed using ``pip``.
+to the YAML file format. The PyYAML package is not part of the Python's
+standard library, but it is easily installed using ``pip``.
 
 .. code-block:: none
 
     $ sudo pip install pyyaml
 
-The script also makes use of ``sys.stdin`` and ``sys.stdou`` to read from and
+The script also makes use of ``sys.stdin`` and ``sys.stdout`` to read from and
 write to the standard input and output streams respectively. This means that we
-can pipe in the content to our script and pipe output form our script. For example
+can pipe in the content to our script and pipe output from our script. For example
 to examine the YAML output using the ``less`` pager one could use the command below
 from within the scripts directory.
 

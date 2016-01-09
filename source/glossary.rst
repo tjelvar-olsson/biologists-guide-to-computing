@@ -71,6 +71,9 @@ Glossary
     State
         All the information, to which a program has access, at a particular point in time.
 
+    String
+        A list of characters used to represent text.
+
     TDD
         See :term:`test-driven development`
 
