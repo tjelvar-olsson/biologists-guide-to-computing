@@ -64,7 +64,7 @@ DOI: `10.1371/journal.pcbi.1003833 <https://dx.doi.org/10.1371/journal.pcbi.1003
 Geir Kjetil Sandve , Anton Nekrutenko, James Taylor, Eivind Hovig's article
 "Ten Simple Rules for Reproducible Computational Research" provides advice on how
 you can make your research more easily reproducible.
-DOI: `110.1371/journal.pcbi.1003285 <https://dx.doi.org/110.1371/journal.pcbi.1003285>`_
+DOI: `10.1371/journal.pcbi.1003285 <https://dx.doi.org/10.1371/journal.pcbi.1003285>`_
 
 Andrew Hunt and David Thomas'
 `The Pragmatic Programmer <https://pragprog.com/book/tpp/the-pragmatic-programmer>`_
