@@ -1,5 +1,5 @@
-Data munching
-=============
+Practical problem solving
+=========================
 
 
 Introduction

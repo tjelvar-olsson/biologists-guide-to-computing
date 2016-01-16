@@ -10,8 +10,9 @@ The Biologist's Guide to Computing
    first-steps-towards-automation
    structuring-and-storing-data
    keeping-track-of-your-work
-   data-munching
+   data-analysis
    data-visualisation
+   practical-problem-solving
    collaborating-on-manuscripts
    automation-is-your-friend
    next-steps
