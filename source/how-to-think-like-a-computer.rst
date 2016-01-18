@@ -84,7 +84,7 @@ One of the most prevalent character encodings is ASCII (American Standard Code
 for Information Interchange), which was first published in 1963. It has its roots in
 telegraphic codes. Based on the English alphabet it encodes 128 characters
 into 7-bit integers. These characters include: 0-9, a-z, A-Z, the space character,
-punctuations symbols and control codes for operating Teletype machines.
+punctuation symbols and control codes for operating Teletype machines.
 
 .. figure:: images/ASCII_Code_Chart-Quick_ref_card.png
    :alt: ASII code chart quick reference card.
@@ -107,8 +107,8 @@ convention, still in use in Windows, requires both the "line feed" and the
 in the printer and the latter the repositioning of the print-head. Another
 convention, used in Unix-like systems, is to simply use the line feed
 character to represent new lines. This can result in compatibility issues when
-opening Unix-like text files in some Windows programs. For example when
-open a multi-line file with Unix-based line endings in Notepad the text appears
+opening Unix-like text files in some Windows programs. For example when one
+opens a multi-line file with Unix-based line endings in Notepad the text appears
 like one long line.
 
 Many other character encodings are based on ASCII. A famous example is
@@ -148,7 +148,7 @@ represented would be :math:`12.7`.
 
 The fixed-point number representation has the disadvantage that the range of
 numbers that can be represented is relatively small. Consider an unsigned 8-bit
-integer. It can represent the range :math:`0` to math:`255`. With an implicit
+integer. It can represent the range :math:`0` to :math:`255`. With an implicit
 scaling factor of :math:`1/10` it can represent the numbers :math:`0.0` to
 :math:`25.5` with a step size of :math:`0.1`. With an implicit scaling factor
 of :math:`1/100` it could represent the numbers :math:`0.00` to :math:`2.55`
@@ -221,7 +221,7 @@ the first computers.
 
 Although you may not want to create your own computer having a basic
 understanding of Boolean logic will help you when implementing algorithms. For
-example one often need to make conditional logic statements along the lines of
+example one often needs to make conditional logic statements along the lines of
 "``IF`` the cell contains green fluorescent protein ``AND`` it is illuminated
 with light of wavelength 395 nm ``THEN`` it will emit fluorescence at 509 nm".
 

@@ -56,12 +56,12 @@ large volumes of data can feel overwhelming. One way to regain some control is
 to ensure that there is structure to the data. In
 :doc:`structuring-and-storing-data` important data structures and file formats
 for representing them are discussed. The chapter also highlights the value of
-using pain text files to store data. After reading this chapter you should have
+using plain text files to store data. After reading this chapter you should have
 a good idea of how you can store structured representations of your data as
 plain text files.
 
 Sooner or later when working on a project one wishes that one had done a better
-job of keeping records of one's work. What changes where made when? What
+job of keeping records of one's work. What changes were made when? What
 where the reasons behind the decisions to make those changes? This issue
 becomes even more accentuated when working on scripts and programs where
 tiny changes can have devastating effects. Because this is such an important

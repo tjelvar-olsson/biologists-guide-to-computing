@@ -262,7 +262,7 @@ You may have noticed that the workflow above, to view the last ten lines, took
 a little longer to complete.  That is because we needed to decompress the whole
 file before we could access the last ten lines of it.
 
-To page though an entire file one can use the ``less`` command.
+To page through an entire file one can use the ``less`` command.
 
 .. code-block:: none
 
@@ -312,7 +312,7 @@ will highlight the matched string as red.
     $ gunzip -c uniprot_sprot.fasta.gz | grep --color=always Homo | less
 
 If you scroll through the matches you will notice that we have some false
-positives. We can highlight these by performing anther ``grep`` command that
+positives. We can highlight these by performing another ``grep`` command that
 finds lines that do not contain the string "sapiens", using the
 ``--invert-match`` option or the equivalent ``-v`` short option.
 
