@@ -37,25 +37,6 @@ Here we use Python because it is easy to learn and because it is becoming the
 *de facto* scripting language in the scientific community.
 
 
-Downloading the genome
-----------------------
-
-.. code-block:: none
-
-    $ curl --location --output Sco.dna http://bit.ly/1Q8eKWT
-    $ head Sco.dna
-    SQ   Sequence 8667507 BP; 1203558 A; 3121252 C; 3129638 G; 1213059 T; 0 other;
-         cccgcggagc gggtaccaca tcgctgcgcg atgtgcgagc gaacacccgg gctgcgcccg        60
-         ggtgttgcgc tcccgctccg cgggagcgct ggcgggacgc tgcgcgtccc gctcaccaag       120
-         cccgcttcgc gggcttggtg acgctccgtc cgctgcgctt ccggagttgc ggggcttcgc       180
-         cccgctaacc ctgggcctcg cttcgctccg ccttgggcct gcggcgggtc cgctgcgctc       240
-         ccccgcctca agggcccttc cggctgcgcc tccaggaccc aaccgcttgc gcgggcctgg       300
-         ctggctacga ggatcggggg tcgctcgttc gtgtcgggtt ctagtgtagt ggctgcctca       360
-         gatagatgca gcatgtatcg ttggcagaaa tatgggacac ccgccagtca ctcgggaatc       420
-         tcccaagttt cgagaggatg gccagatgac cggtcaccac gaatctaccg gaccaggtac       480
-         cgcgctgagc agcgattcga cgtgccgggt gacgcagtat cagacggcgg gtgtgaacgc       540
-
-
 Using Python in interactive mode
 --------------------------------
 
@@ -80,8 +61,8 @@ commands can be entered.
 
 .. code-block:: python
 
-    >>> print("hello")
-    hello
+    >>> 1 + 2
+    3
 
 The secondary prompt, used for continuation lines, is represented by three dots
 (``...``).
@@ -98,13 +79,72 @@ The secondary prompt, used for continuation lines, is represented by three dots
 Variables
 ---------
 
-- Why use variables
-- When to use variables
-- How to name variables
+A variable is a means of storing a piece of information using using a
+descriptive name. The use of variables is encouraged as it allows us to
+avoid having to repeat ourselves, the :term:`DRY` principle.
+
+In Python variables are assigned using the equals sign.
+
+.. code-block:: python
+
+    >>> pi = 3.14
+
+When naming variables being explicit is more important than being succinct.
+One reason for this is that you will spend more time reading your code than
+you will writing it. Avoiding the mental overhead of trying to understand
+what all the acronyms mean is a good thing. So for example, suppose that we
+wanted to create a variable for storing the radius of a circle. Please
+avoid the temptation of naming the variable ``r``, and go for the longer
+but more explicit name ``radius``.
+
+.. code-block:: python
+
+    >>> radius = 1.5
 
 
 Determining the GC count of a sequence
 --------------------------------------
+
+Suppose that we had a :term:`string` representing a DNA sequence.
+
+.. code-block:: python
+
+    >>> dna_string = "ATTAGCGCAATCTAACTACACT"
+    >>> print(dna_string)
+    ATTAGCGCAATCTAACTACACT
+
+A string is a data type for representing text. As such it is not ideal for data
+processing purposes. In this case the DNA sequence would be better represented
+using a :term:`list`, where each item in the list is a DNA letter.
+
+In Python we can convert a string into a list using the built-in :func:`list`
+function.
+
+.. code-block:: python
+
+    >>> dna_list = list(dna_string)
+    >>> print(dna_list)  # doctest: +NORMALIZE_WHITESPACE
+    ['A', 'T', 'T', 'A', 'G', 'C', 'G', 'C', 'A', 'A', 'T', 'C', 'T', 'A', 'A',
+     'C', 'T', 'A', 'C', 'A', 'C', 'T']
+
+Python's list :term:`class` has got a method called :func:`count` that we can use
+to find out the counts of particular elements in the list.
+
+.. code-block:: python
+
+    >>> dna_list.count("A")
+    8
+
+To find out the total number of items in a list one can use Python's built-in
+:func:`len` function, which returns the *length* of the list.
+
+.. code-block:: python
+
+    >>> len(dna_list)
+    22
+
+- integer division
+- gc content calculation
 
 
 Creating reusable functions
@@ -120,6 +160,25 @@ Loops
 -----
 
 - Sliding window analysis of GC content
+
+
+Downloading the genome
+----------------------
+
+.. code-block:: none
+
+    $ curl --location --output Sco.dna http://bit.ly/1Q8eKWT
+    $ head Sco.dna
+    SQ   Sequence 8667507 BP; 1203558 A; 3121252 C; 3129638 G; 1213059 T; 0 other;
+         cccgcggagc gggtaccaca tcgctgcgcg atgtgcgagc gaacacccgg gctgcgcccg        60
+         ggtgttgcgc tcccgctccg cgggagcgct ggcgggacgc tgcgcgtccc gctcaccaag       120
+         cccgcttcgc gggcttggtg acgctccgtc cgctgcgctt ccggagttgc ggggcttcgc       180
+         cccgctaacc ctgggcctcg cttcgctccg ccttgggcct gcggcgggtc cgctgcgctc       240
+         ccccgcctca agggcccttc cggctgcgcc tccaggaccc aaccgcttgc gcgggcctgg       300
+         ctggctacga ggatcggggg tcgctcgttc gtgtcgggtt ctagtgtagt ggctgcctca       360
+         gatagatgca gcatgtatcg ttggcagaaa tatgggacac ccgccagtca ctcgggaatc       420
+         tcccaagttt cgagaggatg gccagatgac cggtcaccac gaatctaccg gaccaggtac       480
+         cgcgctgagc agcgattcga cgtgccgggt gacgcagtat cagacggcgg gtgtgaacgc       540
 
 
 Reading and writing files
