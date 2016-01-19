@@ -237,6 +237,11 @@ task well and a rich ecosystem of such programs. The user is then free to
 combine these programs to create personalised tools to automate repetitive
 processing tasks.
 
+Another powerful feature of pipes is that the program being piped to gets
+access to the output stream of data from the program piping data into the pipe
+as soon as it is available. This means that the processing of data can happen
+in parallel.
+
 
 Examining files, without modifying them
 ---------------------------------------
@@ -272,6 +277,13 @@ window.
     MSIIGATRLQNDKSDTYSAGPCYAGGCSAFTPRGTCGKDWDLGEQTCASGFCTSQPLCAR
     IKKTQVCGLRYSSKGKDPLVSAEWDSRGAPYVRCTYDADLIDTQAQVDQFVSMFGESPSL
     AERYCMRGVKNTAGELVSRVSSDADPAGGWCRKWYSAHRGPDQDAALGSFCIKNPGAADC
+
+The beauty of the ``head`` command is that it allows you to quickly view the
+beginning of a file without having to read in the content of the entire file.
+The latter can present a real problem if working on "big data" files. In fact,
+this is also the beauty of pipes, which allows downstream programs to work on
+the stream of data without having to wait for it to be written to or read from
+disk.
 
 By default the ``head`` command writes out the first ten lines. However, this
 can be modified using the ``-n`` option, for example to write out the first 20
