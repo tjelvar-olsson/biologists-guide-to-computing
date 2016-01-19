@@ -65,11 +65,11 @@ First of all let us make sure that we are working in our home directory.
 
     $ cd
 
-The ``cd`` command, short for change directory, is used to move between
+The ``cd`` command, short for *change directory*, is used to move between
 directories. If called without a path to a directory of interest it will
 move into your home directory.
 
-We can *print* out the name of the *current working* directory using the ``pwd``
+We can *print* out the name of the current *working directory* using the ``pwd``
 command. Furthermore we can *list* the contents of a directory using the ``ls``
 command.
 
@@ -124,7 +124,12 @@ However, because we are going to download a large file we would like to
 write it to disk for future use. Many command line programs allow the user to
 specify additional options. In this particular case we can use the
 ``--output`` option to specify a file name that the output should be
-written to.
+written to. To exemplify this let us download the BBC home page to a file named
+``bbc.html``.
+
+.. code-block:: none
+
+    $ curl --output bbc.html  www.bbc.com
 
 Here we will use a URL shortened using `bitly <https://bitly.com/>`_ to save on
 typing. The shortened URL contains a redirect to the relevant Swiss-Prot FASTA
@@ -135,6 +140,19 @@ to run the command:
 
     $ curl http://bit.ly/1l6SAKb
 
+.. sidebar:: What is URL shortening?
+
+    URL shortening is a means to make URLs shorter whilst still directing the
+    client to the desired page. It is achieved by using a redirect from a domain
+    that is short, to the page with the longer URL. To view the HTTP redirect
+    code, ``301 Moved Permenantly``, you can use ``curl``'s verbose option.
+
+    .. code-block:: none
+
+        $ curl --verbose http://bit.ly/1l6SAKb
+
+
+
 
 To allow the redirection to occur we need to use the ``--location`` option,
 which will redirect the request to the new location.
@@ -143,7 +161,6 @@ Let us download the gzipped FASTA file from the UniProt FTP site:
 .. code-block:: none
 
     $ curl --location --output uniprot_sprot.fasta.gz http://bit.ly/1l6SAKb
-
 
 The downloaded file ``uniprot_sprot.fasta.gz`` has been compressed using the
 ``gzip`` protocol.  We can extract it using the ``gunzip`` command.  However,
@@ -159,6 +176,19 @@ Try running the command:
 
 You should see a lot of FASTA lines printed to your terminal, or more formally speaking
 the standard output stream.
+
+.. sidebar:: What is a FASTA file?
+
+    FASTA is a simple file format for storing nucleotide or peptide sequences.
+    It consists of a single-line description, starting with the greater than
+    symbol (``>``), and a sequence which can be spread over several lines.
+
+    .. code-block:: none
+
+        >TATA box
+        TATAAA
+        >Pribnow box
+        TATAAT
 
 Options starting with two dashes, ``--``, are known as long options. Many of
 these long options also have abbreviated "short" options. For example, the

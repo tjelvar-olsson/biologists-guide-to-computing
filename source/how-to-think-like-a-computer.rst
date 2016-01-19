@@ -164,11 +164,19 @@ expressed as :math:`1.0 * 10^{-6}`. A consequence of this is that the numbers
 that can be expressed are not uniformly spaced, i.e. as the size of the
 exponent increases the step size between two representable numbers increases.
 
+.. sidebar:: Floating point number
+
+    Floating point is a means to represent real numbers. The term refers to the
+    fact that the radix point of the number is allowed to "float" relative to
+    the significant digits of the number. For example the numbers
+    :math:`12.7^{-10}`, :math:`12.7` and :math:`12.7^7` could all be expressed
+    by floating the radix point around the significant digits :math:`127`.
+
 All real numbers cannot be represented precisely using floating-point numbers.
 Furthermore, arithmetic operations on floating-point numbers cannot truly
 represent arithmetic operations. This can lead to issues with accuracy. We can
 illustrate this using Python (we will get more details on scripting and Python
-in the :doc:`data-munching` chapter).
+in the :doc:`data-analysis` chapter).
 
 .. code-block:: python
 
@@ -277,9 +285,11 @@ Loops often include a criteria for exiting the loop. If the criteria for
 exiting the loop is not defined, or it cannot be reached, the loop will keep
 cycling forever in what is termed an "infinite loop".
 
+Below is a basic C program illustrating a while loop. The loop terminates when
+the integer ``i`` is no longer less than 3.
+
 .. code-block:: C
-   :caption: Basic C program illustrating a while loop. The loop terminates
-             when the integer ``i`` is no longer less than 3.
+   :linenos:
 
    int main () {
       int i = 0;
@@ -288,6 +298,20 @@ cycling forever in what is termed an "infinite loop".
       }
       return 0;
    }
+
+In more detail, the lines 1 and 7 define a small set of code that forms the
+*main* part of the program. Line 2 defines an integer, ``i``, and sets it equal
+to 0. Lines 3 and 5 define a *while loop* to iterate as long as ``i`` is less
+than 3. Line 4 executes a command to change the value of ``i``. Line 6 states
+that the main program should return an exit status 0.
+
+.. sidebar:: What the exit status of a program?
+
+    The exit status of a program is a means for the program to state if it
+    was terminated normally or abnormally. The exit status :math:`0` means that the
+    program ended normally. Any other exit status means that the program
+    was terminated abnormally.
+
 
 
 Computer memory
@@ -310,6 +334,18 @@ Registry   Very fast  Very small      Very expensive  Yes
 RAM        Fast       Small/Moderate  Expensive       Yes
 Hard disk  Slow       Very large      Cheap           No
 =========  =========  ==============  ==============  ========
+
+One could liken these types of storage to different cooling devices in the lab.
+The minus 80 freezer is large and represents a way to store DNA plasmids and
+primers persistently. When preparing for a cloning experiment one may get
+samples of plasmids and primers and store them in the fridge in the lab for
+easy access. However, although the lab fridge provides easy access it does not
+present a permanent storage solution. Finally, when performing the cloning
+experiment one takes the samples out of the fridge and places them in an
+ice-bucket. The ice-bucket is a "working storage" solution to which one can
+have very fast access.  In the example above the minus 80 freezer represents
+the hard disk, the lab fridge represents RAM and the ice bucket represents the
+registry.
 
 If one is working with really large data sets the main bottleneck in the
 processing pipeline can be reading data from and writing data to memory.

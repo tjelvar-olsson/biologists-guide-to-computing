@@ -11,9 +11,9 @@ required for learning scripting. Scripting is covered in the context of solving
 biologically relevant problems.  The booklet also introduces many best
 practices for ensuring reproducibility and transparency in scientific research.
 
-Some chapters make use of the command line. This material is relevant for
-both Mac and Linux users, less so for people working on Windows. If you use
-Windows you can access a Linux distribution such as `Ubuntu
+Some chapters make use of the command line. This material is relevant to all
+Unix-like systems, which includes Macs and all variations of Linux, but not
+Windows. If you use Windows you can access a Linux distribution such as `Ubuntu
 <http://www.ubuntu.com/>`_ from within your Windows machine using a hypervisor
 such as `VirtualBox <https://www.virtualbox.org/>`_.
 
