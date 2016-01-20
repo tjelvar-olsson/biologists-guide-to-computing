@@ -113,9 +113,9 @@ Suppose that we had a :term:`string` representing a DNA sequence.
 
 .. code-block:: python
 
-    >>> dna_string = "attagcgcaatctaactacact"
+    >>> dna_string = "attagcgcaatctaactacactactgccgcgcggcatatatttaaatata"
     >>> print(dna_string)
-    attagcgcaatctaactacact
+    attagcgcaatctaactacactactgccgcgcggcatatatttaaatata
 
 A string is a data type for representing text. As such it is not ideal for data
 processing purposes. In this case the DNA sequence would be better represented
@@ -129,7 +129,9 @@ function.
     >>> dna_list = list(dna_string)
     >>> print(dna_list)  # doctest: +NORMALIZE_WHITESPACE
     ['a', 't', 't', 'a', 'g', 'c', 'g', 'c', 'a', 'a', 't', 'c', 't', 'a', 'a',
-     'c', 't', 'a', 'c', 'a', 'c', 't']
+     'c', 't', 'a', 'c', 'a', 'c', 't', 'a', 'c', 't', 'g', 'c', 'c', 'g', 'c',
+     'g', 'c', 'g', 'g', 'c', 'a', 't', 'a', 't', 'a', 't', 't', 't', 'a', 'a',
+     'a', 't', 'a', 't', 'a']
 
 Python's list :term:`class` has got a method called :func:`count` that we can use
 to find out the counts of particular elements in the list.
@@ -137,7 +139,7 @@ to find out the counts of particular elements in the list.
 .. code-block:: python
 
     >>> dna_list.count("a")
-    8
+    17
 
 To find out the total number of items in a list one can use Python's built-in
 :func:`len` function, which returns the *length* of the list.
@@ -145,7 +147,7 @@ To find out the total number of items in a list one can use Python's built-in
 .. code-block:: python
 
     >>> len(dna_list)
-    22
+    50
 
 When using Python you need to be careful when dividing integers, because in Python 2
 the default is to use integer division, i.e. to discard the remainder.
@@ -182,7 +184,7 @@ sequence.
     >>> gc_count = dna_list.count("g") + dna_list.count("c")
     >>> gc_frac = float(gc_count) / len(dna_list)
     >>> 100 * gc_frac
-    36.36363636363637
+    38.0
 
 
 Creating reusable functions
@@ -234,17 +236,168 @@ As with variables explicit trumps succinct in terms of naming.
     ...     return 100 * gc_fraction
     ...
     >>> gc_content(dna_list)
-    36.36363636363637
+    38.0
 
 
 List slicing
 ------------
 
-Suppose that we wanted to look at local variability in GC-content.
+Suppose that we wanted to look at local variability in GC-content. To achieve
+this we would like to be able to select segments of our initial list. This is
+known as "slicing", as in slicing up a salami.
+
+In Python slicing uses a ``[start:end]`` syntax that is inclusive for the start
+index and exclusive for the end index. To illustrate slicing let us first
+create a list to work with.
+
+.. code-block:: python
+
+    >>> zero_to_five = ["zero", "one", "two", "three", "four", "five"]
+
+To get the first two elements.
+
+.. code-block:: python
+
+    >>> zero_to_five[0:2]
+    ['zero', 'one']
+
+Note that the start position for the slicing is 0 by default so we could just
+as well have written.
+
+.. code-block:: python
+
+    >>> zero_to_five[:2]
+    ['zero', 'one']
+
+To get the last three elements.
+
+.. code-block:: python
+
+    >>> zero_to_five[3:]
+    ['three', 'four', 'five']
+
+It is worth noting that we can use negative indices, where -1 represents the
+last element. So to get all elements except the first and the last one could
+slice the list using the indices 1 and -1.
+
+.. code-block:: python
+
+    >>> zero_to_five[1:-1]
+    ['one', 'two', 'three', 'four']
+
+Let us now use list slicing to calculate the local GC-content measurements of
+our DNA.
+
+
+.. code-block:: python
+
+    >>> gc_content(dna_list[:10])
+    40.0
+    >>> gc_content(dna_list[10:20])
+    30.0
+    >>> gc_content(dna_list[20:30])
+    70.0
+    >>> gc_content(dna_list[30:40])
+    50.0
+    >>> gc_content(dna_list[40:50])
+    0.0
+
 
 Loops
 -----
 
+It can get a bit repetitive, tedious, and error prone specifying all the ranges
+manually. A better way to do this is to make use of a loop construct. A loop
+allows a program to cycle through the same set of operations a number of times.
+
+In lower level languages *while* loops are common because they operate in a way
+that closely mimic how the hardware works. The code below illustrates a typical
+setup of a while loop.
+
+.. code-block:: python
+
+    >>> cycle = 0
+    >>> while cycle < 5:
+    ...     print(cycle)
+    ...     cycle = cycle + 1
+    ...
+    0
+    1
+    2
+    3
+    4
+
+However, when working in Python it is much more common to make use of *for*
+loops. For loops are used to iterate over elements in data structures such as
+lists.
+
+.. code-block:: python
+
+    >>> for item in [0, 1, 2, 3, 4]:
+    ...     print(item)
+    ...
+    0
+    1
+    2
+    3
+    4
+
+In the above we had to manually write out all the numbers that we wanted. However,
+because iterating over a range of integers is such a common task Python has a
+built-in function for generating such lists.
+
+.. code-block:: python
+
+    >>> range(5)
+    [0, 1, 2, 3, 4]
+
+So a typical for loop might look like the below.
+
+    >>> for item in range(5):
+    ...     print(item)
+    ...
+    0
+    1
+    2
+    3
+    4
+
+The :func:`range` function can also be told to start at a larger number. Say for
+example that we wanted a list including the numbers 5, 6 and 7.
+
+.. code-block:: python
+
+    >>> range(5, 8)
+    [5, 6, 7]
+
+As with slicing the start value is included whereas the end value is excluded.
+
+It is also possible to alter the step size. To do this we must specify the start
+and end values explicitly before adding the step size.
+
+.. code-block:: python
+
+    >>> range(0, 50, 10)
+    [0, 10, 20, 30, 40]
+
+We are now in a position where we can create a naive loop for for calculating
+local GC-content of our DNA.
+
+.. code-block:: python
+
+    >>> for start in range(0, 50, 10):
+    ...     end = start + 10
+    ...     print(gc_content(dna_list[start:end]))
+    ...
+    40.0
+    30.0
+    70.0
+    50.0
+    0.0
+
+
+Creating a sliding window GC-content function
+---------------------------------------------
 
 - Sliding window analysis of GC content
 - def(sequence, window_size, step_size): 
