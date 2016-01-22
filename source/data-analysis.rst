@@ -395,9 +395,53 @@ local GC-content of our DNA.
     50.0
     0.0
 
+Loops are really powerful. They provide a means to iterate over lots of items
+and as such to automate repetitive tasks.
+
 
 Creating a sliding window GC-content function
 ---------------------------------------------
+
+So far we have been working with Python in interactive mode. This is a great
+way to explore what can be done with Python. It is also a handy way to get
+access to a calculator from the command line. However, it can get a little
+bit clunky when trying to write constructs that span serval lines, such as
+functions.
+
+Now we will examine how one can write a Python script as a text file and
+how to run that text file through the Python interpreter, i.e. how to
+run a Python script from the command line.
+
+Use your favourite text editor to enter the code below into a file
+named ``gc_content.py``.
+
+.. code-block:: python
+
+    sequence = list("attagcgcaatctaactacactactgccgcgcggcatatatttaaatata")
+    print(sequence)
+
+.. note:: If your text editor is not giving your syntax highlighting find out
+          how it can be enabled. If your text editor does not support syntax
+          highlighting find a better text editor!
+
+Open up a terminal and go to the directory where you saved the ``gc_content.py``
+script. Run the script using the command below.
+
+.. code-block:: none
+
+    $ python gc_content.py
+
+You should see the output below printed to your terminal.
+
+.. code-block:: none
+
+    ['a', 't', 't', 'a', 'g', 'c', 'g', 'c', 'a', 'a', 't', 'c', 't', 'a', 'a',
+    'c', 't', 'a', 'c', 'a', 'c', 't', 'a', 'c', 't', 'g', 'c', 'c', 'g', 'c',
+    'g', 'c', 'g', 'g', 'c', 'a', 't', 'a', 't', 'a', 't', 't', 't', 'a', 'a',
+    'a', 't', 'a', 't', 'a']
+
+In the script we used Python's built-in :func:`list` function to convert the
+DNA string into a list. We then printed out the ``sequence`` list.
 
 - Sliding window analysis of GC content
 - def(sequence, window_size, step_size): 
