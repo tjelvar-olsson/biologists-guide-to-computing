@@ -72,7 +72,7 @@ the examples in this chapter you should feel comfortable using Git to keep
 track of your work.
 
 When tackling more complex data analysis one needs to spend more time
-thinking about the problem up front. In the :doc:`data-munching` chapter we
-will look at techniques for breaking problems into smaller and more
+thinking about the problem up front. In the :doc:`practical-problem-solving`
+chapter we will look at techniques for breaking problems into smaller and more
 manageable chunks. The chapter also introduced the Python scripting language,
 string manipulation and regular expressions.
