@@ -15,5 +15,7 @@ The Biologist's Guide to Computing
    practical-problem-solving
    collaborating-on-manuscripts
    automation-is-your-friend
+   working-remotely
+   managing-your-system
    next-steps
    glossary
