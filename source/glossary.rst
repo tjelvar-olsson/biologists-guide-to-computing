@@ -32,6 +32,10 @@ Glossary
         A set of instructions for performing a procedure. Most commonly a function takes a
         set of arguments and returns a value.
 
+    List
+        A common data structure representing an ordered collection of elements. Also known
+        as an array.
+
     Method
         A method refers to a :term:`function` that is part of a :term:`class`.
 
