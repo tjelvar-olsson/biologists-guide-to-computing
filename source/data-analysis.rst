@@ -420,7 +420,7 @@ named ``gc_content.py``.
     sequence = list("attagcgcaatctaactacactactgccgcgcggcatatatttaaatata")
     print(sequence)
 
-.. note:: If your text editor is not giving your syntax highlighting find out
+.. note:: If your text editor is not giving you syntax highlighting find out
           how it can be enabled. If your text editor does not support syntax
           highlighting find a better text editor!
 
