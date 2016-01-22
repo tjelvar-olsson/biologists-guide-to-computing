@@ -4,7 +4,7 @@ Getting some motivation
 Why you should care about computing and coding
 ----------------------------------------------
 
-Computers can be powerful allies. The are ideal for automating repetitive tasks.
+Computers can be powerful allies. They are ideal for automating repetitive tasks.
 Furthermore, they can perform calculations and analysis that would be infeasible
 for the human brain alone.
 
@@ -14,7 +14,7 @@ generation of biological data. Data analysis is required to extract biological
 insights from this data. To a large extent the rate limiting factor in
 generating insight is the lack of appropriate data analysis tools.
 
-However, as an experimental biologist you may prefer to work in the lab over
+However, as a biologist you may prefer to work in the lab over
 sitting in front of the computer. You may even ask yourself if learning to
 program has any benefit to you whatsoever.
 
