@@ -230,7 +230,6 @@ As with variables explicit trumps succinct in terms of naming.
 .. code-block:: python
 
     >>> def gc_content(sequence):
-    ...     "Return GC-content as a percentage from a list of DNA letters."
     ...     gc_count = sequence.count("g") + sequence.count("c")
     ...     gc_fraction = float(gc_count) / len(sequence)
     ...     return 100 * gc_fraction
@@ -416,6 +415,7 @@ Use your favourite text editor to enter the code below into a file
 named ``gc_content.py``.
 
 .. code-block:: python
+    :linenos:
 
     sequence = list("attagcgcaatctaactacactactgccgcgcggcatatatttaaatata")
     print(sequence)
@@ -442,6 +442,102 @@ You should see the output below printed to your terminal.
 
 In the script we used Python's built-in :func:`list` function to convert the
 DNA string into a list. We then printed out the ``sequence`` list.
+
+Now let us add the :func:`gc_content` function to the script.
+
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 1-5, 8
+
+    def gc_content(sequence):
+        "Return GC-content as a percentage from a list of DNA letters."
+        gc_count = sequence.count("g") + sequence.count("c")
+        gc_fraction = float(gc_count) / len(sequence)
+        return 100 * gc_fraction
+
+    sequence = list("attagcgcaatctaactacactactgccgcgcggcatatatttaaatata")
+    print(gc_content(sequence))
+
+In the above the :func:`gc_content` function is implemented as per our
+exploration in our interactive session. The only difference is the
+addition of a, so called, "docstring" (documentation string) to the body
+of the function (line 2). The docstring is meant to document the purpose
+and usage of the function. Documenting the code in this way makes it
+easier for you, and others, to understand it.
+
+Note that the script now prints out the GC-content rather than the sequence
+(line 8). Let us run the updated script from the command line.
+
+.. code-block:: none
+
+    $ python gc_content.py
+    38.0
+
+Now let us implement a new function for performing a sliding window analysis.
+Add the code below to the start of the ``gc_content.py`` file.
+
+.. code-block:: python
+    :linenos:
+
+    def sliding_window_analysis(sequence, function, window_size=10):
+        """Return an iterator that yields (start, end, property) tuples.
+
+        Where start and end are the indices used to slice the input list
+        and property is the return value of the function given the sliced
+        list.
+        """
+        for start in range(0, len(sequence), window_size):
+            end = start + window_size
+            if end > len(sequence):
+                break
+            yield start, end, function(sequence[start:end])
+
+There is quite a lot going on in the code above so let us talk through it
+slowly. One of the first things to note is that the
+:func:`sliding_window_analysis` function takes another ``function`` as its
+second argument. Functions can be passed around just like variables and on line
+12 the ``function`` is repeatedly called with slices of the input sequence.
+
+The :func:`sliding_window_analysis` function also takes a ``window_size``
+argument. This defines the step size of the :func:`range` function used to
+generate the ``start`` indices for the slicing. Note that in this case we
+provide the ``window_size`` argument with a default value of 10. This means
+that the ``window_size`` argument does not need to be explicitly set when
+calling the function (if one is happy with the default).
+
+On line 9, inside the for loop, we generate the ``end`` index by adding the
+``window_size`` to the ``start`` index. This is followed by a check that the
+generated ``end`` index would not result in a list slice that spanned beyond
+the end of the sequence.
+
+At the end of the for loop we make use of the ``yield`` keyword to pass on the
+``start`` and ``end`` indices as well as the value resulting from calling the
+input ``function`` with the sequence slice.  This means that rather than
+returning a value the :func:`sliding_window_analysis` function returns an
+iterator. As the name suggests an "iterator" is an object that one can iterate
+over, for example using a *for* loop. Let us add some code to the script to
+illustrate how one would use the :func:`sliding_window_analysis` function in
+practise.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 20
+    :emphasize-lines: 2-3
+
+    sequence = list("attagcgcaatctaactacactactgccgcgcggcatatatttaaatata")
+    for start, end, gc in sliding_window_analysis(sequence, gc_content):
+        print(start, end, gc)
+
+Let us test the code again.
+
+.. code-block:: none
+
+    $ python gc_content.py
+    (0, 10, 40.0)
+    (10, 20, 30.0)
+    (20, 30, 70.0)
+    (30, 40, 50.0)
+    (40, 50, 0.0)
 
 - Sliding window analysis of GC content
 - def(sequence, window_size, step_size): 
