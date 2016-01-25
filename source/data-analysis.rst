@@ -539,12 +539,83 @@ Let us test the code again.
     (30, 40, 50.0)
     (40, 50, 0.0)
 
-- Sliding window analysis of GC content
-- def(sequence, window_size, step_size): 
+The current implementation of the :func:`sliding_window_analysis` is very
+dependent on the frame of reference as the window slides along. For example if
+the ``window_size`` argument was set to 3 one would obtain the analysis of the
+first codon reading frame, but one would have no information about the second
+and third codon reading frames. To overcome this one can perform sliding window
+analysis with overlapping windows. Let us illustrate this visually by extracting
+codons from a DNA sequence.
+
+.. code-block:: none
+
+    # Original sequence.
+    atcgctaaa
+
+    # Non overlapping windows.
+    atc
+       gct
+          aaa
+
+    # Overalpping windows.
+    atc
+     tcg
+      cgc
+       gct
+        cta
+         taa
+          aaa
+
+To enable overlapping windows in our :func:`sliding_window_analysis` function
+we need to add a ``step_size`` argument to it and make use of this in the call
+to the :func:`range` function.
+
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 1, 8
+
+    def sliding_window_analysis(sequence, function, window_size=10, step_size=5):
+        """Return an iterator that yields (start, end, property) tuples.
+
+        Where start and end are the indices used to slice the input list
+        and property is the return value of the function given the sliced
+        list.
+        """
+        for start in range(0, len(sequence), step_size):
+            end = start + window_size
+            if end > len(sequence):
+                break
+            yield start, end, function(sequence[start:end])
+
+Let us run the script again to see what the output of this overlapping sliding
+window analysis is.
+
+.. code-block:: none
+
+    $ python gc_content.py
+    (0, 10, 40.0)
+    (5, 15, 40.0)
+    (10, 20, 30.0)
+    (15, 25, 40.0)
+    (20, 30, 70.0)
+    (25, 35, 100.0)
+    (30, 40, 50.0)
+    (35, 45, 0.0)
+    (40, 50, 0.0)
+
+Note that the :func:`gc_content` function is now applied to overlapping
+segments of DNA. This allows us, for example, to note that the 25 to 35 region
+has a GC-content of 100%, which is something that we did not manage to pick out
+before.
 
 
 Downloading the genome
 ----------------------
+
+It is time to start working on some real data. Let us download the genome of
+*Streptomyces coelicolor* from the `Sanger Centre ftp site
+<ftp://ftp.sanger.ac.uk/pub/project/pathogens/S_coelicolor/whole_genome/>`_. The
+URL shortened using `bitly <https://bitly.com/>`_ point to the ``Sco.dna`` file.
 
 .. code-block:: none
 
