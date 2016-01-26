@@ -636,9 +636,191 @@ URL shortened using `bitly <https://bitly.com/>`_ point to the ``Sco.dna`` file.
 Reading and writing files
 -------------------------
 
-- Reading in the streptomyces sequence
-- Writing out the sliding window analysis
+In order to be able to process the genome of *Streptomyces coelicolor* we need
+to be able to read in the ``Sco.dna`` file. In Python reading and writing of files
+is achieved using the built-in :func:`open` function, which returns a file handle.
+
+.. sidebar:: What is a file handle?
+
+    A file handle is a data structure that handles the book keeping of the
+    position within the file as well as the mode in which the file was opened. 
+    The mode of the file determines what one can do with it. For example one
+    cannot write to a file that has been opened for reading. The position of
+    the file handle determines where the next operation will take place. For
+    example, if one is about to write something to a file existing content will
+    be overwritten unless the position is pointing at the end of the file, in
+    which case the new content will be appended to the old.
+
+
+Before we start adding code to our script let us examine reading and writing of files
+using in Python's interactive mode. Let us open up the ``Sco.dna`` file for reading.
+
+.. code-block:: python
+
+    >>> file_handle = open("Sco.dna", mode="r")
+
+We can access the current position within the file using the :func:`tell` method of
+the file handle.
+
+.. code-block:: python
+
+    >>> file_handle.tell()
+    0
+
+The integer zero indicates that we are at the beginning of the file.
+
+To read in the entire content of the file as a single string of text one can use the
+:func:`read` method of the file handle.
+
+.. code-block:: python
+
+    >>> text = file_handle.read()
+
+After having read in the content of the file the position of the file handle
+will point at the end of the file.
+
+.. code-block:: python
+
+    >>> file_handle.tell()
+    11701261
+
+When one has finished working with a file handle it is important to remember to
+close the file.
+
+.. code-block:: python
+
+    >>> file_handle.close()
+
+Let us examine the text that we read in.
+
+.. code-block:: python
+
+    >>> type(text)
+    <type 'str'>
+    >>> len(text)
+    11701261
+    >>> text[:60]
+    'SQ   Sequence 8667507 BP; 1203558 A; 3121252 C; 3129638 G; 1'
+
+However, rather than reading in files as continuous strings one often want to process
+files line by line. One can read in a file as a list of lines using the :func:`readlines()`
+method.
+
+.. code-block:: python
+
+    >>> file_handle = open("Sco.dna", "r")
+    >>> lines = file_handle.readlines()
+    >>> file_handle.close()
+
+Let us examine the lines that we read in.
+
+.. code-block:: python
+
+    >>> type(lines)
+    <type 'list'>
+    >>> len(lines)
+    144461
+    >>> lines[0]
+    'SQ   Sequence 8667507 BP; 1203558 A; 3121252 C; 3129638 G; 1213059 T; 0 other;\n'
+
+A third way of accessing the content of a file handle is to simply treat it as
+an iterator. This is possible as the Python file handles implement a method called
+:func:`next` that returns the next line in the file. When it reaches the end of the
+file the :func:`next` function raises a ``StopIteration`` exception, which tells the
+iterator to stop iterating.
+
+Let's see the workings of the :func:`next` method in action.
+
+.. code-block:: python
+
+    >>> file_handle = open("Sco.dna", "r")
+    >>> file_handle.next()
+    'SQ   Sequence 8667507 BP; 1203558 A; 3121252 C; 3129638 G; 1213059 T; 0 other;\n'
+    >>> file_handle.next()
+    '     cccgcggagc gggtaccaca tcgctgcgcg atgtgcgagc gaacacccgg gctgcgcccg        60\n'
+
+We can go to the end of the file using the :func:`seek` method of the file handle.
+
+.. code-block:: python
+
+    >>> file_handle.seek(11701261)
+
+Let's see what happens when we call the :func:`next` method now.
+
+.. code-block:: python
+
+    >>> file_handle.next()
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    StopIteration
+
+As explained above this raises a ``StopIteration`` exception. Now that we are done
+with our experiment we must remember to close the file handle.
+
+.. code-block:: python
+
+    >>> file_handle.close()
+
+Having to constantly remember to close file handles when one is done with them
+can become tedious. Furthermore, forgetting to close file handles can have dire
+consequences. To make life easier one can make use of Python's built-in ``with``
+keyword.
+
+The ``with`` keywords works with, so called, context managers. A context
+manager implements the so called "context manager protocol". In the case of a
+file handle this means that the file is opened when one enters into the context
+of the ``with`` statement and that the file is automatically closed when one
+exits out of the context. All that is a fancy way of saying that we do not need
+to worry about remembering to close files if we access file handles using the
+syntax below.
+
+.. code-block:: python
+
+    >>> with open("Sco.dna", mode="r") as file_handle:
+    ...     text = file_handle.read()
+    ...
+
+Let us shift the focus to the writing of files. There are two modes for writing
+files ``w`` and ``a``. The former will overwrite any existing files with the
+same name whereas the latter would append to them. Let us illustrate this with
+an example.
+
+.. code-block:: python
+
+    >>> with open("tmp.txt", "w") as file_handle:
+    ...     file_handle.write("Original message")
+    ...
+    >>> with open("tmp.txt", "r") as file_handle:
+    ...     print(file_handle.read())
+    ...
+    Original message
+    >>> with open("tmp.txt", "a") as file_handle:
+    ...     file_handle.write(", with more info")
+    ...
+    >>> with open("tmp.txt", "r") as file_handle:
+    ...     print(file_handle.read())
+    ...
+    Original message, with more info
+    >>> with open("tmp.txt", "w") as file_handle:
+    ...     file_handle.write("scrap that...")
+    ...
+    >>> with open("tmp.txt", "r") as file_handle:
+    ...     print(file_handle.read())
+    ...
+    scrap that...
+
+Armed with our new found knowledge of how to read and write files we will now
+create a function for reading in the DNA sequence from the ``Sco.dna`` file.
+
+Creating a function for reading in the *Streptomyces* sequence
+--------------------------------------------------------------
+
+
+Writing out the sliding window analysis
+---------------------------------------
 
 
 Key concepts
 ------------
+
+- Iterators, next(), StopIteration
