@@ -761,6 +761,24 @@ with our experiment we must remember to close the file handle.
 
     >>> file_handle.close()
 
+In practise one tends to use file handles directly within for loops.
+
+.. code-block:: python
+
+    >>> num_lines = 0
+    >>> file_handle = open("Sco.dna", "r")
+    >>> for line in file_handle:
+    ...     num_lines = num_lines + 1
+    ...
+    >>> print(num_lines)
+    144461
+
+Again we must not forget to close the file handle.
+
+.. code-block:: python
+
+    >>> file_handle.close()
+
 Having to constantly remember to close file handles when one is done with them
 can become tedious. Furthermore, forgetting to close file handles can have dire
 consequences. To make life easier one can make use of Python's built-in ``with``
