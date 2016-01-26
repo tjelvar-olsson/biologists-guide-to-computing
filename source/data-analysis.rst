@@ -833,6 +833,120 @@ create a function for reading in the DNA sequence from the ``Sco.dna`` file.
 Creating a function for reading in the *Streptomyces* sequence
 --------------------------------------------------------------
 
+Now let us create a function that returns a DNA sequence as a list. At this
+point we have a choice of what the input parameter should be. We could give the
+function the name of the file containing the genome or we could give the
+function a file handle of the genome. Personally, I prefer to create functions
+that accept file handles, because they are more generic. Sometimes the data to
+be read comes from sources other than a file on disk. However, as long as these
+behave as a file object one can still pass them to the function.
+
+Let us have a look at the file containing the *Streptomyces coelicolor* genome.
+
+.. code-block:: none
+
+    $ head Sco.dna
+    SQ   Sequence 8667507 BP; 1203558 A; 3121252 C; 3129638 G; 1213059 T; 0 other;
+         cccgcggagc gggtaccaca tcgctgcgcg atgtgcgagc gaacacccgg gctgcgcccg        60
+         ggtgttgcgc tcccgctccg cgggagcgct ggcgggacgc tgcgcgtccc gctcaccaag       120
+         cccgcttcgc gggcttggtg acgctccgtc cgctgcgctt ccggagttgc ggggcttcgc       180
+         cccgctaacc ctgggcctcg cttcgctccg ccttgggcct gcggcgggtc cgctgcgctc       240
+         ccccgcctca agggcccttc cggctgcgcc tccaggaccc aaccgcttgc gcgggcctgg       300
+         ctggctacga ggatcggggg tcgctcgttc gtgtcgggtt ctagtgtagt ggctgcctca       360
+         gatagatgca gcatgtatcg ttggcagaaa tatgggacac ccgccagtca ctcgggaatc       420
+         tcccaagttt cgagaggatg gccagatgac cggtcaccac gaatctaccg gaccaggtac       480
+         cgcgctgagc agcgattcga cgtgccgggt gacgcagtat cagacggcgg gtgtgaacgc       540
+
+From this we want a function that:
+
+1. Discards the first line, as it does not contain any sequence
+2. Iterates over all subsequent lines extracting the relevant sequence from them
+
+Extracting the relevant sequence can be achieved by noting that each sequence
+line consists of seven "words", where a word is defined as a set of characters
+separated by one or more white spaces. The first six words correspond to sequence,
+whereas the last word is an index listing the number of nucleotide bases.
+
+Let us implement such a function. Add the lines below to the top of the
+``gc_content.py`` file.
+
+.. code-block:: python
+    :linenos:
+
+    def parse_dna(file_handle):
+        """Return DNA sequence as a list."""
+        first_line = file_handle.next()  # Discard the first line.
+        sequence = []
+        for line in file_handle:
+            words = line.split()
+            seq_string = "".join(words[:-1])
+            seq_list = list(seq_string)
+            sequence.extend(seq_list)
+        return sequence
+
+There are a couple of new string methods introduced in the above, let's explain
+them now. On line six we use the :func:`split` method to split the string into
+a list of words, by default the :func:`split` method splits text based on one
+or more white space characters.
+
+On line seven we use the :func:`join` method to join the words together, in
+this instance we there are no characters separating the words to be joined. It is
+worth clarifying this with an example, if we wanted to join the words using a
+comma character one would use the syntax ``",".join(words[:1])``.
+
+On line seven it is also worth noting that we exclude the last word (the
+numberical index) by making use of list slicing ``words[:-1]``.
+
+Finally, on line nine we make use of the list method :func:`extend`, this
+extends the existing ``sequence`` list with all the elements from the
+``seq_list`` list.
+
+Now let us update the ``gc_content.py`` script to initalise the sequence by
+parsing the ``Sco.dna`` file.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 31
+    :emphasize-lines: 1-2
+
+    with open("Sco.dna", "r") as file_handle:
+        sequence = parse_dna(file_handle)
+
+    for start, end, gc in sliding_window_analysis(sequence, gc_content):
+        print(start, end, gc)
+
+Finally, let us change the default ``window_size`` and ``step_size`` values. In
+the below I have split the function definition over two lines so as not to make
+the line exceed 78 characters. Exceeding 78 characters is considered poor "style".
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 12
+    :emphasize-lines: 1-2
+
+    def sliding_window_analysis(sequence, function,
+                                window_size=100000, step_size=5000):
+        """Return an iterator that yields (start, end, property) tuples.
+
+        Where start and end are the indices used to slice the input list
+        and property is the return value of the function given the sliced
+        list.
+        """
+
+Let us run the script again.
+
+.. code-block:: none
+
+     $ python gc_content.py
+
+Note that this will produce a lot of output. To find out the number of lines
+that are generated we can make use of piping and the ``wc -l`` command.
+
+.. code-block:: none
+
+    $ python gc_content.py | wc -l
+        1714
+
 
 Writing out the sliding window analysis
 ---------------------------------------
