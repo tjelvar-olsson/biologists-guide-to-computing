@@ -33,7 +33,7 @@ Python is a high-level scripting language that is growing in popularity in the
 scientific community. It uses a syntax that is relatively easy to get to grips
 with and which encourages code readability.
 
-Python is used because it is easy to learn and because it is becoming the
+Python is used here because it is easy to learn and because it is becoming the
 *de facto* scripting language in the scientific community.
 
 
@@ -214,10 +214,10 @@ function is followed by a parenthesized set of arguments, in this case the
 function takes two arguments ``a`` and ``b``. The end of the function
 definition is marked using a colon.
 
-The body of the function, the return statement, needs to be indented. The
-standard in Python is to use four white spaces to indent code blocks. In this
-case the function body only contains one line of code. However, a function
-can include several indented lines of code.
+The body of the function, in this example the ``return`` statement, needs to be
+indented. The standard in Python is to use four white spaces to indent code
+blocks. In this case the function body only contains one line of code. However,
+a function can include several indented lines of code.
 
 .. warning:: Whitespace really matters in Python! If your code is not correctly
              aligned you will see ``IndentationError`` messages telling you
@@ -284,7 +284,7 @@ slice the list using the indices 1 and -1.
     >>> zero_to_five[1:-1]
     ['one', 'two', 'three', 'four']
 
-Let us now use list slicing to calculate the local GC-content measurements of
+We can use list slicing to calculate the local GC-content measurements of
 our DNA.
 
 
@@ -380,7 +380,7 @@ and end values explicitly before adding the step size.
     [0, 10, 20, 30, 40]
 
 We are now in a position where we can create a naive loop for for calculating
-local GC-content of our DNA.
+the local GC-content of our DNA.
 
 .. code-block:: python
 
@@ -402,7 +402,7 @@ Creating a sliding window GC-content function
 ---------------------------------------------
 
 So far we have been working with Python in interactive mode. This is a great
-way to explore what can be done with Python. It is also a handy way to get
+way to explore what can be achieved with Python. It is also a handy way to get
 access to a calculator from the command line. However, it can get a little
 bit clunky when trying to write constructs that span serval lines, such as
 functions.
@@ -492,7 +492,7 @@ Add the code below to the start of the ``gc_content.py`` file.
                 break
             yield start, end, function(sequence[start:end])
 
-There is quite a lot going on in the code above so let us talk through it
+There is quite a lot going on in the code above so let us walk through it
 slowly. One of the first things to note is that the
 :func:`sliding_window_analysis` function takes another ``function`` as its
 second argument. Functions can be passed around just like variables and on line
@@ -784,7 +784,7 @@ can become tedious. Furthermore, forgetting to close file handles can have dire
 consequences. To make life easier one can make use of Python's built-in ``with``
 keyword.
 
-The ``with`` keywords works with, so called, context managers. A context
+The ``with`` keywords works with context managers. A context
 manager implements the so called "context manager protocol". In the case of a
 file handle this means that the file is opened when one enters into the context
 of the ``with`` statement and that the file is automatically closed when one
@@ -895,7 +895,7 @@ worth clarifying this with an example, if we wanted to join the words using a
 comma character one would use the syntax ``",".join(words[:1])``.
 
 On line seven it is also worth noting that we exclude the last word (the
-numberical index) by making use of list slicing ``words[:-1]``.
+numerical index) by making use of list slicing ``words[:-1]``.
 
 Finally, on line nine we make use of the list method :func:`extend`, this
 extends the existing ``sequence`` list with all the elements from the
@@ -917,7 +917,9 @@ parsing the ``Sco.dna`` file.
 
 Finally, let us change the default ``window_size`` and ``step_size`` values. In
 the below I have split the function definition over two lines so as not to make
-the line exceed 78 characters. Exceeding 78 characters is considered poor "style".
+the line exceed 78 characters. Exceeding 78 characters is considered poor "style"
+because it makes it difficult to read the code.
+
 
 .. code-block:: python
     :linenos:
