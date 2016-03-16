@@ -51,7 +51,7 @@ the command below.
     $ man ls
 
 To get out of the "man-page" press the "q" key. Just like I encourage you to try
-out the examples outlined in this chapter I also encourage you to examine the
+out the examples outlined in this chapter, I also encourage you to examine the
 help and man-page documentation for the commands that we use to get a better
 understanding of what the commands do.
 
@@ -152,8 +152,6 @@ to run the command:
         $ curl --verbose http://bit.ly/1l6SAKb
 
 
-
-
 To allow the redirection to occur we need to use the ``--location`` option,
 which will redirect the request to the new location.
 Let us download the gzipped FASTA file from the UniProt FTP site:
@@ -174,7 +172,7 @@ Try running the command:
 
     $ gunzip --to-stdout uniprot_sprot.fasta.gz
 
-You should see a lot of FASTA lines printed to your terminal, or more formally speaking
+You should see a lot of FASTA lines printed to your terminal, or more formally
 the standard output stream.
 
 .. sidebar:: What is a FASTA file?
@@ -201,6 +199,9 @@ running the command:
 
 From now on the text will use the short ``-c`` option rather than the long
 ``--to-stdout`` option to save on typing.
+
+.. note:: Remember that you can use the ``--help`` or ``-h`` option to get
+          information on the meanings of the various options available to you.
 
 
 Creating a work flow using pipes
@@ -412,6 +413,9 @@ include the content of both lines below in a single line, omitting the ``\``.
     $ gunzip -c uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" \
     | cut -d '|' -f 2
 
+In the above the ``-d`` option specifies the delimiter to use to split split
+the line, in this instance the pipe symbol (``|``). The ``-f 2`` option
+specifies that we want to extract the second field.
 
 
 Using redirection to create an output file
@@ -437,7 +441,7 @@ Now if you run the ``ls`` command you will see the file
 .. sidebar:: The ``<`` redirection command
 
              There is a third type of redirection ``<``. This type of redirection
-             is so common that is often made implicit. The two commands below, for
+             is so common that it is often made implicit. The two commands below, for
              example, are equivalent.
             
              .. code-block:: none
@@ -469,12 +473,14 @@ Not to worry. You can view the history of your previous commands using ``history
     $ history
 
 Note that each command has a history number associated with it.  You can use
-the number in the history this to rerun a previous command without having to
+the number in the history to rerun a previous command without having to
 retype it. For example to rerun command number 597 you would type in:
 
 .. code-block:: none
 
     $ !597
+
+Note that the exclamation mark (``!``) in the above is required.
 
 
 Clearing the terminal window
@@ -497,6 +503,9 @@ shell can start displaying garbage. In these cases it may help to run the
 .. code-block:: none
 
     $ reset
+
+In general it is advisable to use ``clear`` as it only clears the terminal screen
+whereas ``reset`` reinitialises the terminal.
 
 
 Copying and renaming files
@@ -560,6 +569,8 @@ the recursive option:
     $ rm -r backup
 
 .. warning:: Think twice before deleting files, they will be deleted permanently.
+             When using ``rm`` there is no such thing as recycle bin from which
+             the files can be recovered.
 
 
 Key concepts
@@ -572,3 +583,4 @@ Key concepts
 - Pipes can be used to combine different programs into more complicated work flows
 - In general it is better to create small tools that do one thing well
 - Think twice before deleting files
+- Use the ``-help`` option  to understand a command and its options
