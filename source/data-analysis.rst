@@ -953,8 +953,89 @@ that are generated we can make use of piping and the ``wc -l`` command.
 Writing out the sliding window analysis
 ---------------------------------------
 
+Finally we will write out the analysis to a text file. Since this data is tabular
+we will use the CSV file format.
+
+Edit the end of the ``gc_content.py`` script to make it look like the below.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 32
+    :emphasize-lines: 4-9
+
+    with open("Sco.dna", "r") as file_handle:
+        sequence = parse_dna(file_handle)
+
+    with open("local_gc_content.csv", "w") as file_handle:
+        header = "start,end,gc_content\n"
+        file_handle.write(header)
+        for start, end, gc in sliding_window_analysis(sequence, gc_content):
+            row = "{},{},{}\n".format(start, end, gc)
+            file_handle.write(row)
+
+On line 35 we open a file handle to write to. On lines 36 and 37 we write a header
+to the CSV file. Lines 38 to 40 then performs the sliding window analysis and
+writes the results as rows, or lines if you prefer, to the CSV file.
+
+The main new feature introduced in the code snippet above is on line 39 where
+we use Python's built in string formatting functionality. The matching curly
+braces in the string are replaced with the content of the :meth:`format` string
+method. Let us illustrate this with an example in interactive mode.
+
+.. code-block:: python
+
+    >>> print("{},{},{}")
+    {},{},{}
+    >>> print("{},{},{}".format(1, 10, 38.5))
+    1,10,38.5
+
+Okay, let us see what happens when we run the script.
+
+.. code-block:: none
+
+    $ python gc_content.py
+
+This should have created a file named ``local_gc_content.csv`` in the working directory.
+
+.. code-block:: none
+
+    $ ls
+    Sco.dna
+    gc_content.py
+    local_gc_content.csv
+
+We can examine the top of this newly created file using the ``head`` command.
+
+.. code-block:: none
+
+    $ head local_gc_content.csv
+    start,end,gc_content
+    0,100000,69.124
+    5000,105000,69.323
+    10000,110000,69.489
+    15000,115000,69.794
+    20000,120000,70.005
+    25000,125000,70.1
+    30000,130000,70.197
+    35000,135000,70.12
+    40000,140000,70.213
+
+
+Well done! We have covered a lot of ground in this chapter. I suggest digging out
+some good music and chilling out for a bit.
 
 Key concepts
 ------------
 
-- Iterators, next(), StopIteration
+- Python is a powerful scripting language that is popular in the scientific community
+- You can explore Python's syntax using it's interactive mode
+- Variables and functions help us to avoid having to repeat ourselves, the :term:`DRY` principle
+- When naming variables and functions explicit trumps succinct
+- Loops are really powerful, they form the basis of automating repetitive tasks
+- Files are accessed using file handles
+- A file handle is a data structure that handles the book keeping of the
+  position within the file and the mode in which it was opened
+- The mode of the file handle determines how you will interact with the file
+- Read mode only allows reading of a file
+- Append mode will keep the existing content of a file and append to it
+- Write mode will delete any previous content and before writing to it
