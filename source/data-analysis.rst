@@ -1038,4 +1038,4 @@ Key concepts
 - The mode of the file handle determines how you will interact with the file
 - Read mode only allows reading of a file
 - Append mode will keep the existing content of a file and append to it
-- Write mode will delete any previous content and before writing to it
+- Write mode will delete any previous content before writing to it
