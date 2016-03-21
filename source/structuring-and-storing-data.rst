@@ -181,7 +181,7 @@ popular file formats for doing this `JavaScript Object Notation
     recursive acronyms include GNU (GNU's Not Unix), curl (C URL Request
     Library) and Fiji (Fiji Is Just ImageJ).
 
-JSON was designed to be easy to for machines to generate and parse and is used
+JSON was designed to be easy for machines to generate and parse and is used
 extensively in web applications as it can be directly converted to JavaScript
 objects. Below is an example of JSON representing a list of scientific discoveries, where
 each discovery contains a set of key value pairs.
@@ -241,8 +241,14 @@ to the reader. These comments are ignored by programs parsing the files.
 
 .. sidebar:: Comments
 
-    Comments are a comon feature of most programming languages. They allow the programmer
+    Comments are a common feature of most programming languages. They allow the programmer
     to explain the intention of the code and to make generic notes for future reference.
+
+    Comments begin with a program-specific character, or sequence of characters, in the example
+    above the hash (``#``) symbol. In some languages comments require a closing
+    sequence as well, for example a comment in HTML begins with ``<!--`` and ends
+    with ``-->``.
+
 
 Find a good text editor and learn how to use it
 -----------------------------------------------
@@ -267,7 +273,7 @@ two give much more power, but are somewhat more difficult to learn.
     like this because using the mouse for extended periods of time makes my
     index finger hurt.
 
-    If you have half an hour spare I highly recommend that you try running
+    If you have half an hour to spare I highly recommend that you try running
     the ``vimtutor`` command in a terminal.
 
 
