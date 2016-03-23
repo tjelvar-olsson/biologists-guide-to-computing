@@ -16,7 +16,7 @@ those proteins across all species characterised in SwissProt.
 We will do this by developing scripts to analyse the data in the SwissProt
 FASTA file. When developing scripts it is often beneficial to build them up one
 step at a time, adding functionality as one goes along. However, as scripts
-become more complex one often accidentally break them whilst trying to add
+become more complex one often accidentally breaks them whilst trying to add
 more functionality. To make things worse it can often be difficult to remember
 what changes were introduced since the last working state of the code.
 
@@ -58,8 +58,8 @@ create a new directory with this name and setup tracking of files within it.
     git init protein-number-vs-size
     cd protein-number-vs-size/
 
-Use your editor of choice and create the file ``README.md`` and add the content
-below to it.
+Use your editor of choice and create the markdown file ``README.md`` and add
+the content below to it.
 
 .. code-block:: none
 
@@ -95,8 +95,9 @@ command ``git status``.
 
     nothing added to commit but untracked files present (use "git add" to track)
 
-This tells us that the ``README.md`` file is untracked. However, we would like to
-track it, so we add it to the Git repository using the ``git add`` command.
+This tells us that the ``README.md`` file is untracked, in other words it is
+not yet under version control in Git.. However, we would like to track it, so
+we add it to the Git repository using the ``git add`` command.
 
 .. code-block:: none
 
@@ -130,7 +131,7 @@ command.
           will be used, which is likely to be ``vim`` if you have not
           configured it to be something else.
 
-That's all you need to know to get stared with Git. Start by initialising a
+That's all you need to know to get started with Git. Start by initialising a
 project using ``git init``. Then use ``git add`` and ``git commit`` iteratively
 to stage and commit snapshots of your project to version control.
 
@@ -164,7 +165,7 @@ shebang, and is used to specify the shell to use when executing the content of t
 file.
 
 However, in order to be able to execute the file, i.e. run it as a program, it
-needs to have execute permissions. One can view the current set of permissions
+needs to have "execute permissions". One can view the current set of permissions
 of a file by using ``ls -l``.
 
 .. code-block:: none
@@ -177,17 +178,20 @@ remaining nine relate to the permissions of the file.  There are three modes
 that can  be turned on or off: read (``r``), write (``w``) and execute (``x``).
 Furthermore, these can be specified for the owner (``u``), group (``g``) and
 all users (``a`` or ``o``). The nine characters above state that the owner has
-read and write permissions on the file ``rw-`` and whereas both the group and
+read and write permissions on the file ``rw-``, whereas both the group and
 all other users only have permission to read the file ``r--``.
 
 Let us give the file execute permissions. This is achieved using the ``chmod``
-command, mnemonic "change file modes".
+command, mnemonic "change file modes". The ``chmod`` command can be invoked in
+a number of different ways. Here we use the symbolic mode to specify that the
+user and the group (``ug``) should be given execute permissions (``+x``) on the
+``scripts/get_data.bash`` file.
 
 .. code-block:: none
 
-    $ chmod a+x scripts/get_data.bash
+    $ chmod ug+x scripts/get_data.bash
     $ ls -l scripts/get_data.bash
-    -rwxr-xr-x  1 olssont  1340193827  88 29 Nov 10:45 scripts/get_data.bash
+    -rwxr-xr--  1 olssont  1340193827  88 29 Nov 10:45 scripts/get_data.bash
 
 Let us test the script by running it.
 
@@ -278,7 +282,9 @@ Depending on when the SwissProt FASTA file was downloaded one may obtain
 different results. It would therefore be useful to include the date of
 access in the file name. This can be achieved using the ``date`` command,
 which can be configured to create custom output formats using the ``+``
-argument.
+symbol followed by a string template specifying the desired format. In
+the below ``%Y``, ``%m`` and ``%d`` will be replaced by the year, month
+and day respectively.
 
 .. code-block:: none
 
@@ -287,9 +293,10 @@ argument.
     $ date +'%Y-%m-%d'
     2015-11-26
 
-To get the output of the ``date`` command into the file name one
-can use Bash's concept of command substitution. To see this in action
-we can use the ``echo`` command, which simply echoes the input string.
+To get the output of the ``date`` command into the file name one can use Bash's
+concept of command substitution. Command substitution makes it possible to
+evaluate the result of a command within a string. To see this in action we can
+use the ``echo`` command, which simply prints out the string that it is given.
 
 .. code-block:: none
 
@@ -433,6 +440,17 @@ This is a good time to add and commit the changes to Git.
      1 file changed, 1 insertion(+)
 
 
+.. sidebar:: What if I want to edit or delete a file that is read only?
+
+    In this case you first need to change the mode of the file so that you
+    have write permissions to it. This is achieved using the ``chmod``
+    command, for example:
+
+    .. code-block:: none
+
+        $ chmod u+w file_i_want_to_edit.txt
+
+
 Create script for counting the number of proteins in a genome
 -------------------------------------------------------------
 
@@ -558,11 +576,14 @@ Key concepts
 - When working with files it is often desirable to be able to track changes
 - When programming it is particularly useful to be able to save working
   states the code
-- This gives one the opportunity to roll-back to a previously working state if
+- This gives one the opportunity to roll back to a previously working state if
   things go wrong
 - Git is a powerful version control system
 - To get started with Git one only needs to get familiar with a handful of
   commands
+- Use ``git init`` to initialise a Git repository
+- Use ``git add file-to-add`` to start tracking a file in Git
+- Use ``git commit -m "your summary message here"`` to record a snapshot in Git
 - The overhead of using Git whilst programming is minimal
 - The benefits of using Git are great
 - Start using Git in your day-to-day work right now
