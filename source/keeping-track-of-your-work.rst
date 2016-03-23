@@ -575,7 +575,7 @@ Key concepts
 
 - When working with files it is often desirable to be able to track changes
 - When programming it is particularly useful to be able to save working
-  states the code
+  states of the code
 - This gives one the opportunity to roll back to a previously working state if
   things go wrong
 - Git is a powerful version control system
