@@ -64,8 +64,11 @@ its state would change from modified to staged.
 .. figure:: images/git-workflow.png
    :alt: Git workflow illustration.
 
-   Diagram illustrating how the states of a file in a Git repository relate to
-   each other.
+   Diagram illustrating the states a file can have in a Git repository.
+   The commands ``git add`` and ``git commit`` are the key components to
+   creating a snapshot. The ``vim`` command symbolises editing the file
+   using the vim text editor, but any program altering the content of the
+   file will result in the file being marked as *modified* by Git.
 
 First time configuration of Git
 -------------------------------
