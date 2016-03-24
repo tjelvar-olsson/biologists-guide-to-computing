@@ -28,7 +28,22 @@ implement different types of queuing behaviour such as "first-in-first-out" and
 "first-in-last-out". Furthermore, individual elements can usually be accessed
 through their numerical indices. This also means that you can sort lists. For
 example you could stack your Petri dishes based on the number of colonies in
-each one.
+each one. Below is some pseudo code illustrating how a bunch of petri dish
+identifiers could be stored as a list.
+
+.. code-block:: python
+
+   petri_dishes = ["id_3",
+                   "id_6",
+                   "id_1",
+                   "id_2",
+                   "id_5",
+                   "id_4"]
+
+In Python one could access ``"id_1"`` using the syntax ``petri_dishes[2]``.
+This is because Python uses zero-based indexing, i.e. the first element of
+the list would be accessed using index zero, the third element therefore
+has index two.
 
 .. sidebar:: Zero vs one-based indexing
 
@@ -42,15 +57,46 @@ A dictionary, also known as a map or an associative array, is an unordered
 collection of elements that can be accessed through their associated
 identifiers. In other words each entry in a dictionary has a key, the
 identifier, and a value. For example, suppose that you needed to store
-information about flowering times for different species of flowers. In this
+information about the speed of various animals. In this
 case it would make a lot of sense to have a system where you could look up the
-flowering time information based on the species name.
+speed information based on the animals name.
+
+.. code-block:: python
+
+    animal_speed = {"cheeta": 120,
+                    "ostrich": 70,
+                    "cat": 30,
+                    "antelope": 88}
+
+In Python one could look up the speed of an ostrich using the syntax
+``animal_speed["ostrich"]``.
 
 It is worth noting that it is possible to create nested data structures. For
 example, think of a spreadsheet. The spreadsheet could be represented as a list
 containing lists. In other words the elements of the outer list would represent
 the rows in the spreadsheet and the elements in an inner list would represent
 values of cells at different columns for a specific row.
+
+For example have a look at the table below.
+
+====  ======  ======
+Time  Height  Weight
+====  ======  ======
+0     0       0
+5     2       5
+10    7       12
+15    8       20
+====  ======  ======
+
+The table, excluding the header, could be represented using a list of lists.
+
+.. code-block:: python
+
+    table = [[0,  0,  0],
+             [5,  2,  5],
+             [10, 7, 12],
+             [15, 8, 20]]
+
 
 A graph, sometimes known as a tree, is a data structure that links nodes together
 via edges. This should sound relatively familiar to you as it is the basic
