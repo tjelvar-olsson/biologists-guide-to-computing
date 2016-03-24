@@ -28,6 +28,39 @@ basic form you can think of Git as a tool for providing you with an infinite
 undo-button.
 
 
+Overview
+--------
+
+Git is a version control system. That means that it allows you to track changes
+made to files over time by taking snapshots. Furthermore it allows you to view
+differences between snapshots and revert back to previous snapshots. In fact
+Git can do a lot more than this, but this is all we need to know for this
+chapter. We will go into more detail on the collaborative aspects of Git in
+the :doc:`collaborating-on-manuscripts` chapter.
+
+Git tracks snapshots of files in what is called a repository. You can have many
+Git repositories. On my computer I have a directory named ``projects`` that currently
+contains around fifty sub-directories representing the projects that I have been
+working on recently. Each one of these sub-directories is a separate Git repository.
+
+Git can track some or all of the files in a repository. The files can be
+located in the top level directory or in sub-directories. However, Git cannot
+track any files that live in parent directories of the base Git repository,
+e.g. none of my Git repositories can track files located in the parent
+``projects`` directory.
+
+In a Git repository files can be in one of four states: untracked, staged,
+unmodified and modified. When a file is initially created it is in an untracked
+state, meaning that it is not yet under version control. To start tracking the
+file one would add it to Git, the state of the file would then change to
+staged. This means that the file is staged to be included in the next snapshot.
+Multiple files can be in a staged state when one takes a snapshot. To take a
+snapshot one commits all the files that are in the so called "staging area".
+The state of the staged files then change to unmodified.  If we then edit one
+of these files its state will change from unmodified to modified. When one is
+happy with the edits made one would then add the file to the staging area and
+its state would change from modified to staged.
+
 First time configuration of Git
 -------------------------------
 
