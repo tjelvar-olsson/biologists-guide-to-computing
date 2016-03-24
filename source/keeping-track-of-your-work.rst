@@ -61,6 +61,12 @@ of these files its state will change from unmodified to modified. When one is
 happy with the edits made one would then add the file to the staging area and
 its state would change from modified to staged.
 
+.. figure:: images/git-workflow.png
+   :alt: Git workflow illustration.
+
+   Diagram illustrating how the states of a file in a Git repository relate to
+   each other.
+
 First time configuration of Git
 -------------------------------
 
