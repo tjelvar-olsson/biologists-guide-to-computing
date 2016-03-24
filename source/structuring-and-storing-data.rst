@@ -236,7 +236,7 @@ each discovery contains a set of key value pairs.
 
     [
       {
-        "year": 1965,
+        "year": 1653,
         "scientist": "Robert Hooke",
         "experiment": "light microscopy",
         "discovery": "cells"
@@ -257,7 +257,7 @@ represented using YAML.
 
     ---
       - 
-        year: 1965
+        year: 1653
         scientist: "Robert Hooke"
         experiment: "light microscopy"
         discovery: "cells"
@@ -275,7 +275,7 @@ to the reader. These comments are ignored by programs parsing the files.
     ---
       # TODO: include an entry for Anton van Leeuwenhoek here.
       - 
-        year: 1965
+        year: 1653
         scientist: "Robert Hooke"
         experiment: "light microscopy"
         discovery: "cells"
