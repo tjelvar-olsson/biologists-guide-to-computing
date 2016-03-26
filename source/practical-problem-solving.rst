@@ -10,7 +10,7 @@ of the content of the FASTA file. For example how many different species does
 it contain?
 
 By briefly inspecting some random FASTA description lines it becomes clear that
-some species include variants. Below are some sample *R. coli* extracts from
+some species include variants. Below are some sample *E. coli* extracts from
 the FASTA file.
 
 .. code-block:: none
@@ -70,8 +70,8 @@ required to achieve these. By iterating over this process you
 will either get down to steps sizes that do not feel overwhelming or you will
 identify the key aspect that you feel unsure about.
 
-For example the first step, to identifying all the description lines in the
-FASTA file, can be decomposed into the sub-steps below.
+For example, the first step to identify all the description lines in the
+FASTA file can be decomposed into the sub-steps below.
 
 1. Create a list for storing the description lines
 2. Iterate over all the lines in the input file
@@ -133,7 +133,7 @@ in Python is to use four white spaces to indent code blocks.
 
 The first line of the function body, line four, is a docstring explaining the
 intent of the function.  Line five makes use of the built-in ``print()``
-function to write a string to the standard output stream. Python's built-in
+function to write a string to the :term:`standard output stream`. Python's built-in
 ``print()`` function is similar to the ``echo`` command we used earlier in
 :doc:`keeping-track-of-your-work`.
 
@@ -142,7 +142,8 @@ i.e. the logic within the function's body is executed. In this instance this
 means that the ``"Testing the is_description_line() function..."`` string is
 written to the standard output stream.
 
-Let us run this script in a terminal.
+Let us run this script in a terminal. To run a Python script we use the ``python``
+command followed by the name of the script.
 
 .. code-block:: none
 
@@ -416,7 +417,7 @@ The Python string object
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 When parsing in strings from a text file one often has to deal with lines that
-have leading and/or trailing one spaces. Commonly one wants to get rid of them.
+have leading and/or trailing white spaces. Commonly one wants to get rid of them.
 This can be achieved using the ``strip()`` method built into the string object.
 
 .. code-block:: python
@@ -493,7 +494,7 @@ If the search term is not identified ``find()`` returns -1.
     >>> ">sp|P31946|1433B_HUMAN".find("Q6GZX4")
     -1
 
-When iterating over lines in a file one often want to split the line based on a
+When iterating over lines in a file one often wants to split the line based on a
 delimiter. This can be achieved using the ``split()`` method. By default this
 splits on white space characters and returns a list of strings.
 
@@ -561,7 +562,7 @@ Now, let us search for the UniProt identifer ``Q6GZX4`` within the line.
 
 There are two things to note here:
 
-1. We use a raw string to represent our regular expression
+1. We use a raw string to represent our regular expression, i.e. the string prefixed with an ``r``
 2. The regular expression ``search()`` method returns a match object (or None if no match is found)
 
 .. sidebar:: What is a "raw string"?
@@ -575,8 +576,9 @@ There are two things to note here:
     Raw strings where introduced in Python to make it easier to create regular
     expressions that rely heavily on the use of literal backslashes.
 
-The index of the first and last matched characters can be accessed using the
-match object's ``start()`` and ``end()`` methods.
+The index of the first matched character can be accessed using the match
+object's ``start()`` method.  The match object also has an ``end()`` method
+that returns the index of the last character + 1.
 
 .. code-block:: python
 
@@ -596,7 +598,7 @@ syntax is inclusive for the start index and exclusive for the end index.
     '23'
 
 To see the merit of regular expressions we need to create one that matches more
-than one thing.  For example a regular expression that can could match all the
+than one thing.  For example a regular expression that could match all the
 patterns ``id0``, ``id1``, ..., ``id9``.
 
 Now suppose that we had a list containing FASTA description lines with these
@@ -671,7 +673,9 @@ escaped using a backslash ``\``.
 
 The regular expression representing the UniProt idendifier ``[A-Z,0-9]*`` is
 enclosed in parenthesis. The parenthesis denote that the UniProt identifier is
-a group that we would like access to.
+a group that we would like access to. In other words, the purpose of a group
+is to give the user access to a section of interest matched by the regular
+expression.
 
 
     >>> match.groups()
@@ -680,6 +684,14 @@ a group that we would like access to.
     '>sp|Q6GZX4|'
     >>> match.group(1)
     'Q6GZX4'
+
+.. note:: There is a difference between the ``groups()`` and the ``group()``
+          method. The former returns a tuple containing all the groups
+          defined in the regular expression. The latter takes an integer as
+          input and returns a specific group. However, confusingly ``group(0)``
+          returns everything matched by the regular expression and ``group(1)``
+          returns the first group making the ``group()`` method appear as if
+          it used a one-based indexing scheme.
 
 Finally Let us have a look at a common pitfall when using regular expressions
 in Python: the difference between the methods search() and match().
@@ -750,8 +762,8 @@ to your ``scripts/fasta_utils.py`` file.
             ">sp|Q15942|ZYX_HUMAN Zyxin OS=Homo sapiens GN=ZYX PE=1 SV=1",
             ">sp|Q6QGT3|A1_BPT5 A1 protein OS=Escherichia phage T5 GN=A1 PE=2 SV=1"]
         org_names = ["Brassica napus", "Homo sapiens", "Escherichia phage T5"]
-        for l, s in zip(lines, org_names):
-            assert extract_org_name(l) == s
+        for line, org_name in zip(lines, org_names):
+            assert extract_org_name(line) == org_name
 
     test_is_description_line()
 
@@ -792,7 +804,7 @@ Let's try again.
       File "scripts/fasta_utils.py", line 26, in <module>
         test_extract_org_name()
       File "scripts/fasta_utils.py", line 23, in test_extract_org_name
-        assert extract_org_name(l) == s
+        assert extract_org_name(line) == org_name
     NameError: global name 'extract_org_name' is not defined
 
 Success! We now have a failing test informing us that we need to create the
@@ -817,7 +829,7 @@ Let's find out where this minimal implementation gets us.
       File "scripts/fasta_utils.py", line 29, in <module>
         test_extract_org_name()
       File "scripts/fasta_utils.py", line 26, in test_extract_org_name
-        assert extract_org_name(l) == s
+        assert extract_org_name(line) == org_name
     AssertionError
 
 So the test fails as expected. However, since we are looping over many input
@@ -831,8 +843,8 @@ trailing ``, l`` in line 26.
     :lineno-start: 25
     :emphasize-lines: 2
 
-        for l, s in zip(lines, org_names):
-            assert extract_org_name(l) == s, l
+        for line, org_name in zip(lines, org_names):
+            assert extract_org_name(line) == org_name, line
 
 
 Let's see what we get now.
@@ -846,7 +858,7 @@ Let's see what we get now.
       File "scripts/fasta_utils.py", line 29, in <module>
         test_extract_org_name()
       File "scripts/fasta_utils.py", line 26, in test_extract_org_name
-        assert extract_org_name(l) == s, l
+        assert extract_org_name(line) == org_name, line
     AssertionError: >sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2
 
 Much better! Let us try to implement a basic regular expression to make this
@@ -884,7 +896,7 @@ Let us see what happens now.
       File "scripts/fasta_utils.py", line 34, in <module>
         test_extract_org_name()
       File "scripts/fasta_utils.py", line 31, in test_extract_org_name
-        assert extract_org_name(l) == s, l
+        assert extract_org_name(line) == org_name, line
     AssertionError: >sp|Q15942|ZYX_HUMAN Zyxin OS=Homo sapiens GN=ZYX PE=1 SV=1
 
 Progress! We are now seeing a different error message. The issue is that the key after
@@ -912,7 +924,7 @@ letter ``[A-Z]`` repeated twice ``{2}``. Let's find out if this fixes the issue.
       File "scripts/fasta_utils.py", line 33, in <module>
         test_extract_org_name()
       File "scripts/fasta_utils.py", line 30, in test_extract_org_name
-        assert extract_org_name(l) == s, l
+        assert extract_org_name(line) == org_name, line
     AssertionError: >sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2
 
 What, back at square one again? As mentioned previously, regular expressions can be painful
@@ -928,8 +940,8 @@ out the value returned by the function instead.
     :lineno-start: 29
     :emphasize-lines: 2
 
-        for l, s in zip(lines, org_names):
-            assert extract_org_name(l) == s, extract_org_name(l)
+        for line, org_name in zip(lines, org_names):
+            assert extract_org_name(line) == org_name, extract_org_name(line)
 
 Now, let's see what is going on.
 
@@ -942,7 +954,7 @@ Now, let's see what is going on.
       File "scripts/fasta_utils.py", line 33, in <module>
         test_extract_org_name()
       File "scripts/fasta_utils.py", line 30, in test_extract_org_name
-        assert extract_org_name(l) == s, extract_org_name(l)
+        assert extract_org_name(line) == org_name, extract_org_name(line)
     AssertionError: Brassica napus PE=2
 
 Our regular expression is basically matching too much. The reason for this is that the
@@ -975,7 +987,7 @@ All the tests pass! Well done, time for another cup of tea.
 Only running tests when the module is called directly
 -----------------------------------------------------
 
-In Python modules provides a means to group related functionality together. For
+In Python, modules provide a means to group related functionality together. For
 example we have already looked at and made use of the :mod:`re` module, which
 groups functionality for working with regular expressions.
 
@@ -1029,7 +1041,7 @@ the changes highlighted below.
         test_is_description_line()
         test_extract_org_name()
 
-Let us make sure that the tests are still run if we run the script directly.
+Let us make sure that the tests still run if we run the script directly.
 Note that the command below assumes that you are working in the top level
 directory ``protein-number-vs-size``.
 
@@ -1136,7 +1148,7 @@ FASTA file.
 Finding the number of variants per species and the number of proteins per variant
 ---------------------------------------------------------------------------------
 
-Suppose we had a FASTA file containing only five entries with the description
+Suppose we had a FASTA file containing only four entries with the description
 lines below.
 
 .. code-block:: none
@@ -1179,7 +1191,7 @@ created from the four entries above.
       Escherichia coli (strain SE11): 1
 
 So what type of functionality would we need to achieve this? First of all we need a
-function that given a organism name returns the associated species. In other words
+function that given an organism name returns the associated species. In other words
 something that converts ``Escherichia coli (strain K12)`` to ``Escherichia coli``.
 Secondly, we need a function that given a list of organism names returns the data
 structure described above.
@@ -1367,17 +1379,32 @@ Time to add an implementation.
         """Return data structure summarising the SwissProt organism and protein data."""
         summary = dict()
         for line in fasta_desc_lines:
-            org_name = extract_org_name(line)
-            species_name = org_name2species(org_name)
-            organism_dict = summary.get(species_name, dict())
-            organism_dict[org_name] = organism_dict.get(org_name, 0) + 1
-            summary[species_name] = organism_dict
+            variant_name = extract_org_name(line)
+            species_name = org_name2species(variant_name)
+            variant_dict = summary.get(species_name, dict())
+            variant_dict[variant_name] = variant_dict.get(variant_name, 0) + 1
+            summary[species_name] = variant_dict
         return summary
 
 In the above we make use of the dictionary's built-in ``get()`` method, which
 returns the value associated with the key provided as the first argument. If the
 key does not yet exist in the dictionary it returns the second argument, the
 default value.
+
+On line 48 we try to access a ``variant_dict`` dictionary from within the ``summary``
+dictionary, we are in other words working with a nested data structure. If there
+is no entry associated with the ``species_name`` the ``get()`` method will return
+an empty dictionary (``dict()``).
+
+On line 49 we keep count of the number of times a variant of a species, as defined
+by the full organism name, has been observed. In this instance we
+use the ``get()`` method to get the number of times the variant has been observed
+already and then we add 1 to it. If the variant has never been observed previously
+it will not be in the dictionary and the ``variant_dict.get(variant_name, 0)`` method
+call will return 0 (the default value specified).
+
+Line 50 creates/updates the nested data structure by adding the
+``variant_dict`` dictionary to the ``summary`` dictionary.
 
 Let's see if it the implementation works as expected.
 
@@ -1452,6 +1479,10 @@ that have few protein associated with them.
     Abies balsamea:
       Abies balsamea: 3
 
+.. note:: The formatting in the YAML file above was created for us by the call
+          to the ``yaml.dump()`` method in the ``scripts/fasta2yaml_summary.py``
+          script.
+
 Great work! In the next chapter we will have a go at visualising some of this data.
 
 Key concepts
@@ -1472,3 +1503,5 @@ Key concepts
 - There are also many third party Python packages that can be installed, in
   this chapter we made use of the :mod:`yaml` package for writing out a data
   structure as a YAML file
+- If in doubt, turn to the abundance of resources for Python online including
+  manuals, tutorials and help forums

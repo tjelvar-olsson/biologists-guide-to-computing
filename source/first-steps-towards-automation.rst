@@ -111,8 +111,8 @@ the annotation in SwissProt is manual and includes a review process.
 It is time to download the Swiss-Prot knowledge base from UniProt. We will
 use the ``curl`` program to do this.  The ``curl`` command is a C program that
 allows us to stream data from URLs and FTP sites.  By default the ``curl``
-program writes the content of the URL to the standard output stream. To see
-this in action try running the command:
+program writes the content of the URL to the :term:`standard output stream`.
+To see this in action try running the command:
 
 .. code-block:: none
 

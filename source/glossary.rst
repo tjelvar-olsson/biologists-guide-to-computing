@@ -53,6 +53,10 @@ Glossary
         Programming methodology centered around the concept of objects rather than actions
         and procedures.
 
+    Pipe
+        A pipe is a means to redirect the output from one command into another.
+        The character used to represent a pipe is the vertical bar: ``|``.
+
     RAM
         Random Access Memory, fasta access volitile memory.
 
@@ -69,11 +73,34 @@ Glossary
         Program that allows the user to interact with the operating system's services and
         programs, see also :term:`terminal`.
 
+    Standard input stream
+        Stream of characters ingested by a program, often abbreviated as
+        ``stdin``. A common way to send data to a program is to :term:`pipe`
+        them from the :term:`standard output stream` of another program. In the
+        below we use the ``echo`` command to send the string ``foo bar baz`` to
+        the standard input stream of the ``wc`` command. 
+
+        .. code-block:: none
+
+            $ echo "foo bar baz" | wc
+                   1       3      12
+
+    Standard error stream
+        Stream of characters, representing error output, emitted by a program.
+        Commonly viewed in the shell when running a command.  Often abbreviated
+        as ``stderr``.
+
     Standard Library
         A set of functionality that comes built-in with the core programming language.
 
+    Standard output stream
+        Stream of characters emitted by a program. Commonly viewed in the shell when
+        running a command. The standard output stream can be redirected using a :term:`pipe`.
+        Often abbreviated as ``stdout``.
+
     State
         All the information, to which a program has access, at a particular point in time.
+
 
     String
         A list of characters used to represent text.
