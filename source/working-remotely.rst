@@ -93,6 +93,9 @@ the head node was ``olssont`` then you could log using the command below.
 
     $ ssh olssont@hpc
 
+If the machine that you are trying to login to has a port open on port 22 (the
+default SSH port) you will be prompted for your password.
+
 .. sidebar:: What is a head node?
 
     A computing clusters is basically a collection of computers. Computing
@@ -118,9 +121,9 @@ use a more explicit name, for example
 
     $ ssh olssont@hpc.awesomeuni.ac.uk
 
-If you have the credentials to login the shell in your terminal will now be from
-the remote machine. To find out the name of the machine that you are logged into
-you can run the command ``hostname``.
+If your password authentication passes login the shell in your terminal will
+now be from the remote machine. To find out the name of the machine that you
+are logged into you can run the command ``hostname``.
 
 .. code-block:: none
 
@@ -162,7 +165,67 @@ flag to login to a machine named ``pawn``.
 Copying files using Secure Copy
 -------------------------------
 
-- scp
+Now that we know how to login to a remote machine we need to work out how to
+copy data to it. This is achieved using the ``scp``, *secure copy*, command.
+
+Suppose that we wanted to copy the file ``mydata.csv`` over to ``olssont``'s
+home directory on the ``hpc`` head node, we could achieve this using the
+command below.
+
+.. code-block:: none
+
+    $ scp mydata.csv olssont@hpc:
+
+Note the colon (``:``) after the host name. It demarcates the end of the host name
+and the beginning of the file specification to copy the file to on the remote machine.
+In this instance the latter is left empty and as such the original file name is used
+and the location for the file defaults to ``olssont``'s home directory on the remote
+machine. The command above is equivalent to that below which specifies the home directory
+using a relative path (``~/``).
+
+.. code-block:: none
+
+    $ scp mydata.csv olssont@hpc:~/
+
+It is also possible to specify the location using absolute paths. For example
+if we wanted to save the file in the ``/tmp`` directory this could be achieved
+using the command below.
+
+.. code-block:: none
+
+    $ scp mydata.csv olssont@hpc:/tmp/
+
+Just like with the ``cp`` command it is possible to give the copied file a
+different name. For example to name it ``data.csv`` (and place it in the ``/tmp``
+directory) one could use the command below.
+
+.. code-block:: none
+
+    $ scp mydata.csv olssont@hpc:/tmp/data.csv
+
+If the SSH server is listening on a port other than 22 one needs to specify the port
+explicitly. Confusingly the argument for this is not the same as for the ``ssh`` command.
+The ``scp`` command uses the argument ``-P``, i.e. it uses upper rather than lower case.
+So if we wanted to copy the data to ``bishop`` one could use the command below.
+
+.. code-block:: none
+
+    $ scp -P 2222 mydata.csv olssont@bishop:
+
+Sometimes one wants to copy the entire content of a directory. In this case one can use
+the ``-r`` option to *recursively* copy all the content of the specified directory. For
+example if we had a directory named ``data`` and we wanted to copy it to ``pawn`` one
+could use the command below.
+
+.. code-block:: none
+
+    $ scp -r data/ olssont@pawn:
+
+All of the commands above will prompt you for your password. This can get tedious.
+In the next section we will look at a  more secure and less annoying way of
+managing the authentication step when working with remote machines.
+
+
 - ssh-keys
 - ctrl-z, bg, fg
 - nohup
