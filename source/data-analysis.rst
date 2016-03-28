@@ -927,7 +927,7 @@ because it makes it difficult to read the code.
     :emphasize-lines: 1-2
 
     def sliding_window_analysis(sequence, function,
-                                window_size=100000, step_size=5000):
+                                window_size=100000, step_size=50000):
         """Return an iterator that yields (start, end, property) tuples.
 
         Where start and end are the indices used to slice the input list
@@ -947,7 +947,7 @@ that are generated we can make use of piping and the ``wc -l`` command.
 .. code-block:: none
 
     $ python gc_content.py | wc -l
-        1714
+        173
 
 
 Writing out the sliding window analysis
@@ -961,20 +961,21 @@ Edit the end of the ``gc_content.py`` script to make it look like the below.
 .. code-block:: python
     :linenos:
     :lineno-start: 32
-    :emphasize-lines: 4-9
+    :emphasize-lines: 4-10
 
     with open("Sco.dna", "r") as file_handle:
         sequence = parse_dna(file_handle)
 
     with open("local_gc_content.csv", "w") as file_handle:
-        header = "start,end,gc_content\n"
+        header = "start,middle,end,gc_content\n"
         file_handle.write(header)
         for start, end, gc in sliding_window_analysis(sequence, gc_content):
-            row = "{},{},{}\n".format(start, end, gc)
+            middle = start + end / 2
+            row = "{},{},{},{}\n".format(start, middle, end, gc)
             file_handle.write(row)
 
 On line 35 we open a file handle to write to. On lines 36 and 37 we write a header
-to the CSV file. Lines 38 to 40 then performs the sliding window analysis and
+to the CSV file. Lines 38 to 41 then performs the sliding window analysis and
 writes the results as rows, or lines if you prefer, to the CSV file.
 
 The main new feature introduced in the code snippet above is on line 39 where
@@ -984,10 +985,10 @@ method. Let us illustrate this with an example in interactive mode.
 
 .. code-block:: python
 
-    >>> print("{},{},{}")
-    {},{},{}
-    >>> print("{},{},{}".format(1, 10, 38.5))
-    1,10,38.5
+    >>> print("{},{},{},{}")
+    {},{},{},{}
+    >>> print("{},{},{},{}".format(1, 5, 10, 38.5))
+    1,5,10,38.5
 
 Okay, let us see what happens when we run the script.
 
@@ -1009,16 +1010,16 @@ We can examine the top of this newly created file using the ``head`` command.
 .. code-block:: none
 
     $ head local_gc_content.csv
-    start,end,gc_content
-    0,100000,69.124
-    5000,105000,69.323
-    10000,110000,69.489
-    15000,115000,69.794
-    20000,120000,70.005
-    25000,125000,70.1
-    30000,130000,70.197
-    35000,135000,70.12
-    40000,140000,70.213
+    start,middle,end,gc_content
+    0,50000,100000,69.124
+    50000,125000,150000,70.419
+    100000,200000,200000,72.495
+    150000,275000,250000,71.707
+    200000,350000,300000,71.098
+    250000,425000,350000,72.102
+    300000,500000,400000,72.712
+    350000,575000,450000,73.15
+    400000,650000,500000,73.27
 
 
 Well done! We have covered a lot of ground in this chapter. I suggest digging out
