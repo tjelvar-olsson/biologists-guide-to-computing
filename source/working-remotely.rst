@@ -226,6 +226,109 @@ In the next section we will look at a  more secure and less annoying way of
 managing the authentication step when working with remote machines.
 
 
-- ssh-keys
+Password-less authentication using SSH keys
+-------------------------------------------
+
+An alternative and more secure method to using password based authentication is to use
+public-key cryptography. Public-key cryptography, also known as asymmetric cryptography,
+uses a pair of so called "keys". One of these keys is public and one is private. The
+public key is one that you can distribute freely, in this case to all the remote machines
+that you want to be able to login to. However, the private key must never be compromised
+as it is what allows you access to all the remote machines. One way to think about this
+system is to view the public key as a padlock and the private key as the key to that padlock.
+You can fit the all the machines that you want secure and easy access to with copies of the
+same padlock as long as you keep the key to the padlock safe.
+
+The first step is to generate a public/private key pair. This is achieved using
+the command ``ssh-keygen``. This will prompt you for the file to save the key
+as, the default ``~/.ssh/id_rsa`` file is a good option if you have not yet
+setup any key pairs. You will then be prompted, to optionally, enter a
+passphrase.  This provides another layer of protection in case someone gets
+hold of your private key. However, it does mean that you will be prompted for
+the passphrase the first time you make use of the key in a newly booted system.
+Personally, I am paranoid so I make use of the passphrase and I suggest that
+you do too.
+
+.. code-block:: none
+
+    $ ssh-keygen
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/home/olssont/.ssh/id_rsa):
+    Enter passphrase (empty for no passphrase):
+    Enter same passphrase again:
+
+If you used the default naming scheme for your key pair you should now have two
+files in your ``.ssh`` directory: ``id_rsa`` (your private key) and ``id_rsa.pub``
+(your public key).
+
+.. code-block:: none
+
+    $ ls -l .ssh/
+    -rw-------  1 olssont  NR4\Domain Users   1679 23 Feb  2015 id_rsa
+    -rw-r--r--  1 olssont  NR4\Domain Users    407 23 Feb  2015 id_rsa.pub
+
+Note that only the user has read/write permissions on the private key, whereas
+the pubic key is readable by everyone.
+
+Now let us setup password-less login to the cluster head node. First of all let
+us copy the public key to the remote machine using ``scp``.
+
+.. code-block:: none
+
+    $ scp ~/.ssh/id_rsa.pub olssont@hpc:
+
+Now we need to login to the head node to configure it. At this point we will
+still need to use our password. Once logged into the head node we need to
+create a ``.ssh`` directory in the user's home directory (if it does not
+already exist). We then need to append the public key to a file named
+``authorized_keys`` in the ``.ssh`` directory. Finally we logout of the head
+node.
+
+.. code-block:: none
+
+    $ ssh olssont@hpc
+    $ hostname
+    hpc
+    $ mkdir .ssh
+    $ cat id_rsa.pub >> .ssh/authorized_keys
+    $ exit
+
+.. sidebar:: What does the ``>>`` expression do?
+
+    The ``>>`` symbol is similar to the ``>`` redirection symbol. However,
+    redirection using ``>`` will replace an existing file whereas ``>>`` will
+    append to it. In this case we do not want to destroy any previously added
+    public keys so we append to the ``authorized_keys`` file.
+
+Now we should be able to ``ssh`` and ``scp`` to the head node in a password-less fashion.
+If you setup your key pair using a passphrase you will be prompted for it the first time
+you use the key pair.
+
+Great that's really cool! However, it was quite a lot of work to get the public key onto
+the remote machine. There is a better way to do this using the program ``ssh-copy-id``.
+Depending on the operating system that you are using may need to install this
+program, see :doc:`managing-your-system` for details on how to install
+software.
+
+Once you have ``ssh-copy-id`` on your system you can provision a remote machine with your
+public key using a single command. Below we use it to add our pubic key to ``bishop``.
+
+.. code-block:: none
+
+    $ ssh-copy-id -i ~/.ssh/id_rsa.pub olssont@bishop
+
+The optional ``-i`` flag is used to specify which public key should be copied
+to the remote machine.
+
+
+Managing your login details using SSH config
+--------------------------------------------
+
+Things always start off simple and then they grow in complexity. As you start using
+SSH keys to manage access to various machines you are likely to find yourself
+using multiple key pairs. In this case it can be useful to setup a ``.ssh/config``
+file on your local machine to manage the way you login to the various machines that
+you need access to.
+
 - ctrl-z, bg, fg
 - nohup
