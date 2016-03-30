@@ -324,11 +324,59 @@ to the remote machine.
 Managing your login details using SSH config
 --------------------------------------------
 
+Suppose that access to your institutes cluster was setup in a way that required
+you to use the full ``hpc.awesomeuni.ac.uk`` host name, but that you wanted to
+be able to login using the shorter name ``hpc``. You can configure your machine
+to setup access in this by creating the file ``.ssh/config`` file and adding
+the lines below to it.
+
+.. code-block:: none
+
+    Host hpc
+        HostName hpc.awsomeuni.ac.uk
+        User olssont
+
+The SSH configuration above also specifies the user name. This means that you
+can login to the head node using the command below (note the lack of a user
+name).
+
+.. code-block:: none
+
+    $ ssh hpc
+
+
 Things always start off simple and then they grow in complexity. As you start using
 SSH keys to manage access to various machines you are likely to find yourself
-using multiple key pairs. In this case it can be useful to setup a ``.ssh/config``
-file on your local machine to manage the way you login to the various machines that
-you need access to.
+using multiple key pairs. In this case you will want to be able to specify the name
+of the private key, also known as an identity file, in the ``.ssh/config`` file.
+
+.. code-block:: none
+
+    Host hpc
+        HostName hpc.awsomeuni.ac.uk
+        User olssont
+        IdentityFile ~/.ssh/id_rsa
+
+Finally in the examples described earlier access to ``bishop`` had been configured
+to use port 2222. To configure access to this remote machine we could use the
+specification below.
+
+.. code-block:: none
+
+    Host bishop
+        HostName bishop
+        User olssont
+        Port 2222
+        IdentityFile ~/.ssh/id_rsa
+
+Again, using the ``.ssh/config`` file in this way means that we do not remember
+port numbers and what options to invoke the ``scp`` and ``ssh`` commands with.
+Copying a file becomes as easy as ``scp mydata.csv bishop:``. Logging in becomes
+similarly trivial ``ssh bishop``.
+
+
+Executing long running commands on remote hosts
+-----------------------------------------------
 
 - ctrl-z, bg, fg
 - nohup
