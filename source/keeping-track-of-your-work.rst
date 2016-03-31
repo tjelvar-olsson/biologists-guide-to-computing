@@ -223,6 +223,19 @@ all users (``a`` or ``o``). The nine characters above state that the owner has
 read and write permissions on the file ``rw-``, whereas both the group and
 all other users only have permission to read the file ``r--``.
 
+
+.. figure:: images/file-permissions.png
+   :alt: File permissions illustration.
+
+   Figure illustrating how the file permissions string should be interpreted.
+   In the above the user has read, write and execute permissions. The members
+   of the group have read and exectue permissions. All other users only have
+   execute permissions on the file. In this case the file type character ``-``
+   indicates that the file is a regular/executable file. Other file type
+   characters include ``d`` and ``l`` which are used to represent directories
+   and symbolic links respectively.
+
+
 Let us give the file execute permissions. This is achieved using the ``chmod``
 command, mnemonic "change file modes". The ``chmod`` command can be invoked in
 a number of different ways. Here we use the symbolic mode to specify that the
