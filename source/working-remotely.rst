@@ -378,5 +378,58 @@ similarly trivial ``ssh bishop``.
 Executing long running commands on remote hosts
 -----------------------------------------------
 
-- ctrl-z, bg, fg
-- nohup
+One problem that one can encounter when working on a remote machine is that if
+the connection is broken whilst a program is running it may fail.
+
+Luckily, it is quite easy to work around this. All one needs to do is to prefix
+the command to run the program of interest with ``nohup``. The ``nohup`` command
+makes the program of interest immune to hangups.
+
+To see this in action open up two terminals on your computer. In one of them
+we will monitor the running processes using the command ``top``.
+
+.. code-block:: none
+
+    $ top
+
+This should display a lot of information about the current running processes. To
+make things a little easier to digest we can limit the output to the processes
+owned by you. Press ``U``, which will prompt you for a user name. Enter your
+user name and press enter. You should now only see the processes owned by you.
+
+In the second terminal we will simulate a long running program using the
+command ``sleep``, which simply pauses execution for a specified number of
+seconds.
+
+.. code-block:: none
+
+    $ sleep 3600
+
+In the first terminal, running ``top``, you should now see the ``sleep`` program
+running.
+
+Now close the second terminal running the ``sleep`` command. Note that the
+``sleep`` program disappears from the ``top`` display. This is because the
+program was interrupted by the closing of the terminal.
+
+Open a new terminal. This time we will prefix the ``sleep`` command with ``nohup``.
+
+
+.. code-block:: none
+
+    $ nohup sleep 3600
+
+Now close the terminal running the ``sleep`` command again. Note that the ``sleep``
+command is still present in the ``top`` display. It will keep running until it is
+finished in an hours time.
+
+
+Key concepts
+------------
+
+- You can use the ``ssh`` command to login to remote machines
+- You can copy data to and from remote machines using the ``scp`` command
+- You can use SSH keys to avoid having to type in your password every time you want to interact with a remote machine
+- Using SSH keys is also more secure than using passwords
+- If you need to interact with many remote machines it may make sense to create a ``.ssh/config`` file
+- You can use ``nohup`` to ensure that long running processes are not killed by losing connection to the remote machine
