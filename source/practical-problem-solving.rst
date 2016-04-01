@@ -983,6 +983,18 @@ Let's find out what happens now.
 
 All the tests pass! Well done, time for another cup of tea.
 
+.. figure:: images/greedy-regex.png
+   :alt: Greedy vs non-greedy regular expression.
+
+   Figure illustrating the difference between a greedy and a non-greedy regular
+   expression. The ``*`` meta-character causes the previous regular expression,
+   in this case the any character (``.``), to be matched zero or more times.
+   This is done in a greedy fashion, i.e. trying to match as much text as
+   possible.  To make that part of the regular expression match as little text
+   as possible, i.e. to work in a non-greedy fashion, we use the meta-character
+   ``*?``.
+
+
 
 Only running tests when the module is called directly
 -----------------------------------------------------
