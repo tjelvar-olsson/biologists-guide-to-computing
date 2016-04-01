@@ -836,7 +836,7 @@ So the test fails as expected. However, since we are looping over many input
 lines it would be nice to get an idea of which test failed. We can achieve this
 by making use of the fact that we can provide a custom message to be passed to
 the ``AssertionError``. Let us pass it the input line. Note the addition of the
-trailing ``, l`` in line 26.
+trailing ``, line`` in line 26.
 
 .. code-block:: python
     :linenos:
