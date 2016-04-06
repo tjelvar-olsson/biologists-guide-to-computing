@@ -109,7 +109,7 @@ also used to represent 2D connectivities of molecules.
 
    Two examples of graphs: a phylogentic tree (A) and the chemical structure
    of Aspirin (B). Original images via Wikimeda Commons [Public domain]
-   `A <https://commons.wikimedia.org/wiki/File:CollapsedtreeLabels-simplified.svg>_`
+   `A <https://commons.wikimedia.org/wiki/File:CollapsedtreeLabels-simplified.svg>`_
    and `B <https://commons.wikimedia.org/wiki/File:Aspirin-skeletal.svg>`_.
 
 Because of their general utility lists and dictionaries are built-in to many
