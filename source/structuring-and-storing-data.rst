@@ -104,6 +104,14 @@ concept behind phylogenetic trees. Each node represents a species and the edges
 represent the inferred evolutionary relationships between the species. Graphs are
 also used to represent 2D connectivities of molecules.
 
+.. figure:: images/graph-examples.png
+   :alt: Phylogenetic tree and aspirin structure.
+
+   Two examples of graphs: a phylogentic tree (A) and the chemical structure
+   of Aspirin (B). Original images via Wikimeda Commons [Public domain]
+   `A <https://commons.wikimedia.org/wiki/File:CollapsedtreeLabels-simplified.svg>_`
+   and `B <https://commons.wikimedia.org/wiki/File:Aspirin-skeletal.svg>`_.
+
 Because of their general utility lists and dictionaries are built-in to many
 high level programming languages such as Python and JavaScript. However, data
 structures for graphs are generally not.
