@@ -165,7 +165,7 @@ it has thriving scientific user community.
 
 
 Installing software on Debian based systems
-===========================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Debian-based systems come with a huge range of pre-package software available for
 installation using the Advance Package Tool (apt). To search for a piece of software
@@ -209,7 +209,7 @@ one would use the ``apt-get purge`` command.
 
 
 Installing software on RedHat based systems
-===========================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 RedHat and its free clone CentOS come, with fewer software packages than Debian. The
 T-Coffee software, is for example not available. However, on the other hand
