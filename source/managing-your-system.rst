@@ -138,19 +138,24 @@ using the ``less`` pager.
 The only problem with the command above is that you won't be able to run it
 unless you are on the sudoer's list in the first place.
 
-
-Installing software
--------------------
-
 A consequence of the fact that only the ``root`` user can write files to the
 ``/bin`` and ``/usr/bin`` directories is that you need to have root privileges
 to install software (write files) to these default locations.
+
+
+Operating systems
+-----------------
 
 All modern Linux distribution come with a so called package manager, which should
 be your first of call when trying to install software. Package managers make it
 easier to install software for two main reasons they deal with the dependencies
 for you and they (usually) provide pre-compiled versions of software that are known
 to play nicely with the other software available through the package manager.
+
+There are countless numbers of Linux distributions. However, most main stream
+distributions are derived from either Debian or RedHat.  Debian based Linux
+distributions include amongst others Debian itself, Ubuntu, and Linux Mint. RedHat
+based distributions include RedHat, CentOS and Fedora.
 
 Although Mac's come with the AppStore this is not the place to look for scientific
 software. Instead two other options based on the idea of the Linux package managers
@@ -159,8 +164,68 @@ second one is `Homebrew <http://brew.sh/>`_. I would recommend using the latter 
 it has thriving scientific user community.
 
 
-- su and sudo
-- installing software on debian based systems
+Installing software on Debian based systems
+===========================================
+
+Debian-based systems come with a huge range of pre-package software available for
+installation using the Advance Package Tool (apt). To search for a piece of software
+package you would typically start off by updating the list of packages available
+for download using the ``apt-get update`` command.
+
+.. code-block:: none
+
+    $ sudo apt-get update
+
+One can then search for the specific software of interest, for example the multiple
+sequence alignment tools `T-Coffee <http://www.tcoffee.org/Projects/tcoffee/>`_, using
+the ``apt-cache search`` command.
+
+.. code-block:: none
+
+    $ sudo apt-cache search t-coffee
+    t-coffee - Multiple Sequence Alignment
+    t-coffee-examples - annotated examples for the use of T-Coffee
+
+To install the software package one uses the ``apt-get install`` command.
+
+.. code-block:: none
+
+    $ sudo apt-get install t-coffee
+
+
+To uninstall a package one can use the ``apt-get remove`` command.
+
+.. code-block:: none
+
+    $ sudo apt-get remove t-coffee
+
+The command above leaves package configuration files intact in case you would
+want to re-use them in the future. To completely remove a package from the system
+one would use the ``apt-get purge`` command.
+
+.. code-block:: none
+
+    $ sudo apt-get purge t-coffee
+
+
+Installing software on RedHat based systems
+===========================================
+
+RedHat and its free clone CentOS come, with fewer software packages than Debian. The
+T-Coffee software, is for example not available. However, on the other hand
+RedHat is a super solid Linux distribution created by Red Hat Inc, the first billion
+dollar open source company.
+
+To make available more software packages for these distributions it is worth adding
+the Extra Packages for Enterprise Linux (EPEL) repository. This can be achieved by
+running the command below.
+
+.. code-block:: none
+
+    $ sudo yum install epel-release
+
+
+
 - installing software on redhat based systems
 - installing software on Macs
 - compiling software from source
