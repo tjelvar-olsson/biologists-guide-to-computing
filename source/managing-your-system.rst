@@ -143,8 +143,8 @@ A consequence of the fact that only the ``root`` user can write files to the
 to install software (write files) to these default locations.
 
 
-Operating systems
------------------
+Using package managers
+----------------------
 
 All modern Linux distribution come with a so called package manager, which should
 be your first of call when trying to install software. Package managers make it
@@ -216,17 +216,55 @@ T-Coffee software, is for example not available. However, on the other hand
 RedHat is a super solid Linux distribution created by Red Hat Inc, the first billion
 dollar open source company.
 
-To make available more software packages for these distributions it is worth adding
-the Extra Packages for Enterprise Linux (EPEL) repository. This can be achieved by
-running the command below.
+RedHat based systems use the YUM package manager. To search for software using one can
+use the ``yum search`` command. For example one could use the command below to search
+for the Git version control package.
+
+.. code-block:: none
+
+    $ yum search git
+
+.. sidebar:: What doe YUM stand for?
+
+    YUM is an acronym for "Yellowdog Updater, Modified". This name symbolises that YUM
+    is a rewritten and modified version of the "Yellowdog Updater" (YUP) tool, which
+    was the package manager for the Yellowdog Linux distribution.
+
+To install a package using YUM one uses the ``yum install`` command.
+
+.. code-block:: none
+
+    $ sudo yum install git
+
+To uninstall a package one can use the ``yum remove`` command.
+
+.. code-block:: none
+
+    $ sudo yum remove git
+
+RedHat based system also provide groups of software. One group that you will
+want to install is the "Development Tools" group. This includes the Gnu C
+Complieer (gcc) and the "make" tools that are often required to install other
+software from source code.
+
+.. code-block:: none
+
+    $ sudo yum groupinstall "Development Tools"
+
+
+There are far fewer packages available for Redhat based distributions compared
+to Debian based distributions.  To make available more software packages for
+the former it is worth adding the Extra Packages for Enterprise Linux (EPEL)
+repository. This can be achieved by running the command below.
 
 .. code-block:: none
 
     $ sudo yum install epel-release
 
 
+Installing software on Mac OSX
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- installing software on redhat based systems
 - installing software on Macs
 - compiling software from source
 - installing Python packages using pip
