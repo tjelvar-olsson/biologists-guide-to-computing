@@ -168,7 +168,7 @@ Installing software on Debian based systems
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Debian-based systems come with a huge range of pre-package software available for
-installation using the Advance Package Tool (apt). To search for a piece of software
+installation using the Advance Package Tool (APT). To search for a piece of software
 package you would typically start off by updating the list of packages available
 for download using the ``apt-get update`` command.
 
@@ -260,6 +260,11 @@ repository. This can be achieved by running the command below.
 .. code-block:: none
 
     $ sudo yum install epel-release
+
+.. warning:: YUM has also got an "update" command. However, unlike APT where
+             ``apt-get update`` updates the list of available software packages
+             YUM's ``yum update`` will update all the installed software packages
+             to the latest version.
 
 
 Installing software on Mac OSX
