@@ -270,7 +270,61 @@ repository. This can be achieved by running the command below.
 Installing software on Mac OSX
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- installing software on Macs
+In this section I will illustrate how to install software using the
+`Homebrew <http://brew.sh/>`_ package manager.
+
+First of all we need to install Homebrew itself. This can be achieved using the
+command below, taken from the Homebrew home page.
+
+.. code-block:: none
+
+    $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+Homebrew refers to packages as "formulae". That is because each
+package/formulae is a ruby script describing how to install/brew a particular
+piece of software.
+
+Homebrew, just like APT, contains a local list of formulae that can be
+syncronised with the online sources using the ``brew update`` command.
+
+.. code-block:: none
+
+    $ brew update
+
+To search for a formulae one can use the ``brew search`` command. Let us for
+example search for the Git version control package.
+
+.. code-block:: none
+
+    $ brew search git
+
+To install a formulae using Homebrew one uses the ``brew install`` command.
+
+.. code-block:: none
+
+    $ brew install git
+
+To uninstall a formulae one uses the ``brew uninstall`` command.
+
+.. code-block:: none
+
+    $ brew uninstall git
+
+One of the things that you will want to do is to add another "tap" to Homebrew.
+Namely, the ``science`` tab. In Homebrew a "tap" is an additional resource of
+formulae.
+
+.. code-block:: none
+
+    $ brew tap homebrew/science
+
+We can now search for and install scientific software such as T-Coffee.
+
+.. code-block:: none
+
+    $ brew search t-coffee
+    $ brew install t-coffee
+
 - compiling software from source
 - installing Python packages using pip
 - installing Latex packages using tmgr
