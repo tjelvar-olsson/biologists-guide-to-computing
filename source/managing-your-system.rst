@@ -325,7 +325,58 @@ We can now search for and install scientific software such as T-Coffee.
     $ brew search t-coffee
     $ brew install t-coffee
 
-- compiling software from source
+
+Compiling software from source
+------------------------------
+
+Many scientific software packages are only available as source code. This may mean
+that you need to compile the software yourself in order to run it.
+
+There are lots of different ways of compiling software from source. In all
+likelihood you will need to read and follow instructions provided with the
+software sources. The instructions are typically included in ``README`` or
+``INSTALL`` text files.
+
+The most common scenario is that you need to run three commands in the top level
+directory of the downloaded software.
+
+The first command is to run a script named ``configure`` provided with the software.
+
+.. code-block:: none
+
+    $ ./configure
+
+The ``configure`` script makes sure that all the dependencies are present on your
+system. For example if the software was written in ``C`` one of the tasks of the
+``configure`` script would be to check that it could find a ``C`` compiler on your
+system.
+
+Another task that is commonly performed by the ``configure`` script is to create
+a ``Makefile``. We already encountered the ``Makefile`` in
+:doc:`automation-is-your-friend`. It is essentially a file describing how to build
+the software.
+
+Building the software, using the instructions in the ``Makefile``, is also the
+next step of the process. This is typically achieved by running the ``make``
+command.
+
+.. code-block:: none
+
+    $ make
+
+The ``make`` command typically creates a number of executable files, often in
+a subdirectory named ``build``.
+
+The final step is to install the software. This is achieved by copying the
+built executable files into a relevant directory present in your ``PATH``.
+Since these directories are typically owned by root the final step typically
+requires superuser privileges.
+
+.. code-block:: none
+
+    $ sudo make install
+
+
 - installing Python packages using pip
 - installing Latex packages using tmgr
 - installing R packages
