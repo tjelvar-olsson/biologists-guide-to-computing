@@ -489,7 +489,8 @@ To show why this is useful let us deactivate the virtual environment.
     /usr/bin/python
 
 .. note:: The ``deactivate`` command is also created when you run the
-          ``./env/bin/activate`` script.
+          ``./env/bin/activate`` script. Running the ``deactivate``
+          command also removes it.
 
 Now let us create a new clean virtual environment, activate it and list
 its packages.
