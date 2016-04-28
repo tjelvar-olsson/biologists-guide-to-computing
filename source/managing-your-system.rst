@@ -377,7 +377,143 @@ requires superuser privileges.
     $ sudo make install
 
 
-- installing Python packages using pip
+Installing Python packages
+--------------------------
+
+Python is a high-level scripting language that is relatively easy to read and
+get to grips with.  We have already made use of Python in the previous
+chapters.
+
+It is possible to create re-usable software packages in Python. In fact
+there are many such Python packages aimed at the scientific community.
+Examples include `numpy <http://www.numpy.org/>`_
+and `scipy <https://www.scipy.org/>`_ for numerical computing,
+`sympy <http://www.sympy.org/en/index.html>`_ for symbolic mathematics,
+`matplotlib <http://matplotlib.org/>`_ for figure generation,
+`pandas <http://pandas.pydata.org/>`_ for data structures and analysis and
+`scikit-learn <http://scikit-learn.org/stable/>`_ for machine learning.
+There is also a package aimed directly at the biological community,
+namely `biopython  <http://biopython.org/>`_.
+
+Most packages are hosted on `PyPI <https://pypi.python.org>`_ and can
+be installed using ``pip``. The ``pip`` command comes prepackaged with
+Python since versions 2.7.9 and 3.4. If you have an older version of
+Python you may need to install ``pip`` manually, see the
+`pip installation notes <https://pip.pypa.io/en/latest/installing/#install-pip>`_
+for more details.
+
+I suggest that you install the ``virtualenv`` package straight away.
+
+.. code-block:: none
+
+    $ sudo pip install virtualenv
+
+This installs the ``virtualenv`` tool that allows you to create
+virtual Python environments.
+
+.. sidebar:: What is a Python virtual environment?
+
+    A Python virtual environment is essentially a copy of your system's Python
+    programming environment. This means that you can install Python packages
+    into your virtual environment without having to root privileges. It also
+    means that any packages that you install do not interfere with your system
+    Python and vice versa. Furthermore, if you have multiple virtual
+    environment they are all separate from each other. So if you have one
+    virtual environment for each project that you are working on their Python
+    packages can be of different versions without causing any problems.
+
+Let use ``virtualenv`` to create a virtual environment.
+
+.. code-block:: none
+
+    $ virtualenv env
+
+Note that ``env`` is a directory containing all the required pieces for a
+working Python system. To make use of our virtual environment we need to
+activate it by sourcing the ``env/bin/activate`` script.
+
+.. code-block:: none
+
+    $ source ./env/bin/activate
+
+This script basically mangles your ``PATH`` environment variable to ensure that
+virtualenv's Python is found first. We can find out which version of Python
+and ``pip`` is will be used by using the ``which`` command.
+
+.. code-block:: none
+
+    (env)$ which python
+    /home/olssont/env/bin/python
+    (env)$ which pip
+    /home/olssont/env/bin/pip
+
+.. note:: The ``./env/bin/activate`` script also changed the look of our prompt
+          prefixing it with the name of the virtual environment.
+
+Now let us install ``numpy`` into our virtual environment.
+
+.. code-block:: none
+
+    (env)$ pip install numpy
+
+To list installed packages you can use the ``pip list`` command.
+
+.. code-block:: none
+
+    (env)$ pip list
+    numpy (1.9.2)
+    pip (6.0.8)
+    setuptools (12.0.5)
+
+When working on a Python project it can be useful to record the exact versions
+of the installed packages to make it easy to reproduce the setup at a later
+date. This is achieved using the ``pip freeze`` command.
+
+.. code-block:: none
+
+    (env)$ pip freeze
+    numpy==1.9.2
+
+Let us save this information into a file named ``requirements.txt``.
+
+.. code-block:: none
+
+    (env)$ pip freeze > requirements.txt
+
+To show why this is useful let us deactivate the virtual environment.
+
+.. code-block:: none
+
+    (env)$ deactivate
+    $ which python
+    /usr/bin/python
+
+.. note:: The ``deactivate`` command is also created when you run the
+          ``./env/bin/activate`` script.
+
+Now let us create a new clean virtual environment, activate it and list
+its packages.
+
+.. code-block:: none
+
+    $ virtualenv env2
+    $ source ./env2/bin/activate
+    (env2)$ pip list
+    pip (6.0.8)
+    setuptools (12.0.5)
+
+Now we can replicate the exact same setup as in our first virtual environment,
+i.e. install ``numpy`` version 1.9.2, using the command below.
+
+.. code-block:: none
+
+    (env2)$ pip install -r requirements.txt
+    (env)$ pip list
+    numpy (1.9.2)
+    pip (6.0.8)
+    setuptools (12.0.5)
+
+
 - installing Latex packages using tmgr
 - installing R packages
 - installing Perl libraries
