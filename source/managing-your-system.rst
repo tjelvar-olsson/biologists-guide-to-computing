@@ -515,7 +515,55 @@ i.e. install ``numpy`` version 1.9.2, using the command below.
     setuptools (12.0.5)
 
 
-- installing Latex packages using tmgr
+Installing R packages
+---------------------
+
+
+
+Installing Latex packages
+-------------------------
+
+TeX is a collection of programs and packages that allow you to typeset
+documents. LaTeX is a number of macros built on top of TeX.  In
+:doc:`collaborating-on-manuscripts` we discussed Latex and its uses for
+producing laying out the content of our documents.
+
+Confusingly there are many different distributions of TeX, for example the dominant
+distribution of TeX on Windows' is `MiKTeX <http://miktex.org/>`_. On
+Unix based systems the most commonly used TeX distribution is
+`TeX Live <https://www.tug.org/texlive/>`_.
+
+In terms of package management Tex Live has got three different concepts: packages,
+collections and schemes. A collection is a set of packages and a scheme group of
+collections and packages. Scheme's can only be selected during the initial install
+of TeX Live, whereas packages can be installed at any point.
+
+One option is to use the ``scheme-full``, which includes everything meaning that
+you are unlikely to need to install anything else. However, this can take a long
+time and take up quite a lot of space on your system.
+
+Another option is to start with a couple of smaller schemes, for example
+``scheme-basic``, ``scheme-minimal`` and ``scheme-small``. Other packages and
+collections can then be installed as required.
+
+Once you have install TeX Live you can manage it using the TeX Live Package
+Manager (``tlmgr``).
+
+To search for a package you can use the ``tlmgr search`` command.
+
+.. code-block:: none
+
+    $ tlmgr search fontsrecommended
+    collection-fontsrecommended - Recommended fonts
+
+To install a pacakge/collection.
+
+.. code-block:: none
+
+    $ tlmgr install collection-fontsrecommended
+
+
+
 - installing R packages
 - installing Perl libraries
 - installing Ruby libraries
