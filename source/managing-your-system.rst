@@ -518,6 +518,117 @@ i.e. install ``numpy`` version 1.9.2, using the command below.
 Installing R packages
 ---------------------
 
+R is a scripting language that with a strong focus on statistics and data
+visualisation.
+
+There are many packages available for R. These are hosted on
+`CRAN <https://cran.r-project.org/>`_ (The Comprehensive R Archive Network).
+
+To install an R package, for example ``ggplot2``, we need to start an R session.
+
+.. code-block:: none
+
+    $ R
+
+    R version 3.2.2 (2015-08-14) -- "Fire Safety"
+    Copyright (C) 2015 The R Foundation for Statistical Computing
+    Platform: x86_64-apple-darwin14.5.0 (64-bit)
+
+    R is free software and comes with ABSOLUTELY NO WARRANTY.
+    You are welcome to redistribute it under certain conditions.
+    Type 'license()' or 'licence()' for distribution details.
+
+      Natural language support but running in an English locale
+
+    R is a collaborative project with many contributors.
+    Type 'contributors()' for more information and
+    'citation()' on how to cite R or R packages in publications.
+
+    Type 'demo()' for some demos, 'help()' for on-line help, or
+    'help.start()' for an HTML browser interface to help.
+    Type 'q()' to quit R.
+
+    >
+
+Then one can use the built-in ``install.packages`` function.
+This will prompt you to select a mirror to download from. Select
+one close to you.
+
+.. code-block:: R
+
+    > install.packages("ggplot2")
+    Installing package into ‘/usr/local/lib/R/3.2/site-library’
+    (as ‘lib’ is unspecified)
+    --- Please select a CRAN mirror for use in this session ---
+    HTTPS CRAN mirror
+
+     1: 0-Cloud [https]                2: Austria [https]
+     3: Belgium (Ghent) [https]        4: Chile [https]
+     5: China (Beijing 4) [https]      6: Colombia (Cali) [https]
+     7: France (Lyon 1) [https]        8: France (Lyon 2) [https]
+     9: France (Paris 2) [https]      10: Germany (Münster) [https]
+    11: Iceland [https]               12: Italy (Padua) [https]
+    13: Japan (Tokyo) [https]         14: Mexico (Mexico City) [https]
+    15: New Zealand [https]           16: Russia (Moscow) [https]
+    17: Serbia [https]                18: Spain (A Coruña) [https]
+    19: Spain (Madrid) [https]        20: Switzerland [https]
+    21: UK (Bristol) [https]          22: UK (Cambridge) [https]
+    23: USA (CA 1) [https]            24: USA (KS) [https]
+    25: USA (MI 1) [https]            26: USA (TN) [https]
+    27: USA (TX) [https]              28: USA (WA) [https]
+    29: (HTTP mirrors)
+
+    Selection:
+
+That's it, the ``ggplot2`` package is now available for you to use.
+However, note that you need to load it using the built-in ``library``
+function before you can use it.
+
+.. code-block:: R
+
+    > library(ggplot2)
+    
+
+Installing Perl modules
+-----------------------
+
+Perl is a scripting language popular in the bioinformatics community. You may
+therefore have to work with it.
+
+There are a vast number of Perl modules available. These are hosted on
+`CPAN <http://www.cpan.org/index.html>`_ (Comprehensive Perl Archive Network).
+
+Traditionally, CPAN hosted packages are installed using the ``cpan`` command.
+However, this can be quite cumbersome as it asks the user a lot of questions
+with regards to how things should be configured. This resulted in people
+developing an easier to use tool to install Perl modules: ``cpanm`` (CPAN
+Minus). You may be able to install ``cpanm`` using your distributions package
+manager, if not you can install it using ``cpan``.
+
+.. code-block:: none
+
+    $ cpan App::cpanminus
+
+If you run the command below you will notice that ``cpan`` prompts you for
+a lot of information, accepting the defaults is fine. When it prompts you
+to select an approach:
+
+.. code-block::
+
+    What approach do you want?  (Choose 'local::lib', 'sudo' or 'manual')
+
+choose ``sudo``. This will install ``cpanm`` into a location that is immediately
+available in your ``PATH``.
+
+Now that you have installed ``cpanm`` you can use it to install Perl modules
+more easily. For example to install the ``Bio::Tools::GFF`` module you can
+simply use
+the command below.
+
+.. code-block:: none
+
+    $ cpanm Bio::Tools::GFF
+
 
 
 Installing Latex packages
@@ -556,15 +667,46 @@ To search for a package you can use the ``tlmgr search`` command.
     $ tlmgr search fontsrecommended
     collection-fontsrecommended - Recommended fonts
 
-To install a pacakge/collection.
+To install a package/collection.
 
 .. code-block:: none
 
     $ tlmgr install collection-fontsrecommended
 
 
+Automated provisioning
+----------------------
 
-- installing R packages
-- installing Perl libraries
-- installing Ruby libraries
-- Ansible
+As this chapter highlights managing software installations can be onerous and tedious.
+What makes matters worse is that after you have installed a piece of software it can
+be very easy to forget how you did it. So when you get a new computer you may find
+yourself spending quite sometime configuring it so that all your analysis pipelines
+work as expected.
+
+Spending time configuring your system may be acceptable if you are the only
+person depending on it. However, if other people depend on the machine as well
+it is not. For example, you may end up responsible for a scientific web-service.
+In these instances you should look into automating the configuration of
+your system.
+
+Describing how to do this is beyond the scope of this book. However, if you are
+interested I highly recommend using `Ansible <https://www.ansible.com/>`_. To
+get an idea of how Ansible works I suggest having a look at some of the blog
+posts on my website, for example `How to create automated and reproducible work
+flows for installing scientific software
+<http://tjelvarolsson.com/blog/how-to-create-automated-and-reproducible-work-flows-for-installing-scientific-software/>`_.
+
+
+Key concepts
+------------
+
+- The file system is structured like a tree staring from the root ``/``
+- Programs commonly located in ``/bin``, ``/usr/bin``, ``/usr/local/bin``
+- The ``PATH`` environment variable defines where your shell looks for programs
+- You need superuser privileges to write to many of default program locations
+- The ``sudo`` command allows you to run another command with superuser privileges if you are in the sudoers list
+- Package managers allow you to easily search for and install software packages
+- Some software such as Python, R and Perl have their own built-in package managers
+- It can be easy to forget how you how you configured your machine, do make notes
+- Once you start finding it tedious making notes you should start thinking
+  about automating the configuration of your system using a tool such as Ansible
