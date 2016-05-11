@@ -613,7 +613,7 @@ If you run the command below you will notice that ``cpan`` prompts you for
 a lot of information, accepting the defaults is fine. When it prompts you
 to select an approach:
 
-.. code-block::
+.. code-block:: none
 
     What approach do you want?  (Choose 'local::lib', 'sudo' or 'manual')
 
