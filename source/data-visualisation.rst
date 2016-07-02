@@ -37,8 +37,150 @@ Finally, we will use R and ggplot to create a sliding window plot of the
 GC content data from the :doc:`data-analysis` chapter.
 
 
-Quick R primer
---------------
+Starting R and loading the Iris flower data set
+-----------------------------------------------
+
+R like Python can be run in an interactive shell. This is a great way to
+get familiar with R. To access R's interactive shell simply type ``R`` into your terminal and press enter.
+
+.. code-block:: none
+
+    $ R
+
+    R version 3.2.2 (2015-08-14) -- "Fire Safety"
+    Copyright (C) 2015 The R Foundation for Statistical Computing
+    Platform: x86_64-apple-darwin14.5.0 (64-bit)
+
+    R is free software and comes with ABSOLUTELY NO WARRANTY.
+    You are welcome to redistribute it under certain conditions.
+    Type 'license()' or 'licence()' for distribution details.
+
+      Natural language support but running in an English locale
+
+    R is a collaborative project with many contributors.
+    Type 'contributors()' for more information and
+    'citation()' on how to cite R or R packages in publications.
+
+    Type 'demo()' for some demos, 'help()' for on-line help, or
+    'help.start()' for an HTML browser interface to help.
+    Type 'q()' to quit R.
+
+    >
+
+R comes bundled with a number of data sets. To view these you can use the
+``data()`` function, which lists all the available data sets.
+
+.. code-block:: R
+
+    > data()
+    Data sets in package ‘datasets’:
+
+    AirPassengers           Monthly Airline Passenger Numbers 1949-1960
+    BJsales                 Sales Data with Leading Indicator
+    BJsales.lead (BJsales)
+                            Sales Data with Leading Indicator
+    BOD                     Biochemical Oxygen Demand
+    CO2                     Carbon Dioxide Uptake in Grass Plants
+    ...
+
+We are interested in the Iris flower data set, called ``iris``, let us load
+it.
+
+.. code-block:: R
+
+    > data(iris)
+
+This loads the ``iris`` data set into the workspace. You can list the content
+of the workspace using the ``ls()`` function.
+
+.. code-block:: R
+
+    > ls()
+    [1] "iris"
+
+.. sidebar:: What is a workspace?
+
+    R has the concept of a "workspace". The workspace is the current working
+    environment and includes any user defined objects. At the end of a R
+    session the user can save the workspace. If saved the workspace will be
+    automatically loaded the next time R is started.
+
+
+Understanding the structure of the ``iris`` data set
+----------------------------------------------------
+
+First of all let us find out about the internal structure of the ``iris`` data set using the ``str()`` funciton.
+
+.. code-block:: R
+
+    > str(iris)
+    'data.frame':   150 obs. of  5 variables:
+     $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+     $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+     $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+     $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+     $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+
+This reveals that the ``iris`` data set is a data frame with 150 observations
+and five variables.
+
+In R a data frame is a data structure for storing two-dimensional data, i.e. a
+spreadsheet like data with rows and columns. In a data frame each column
+contains the same type of data and each row has values for each column.
+
+.. sidebar:: What is the difference between vectors, lists and data frames?
+
+    As well as data frames R also has concepts of vectors and lists.
+    A vector is a list where each item is of the same type. A list
+    is more flexible in that the items can be of different types.
+    The data frame is essentially a list of equal length lists..
+
+You can find the names of the columns in a data frame using the ``names()`` function.
+
+.. code-block:: R
+
+    > names(iris)
+    [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+
+To find the number of columns and rows one can use the ``ncol()`` and
+``nrow()`` functions, respectively.
+
+.. code-block:: R
+
+    > ncol(iris)
+    [1] 5
+    > nrow(iris)
+    [1] 150
+
+To view the first six rows of a data frame one can use the ``head()`` function.
+
+.. code-block:: R
+
+        > head(iris)
+      Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+    1          5.1         3.5          1.4         0.2  setosa
+    2          4.9         3.0          1.4         0.2  setosa
+    3          4.7         3.2          1.3         0.2  setosa
+    4          4.6         3.1          1.5         0.2  setosa
+    5          5.0         3.6          1.4         0.2  setosa
+    6          5.4         3.9          1.7         0.4  setosa
+
+To view the last six rows of a data frame one can use the ``tail()`` function.
+
+.. code-block:: R
+
+    > tail(iris)
+        Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+    145          6.7         3.3          5.7         2.5 virginica
+    146          6.7         3.0          5.2         2.3 virginica
+    147          6.3         2.5          5.0         1.9 virginica
+    148          6.5         3.0          5.2         2.0 virginica
+    149          6.2         3.4          5.4         2.3 virginica
+    150          5.9         3.0          5.1         1.8 virginica
+
+
+A note on statistics in R
+-------------------------
 
 
 Background
