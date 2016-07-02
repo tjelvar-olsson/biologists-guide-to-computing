@@ -671,7 +671,7 @@ To install a package/collection.
 
 .. code-block:: none
 
-    $ tlmgr install collection-fontsrecommended
+    $ sudo tlmgr install collection-fontsrecommended
 
 
 Automated provisioning
