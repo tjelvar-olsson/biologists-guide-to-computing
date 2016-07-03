@@ -122,7 +122,9 @@ First of all let us find out about the internal structure of the ``iris`` data s
      $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
 
 This reveals that the ``iris`` data set is a data frame with 150 observations
-and five variables.
+and five variables. It is also worth noting that ``Species`` is recorded as
+a Factor data structure. This means that it has categorical data. In this case
+three different species.
 
 In R a data frame is a data structure for storing two-dimensional data, i.e. a
 spreadsheet like data with rows and columns. In a data frame each column
@@ -181,6 +183,108 @@ To view the last six rows of a data frame one can use the ``tail()`` function.
 
 A note on statistics in R
 -------------------------
+
+Although this book is not about statistics it is worth mentioning that R is a
+superb tool for statistics. It has many built in functions for statisitcal
+computing. For example to calculate the median ``Sepal.Length`` for the ``iris``
+data one can use the built in ``median()`` function.
+
+.. code-block:: R
+
+    > median(iris$Sepal.Length)
+    [1] 5.8
+
+In the above the ``$`` symbol is used to specify the column of interest in the
+data frame.
+
+Another useful tool for getting an overview of a data set is the
+``summary()`` function.
+
+.. code-block:: R
+
+    > summary(iris)
+      Sepal.Length    Sepal.Width     Petal.Length    Petal.Width
+     Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100
+     1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300
+     Median :5.800   Median :3.000   Median :4.350   Median :1.300
+     Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199
+     3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800
+     Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500
+           Species
+     setosa    :50
+     versicolor:50
+     virginica :50
+
+
+Default plotting in R
+---------------------
+
+Before using ggplot let us have a look at how to generate default
+plots in R.
+
+First of all let us plot a histogram of the ``Sepal.Length``.
+
+.. code-block:: R
+
+    > hist(iris$Sepal.Length)
+
+.. figure:: images/iris_sepal_length_histogram.png
+   :alt: Iris sepal length histogram.
+
+   Histogram of Iris sepal length data generated using R's built in ``hist()``
+   function.
+
+Having to type out the name of the data set every time you want to access
+a column from it can get annoying. To overcome this problem R has the
+built in function ``attach()``, which can be used to attach objects to R's
+search path. This means that the columns in the data frame become available
+via their names.
+
+.. code-block:: R
+
+    > attach(iris)
+
+We can now produce the same histogram using the command below.
+
+.. code-block:: R
+
+    > hist(Sepal.Length)
+
+A scatter plot can be produced using the ``plot()`` function.
+The command below produces a scatter plot of ``Sepal.Length``
+versus ``Sepal.Width``.
+
+.. code-block:: R
+
+    > plot(Sepal.Length, Sepal.Width)
+
+.. figure:: images/iris_sepal_length_vs_width_scatterplot.png
+   :alt: Iris sepal length vs width scatter plot.
+
+   Scatter plot of Iris sepal length vs width generated using R's built in ``plot()``
+   function.
+
+Finally, a decent overview of the all data can be obtained by passing the
+entire data frame to the ``plot()`` function.
+
+.. code-block:: R
+
+    > plot(iris)
+
+.. figure:: images/iris_sepal_data_summary_plot.png
+   :alt: Iris sepal data summary plot.
+
+   Overview plot of Iris data using R's built in ``plot()`` function.
+
+R's built in plotting functions are useful for getting quick exploratory
+views of the data. However, they are a bit dull. In the next section we will
+make use of the ggplot library to make more visually pleasing and informative
+figures.
+
+
+Loading the ggplot library
+--------------------------
+
 
 
 Background
