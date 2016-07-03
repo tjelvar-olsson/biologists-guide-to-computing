@@ -11,11 +11,12 @@ visualising data.
 There are many different ways of visualising data and generating figures.  A
 broad distinction can be made between *ad-hoc* methods, usually using graphical
 user interfaces and button clicking, and methods that can be automated, i.e.
-methods that can be reproduce the figure without human intervention.
+methods that can reproduce the figure without human intervention.
 
 The take home message from this chapter is that you should automate the
 generation of your figures. This will save you time when you realize that you
-need to alter the figures and it will make your research more reproducible.
+need to alter the style of all the figures when submitting a manuscript for
+publication. It also will make your research more reproducible.
 
 There are several tools available for automating the generation of your
 figures.  In Python there is the `matplotlib <http://matplotlib.org/>`_
@@ -24,11 +25,10 @@ generated from Python scripts.  `Gnuplot <http://www.gnuplot.info/>`_ is a
 scripting language designed to plot data and mathematical functions, it is
 particularly good at depicting three-dimensional data.  `R
 <https://www.r-project.org/>`_ is a statistical scripting language, with
-built-in support for data visualisation. The default plots in R are not
-beautiful, furthermore it can be difficult to customise them. However the
-`ggplot2 <http://ggplot2.org/>`_ R package overcomes this problem by making
-visually pleasing figures as well as making it easy to visualise the data using
-different types of plots.
+built-in support for data visualisation.  Plotting in R is further enhanced by
+the `ggplot2 <http://ggplot2.org/>`_ package which makes it easy to produce
+visually pleasing figures. A particularly exiting feature of ggplot is that it
+simplifies the process visualising data using different types of plots.
 
 In this chapter we will be using R and ggplot to visualise and understand
 Anderson's
@@ -126,16 +126,16 @@ and five variables. It is also worth noting that ``Species`` is recorded as
 a Factor data structure. This means that it has categorical data. In this case
 three different species.
 
-In R a data frame is a data structure for storing two-dimensional data, i.e. a
-spreadsheet like data with rows and columns. In a data frame each column
-contains the same type of data and each row has values for each column.
+In R a data frame is a data structure for storing two-dimensional data, i.e.
+like a spreadsheet with rows and columns. In a data frame each column contains
+the same type of data and each row has values for each column.
 
 .. sidebar:: What is the difference between vectors, lists and data frames?
 
     As well as data frames R also has concepts of vectors and lists.
     A vector is a list where each item is of the same type. A list
     is more flexible in that the items can be of different types.
-    The data frame is essentially a list of equal length lists..
+    The data frame is essentially a list of equal length lists.
 
 You can find the names of the columns in a data frame using the ``names()`` function.
 
@@ -185,7 +185,7 @@ A note on statistics in R
 -------------------------
 
 Although this book is not about statistics it is worth mentioning that R is a
-superb tool for statistics. It has many built in functions for statisitcal
+superb tool for doing statistics. It has many built in functions for statisitcal
 computing. For example to calculate the median ``Sepal.Length`` for the ``iris``
 data one can use the built in ``median()`` function.
 
@@ -250,7 +250,7 @@ We can now produce the same histogram using the command below.
 
     > hist(Sepal.Length)
 
-A scatter plot can be produced using the ``plot()`` function.
+Scatter plots can be produced using the ``plot()`` function.
 The command below produces a scatter plot of ``Sepal.Length``
 versus ``Sepal.Width``.
 
