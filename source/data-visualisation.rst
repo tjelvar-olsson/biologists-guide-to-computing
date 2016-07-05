@@ -27,13 +27,13 @@ particularly good at depicting three-dimensional data.  `R
 <https://www.r-project.org/>`_ is a statistical scripting language, with
 built-in support for data visualisation.  Plotting in R is further enhanced by
 the `ggplot2 <http://ggplot2.org/>`_ package which makes it easy to produce
-visually pleasing figures. A particularly exiting feature of ggplot is that it
+visually pleasing figures. A particularly exiting feature of ggplot2 is that it
 simplifies the process visualising data using different types of plots.
 
-In this chapter we will be using R and ggplot to visualise and understand
+In this chapter we will be using R and ggplot2 to visualise and understand
 Anderson's
 `Iris flower data set <https://en.wikipedia.org/wiki/Iris_flower_data_set>`_.
-Finally, we will use R and ggplot to create a sliding window plot of the
+Finally, we will use R and ggplot2 to create a sliding window plot of the
 GC content data from the :doc:`data-analysis` chapter.
 
 
@@ -219,7 +219,7 @@ Another useful tool for getting an overview of a data set is the
 Default plotting in R
 ---------------------
 
-Before using ggplot let us have a look at how to generate default
+Before using ggplot2 let us have a look at how to generate default
 plots in R.
 
 First of all let us plot a histogram of the ``Sepal.Length``.
@@ -278,12 +278,74 @@ entire data frame to the ``plot()`` function.
 
 R's built in plotting functions are useful for getting quick exploratory
 views of the data. However, they are a bit dull. In the next section we will
-make use of the ggplot library to make more visually pleasing and informative
+make use of the ggplot2 package to make more visually pleasing and informative
 figures.
 
 
-Loading the ggplot library
---------------------------
+Loading the ggplot2 package
+---------------------------
+
+In order to make use of the ggplot2 package we need to load it. This is achieved
+using the ``library()`` function.
+
+.. sidebar:: Why do I load a package using a function called library?
+
+    There are many aspects of R, which can be confusing. A common confusion
+    stems around the usage of the words library and package.
+
+    In R the term "package" refers to a structured collection of functions,
+    data and compiled code, whereas the term "library" refers to the location
+    where packages are stored.
+
+    However, because of the naming of the ``library()`` function many people
+    think it is used to load libraries. However it does not, it loads packages.
+    This has resulted in the terms library and package being used
+    interchangeably. 
+
+    This may all sound a bit esoteric, but it does illustrate why you should take
+    care when naming your variables, functions and scripts. If you name them
+    inappropriately they will cause confusion.
+
+
+.. code-block:: R
+
+    > library("ggplot2")
+
+
+Plotting using ggplot2
+----------------------
+
+To get an idea of what it feels like to work with ggplot2 let us re-create the
+previous histogram and scatter plot with it.
+
+Let us start with the histogram.
+
+.. code-block:: R
+
+    > ggplot(data=iris, mapping=aes(Sepal.Length)) + geom_histogram()
+
+.. figure:: images/ggplot_iris_sepal_length_histogram.png
+   :alt: Iris sepal length histogram plotted using ggplot.
+
+   Histogram of Iris sepal length data generated using R's ggplot2 package.
+   The bin width used is different from the one used by R's built in ``hist()``
+   function, hence the difference in the appearance of the distribution.
+
+The syntax used may look a little bit strange at first. However, before going
+into more details about what it all means let's create the scatter plot to
+get a better feeling of how to work with ggplot2.
+
+
+.. code-block:: R
+
+    > ggplot(data=iris, mapping=aes(Sepal.Length, Sepal.Width)) + geom_point()
+
+
+.. figure:: images/ggplot_iris_sepal_length_vs_width_scatterplot.png
+   :alt: Iris sepal length vs width scatter plotted using ggplot.
+
+   Scatter plot of Iris sepal length vs width generated using R's ggplot2
+   package.
 
 
 
