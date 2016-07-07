@@ -336,9 +336,10 @@ into more details about what it all means let's create the scatter plot to
 get a better feeling of how to work with ggplot2.
 
 
+
 .. code-block:: R
 
-    > ggplot(data=iris, mapping=aes(Sepal.Length, Sepal.Width)) + geom_point()
+    > ggplot(data=iris, mapping=aes(x=Sepal.Length, y=Sepal.Width)) + geom_point()
 
 
 .. figure:: images/ggplot_iris_sepal_length_vs_width_scatterplot.png
@@ -347,6 +348,50 @@ get a better feeling of how to work with ggplot2.
    Scatter plot of Iris sepal length vs width generated using R's ggplot2
    package.
 
+In the examples above we provide the ``ggplot()`` function with two
+arguments ``data`` and ``mapping``. The former contains the data frame
+of interest and the latter specifies the columns(s) to be plotted.
+
+The ``ggplot`` function returns a ggplot object that can be plotted.  However,
+in order to view an actual plot one needs to add a layer to the ggplot object
+defining how the data should be presented.  In the examples above this is
+achieved using the ``+ geom_histogram()`` and ``+ geom_point()`` syntax.
+
+A ggplot object consists of separate layers. The reason for separating out the
+generation of a figure into separate layers is to allow the user to better be
+able to reason about the best way to represent the data.
+
+The three layers that we have come across so far are:
+
+- Data: the data to be plotted
+- Aesthetic: how the data should be mapped to the aesthetics of the plot
+- Geom: what type of plot should be used
+
+Of the above the "aestheitc" layer is the trickest to get ones head around.
+However, take for example the scatter plot, one aesthetic choice that we have
+made for that plot is that the ``Sepal.Length`` should be on the x-axis and
+the ``Sepal.Width`` should be on the y-axis.
+
+To reinforce this let us augment the scatter plot by sizing the points in the
+scatter plot by the ``Petal.Width`` and coloring them by the ``Species``, all
+of which could be considered to be aesthetic aspects of how to plot the data.
+
+.. code-block:: R
+
+    > ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, size=Petal.Width, color=Species)) + geom_point()
+
+.. figure:: images/ggplot_aesthetic_scatter_plot.png
+   :alt: Iris sepal length vs width, ponints sized by petal width coloured by species.
+
+   Scatter plot of Iris sepal length vs width, where the size of each point represents
+   the petal width and the colour is used to indicate the species.
+
+By adding these additional aesthetic attributes to the figure we can start to
+discern some structure that was previously hidden.
+
+
+Scripting data visualisation
+----------------------------
 
 
 Background
