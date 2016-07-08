@@ -518,6 +518,112 @@ Thirdly, what medium will be used to display the figure. Will it be displayed
 for a minute on a projector or will it be printed in an article? The audience
 will have less time to absorb details from the former.
 
+So suppose we wanted to create a figure intended for biologists, illustrating
+that there is not much variation in the local GC content of *Streptomyces
+coelicolor*  A3(2). Let us further suppose that the medium is in a printed
+journal where the figure can have a maximum width of 89 mm.
+
+The code below load the data and plots it as a line, resulting in a local GC
+content plot. Note also that we specify the width and height of the plot in
+millimeters in the ``ggsave()`` function.
+
+.. code-block:: R
+
+    library("ggplot2")
+    df = read.csv("local_gc_content.csv", header=T)
+    g = ggplot(df, aes(x=middle, y=gc_content)) +
+        geom_line()
+    ggsave("local_gc_content.png", width=89, height=50, units="mm")
+
+
+.. figure:: images/local_gc_content_1.png
+   :alt: Initial attempt at plotting local GC content.
+
+   Initial attempt at plotting local GC content.
+
+
+However, the scale of the y-axis makes the plot misleading. It looks like there
+is a lot of variation in the data. Let's expand the y range to span from 0 to a
+100 percent.
+
+.. code-block:: R
+
+    library("ggplot2")
+    df = read.csv("local_gc_content.csv", header=T)
+    g = ggplot(df, aes(x=middle, y=gc_content)) +
+        geom_line() +
+        ylim(0, 100)
+    ggsave("local_gc_content.png", width=89, height=50, units="mm")
+
+
+.. figure:: images/local_gc_content_2.png
+   :alt: Local GC content with y-axis scaled corretly.
+
+   Local GC content with y-axis scaled corretly.
+
+
+At the moment it looks like the line is floating in mid-air. This is because
+ggplot adds some padding to the limits. Let's turn this off.
+
+.. code-block:: R
+
+    library("ggplot2")
+    df = read.csv("local_gc_content.csv", header=T)
+    g = ggplot(df, aes(x=middle, y=gc_content)) +
+        geom_line() +
+        ylim(0, 100) + 
+        coord_cartesian(expand=FALSE)
+    ggsave("local_gc_content.png", width=89, height=50, units="mm")
+
+
+.. figure:: images/local_gc_content_3.png
+   :alt: Local GC content without padding.
+
+   Local GC content without padding.
+
+
+The labels on the x-axis are a bit difficult to read. To make it easier
+to understand the content of the x-axis let's scale it to use kilobases
+as its units.
+
+.. code-block:: R
+
+    library("ggplot2")
+    df = read.csv("local_gc_content.csv", header=T)
+    g = ggplot(df, aes(x=middle, y=gc_content)) +
+        geom_line() +
+        ylim(0, 100) + 
+        coord_cartesian(expand=FALSE) +
+        scale_x_continuous(labels=function(x)x/1000)
+    ggsave("local_gc_content.png", width=89, height=50, units="mm")
+
+
+.. figure:: images/local_gc_content_4.png
+   :alt: Local GC content with kilobases as the x axis units.
+
+   Local GC content with kilobases as the x axis units.
+
+
+Finally, let us add labels to the x-axis.
+
+.. code-block:: R
+
+    library("ggplot2")
+    df = read.csv("local_gc_content.csv", header=T)
+    g = ggplot(df, aes(x=middle, y=gc_content)) +
+        geom_line() +
+        ylim(0, 100) + 
+        coord_cartesian(expand=FALSE) +
+        scale_x_continuous(labels=function(x)x/1000) +
+        xlab("Nucleotide position (KB)") +
+        ylab("GC content (%)")
+    ggsave("local_gc_content.png", width=89, height=50, units="mm")
+
+
+.. figure:: images/local_gc_content_5.png
+   :alt: Local GC content with labelled axis.
+
+   Local GC content with labelled axis.
 
 
 Writing a caption
