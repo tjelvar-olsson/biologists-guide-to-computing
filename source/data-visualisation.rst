@@ -393,6 +393,101 @@ discern some structure that was previously hidden.
 Scripting data visualisation
 ----------------------------
 
+Now that we have got a basic understanding of how to interact with R and the functionality
+in the ggplot library let's take a step towards automating the figure generation by
+recording the steps required to plot the data in a script.
+
+Let us work on the histogram example. In the code below we store the ggplot
+object in the variable ``g`` and make use of ``ggsave()`` to write the plot to
+a file named ``histogram.png``. Save the code below to a file named
+``iris_sepal_length_histogram.R``
+
+.. code-block:: R
+
+    
+    library("ggplot2")
+    data(iris)
+
+    g <- ggplot(data=iris, aes(Sepal.Length)) +
+         geom_histogram()
+
+    ggsave('iris_sepal_length_histogram.png')
+
+To run this code we make use of the program ``Rscript``, which comes bundled with your
+R installation.
+
+.. code-block:: none
+
+    $ Rscript iris_sepal_length_histogram.R
+
+This will write the file ``iris_sepal_length_histogram.png`` to your current working
+directory.
+
+
+Faceting
+--------
+
+In the extended scatterplot example we found that it was useful to be able to
+visualise which data points belonged to which species. Maybe it would be useful
+to do something similar with the data in our histogram.
+
+In order to be able to achieve this ggplot2 provides the concept of faceting,
+the ability to split your data by one or more variables. Let us split the
+data by ``Species`` using the ``facet_grid()`` function.
+
+.. code-block:: R
+
+    library("ggplot2")
+    data(iris)
+
+    g <- ggplot(data=iris, aes(Sepal.Length)) +
+         geom_histogram() +
+         facet_grid(Species ~ .)
+
+    ggsave('histogram.png')
+
+In the above the ``facet_grid(Species ~ .)`` states that we want one
+``Species`` per row, as opposed to one species per column
+(``facet_grid(. ~ Species)``). Replacing the dot (``.``) with another
+variable would result in a faceting the data into a two dimensional grid.
+
+.. figure:: images/ggplot_faceted_histogram.png
+   :alt: Iris sepal length histogram faceted by species.
+
+   Histogram of Iris sepal length data faceted by species.
+
+
+Adding more colour
+------------------
+
+The faceted histogram plot clearly illustrates that there are differences
+in the distributions of the sepal length between the different Iris species.
+
+However, suppose that the faceted histogram figure was meant to be displayed
+next to the extended scatter plot produced above. To make it easier to make
+the mental connection between the two data representations it may be useful
+to colour the histograms by species as well.
+
+The colour of a histogram is an aesthetic characteristic. Let us add the
+fill colour as an aesthetic to the histogram geometric object.
+
+.. code-block:: R
+
+    library("ggplot2")
+    data(iris)
+
+    g <- ggplot(data=iris, aes(Sepal.Length)) +
+         geom_histogram(aes(fill=Species)) +
+         facet_grid(Species ~ .)
+
+    ggsave('histogram.png')
+
+
+.. figure:: images/ggplot_faceted_and_coloured_histogram.png
+   :alt: Iris sepal length histogram faceted and coloured by species.
+
+   Histogram of Iris sepal length data faceted and coloured by species.
+
 
 Background
 ----------
