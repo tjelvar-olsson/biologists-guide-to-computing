@@ -489,27 +489,35 @@ fill colour as an aesthetic to the histogram geometric object.
    Histogram of Iris sepal length data faceted and coloured by species.
 
 
-Background
-----------
+Purpose of data visualisation
+-----------------------------
 
-- Purpose of data visualisation
-- History of data visualisation
+There are two main purposes of representing data visually:
 
+1. To explore the data
+2. To convey a message to an audience
 
-How to create informative figures
----------------------------------
-
-- Audience
-- Message
-- Medium
+So far we have been focussing on the former. Let us know think a little bit
+more about the latter, conveying a message to an audience. In other words
+creating figures for presentations and publications.
 
 
-Scripting the generation of your plot
--------------------------------------
+Conveying a message to an audience
+----------------------------------
 
-- Matplotlib
-- Gnuplot
-- R
+The first step in creating an informative figure is to consider who the
+intended audience is. Is it the general public, school children or
+plant biologists? The general public may be interested in trends, whereas
+a plant scientist may be interested in a more detailed view.
+
+Secondly, what is the message that you want to convey. Stating this explicitly
+will help you when making decisions about the content and the layout of the
+figure.
+
+Thirdly, what medium will be used to display the figure. Will it be displayed
+for a minute on a projector or will it be printed in an article? The audience
+will have less time to absorb details from the former.
+
 
 
 Writing a caption
