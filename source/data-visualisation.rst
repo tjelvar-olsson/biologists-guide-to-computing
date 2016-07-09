@@ -629,6 +629,35 @@ Finally, let us add labels to the x-axis.
 Writing a caption
 -----------------
 
+All figures require a caption to help the audience understand how to interpret
+the plot.
+
+In this particular case two particular items stand out as missing from being
+able to interpret the plot. First of all what is the source of the DNA, i.e.
+where is the data from? Secondly, what was the window and step sizes of the
+sliding window analysis?
+
+It would also be appropriate to explicitly state what the message of the plot
+is, i.e. that there is not much variation in the local GC content. In this case
+we could further substantiate this claim by citing the mean and standard deviation
+of the local GC content across the genome.
+
+.. code-block:: R
+
+    > df = read.csv("local_gc_content.csv", header=T)
+    > mean(df$gc_content)
+    [1] 72.13948
+    > sd(df$gc_content)
+    [1] 1.050728
+
+Below is the final figure and it's caption
+
+.. figure:: images/local_gc_content_5.png
+   :alt: Local GC content with labelled axis.
+
+   There is little variation in the local GC content of *Streptomyces
+   coelicolor* A3(2). Using a window size of 100 KB and a step size of 50 KB
+   the local GC content has a mean of 72.1% and a standard deviation of 1.1%.
 
 Other useful tools for scripting the generation of figures
 ----------------------------------------------------------
