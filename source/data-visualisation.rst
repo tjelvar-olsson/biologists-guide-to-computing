@@ -8,33 +8,23 @@ Introduction
 So far we have been learning how to crunch data. Now we will look into
 visualising data.
 
-There are many different ways of visualising data and generating figures.  A
-broad distinction can be made between *ad-hoc* methods, usually using graphical
-user interfaces and button clicking, and methods that can be automated, i.e.
-methods that can reproduce the figure without human intervention.
+There are two main purposes of representing data visually:
 
-The take home message from this chapter is that you should automate the
-generation of your figures. This will save you time when you realize that you
-need to alter the style of all the figures when submitting a manuscript for
-publication. It also will make your research more reproducible.
+1. To explore the data
+2. To convey a message to an audience
 
-There are several tools available for automating the generation of your
-figures.  In Python there is the `matplotlib <http://matplotlib.org/>`_
-package, which is very powerful and it is a great tool for plotting data
-generated from Python scripts.  `Gnuplot <http://www.gnuplot.info/>`_ is a
-scripting language designed to plot data and mathematical functions, it is
-particularly good at depicting three-dimensional data.  `R
-<https://www.r-project.org/>`_ is a statistical scripting language, with
-built-in support for data visualisation.  Plotting in R is further enhanced by
-the `ggplot2 <http://ggplot2.org/>`_ package which makes it easy to produce
-visually pleasing figures. A particularly exiting feature of ggplot2 is that it
-simplifies the process visualising data using different types of plots.
+In this chapter we will look at how both of these can be accomplished using `R
+<https://www.r-project.org/>`_ and its associated `ggplot2 <http://ggplot2.org/>`_
+package.
+ 
+We will start off by exploring Anderson's `Iris flower data set
+<https://en.wikipedia.org/wiki/Iris_flower_data_set>`_. This will be an
+exercise in data exploration.
 
-In this chapter we will be using R and ggplot2 to visualise and understand
-Anderson's
-`Iris flower data set <https://en.wikipedia.org/wiki/Iris_flower_data_set>`_.
-Finally, we will use R and ggplot2 to create a sliding window plot of the
-GC content data from the :doc:`data-analysis` chapter.
+Finally, we will use R and ggplot2 to build up a sliding window plot of the
+GC content data from the :doc:`data-analysis` chapter. This will serve to
+illustrate some points to consider when trying to convey a message to an
+audience.
 
 
 Starting R and loading the Iris flower data set
@@ -662,10 +652,46 @@ Below is the final figure and it's caption
 Other useful tools for scripting the generation of figures
 ----------------------------------------------------------
 
-- Graphviz
-- ImageMagick
-- D3js
+There are many different ways of visualising data and generating figures.  A
+broad distinction can be made between *ad-hoc* methods, usually using graphical
+user interfaces and button clicking, and methods that can be automated, i.e.
+methods that can reproduce the figure without human intervention.
+
+One take home message from this chapter is that you should automate the
+generation of your figures. This will save you time when you realize that you
+need to alter the style of all the figures when submitting a manuscript for
+publication. It also will make your research more reproducible.
+
+Apart from R and ggplot there are several tools available for automating the
+generation of your figures.  In Python there is the `matplotlib
+<http://matplotlib.org/>`_ package, which is very powerful and it is a great
+tool for plotting data generated from Python scripts.  `Gnuplot
+<http://www.gnuplot.info/>`_ is a scripting language designed to plot data and
+mathematical functions, it is particularly good at depicting three-dimensional
+data. 
+
+If you are dealing with graphs, as in evolutionary trees and metabolic pathways,
+it is worth having a look at `Graphviz <www.graphviz.org/>`_.
+
+A general purpose tool for manipulating images on the command line is
+`ImageMagick <www.imagemagick.org/>`_. It can be used to resize, crop and
+transform your images.  It is a great tool for automating your image
+manipulation.
+
+If you are wanting to visualise data in the web pages it worth invsting some
+time looking at the various JavaScript libraries out there for data visualisation.
+One poplar option is `D3.js <https://d3js.org/>`_.
 
 
 Key concepts
 ------------
+
+- R and ggplot are powerful tools for visualising data
+- R should also be your first port of call for statistical computing (although
+  that is not covered in this book)
+- In ggplot visual representation of your data are built up using layers
+- Separating out different aspects of plotting into different layers makes
+  it easier to reason about the data and the best way to represent it visually
+- Scripting your data visualisation makes it easier to modify later on
+- Scripting your data visualisation makes it reproducible
+- When creating a figure ask yourself: who is the audience and what is the message
