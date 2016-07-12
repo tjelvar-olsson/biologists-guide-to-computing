@@ -357,6 +357,39 @@ By adding these additional aesthetic attributes to the figure we can start to
 discern some structure that was previously hidden.
 
 
+Available "Geoms"
+-----------------
+
+The ggplot2 package comes bundled with a wide range of geoms ("geometries" for
+plotting data). So far we have seen ``geom_histogram()`` and ``geom_point()``.
+To find out what other geoms are available you can start typing ``geom_`` into
+a R session and hit the Tab key to list the available geoms using tab-completion.
+
+.. code-block:: R
+
+    > geom_
+    geom_abline      geom_errorbarh   geom_quantile
+    geom_area        geom_freqpoly    geom_raster
+    geom_bar         geom_hex         geom_rect
+    geom_bin2d       geom_histogram   geom_ribbon
+    geom_blank       geom_hline       geom_rug
+    geom_boxplot     geom_jitter      geom_segment
+    geom_contour     geom_label       geom_smooth
+    geom_count       geom_line        geom_spoke
+    geom_crossbar    geom_linerange   geom_step
+    geom_curve       geom_map         geom_text
+    geom_density     geom_path        geom_tile
+    geom_density_2d  geom_point       geom_violin
+    geom_density2d   geom_pointrange  geom_vline
+    geom_dotplot     geom_polygon
+    geom_errorbar    geom_qq
+
+These work largely as expected, for example the ``geom_boxplot()`` results in a
+boxplot and the ``geom_line()`` results in a line plot. For illustrations
+of these different geoms in action have a look at the
+`examples in the ggplot2 documentation <http://docs.ggplot2.org/current/index.html>`_.
+
+
 Scripting data visualisation
 ----------------------------
 
