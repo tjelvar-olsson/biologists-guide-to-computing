@@ -456,6 +456,10 @@ variable would result in a faceting the data into a two dimensional grid.
 
    Histogram of Iris sepal length data faceted by species.
 
+Faceting is a really powerful feature of ggplot2! It allows you to
+easily split data based on one or more variables and can result in
+insights about underlying structures and multivariate trends.
+
 
 Adding more colour
 ------------------
