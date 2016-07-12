@@ -890,7 +890,7 @@ a list of words, by default the :func:`split` method splits text based on one
 or more white space characters.
 
 On line seven we use the :func:`join` method to join the words together, in
-this instance we there are no characters separating the words to be joined. It is
+this instance there are no characters separating the words to be joined. It is
 worth clarifying this with an example, if we wanted to join the words using a
 comma character one would use the syntax ``",".join(words[:1])``.
 
@@ -970,7 +970,7 @@ Edit the end of the ``gc_content.py`` script to make it look like the below.
         header = "start,middle,end,gc_content\n"
         file_handle.write(header)
         for start, end, gc in sliding_window_analysis(sequence, gc_content):
-            middle = start + end / 2
+            middle = (start + end) / 2
             row = "{},{},{},{}\n".format(start, middle, end, gc)
             file_handle.write(row)
 
@@ -1012,14 +1012,14 @@ We can examine the top of this newly created file using the ``head`` command.
     $ head local_gc_content.csv
     start,middle,end,gc_content
     0,50000,100000,69.124
-    50000,125000,150000,70.419
-    100000,200000,200000,72.495
-    150000,275000,250000,71.707
-    200000,350000,300000,71.098
-    250000,425000,350000,72.102
-    300000,500000,400000,72.712
-    350000,575000,450000,73.15
-    400000,650000,500000,73.27
+    50000,100000,150000,70.419
+    100000,150000,200000,72.495
+    150000,200000,250000,71.707
+    200000,250000,300000,71.098
+    250000,300000,350000,72.102
+    300000,350000,400000,72.712
+    350000,400000,450000,73.15
+    400000,450000,500000,73.27
 
 
 Well done! We have covered a lot of ground in this chapter. I suggest digging out
