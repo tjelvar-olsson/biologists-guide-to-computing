@@ -17,7 +17,7 @@ In this chapter we will look at how both of these can be accomplished using `R
 <https://www.r-project.org/>`_ and its associated `ggplot2 <http://ggplot2.org/>`_
 package.
  
-We will start off by exploring Anderson's `Iris flower data set
+We will start off by exploring Fisher's `Iris flower data set
 <https://en.wikipedia.org/wiki/Iris_flower_data_set>`_. This will be an
 exercise in data exploration.
 
@@ -224,29 +224,13 @@ First of all let us plot a histogram of the ``Sepal.Length``.
    Histogram of Iris sepal length data generated using R's built in ``hist()``
    function.
 
-Having to type out the name of the data set every time you want to access
-a column from it can get annoying. To overcome this problem R has the
-built in function ``attach()``, which can be used to attach objects to R's
-search path. This means that the columns in the data frame become available
-via their names.
-
-.. code-block:: R
-
-    > attach(iris)
-
-We can now produce the same histogram using the command below.
-
-.. code-block:: R
-
-    > hist(Sepal.Length)
-
 Scatter plots can be produced using the ``plot()`` function.
 The command below produces a scatter plot of ``Sepal.Length``
 versus ``Sepal.Width``.
 
 .. code-block:: R
 
-    > plot(Sepal.Length, Sepal.Width)
+    > plot(iris$Sepal.Length, iris$Sepal.Width)
 
 .. figure:: images/iris_sepal_length_vs_width_scatterplot.png
    :alt: Iris sepal length vs width scatter plot.
@@ -277,25 +261,6 @@ Loading the ggplot2 package
 
 In order to make use of the ggplot2 package we need to load it. This is achieved
 using the ``library()`` function.
-
-.. sidebar:: Why do I load a package using a function called library?
-
-    There are many aspects of R, which can be confusing. A common confusion
-    stems around the usage of the words library and package.
-
-    In R the term "package" refers to a structured collection of functions,
-    data and compiled code, whereas the term "library" refers to the location
-    where packages are stored.
-
-    However, because of the naming of the ``library()`` function many people
-    think it is used to load libraries. However it does not, it loads packages.
-    This has resulted in the terms library and package being used
-    interchangeably. 
-
-    This may all sound a bit esoteric, but it does illustrate why you should take
-    care when naming your variables, functions and scripts. If you name them
-    inappropriately they will cause confusion.
-
 
 .. code-block:: R
 
@@ -357,7 +322,7 @@ The three layers that we have come across so far are:
 - Aesthetic: how the data should be mapped to the aesthetics of the plot
 - Geom: what type of plot should be used
 
-Of the above the "aestheitc" layer is the trickest to get ones head around.
+Of the above the "aesthetic" layer is the trickiest to get one's head around.
 However, take for example the scatter plot, one aesthetic choice that we have
 made for that plot is that the ``Sepal.Length`` should be on the x-axis and
 the ``Sepal.Width`` should be on the y-axis.
@@ -487,7 +452,7 @@ There are two main purposes of representing data visually:
 1. To explore the data
 2. To convey a message to an audience
 
-So far we have been focussing on the former. Let us know think a little bit
+So far we have been focussing on the former. Let us now think a little bit
 more about the latter, conveying a message to an audience. In other words
 creating figures for presentations and publications.
 
@@ -513,16 +478,19 @@ that there is not much variation in the local GC content of *Streptomyces
 coelicolor*  A3(2). Let us further suppose that the medium is in a printed
 journal where the figure can have a maximum width of 89 mm.
 
-The code below load the data and plots it as a line, resulting in a local GC
+The code below loads the data and plots it as a line, resulting in a local GC
 content plot. Note also that we specify the width and height of the plot in
 millimeters in the ``ggsave()`` function.
 
 .. code-block:: R
 
     library("ggplot2")
+
     df = read.csv("local_gc_content.csv", header=T)
-    g = ggplot(df, aes(x=middle, y=gc_content)) +
-        geom_line()
+
+    g1 = ggplot(df, aes(x=middle, y=gc_content))
+    g2 = g1 + geom_line()
+
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
 
@@ -533,16 +501,19 @@ millimeters in the ``ggsave()`` function.
 
 
 However, the scale of the y-axis makes the plot misleading. It looks like there
-is a lot of variation in the data. Let's expand the y range to span from 0 to a
+is a lot of variation in the data. Let's expand the y range to span from 0 to
 100 percent.
 
 .. code-block:: R
 
     library("ggplot2")
+
     df = read.csv("local_gc_content.csv", header=T)
-    g = ggplot(df, aes(x=middle, y=gc_content)) +
-        geom_line() +
-        ylim(0, 100)
+
+    g1 = ggplot(df, aes(x=middle, y=gc_content))
+    g2 = g1 + geom_line()
+    g3 = g2 + ylim(0, 100)
+
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
 
@@ -558,11 +529,14 @@ ggplot adds some padding to the limits. Let's turn this off.
 .. code-block:: R
 
     library("ggplot2")
+
     df = read.csv("local_gc_content.csv", header=T)
-    g = ggplot(df, aes(x=middle, y=gc_content)) +
-        geom_line() +
-        ylim(0, 100) + 
-        coord_cartesian(expand=FALSE)
+
+    g1 = ggplot(df, aes(x=middle, y=gc_content))
+    g2 = g1 + geom_line()
+    g3 = g2 + ylim(0, 100)
+    g4 = g3 + coord_cartesian(expand=FALSE)
+
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
 
@@ -579,12 +553,15 @@ as its units.
 .. code-block:: R
 
     library("ggplot2")
+
     df = read.csv("local_gc_content.csv", header=T)
-    g = ggplot(df, aes(x=middle, y=gc_content)) +
-        geom_line() +
-        ylim(0, 100) + 
-        coord_cartesian(expand=FALSE) +
-        scale_x_continuous(labels=function(x)x/1000)
+
+    g1 = ggplot(df, aes(x=middle, y=gc_content))
+    g2 = g1 + geom_line()
+    g3 = g2 + ylim(0, 100)
+    g4 = g3 + coord_cartesian(expand=FALSE)
+    g5 = g4 + scale_x_continuous(labels=function(x)x/1000)
+
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
 
@@ -599,14 +576,16 @@ Finally, let us add labels to the x-axis.
 .. code-block:: R
 
     library("ggplot2")
+
     df = read.csv("local_gc_content.csv", header=T)
-    g = ggplot(df, aes(x=middle, y=gc_content)) +
-        geom_line() +
-        ylim(0, 100) + 
-        coord_cartesian(expand=FALSE) +
-        scale_x_continuous(labels=function(x)x/1000) +
-        xlab("Nucleotide position (KB)") +
-        ylab("GC content (%)")
+
+    g1 = ggplot(df, aes(x=middle, y=gc_content))
+    g2 = g1 + geom_line()
+    g3 = g2 + ylim(0, 100)
+    g4 = g3 + coord_cartesian(expand=FALSE)
+    g5 = g4 + scale_x_continuous(labels=function(x)x/1000)
+    g6 = g5 + xlab("Nucleotide position (KB)") + ylab("GC content (%)")
+
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
 
@@ -640,7 +619,7 @@ of the local GC content across the genome.
     > sd(df$gc_content)
     [1] 1.050728
 
-Below is the final figure and it's caption
+Below is the final figure and its caption.
 
 .. figure:: images/local_gc_content_5.png
    :alt: Local GC content with labelled axis.
@@ -658,11 +637,11 @@ user interfaces and button clicking, and methods that can be automated, i.e.
 methods that can reproduce the figure without human intervention.
 
 One take home message from this chapter is that you should automate the
-generation of your figures. This will save you time when you realize that you
+generation of your figures. This will save you time when you realise that you
 need to alter the style of all the figures when submitting a manuscript for
 publication. It also will make your research more reproducible.
 
-Apart from R and ggplot there are several tools available for automating the
+Apart from R and ggplot2 there are several tools available for automating the
 generation of your figures.  In Python there is the `matplotlib
 <http://matplotlib.org/>`_ package, which is very powerful and it is a great
 tool for plotting data generated from Python scripts.  `Gnuplot
@@ -678,7 +657,7 @@ A general purpose tool for manipulating images on the command line is
 transform your images.  It is a great tool for automating your image
 manipulation.
 
-If you are wanting to visualise data in the web pages it worth invsting some
+If you are wanting to visualise data in the web pages it worth investing some
 time looking at the various JavaScript libraries out there for data visualisation.
 One poplar option is `D3.js <https://d3js.org/>`_.
 
@@ -686,12 +665,14 @@ One poplar option is `D3.js <https://d3js.org/>`_.
 Key concepts
 ------------
 
-- R and ggplot are powerful tools for visualising data
+- R and ggplot2 are powerful tools for visualising data
 - R should also be your first port of call for statistical computing (although
   that is not covered in this book)
-- In ggplot visual representation of your data are built up using layers
+- In ggplot2 the visual representation of your data is built up using layers
 - Separating out different aspects of plotting into different layers makes
   it easier to reason about the data and the best way to represent it visually
+- Faceting allows you to separate out data on one or more variables, this is
+  one of the strengths of ggplot2
 - Scripting your data visualisation makes it easier to modify later on
 - Scripting your data visualisation makes it reproducible
 - When creating a figure ask yourself: who is the audience and what is the message
