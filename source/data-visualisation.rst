@@ -171,6 +171,18 @@ To view the last six rows of a data frame one can use the ``tail()`` function.
     150          5.9         3.0          5.1         1.8 virginica
 
 
+.. warning:: Often the most difficult aspect of data visualisation using R and
+             ggplot2 is getting the data into the right structure. The ``iris``
+             data set is well structured in the sense that each observation is
+             recorded as a separate row and each row has the same number of columns.
+             Furthermore, each column in a row has a value, note for example
+             how each row has a value indicating the ``Species``.
+             Once your data is well structured plotting it becomes relatively
+             easy. However, if you are used to adding heterogeneous data to Excel
+             the biggest issue that you will face is formatting the data so that
+             it becomes well structured and can be loaded as a data frame in R.
+
+
 A note on statistics in R
 -------------------------
 
