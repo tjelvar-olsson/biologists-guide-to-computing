@@ -385,4 +385,6 @@ Key concepts
   as a binary :term:`blob`
 - There are a number of useful plain text file formats for you to make use of
 - Don't invent your own file format
+- Structuring your data in a "tidy" fashion will make it easier to analyse
+  and visualise
 - Learn how to make the most out of your text editor of choice
