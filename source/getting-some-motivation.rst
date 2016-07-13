@@ -71,8 +71,42 @@ introduced using a popular open source tool called Git. After working through
 the examples in this chapter you should feel comfortable using Git to keep
 track of your work.
 
+Being able to create data analysis scripts is empowering. In
+:doc:`data-analysis` the Python scripting language is introduced and we
+create a script for calculating the local GC content of the
+*Streptomyces coelicolor*  A3(2) genome. After working through this
+chapter you will have a basic knowledge of how to use Python to read
+in data from a file, manipulate it and write out results to another file.
+The chapter also introduces more general programming concepts such as
+variables, functions and loops.
+
+Data visualisation is an important part of the scientific investigation.
+In :doc:`data-visualisation` we make use of R, a statistical scripting
+language with built in visualisation tools, to look at how we can
+explore data interactively from the command line and create scripts
+that make our the generation of our figures reproducible. After working
+through this chapter you will have a gained familiarity in working
+with R and an understanding of how to use R's ggplot2 package to create
+beautiful and informative figures.
+
 When tackling more complex data analysis one needs to spend more time
 thinking about the problem up front. In the :doc:`practical-problem-solving`
 chapter we will look at techniques for breaking problems into smaller and more
 manageable chunks. The chapter also introduced the Python scripting language,
 string manipulation and regular expressions.
+
+At some point you may need to work on a computer different to that in front
+of you. For many this may be when one needs access to the institutes high
+performance computing cluster. In :doc:`working-remotely` we introduce the
+program that allow one to log into remote computers from the command line
+and how to copy data to and from the remote machine.
+
+Installing software is not particularly exciting. However, it is a means
+to an end. In :doc:`managing-your-system` we go over various methods of
+installing software. The chapter also introduces some fundamental
+Unix-based systems administration concepts required to understand what
+is required to install software successfully.
+
+Finally the book ends with :doc:`next-steps`, a short chapter giving
+some suggestions on how to continue building your knowledge of
+scientific computing.
