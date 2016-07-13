@@ -43,6 +43,13 @@ Scott Granneman's
 provides a concise reference for learning the foundations of the most important
 Unix command line tools.
 
+Hadley Wickaham's article
+`Tidy Data <http://vita.had.co.nz/papers/tidy-data.pdf>`_
+describes the concept of "Tidy Data" in detail along with background,
+motivation and case studies. It is an accessible read and will give you the
+tools required to structure your data so that it can be visualised directly
+by ggplot2.
+
 Scott Chacon and Ben Straub's
 `Pro Git <https://git-scm.com/book/en/v2>`_ book provides a comprehensive guide
 to Git. I would recommend that you read chapter two of this book to solidify
