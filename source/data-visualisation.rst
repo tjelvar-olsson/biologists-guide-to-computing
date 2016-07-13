@@ -181,6 +181,8 @@ To view the last six rows of a data frame one can use the ``tail()`` function.
              easy. However, if you are used to adding heterogeneous data to Excel
              the biggest issue that you will face is formatting the data so that
              it becomes well structured and can be loaded as a data frame in R.
+             For more detail on how to structure your data see
+             :ref:`tidy-data`.
 
 
 A note on statistics in R

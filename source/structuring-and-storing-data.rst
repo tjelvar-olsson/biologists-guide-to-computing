@@ -304,6 +304,8 @@ to the reader. These comments are ignored by programs parsing the files.
     with ``-->``.
 
 
+.. _tidy-data:
+
 Tidy data
 ---------
 
