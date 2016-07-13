@@ -304,6 +304,42 @@ to the reader. These comments are ignored by programs parsing the files.
     with ``-->``.
 
 
+Tidy data
+---------
+
+In the :doc:`data-visualisation` chapter we will make use of the ggplot2 package.
+This requires data to be structured as
+`Tidy Data <http://vita.had.co.nz/papers/tidy-data.pdf>`_,
+where each variable is a column and each observation is a row and each type of
+observational unit forms a table.
+
+Take for example the table below.
+
++-----------+---------+------------+
+|           | Control | Heat shock |
++===========+=========+============+
+| Wild type |       3 |        15  |
++-----------+---------+------------+
+| Mutant    |       5 |        16  |
++-----------+---------+------------+
+
+This data would be classified as "messy" because each row contains two observations,
+i.e. the control and the heat shock experiments. To reorganise the data so that it
+becomes tidy we need to "melt" or stack it.
+
+=========  ==========  ======
+Variant    Experiment  Result
+=========  ==========  ======
+Wild type  Control     3
+Wild type  Heat shock  15
+Mutant     Control     5
+Mutant     Heat shock  16
+=========  ==========  ======
+
+The benefit of structuring your data in a tidy fashion is that it makes it easier
+to work with when you want to visualise and analyse your data.
+
+
 Find a good text editor and learn how to use it
 -----------------------------------------------
 
