@@ -12,10 +12,10 @@ The Biologist's Guide to Computing
    keeping-track-of-your-work
    data-analysis
    data-visualisation
-   practical-problem-solving
    collaborating-on-manuscripts
    automation-is-your-friend
    working-remotely
    managing-your-system
+   practical-problem-solving
    next-steps
    glossary
