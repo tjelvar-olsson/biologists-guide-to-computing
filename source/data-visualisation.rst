@@ -526,12 +526,19 @@ will have less time to absorb details from the former.
 
 So suppose we wanted to create a figure intended for biologists, illustrating
 that there is not much variation in the local GC content of *Streptomyces
-coelicolor*  A3(2). Let us further suppose that the medium is in a printed
-journal where the figure can have a maximum width of 89 mm.
+coelicolor*  A3(2), building on the example in :doc:`data-analysis`. Let us
+further suppose that the medium is in a printed journal where the figure can
+have a maximum width of 89 mm.
 
-The code below loads the data and plots it as a line, resulting in a local GC
-content plot. Note also that we specify the width and height of the plot in
-millimeters in the ``ggsave()`` function.
+First of all make sure that you are in the ``S.coelicolor-local-GC-content``
+directory created in :doc:`data-analysis`.
+
+.. code-block:: none
+
+    $ cd S.coelicolor-local-GC-content
+
+Now create a file named ``local_gc_content_figure.R`` and add the R code below
+to it.
 
 .. code-block:: R
 
@@ -544,6 +551,18 @@ millimeters in the ``ggsave()`` function.
 
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
+The code above loads the data and plots it as a line, resulting in a local GC
+content plot. Note also that we specify the width and height of the plot in
+millimeters in the ``ggsave()`` function.
+
+Let's try it out.
+
+.. code-block:: none
+
+    $ Rscript local_gc_content_figure.R
+
+It should create a file named ``local_gc_content.png`` containing the image
+in the figure below.
 
 .. figure:: images/local_gc_content_1.png
    :alt: Initial attempt at plotting local GC content.
@@ -551,11 +570,12 @@ millimeters in the ``ggsave()`` function.
    Initial attempt at plotting local GC content.
 
 
-However, the scale of the y-axis makes the plot misleading. It looks like there
+The scale of the y-axis makes the plot misleading. It looks like there
 is a lot of variation in the data. Let's expand the y range to span from 0 to
 100 percent.
 
 .. code-block:: R
+    :emphasize-lines: 7
 
     library("ggplot2")
 
@@ -578,6 +598,7 @@ At the moment it looks like the line is floating in mid-air. This is because
 ggplot adds some padding to the limits. Let's turn this off.
 
 .. code-block:: R
+    :emphasize-lines: 8
 
     library("ggplot2")
 
@@ -602,6 +623,7 @@ to understand the content of the x-axis let's scale it to use kilobases
 as its units.
 
 .. code-block:: R
+    :emphasize-lines: 9
 
     library("ggplot2")
 
@@ -625,6 +647,7 @@ as its units.
 Finally, let us add labels to the x-axis.
 
 .. code-block:: R
+    :emphasize-lines: 10
 
     library("ggplot2")
 
@@ -644,6 +667,62 @@ Finally, let us add labels to the x-axis.
    :alt: Local GC content with labelled axis.
 
    Local GC content with labelled axis.
+
+This is a good point to start tracking the ``local_gc_content_figure.R`` file
+in version control, see :doc:`keeping-track-of-your-work` for more details.
+
+.. code-block:: none
+
+    $ git status
+    On branch master
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+            local_gc_content.png
+            local_gc_content_figure.R
+
+    nothing added to commit but untracked files present (use "git add" to track)
+
+So we have two untracked files the R script and the PNG file the R script
+generates. We do not want to track the latter in version control as it can be
+generated from the script. Let us therefore update our ``.gitignore`` file.
+
+.. code-block:: none
+    :emphasize-lines: 3
+
+    Sco.dna
+    local_gc_content.csv
+    local_gc_content.png
+
+Let's check the status of the Git repository now.
+
+.. code-block:: none
+
+    $ git status
+    On branch master
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+            modified:   .gitignore
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+            local_gc_content_figure.R
+
+    no changes added to commit (use "git add" and/or "git commit -a")
+
+Great, let us add the ``local_gc_content_figure.R`` and ``.gitignore`` files
+and commit a snapshot.
+
+.. code-block:: none
+
+    $ git add local_gc_content_figure.R .gitignore
+    $ git commit -m "Added R script for generating local GC plot"
+    [master cba7277] Added R script for generating local GC plot
+     2 files changed, 13 insertions(+)
+     create mode 100644 local_gc_content_figure.R
 
 
 Writing a caption
