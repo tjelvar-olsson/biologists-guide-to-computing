@@ -411,6 +411,13 @@ Now we will examine how one can write a Python script as a text file and
 how to run that text file through the Python interpreter, i.e. how to
 run a Python script from the command line.
 
+Start off by creating a new directory to work in.
+
+.. code-block:: none
+
+    $ mkdir S.coelicolor-local-GC-content
+    $ cd S.coelicolor-local-GC-content
+
 Use your favourite text editor to enter the code below into a file
 named ``gc_content.py``.
 
@@ -947,14 +954,14 @@ that are generated we can make use of piping and the ``wc -l`` command.
 .. code-block:: none
 
     $ python gc_content.py | wc -l
-        173
+        172
 
 
 Writing out the sliding window analysis
 ---------------------------------------
 
 Finally we will write out the analysis to a text file. Since this data is tabular
-we will use the CSV file format.
+we will use the CSV file format. Furthermore, since we will want to plot the data using ggplot2 in :doc:`data-visualisation` we will use a "tidy" data structure, see :ref:`tidy-data` for details.
 
 Edit the end of the ``gc_content.py`` script to make it look like the below.
 
@@ -1020,6 +1027,61 @@ We can examine the top of this newly created file using the ``head`` command.
     300000,350000,400000,72.712
     350000,400000,450000,73.15
     400000,450000,500000,73.27
+
+Great, everything seems to be working. Let's start tracking our code using Git,
+see :doc:`keeping-track-of-your-work`.
+
+.. code-block:: none
+    
+    $ git init
+    $ git status
+    On branch master
+
+    Initial commit
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+            Sco.dna
+            gc_content.py
+            local_gc_content.csv
+
+    nothing added to commit but untracked files present (use "git add" to track)
+
+We have got three untracked files in our directory, the script, the input data and the output data. We don't want to track the input and the output data so let's create a ``.gitignore`` file and add those files to it.
+
+.. code-block:: none
+
+    Sco.dna
+    local_gc_content.csv
+
+Let's check the status of our Git repository again.
+
+.. code-block:: none
+
+    $ git status
+    On branch master
+
+    Initial commit
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+            .gitignore
+            gc_content.py
+
+    nothing added to commit but untracked files present (use "git add" to track)
+
+Let's start tracking the ``gc_content.py`` and the ``.gitignore`` files and take a snapshot of them in their current form.
+
+.. code-block:: none
+
+    $ git add gc_content.py .gitignore
+    $ git commit -m "Initial file import"
+    [master (root-commit) 6d8e0cf] Initial file import
+     2 files changed, 43 insertions(+)
+     create mode 100644 .gitignore
+     create mode 100644 gc_content.py
 
 
 Well done! We have covered a lot of ground in this chapter. I suggest digging out
