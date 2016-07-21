@@ -12,7 +12,8 @@ The Biologist's Guide to Computing
    keeping-track-of-your-work
    data-analysis
    data-visualisation
-   collaborating-on-manuscripts
+   collaborating-on-projects
+   creating-scientific-documents
    automation-is-your-friend
    working-remotely
    managing-your-system
