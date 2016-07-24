@@ -654,8 +654,8 @@ That's it, you now have all the tools you need to start collaborating with
 your colleagues using Git! May the force be with you.
 
 
-Take home messages
-------------------
+Key concepts
+------------
 
 - Git is a powerful tool for collaborating on projects
 - Every person working on a Git project have all the files on their local computer

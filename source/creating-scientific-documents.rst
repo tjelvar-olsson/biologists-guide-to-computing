@@ -156,21 +156,120 @@ markdown file to PDF using the command below.
     $ pandoc -f markdown -t latex -s manuscript.md -o manuscript.pdf
 
 In the above we use the ``-t latex`` option to specify that the
-``manuscript.pdf`` output file should be built using LaTex.
+``manuscript.pdf`` output file should be built using LaTeX.
 
 Reference management
 --------------------
 
+Reference management is a particularly prominent feature of scientific
+writing. Let us therefore look at how we can include references to
+websites and papers in our document.
 
-Crafting scientific manuscripts using Pandoc
---------------------------------------------
+Let's start by creating a bibliography file. Copy and paste the 
+content below into a file named ``references.bib``.
 
-- Basic structure
-- Including figures
-- Reference management
-- Title, author and abstract
-- Pandoc
-- Citeproc
+.. code-block:: none
+
+    @online{S.coelicolor-genome,
+    title = {{S. coelicolor genome}},
+    url = {ftp://ftp.sanger.ac.uk/pub/project/pathogens/S_coelicolor/whole_genome/},
+    urldate = {2016-07-10}
+    }
+    @article{Bentley2002,
+    abstract = {Streptomyces coelicolor is a representative of the group of soil-dwelling, filamentous bacteria responsible for producing most natural antibiotics used in human and veterinary medicine. Here we report the 8,667,507 base pair linear chromosome of this organism, containing the largest number of genes so far discovered in a bacterium. The 7,825 predicted genes include more than 20 clusters coding for known or predicted secondary metabolites. The genome contains an unprecedented proportion of regulatory genes, predominantly those likely to be involved in responses to external stimuli and stresses, and many duplicated gene sets that may represent 'tissue-specific' isoforms operating in different phases of colonial development, a unique situation for a bacterium. An ancient synteny was revealed between the central 'core' of the chromosome and the whole chromosome of pathogens Mycobacterium tuberculosis and Corynebacterium diphtheriae. The genome sequence will greatly increase our understanding of microbial life in the soil as well as aiding the generation of new drug candidates by genetic engineering.},
+    author = {Bentley, S D and Chater, K F and Cerde{\~{n}}o-T{\'{a}}rraga, A-M and Challis, G L and Thomson, N R and James, K D and Harris, D E and Quail, M A and Kieser, H and Harper, D and Bateman, A and Brown, S and Chandra, G and Chen, C W and Collins, M and Cronin, A and Fraser, A and Goble, A and Hidalgo, J and Hornsby, T and Howarth, S and Huang, C-H and Kieser, T and Larke, L and Murphy, L and Oliver, K and O'Neil, S and Rabbinowitsch, E and Rajandream, M-A and Rutherford, K and Rutter, S and Seeger, K and Saunders, D and Sharp, S and Squares, R and Squares, S and Taylor, K and Warren, T and Wietzorrek, A and Woodward, J and Barrell, B G and Parkhill, J and Hopwood, D A},
+    doi = {10.1038/417141a},
+    issn = {0028-0836},
+    journal = {Nature},
+    keywords = {Bacterial Proteins,Chromosomes, Bacterial,Corynebacterium diphtheriae,Genes, Bacterial,Genes, Duplicate,Genome, Bacterial,Genomics,Molecular Sequence Data,Multigene Family,Mycobacterium tuberculosis,Protein Isoforms,Streptomyces,Synteny},
+    month = {may},
+    number = {6885},
+    pages = {141--7},
+    pmid = {12000953},
+    title = {{Complete genome sequence of the model actinomycete Streptomyces coelicolor A3(2).}},
+    url = {http://www.ncbi.nlm.nih.gov/pubmed/12000953},
+    volume = {417},
+    year = {2002}
+    }
+
+
+Do not type in bibliography records by hand. The entire ``Bentley2002``
+record was exported from my `Mendeley <https://www.mendeley.com>`_
+desktop client.
+
+Now let's add some references to our ``manuscript.md`` file.
+
+.. code-block:: none
+    :emphasize-lines: 7, 15
+
+    ## Introduction
+
+    *Streptomyces coelicolor* is a bacteria that can produce a range of natural
+    products of pharmaceutical relevance.
+
+    In 2002 the genome of *S. coelicolor*  A3(2), the model actinomycete
+    organism, was sequenced [@Bentley2002].
+
+    In this study we investigate the local GC content of this organism.
+
+
+    ## Methodology
+
+    The genome of *S. coelicolor*  A3(2) was downloaded from the Sanger Centre
+    ftp site [@S.coelicolor-genome].
+
+
+Now we can add referenes using Pandoc's built in ``pandoc-citeproc``
+filter.
+
+.. code-block:: none
+
+    $ pandoc -f markdown -t latex -s manuscript.md -o manuscript.pdf   \
+      --filter pandoc-citeproc --bibliography=references.bib
+
+The ``--filter pandoc-citeproc`` filter automatically generates citations
+and a bibliography to the document. However, this requires some knowledge
+of where the bibliographic information is, this is specified using the
+``--bibliography=references.bib`` argument.
+
+"CiteProc" is in fact a generic name for a program that can be used to
+produce citations and bibliographies based on formatting rules using
+the Citation Style Langauge (CSL) syntax. `Zotero <https://www.zotero.org/>`_
+(another free reference manager) provides CSL styles for lots of journals in
+the `Zotero Style Repository <https://www.zotero.org/styles>`_.
+
+Let's download Zotero's CSL file for Nature, copy and paste this text into
+a file named ``nature.csl``.
+
+.. code-block:: none
+
+    $ curl https://www.zotero.org/styles/nature > nature.csl
+
+We can now produce our document using Nature's citation style.
+
+.. code-block:: none
+
+    $ pandoc -f markdown -t latex -s manuscript.md -o manuscript.pdf   \
+      --filter pandoc-citeproc --bibliography=references.bib  \
+      --csl=nature.csl
+
+Have a look at the generated PDF file. Pretty neat right?! One thing that
+is missing is a title for the reference section. Let's add that to the
+``manuscript.md`` file.
+
+.. code-block:: none
+    :emphasize-lines: 6
+
+    ## Conclusion
+
+    There is little variation in the local GC content of *S. coelicolor* A3(2).
+
+
+    ## References
+
+
+Title, authors and abstract
+---------------------------
 
 
 Benefits of using Git and plain text files
