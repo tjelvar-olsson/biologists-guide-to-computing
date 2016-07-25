@@ -268,14 +268,80 @@ is missing is a title for the reference section. Let's add that to the
     ## References
 
 
-Title, authors and abstract
----------------------------
+Adding meta data
+----------------
+
+To turn this into a research article we need to add a title, authors, an
+abstract and a date. In Pandoc this can be achieved by adding meta data to the
+top of the file, using a YAML syntax (see :doc:`structuring-and-storing-data`
+for information on YAML).
+
+Add the header below to the top of the  ``manuscript.md`` file.
+
+.. code-block:: none
+
+    ---
+    title: "*S. coelicolor* local GC content analysis"
+    author: Tjelvar S. G. Olsson and My Friend
+    abstract: |
+      In 2002 the genome of *S. coelicolor*  A3(2), the model actinomycete
+      organism, was sequenced.
+
+      The local GC content was calculated using a sliding window of
+      100 KB and a 50 KB step size.
+
+      The mean of the local GC content was found to be 72.1% with a standard
+      deviation of 1.1. We therefore conclude that there is little variation
+      in the local GC content of *S. coelicolor* A3(2).
+    date: 25 July 2016
+    ---
+    ## Introduction
 
 
-Benefits of using Git and plain text files
-------------------------------------------
+Let's give some explanation of the meta data above.
+The YAML meta data is encapsulated using ``---``. The title string is
+quoted to avoid the ``*`` symbols confusing Pandoc. The pipe
+symbol at the beginning of the abstract allows for multi-line input with
+newlines, note that the multi-lines must be indented.
+
+Let's generate the document again.
+
+.. code-block:: none
+
+    $ pandoc -f markdown -t latex -s manuscript.md -o manuscript.pdf   \
+      --filter pandoc-citeproc --bibliography=references.bib  \
+      --csl=nature.csl
+
+The ``manuscript.pdf`` document is now looking pretty good!
+
+Anther useful feature of Pandoc's meta data section is that we can add
+information for some of the data that we previously had to specify on
+the command line. Let's add items for the ``--bibliograpy`` and
+``--csl`` options (these options are in fact short hand for
+``--metadata bibliograpy=FILE`` and ``--metadata csl=FILE``).
+
+.. code-block:: none
+    :emphasize-lines: 2,3
+
+    date: 25 July 2016
+    bibliography: references.bib
+    csl: nature.csl
+    ---
+    ## Introduction
+
+Now we can generate the documentation using the command below.
+
+.. code-block:: none
+
+    $ pandoc -f markdown -t latex -s manuscript.md -o manuscript.pdf   \
+      --filter pandoc-citeproc
+
+
+Benefits of using Pandoc and plain text files
+---------------------------------------------
 
 - version control
 - painless merging of changes
 - transparency and audit trial
 - automation
+- ability to convert to many different file formats
