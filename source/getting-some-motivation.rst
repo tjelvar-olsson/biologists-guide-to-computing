@@ -90,7 +90,7 @@ with R and an understanding of how to use R's ggplot2 package to create
 beautiful and informative figures.
 
 The best science often involves collaboration. In
-:doc:`collaborating-on-projectss` you will learn how to use make use of
+:doc:`collaborating-on-projects` you will learn how to use make use of
 the powerful collaboration features of Git and you will learn how to
 back up and share your project using the free hosting services on GitHub.
 
