@@ -89,6 +89,28 @@ through this chapter you will have a gained familiarity in working
 with R and an understanding of how to use R's ggplot2 package to create
 beautiful and informative figures.
 
+The best science often involves collaboration. In
+:doc:`collaborating-on-projectss` you will learn how to use make use of
+the powerful collaboration features of Git and you will learn how to
+back up and share your project using the free hosting services on GitHub.
+
+Communication is an important aspect of science. One aspect of scientific
+communication is writing manuscripts. In
+:doc:`creating-scientific-documents` you will learn how lightweight text
+documents can be converted to beautiful scientific manuscripts with
+citations and bibliographies using Pandoc. You will also learn how you
+can use Pandoc to convert (almost) any document file format into any
+other.
+
+After having spent weeks and weeks analysing data, generating figures
+and putting it all together it can be devastating to find that one
+needs to start all over again because of some fundamental flaw with
+the acquisition of the raw data. However, this needed be the case
+if all your analysis, figure generation and manuscript assembly was
+automated you would just need to replace the raw data and press "Go".
+In :doc:`automation-is-your-friend` you will learn how to achieve
+this state of bliss.
+
 When tackling more complex data analysis one needs to spend more time
 thinking about the problem up front. In the :doc:`practical-problem-solving`
 chapter we will look at techniques for breaking problems into smaller and more
