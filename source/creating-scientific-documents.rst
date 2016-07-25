@@ -452,3 +452,20 @@ convert the Word document we just created to TeX.
 .. code-block:: none
 
     $ pandoc -f docx -t latex manuscript.docx -o manuscript.tex
+
+
+Key concepts
+------------
+
+- Pandoc is a powerful tool that can be used to convert (almost) any document
+  format to any other
+- Markdown can be used to add document structure to plain text files
+- The ``pandoc-citeproc`` filter can be used to add citations and a bibliography
+- The Citation Style Language (CSL) can be used to format the citations and the bibliography
+- Mendeley is a free reference manager that can be used to export ``.bib`` records
+  (try to avoid having to type out ``.bib`` records by hand)
+- Zotero provides CSL citation style files for lots and lots of journals
+- It is possible to add YAML meta data to markdown files specifying attributes such
+  as title, author and abstract
+- Using plain text files for scientific documents allows you to make use of
+  awesome tools such as Git
