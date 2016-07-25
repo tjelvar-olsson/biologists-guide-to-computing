@@ -409,6 +409,15 @@ Now we can add the remaining files and commit the snapshot.
      create mode 100644 nature.csl
      create mode 100644 references.bib
 
+Finally, let us also add and commit the updated ``.gitignore`` file.
+
+.. code-block:: none
+
+    $ git add .gitignore
+    $ git commit -m "Updated gitignore to ignore generated manuscript files"
+    [master bea89f4] Updated gitignore to ignore generated manuscript files
+     1 file changed, 3 insertions(+)
+
 
 Benefits of using Pandoc and plain text files
 ---------------------------------------------
