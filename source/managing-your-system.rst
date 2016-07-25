@@ -636,7 +636,7 @@ Installing Latex packages
 
 TeX is a collection of programs and packages that allow you to typeset
 documents. LaTeX is a number of macros built on top of TeX.  In
-:doc:`collaborating-on-manuscripts` we discussed Latex and its uses for
+:doc:`collaborating-on-projects` we discussed Latex and its uses for
 producing laying out the content of our documents.
 
 Confusingly there are many different distributions of TeX, for example the dominant

@@ -36,7 +36,7 @@ made to files over time by taking snapshots. Furthermore it allows you to view
 differences between snapshots and revert back to previous snapshots. In fact
 Git can do a lot more than this, but this is all we need to know for this
 chapter. We will go into more detail on the collaborative aspects of Git in
-the :doc:`collaborating-on-manuscripts` chapter.
+the :doc:`collaborating-on-projects` chapter.
 
 Git tracks snapshots of files in what is called a repository. You can have many
 Git repositories. On my computer I have a directory named ``projects`` that currently
@@ -84,7 +84,7 @@ specifically our name and email address.
     git config --global user.email "tjelvar.olsson@example.com"
 
 We will look at the collaboration aspect of git in the
-:doc:`collaborating-on-manuscripts` chapter.
+:doc:`collaborating-on-projects` chapter.
 
 
 Initialise the project
