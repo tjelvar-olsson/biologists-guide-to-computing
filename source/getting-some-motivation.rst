@@ -105,7 +105,7 @@ other.
 After having spent weeks and weeks analysing data, generating figures
 and putting it all together it can be devastating to find that one
 needs to start all over again because of some fundamental flaw with
-the acquisition of the raw data. However, this needed be the case
+the acquisition of the raw data. However, this needn't be the case
 if all your analysis, figure generation and manuscript assembly was
 automated you would just need to replace the raw data and press "Go".
 In :doc:`automation-is-your-friend` you will learn how to achieve
