@@ -15,8 +15,8 @@ The Biologist's Guide to Computing
    collaborating-on-projects
    creating-scientific-documents
    automation-is-your-friend
+   practical-problem-solving
    working-remotely
    managing-your-system
-   practical-problem-solving
    next-steps
    glossary
