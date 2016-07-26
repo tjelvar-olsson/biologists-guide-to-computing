@@ -4,7 +4,7 @@ The Biologist's Guide to Computing
 .. toctree::
    :maxdepth: 2
 
-   prefix
+   preface
    getting-some-motivation
    how-to-think-like-a-computer
    first-steps-towards-automation
