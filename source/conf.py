@@ -220,6 +220,8 @@ latex_elements = {
         \usepackage{charter}
         \usepackage[defaultsans]{lato}
         \usepackage{inconsolata}
+        \usepackage{perpage}
+        \MakePerPage{footnote}
     ''',
 
 # Latex figure (float) alignment
