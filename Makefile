@@ -121,6 +121,11 @@ mylatex:
 	sed -i -e "s/definecolor{VerbatimBorderColor}{rgb}{0,0,0}/definecolor{VerbatimBorderColor}{rgb}{0.5,0.5,0.5}/" $(BUILDDIR)/latex/sphinx.sty
 	sed -i -e "s/\(, \\\py@release\)//" $(BUILDDIR)/latex/sphinx.sty
 	sed -i -e "/release{/d" $(BUILDDIR)/latex/BiologistsGuidetoComputing.tex
+	sed -i -e "s/chapter{Preface/chapter\*{Preface/" $(BUILDDIR)/latex/BiologistsGuidetoComputing.tex
+	sed -i -e "s/section{Who should read/section\*{Who should read/" $(BUILDDIR)/latex/BiologistsGuidetoComputing.tex
+	sed -i -e "s/section{Licence/section\*{Licence/" $(BUILDDIR)/latex/BiologistsGuidetoComputing.tex
+	sed -i -e "s/section{Source code/section\*{Source code/" $(BUILDDIR)/latex/BiologistsGuidetoComputing.tex
+	sed -i -e "s/section{Feedback/section\*{Feedback/" $(BUILDDIR)/latex/BiologistsGuidetoComputing.tex
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
 	@echo "mylatex finished; the PDF files are in $(BUILDDIR)/latex."
 
