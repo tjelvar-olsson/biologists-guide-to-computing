@@ -126,6 +126,7 @@ mylatex:
 	sed -i -e "s/section{Licence/section\*{Licence/" $(BUILDDIR)/latex/BiologistsGuidetoComputing.tex
 	sed -i -e "s/section{Source code/section\*{Source code/" $(BUILDDIR)/latex/BiologistsGuidetoComputing.tex
 	sed -i -e "s/section{Feedback/section\*{Feedback/" $(BUILDDIR)/latex/BiologistsGuidetoComputing.tex
+	sed -i -e "s/section{Acknowledgements/section\*{Acknowledgements/" $(BUILDDIR)/latex/BiologistsGuidetoComputing.tex
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
 	@echo "mylatex finished; the PDF files are in $(BUILDDIR)/latex."
 

@@ -40,3 +40,13 @@ Feedback
 This booklet is still a work in progress. I would really appreciate your
 feedback. Please send me an email to let me know what you think or you can
 contact me via twitter `@tjelvar_olsson <https://twitter.com/tjelvar_olsson>`_.
+
+
+Acknowledgements
+----------------
+
+Thanks to Nadia Radzman, Sam Mugford and Anna Stavrinides for providing
+feedback on early versions of the initial chapters.  Many thanks to Tyler
+McCleary for continued in depth feedback and suggestions for improvements.
+Thanks to Nick Pullen for feedback and discussions on the data visualisation
+chapter. Many thanks to Matthew Hartley for discussions and encouragement.
