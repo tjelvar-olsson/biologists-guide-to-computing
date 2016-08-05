@@ -57,17 +57,16 @@ to ensure that there is structure to the data. In
 :doc:`structuring-and-storing-data` important data structures and file formats
 for representing them are discussed. The chapter also highlights the value of
 using plain text files to store data. After reading this chapter you should have
-a good idea of how you can store structured representations of your data as
-plain text files.
+a good idea of how to store structured representations of your data.
 
-Sooner or later when working on a project one wishes that one had done a better
+Sooner or later one wishes that one had done a better
 job of keeping records of one's work. What changes were made when? What
-where the reasons behind the decisions to make those changes? This issue
+were the reasons behind the decisions to make those changes? These issues
 becomes even more accentuated when working on scripts and programs where
 tiny changes can have devastating effects. Because this is such an important
 issue in software development there are great tools for mitigating against it.
 In :doc:`keeping-track-of-your-work` the concept of version control is
-introduced using a popular open source tool called Git. After working through
+introduced using the popular open source tool Git. After working through
 the examples in this chapter you should feel comfortable using Git to keep
 track of your work.
 
@@ -80,21 +79,20 @@ in data from a file, manipulate it and write out results to another file.
 The chapter also introduces more general programming concepts such as
 variables, functions and loops.
 
-Data visualisation is an important part of the scientific investigation.
-In :doc:`data-visualisation` we make use of R, a statistical scripting
-language with built in visualisation tools, to look at how we can
-explore data interactively from the command line and create scripts
-that make our the generation of our figures reproducible. After working
-through this chapter you will have a gained familiarity in working
-with R and an understanding of how to use R's ggplot2 package to create
-beautiful and informative figures.
+Data visualisation is an important part of scientific investigation.  In
+:doc:`data-visualisation` the statistical scripting language R, a statistical
+scripting language R is used to look at how one can explore data interactively
+from the command line and create scripts that make our the generation of
+figures reproducible. After working through this chapter you will have a gained
+familiarity in working with R and an understanding of how to use R's ggplot2
+package to create beautiful and informative figures.
 
 The best science often involves collaboration. In
 :doc:`collaborating-on-projects` you will learn how to use make use of
 the powerful collaboration features of Git and you will learn how to
 back up and share your project using the free hosting services on GitHub.
 
-Communication is an important aspect of science. One aspect of scientific
+Communication is an important aspect of science and one aspect of scientific
 communication is writing manuscripts. In
 :doc:`creating-scientific-documents` you will learn how lightweight text
 documents can be converted to beautiful scientific manuscripts with
@@ -102,32 +100,30 @@ citations and bibliographies using Pandoc. You will also learn how you
 can use Pandoc to convert (almost) any document file format into any
 other.
 
-After having spent weeks and weeks analysing data, generating figures
-and putting it all together it can be devastating to find that one
-needs to start all over again because of some fundamental flaw with
-the acquisition of the raw data. However, this needn't be the case
-if all your analysis, figure generation and manuscript assembly was
-automated you would just need to replace the raw data and press "Go".
-In :doc:`automation-is-your-friend` you will learn how to achieve
-this state of bliss.
+After having spent weeks and months analysing data, generating figures and
+assembling all the information into a manuscript it can be devastating to find
+that one needs to start all over again because an updated data set has become
+available.  However, this needn't be the case.  If all your analysis, figure
+generation and manuscript assembly was automated you would just need to replace
+the raw data and press "Go".  In :doc:`automation-is-your-friend` you will
+learn how to achieve this state of bliss.
 
-When tackling more complex data analysis one needs to spend more time
-thinking about the problem up front. In the :doc:`practical-problem-solving`
-chapter we will look at techniques for breaking problems into smaller and more
-manageable chunks. The chapter also introduced the Python scripting language,
-string manipulation and regular expressions.
+When tackling more complex data analysis one needs to spend more time thinking
+about the problem up front. In the :doc:`practical-problem-solving` chapter we
+will look at techniques for breaking problems into smaller and more manageable
+chunks. The chapter will also extend your familiarity with Python, and
+introduces the concepts of string manipulation and regular expressions.
 
-At some point you may need to work on a computer different to that in front
-of you. For many this may be when one needs access to the institutes high
-performance computing cluster. In :doc:`working-remotely` we introduce the
-program that allow one to log into remote computers from the command line
-and how to copy data to and from the remote machine.
+At some point you may need to work on a remote computer.  For many this may be
+when one needs access to the institute's high performance computing cluster. In
+:doc:`working-remotely` you will learn how to use the command line to log in to
+a remote computer and how to copy data to and from the remote machine.
 
 Installing software is not particularly exciting. However, it is a means
 to an end. In :doc:`managing-your-system` we go over various methods of
 installing software. The chapter also introduces some fundamental
 Unix-based systems administration concepts required to understand what
-is required to install software successfully.
+is needed to install software successfully.
 
 Finally the book ends with :doc:`next-steps`, a short chapter giving
 some suggestions on how to continue building your knowledge of
