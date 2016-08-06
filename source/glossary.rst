@@ -24,6 +24,9 @@ Glossary
         The activity of identifying and removing a :term:`bug` (defect) from a
         computer program. 
 
+    DNS
+        Domain Name Server a machine that translates URLs to IP addresses.
+
     DRY
         Don't repeat yourself. Make use of a variables for frequently used values. Make
         use of functions for frequently used processing logic.
@@ -31,6 +34,9 @@ Glossary
     Function
         A set of instructions for performing a procedure. Most commonly a function takes a
         set of arguments and returns a value.
+
+    HTTP
+        HyperText Transfer Protocol, commonly used for web browsing.
 
     List
         A common data structure representing an ordered collection of elements. Also known
@@ -52,6 +58,9 @@ Glossary
     Object-oriented programming
         Programming methodology centered around the concept of objects rather than actions
         and procedures.
+
+    IP address
+        Internet Protocol address.
 
     Pipe
         A pipe is a means to redirect the output from one command into another.
@@ -118,3 +127,6 @@ Glossary
             1. Write a test
             2. Write minimal code to make the test pass
             3. Refactor the code if necessary
+
+    URL
+        Unique Resource Location

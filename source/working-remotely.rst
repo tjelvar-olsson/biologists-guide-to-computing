@@ -40,7 +40,7 @@ Machines on a network can be identified and accessed via their IP (Internet
 Protocol) address. Your local machine can be accessed via the IP address
 ``127.0.0.1``.
 
-Although very useful IP addresses can be difficult to remember. In order to overcome
+Although very useful, IP addresses can be difficult to remember. In order to overcome
 this internet service providers as well as the people responsible for looking
 after your organisations network make use of domain name servers (DNS). The purpose
 of a DNS server is to translate unique resource locations (URLs) to IP addresses. A
@@ -87,7 +87,7 @@ more common to see the ``ssh`` command in the form ``ssh user@hostname``, where
 Let us illustrate this with an example. Suppose that one wanted to login to a
 remote computer named ``hpc``, this could for example be the head node on your
 institutes high-performance computing cluster. Assuming that your user name on
-the head node was ``olssont`` then you could log using the command below.
+the head node was ``olssont`` then you could log in using the command below.
 
 .. code-block:: none
 
@@ -98,7 +98,7 @@ default SSH port) you will be prompted for your password.
 
 .. sidebar:: What is a head node?
 
-    A computing clusters is basically a collection of computers. Computing
+    A computing cluster is basically a collection of computers. Computing
     clusters tend to make use of a scheduler to distribute jobs on the cluster.
     A scheduler is basically a piece of software that has an understanding of the
     computing resources available on the cluster. A user submits a job to the
@@ -150,12 +150,14 @@ one could login to it using the command below.
 
     $ ssh -p 2222 olssont@bishop
 
-Sometimes you want to be able to run software that makes use of graphics, for
-example to run the statistical software package ``R``. Most UNIX-based system
-make use of the X11 protocol for drawing graphics on the computer screen. We
-therefore need to enable X11-forwarding in SSH to be able to run programs that
-require graphics. This is achieved using the ``-X`` flag. Below we use this
-flag to login to a machine named ``pawn``.
+Sometimes you want to be able to run software that makes use of windowing
+systems (i.e. all software with a graphical user interface). A common
+scientific example to run the statistical software package ``R`` which has
+built in functionality for displaying plots in a graphical window. Most
+Unix-based systems make use of the X11 as their windowing system. We therefore
+need to enable X11-forwarding in SSH to be able to run programs that require
+graphics. This is achieved using the ``-X`` flag.  Below we use this flag to
+login to a machine named ``pawn``.
 
 .. code-block:: none
 
@@ -235,9 +237,9 @@ uses a pair of so called "keys". One of these keys is public and one is private.
 public key is one that you can distribute freely, in this case to all the remote machines
 that you want to be able to login to. However, the private key must never be compromised
 as it is what allows you access to all the remote machines. One way to think about this
-system is to view the public key as a padlock and the private key as the key to that padlock.
-You can fit the all the machines that you want secure and easy access to with copies of the
-same padlock as long as you keep the key to the padlock safe.
+system is to view the public key as a lock and the private key as the key to that lock.
+You can fit the all the machines that you want secure access to with copies of
+the same lock as long as you keep the key to the lock safe.
 
 The first step is to generate a public/private key pair. This is achieved using
 the command ``ssh-keygen``. This will prompt you for the file to save the key
@@ -371,8 +373,17 @@ specification below.
 
 Again, using the ``.ssh/config`` file in this way means that we do not remember
 port numbers and what options to invoke the ``scp`` and ``ssh`` commands with.
-Copying a file becomes as easy as ``scp mydata.csv bishop:``. Logging in becomes
-similarly trivial ``ssh bishop``.
+Copying a file can then be achieved using the concise syntax below.
+
+.. code-block:: none
+
+    $ scp mydata.csv bishop:
+
+Logging in to the machine becomes similarly trivial.
+
+.. code-block:: none
+
+    $ ssh bishop
 
 
 Executing long running commands on remote hosts
