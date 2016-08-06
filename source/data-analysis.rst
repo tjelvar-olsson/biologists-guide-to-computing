@@ -21,9 +21,13 @@ The GC-content is defined as:
 
     100 *  \frac{G + C}{A + T + G + C} 
 
+To solve this problem we need to write code to be able to read in sequence data
+from a file, process the input to calculate the local GC-content and write out
+the results to another file. In the process the computational concepts of
+variables, functions and loops will be introduced. 
 
 In this chapter we will use the Python scripting language to perform our data
-analysis.
+analysis. 
 
 
 What is Python?
@@ -68,8 +72,8 @@ commands can be entered.
     >>> 1 + 2
     3
 
-The secondary prompt, used for continuation lines, is represented by three dots
-(``...``).
+The secondary prompt is represented by three dots (``...``) and denotes a
+continuation line.
 
 .. code-block:: python
 
@@ -253,7 +257,9 @@ create a list to work with.
 
     >>> zero_to_five = ["zero", "one", "two", "three", "four", "five"]
 
-To get the first two elements.
+To get the first two elements we therefore use 0 for the start index, as
+Python uses a zero-based indexing system, and 2 for the end index as the
+element from the end index is excluded.
 
 .. code-block:: python
 
@@ -325,6 +331,15 @@ setup of a while loop.
     2
     3
     4
+
+In the code above Python moves through the commands in the while loop executing
+them in order, i.e. printing the value of the ``cycle`` variable and then
+incrementing it. The logic then moves back to the :key:`while` statement and
+the conditional (``cycle < 5``) is re-evaluated. If true the commands in the
+while statment are executed in order again, and so forth until the conditional
+is false. In this example the ``print(cycle)`` command was called five times,
+i.e. until the ``cycle`` variable incremented to 5 and the ``cycle < 5``
+conditional evaluated to false.
 
 However, when working in Python it is much more common to make use of *for*
 loops. For loops are used to iterate over elements in data structures such as
@@ -402,14 +417,14 @@ Creating a sliding window GC-content function
 ---------------------------------------------
 
 So far we have been working with Python in interactive mode. This is a great
-way to explore what can be achieved with Python. It is also a handy way to get
-access to a calculator from the command line. However, it can get a little
-bit clunky when trying to write constructs that span serval lines, such as
-functions.
+way to explore what can be achieved with Python.  It is also handy to simply
+use Python's interactive mode as a command line calculator.  However, it can
+get a little bit clunky when trying to write constructs that span several
+lines, such as functions.
 
-Now we will examine how one can write a Python script as a text file and
-how to run that text file through the Python interpreter, i.e. how to
-run a Python script from the command line.
+Now we will examine how one can write a Python script as a text file and how to
+run that text file through the Python interpreter, i.e. how to run a Python
+script from the command line.
 
 Start off by creating a new directory to work in.
 
@@ -780,6 +795,9 @@ In practise one tends to use file handles directly within for loops.
     >>> print(num_lines)
     144461
 
+In the for loop above the file handle acts as an iterator, yielding
+the lines within the opened file.
+
 Again we must not forget to close the file handle.
 
 .. code-block:: python
@@ -899,7 +917,7 @@ or more white space characters.
 On line seven we use the :func:`join` method to join the words together, in
 this instance there are no characters separating the words to be joined. It is
 worth clarifying this with an example, if we wanted to join the words using a
-comma character one would use the syntax ``",".join(words[:1])``.
+comma character one would use the syntax ``",".join(words[:-1])``.
 
 On line seven it is also worth noting that we exclude the last word (the
 numerical index) by making use of list slicing ``words[:-1]``.
@@ -907,6 +925,25 @@ numerical index) by making use of list slicing ``words[:-1]``.
 Finally, on line nine we make use of the list method :func:`extend`, this
 extends the existing ``sequence`` list with all the elements from the
 ``seq_list`` list.
+
+.. sidebar:: Adding elements to lists ``append()`` vs ``extend()``
+
+    There are two main ways of adding elements to a list. The first is
+    using the append method, which adds a single element.
+
+    .. code-block:: python
+
+        >>> colors = ["red", "green"]
+        >>> colors.append("blue")
+
+    The ``extend()`` method is different in that it extends the list
+    with the content of another list.
+
+    .. code-block:: python
+
+        >>> colors.extend(["yellow", "purple"])
+        >>> print(colors)
+        ['red', 'green', 'blue', 'yellow', 'purple']
 
 Now let us update the ``gc_content.py`` script to initalise the sequence by
 parsing the ``Sco.dna`` file.
@@ -954,7 +991,15 @@ that are generated we can make use of piping and the ``wc -l`` command.
 .. code-block:: none
 
     $ python gc_content.py | wc -l
-        172
+        173
+
+The result makes sense as there are 8667507 base pairs in the sequence and
+we are stepping through it using a step size of 50000.
+
+.. code-block:: python
+
+    >>> 8667507 / 50000
+    173
 
 
 Writing out the sliding window analysis
@@ -985,7 +1030,7 @@ On line 35 we open a file handle to write to. On lines 36 and 37 we write a head
 to the CSV file. Lines 38 to 41 then performs the sliding window analysis and
 writes the results as rows, or lines if you prefer, to the CSV file.
 
-The main new feature introduced in the code snippet above is on line 39 where
+The main new feature introduced in the code snippet above is on line 40 where
 we use Python's built in string formatting functionality. The matching curly
 braces in the string are replaced with the content of the :meth:`format` string
 method. Let us illustrate this with an example in interactive mode.
