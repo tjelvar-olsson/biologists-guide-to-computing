@@ -226,12 +226,14 @@ Default plotting in R
 Before using ggplot2 let us have a look at how to generate default
 plots in R.
 
-First of all let us plot a histogram of the ``Sepal.Length``.
+First of all let us plot a histogram of the ``Sepal.Length``
+(:numref:`iris-sepal-length-histogram`).
 
 .. code-block:: R
 
     > hist(iris$Sepal.Length)
 
+.. _iris-sepal-length-histogram:
 .. figure:: images/iris_sepal_length_histogram.png
    :alt: Iris sepal length histogram.
 
@@ -239,13 +241,14 @@ First of all let us plot a histogram of the ``Sepal.Length``.
    function.
 
 Scatter plots can be produced using the ``plot()`` function.
-The command below produces a scatter plot of ``Sepal.Length``
-versus ``Sepal.Width``.
+The command below produces a scatter plot of ``Sepal.Width``
+versus ``Sepal.Length`` (:numref:`iris-sepal-length-vs-width-scatterplot`).
 
 .. code-block:: R
 
     > plot(iris$Sepal.Length, iris$Sepal.Width)
 
+.. _iris-sepal-length-vs-width-scatterplot:
 .. figure:: images/iris_sepal_length_vs_width_scatterplot.png
    :alt: Iris sepal length vs width scatter plot.
 
@@ -253,12 +256,13 @@ versus ``Sepal.Width``.
    function.
 
 Finally, a decent overview of the all data can be obtained by passing the
-entire data frame to the ``plot()`` function.
+entire data frame to the ``plot()`` function (:numref:`iris-sepal-data-summary-plot`).
 
 .. code-block:: R
 
     > plot(iris)
 
+.. _iris-sepal-data-summary-plot:
 .. figure:: images/iris_sepal_data_summary_plot.png
    :alt: Iris sepal data summary plot.
 
@@ -287,12 +291,13 @@ Plotting using ggplot2
 To get an idea of what it feels like to work with ggplot2 let us re-create the
 previous histogram and scatter plot with it.
 
-Let us start with the histogram.
+Let us start with the histogram (:numref:`ggplot-iris-sepal-length-histogram`).
 
 .. code-block:: R
 
     > ggplot(data=iris, mapping=aes(Sepal.Length)) + geom_histogram()
 
+.. _ggplot-iris-sepal-length-histogram:
 .. figure:: images/ggplot_iris_sepal_length_histogram.png
    :alt: Iris sepal length histogram plotted using ggplot.
 
@@ -301,7 +306,8 @@ Let us start with the histogram.
    function, hence the difference in the appearance of the distribution.
 
 The syntax used may look a little bit strange at first. However, before going
-into more details about what it all means let's create the scatter plot to
+into more details about what it all means let's create the scatter plot
+(:numref:`ggplot-iris-sepal-length-vs-width-scatterplot`) to
 get a better feeling of how to work with ggplot2.
 
 
@@ -311,6 +317,7 @@ get a better feeling of how to work with ggplot2.
     > ggplot(data=iris, mapping=aes(x=Sepal.Length, y=Sepal.Width)) + geom_point()
 
 
+.. _ggplot-iris-sepal-length-vs-width-scatterplot:
 .. figure:: images/ggplot_iris_sepal_length_vs_width_scatterplot.png
    :alt: Iris sepal length vs width scatter plotted using ggplot.
 
@@ -342,13 +349,15 @@ made for that plot is that the ``Sepal.Length`` should be on the x-axis and
 the ``Sepal.Width`` should be on the y-axis.
 
 To reinforce this let us augment the scatter plot by sizing the points in the
-scatter plot by the ``Petal.Width`` and coloring them by the ``Species``, all
+scatter plot by the ``Petal.Width`` and coloring them by the ``Species``
+(:numref:`ggplot-aesthetic-scatter-plot`), all
 of which could be considered to be aesthetic aspects of how to plot the data.
 
 .. code-block:: R
 
     > ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, size=Petal.Width, color=Species)) + geom_point()
 
+.. _ggplot-aesthetic-scatter-plot:
 .. figure:: images/ggplot_aesthetic_scatter_plot.png
    :alt: Iris sepal length vs width, ponints sized by petal width coloured by species.
 
@@ -435,7 +444,8 @@ to do something similar with the data in our histogram.
 
 In order to be able to achieve this ggplot2 provides the concept of faceting,
 the ability to split your data by one or more variables. Let us split the
-data by ``Species`` using the ``facet_grid()`` function.
+data by ``Species`` using the ``facet_grid()`` function
+(:numref:`ggplot-faceted-histogram`).
 
 .. code-block:: R
 
@@ -453,6 +463,7 @@ In the above the ``facet_grid(Species ~ .)`` states that we want one
 (``facet_grid(. ~ Species)``). Replacing the dot (``.``) with another
 variable would result in a faceting the data into a two dimensional grid.
 
+.. _ggplot-faceted-histogram:
 .. figure:: images/ggplot_faceted_histogram.png
    :alt: Iris sepal length histogram faceted by species.
 
@@ -475,7 +486,8 @@ the mental connection between the two data representations it may be useful
 to colour the histograms by species as well.
 
 The colour of a histogram is an aesthetic characteristic. Let us add the
-fill colour as an aesthetic to the histogram geometric object.
+fill colour as an aesthetic to the histogram geometric object
+(:numref:`ggplot-faceted-and-coloured-histogram`).
 
 .. code-block:: R
 
@@ -489,6 +501,7 @@ fill colour as an aesthetic to the histogram geometric object.
     ggsave('histogram.png')
 
 
+.. _ggplot-faceted-and-coloured-histogram:
 .. figure:: images/ggplot_faceted_and_coloured_histogram.png
    :alt: Iris sepal length histogram faceted and coloured by species.
 
@@ -562,8 +575,9 @@ Let's try it out.
     $ Rscript local_gc_content_figure.R
 
 It should create a file named ``local_gc_content.png`` containing the image
-in the figure below.
+in :numref:`local-gc-content-1`.
 
+.. _local-gc-content-1:
 .. figure:: images/local_gc_content_1.png
    :alt: Initial attempt at plotting local GC content.
 
@@ -572,7 +586,7 @@ in the figure below.
 
 The scale of the y-axis makes the plot misleading. It looks like there
 is a lot of variation in the data. Let's expand the y range to span from 0 to
-100 percent.
+100 percent (:numref:`local-gc-content-2`).
 
 .. code-block:: R
     :emphasize-lines: 7
@@ -588,6 +602,7 @@ is a lot of variation in the data. Let's expand the y range to span from 0 to
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
 
+.. _local-gc-content-2:
 .. figure:: images/local_gc_content_2.png
    :alt: Local GC content with y-axis scaled corretly.
 
@@ -595,7 +610,8 @@ is a lot of variation in the data. Let's expand the y range to span from 0 to
 
 
 At the moment it looks like the line is floating in mid-air. This is because
-ggplot adds some padding to the limits. Let's turn this off.
+ggplot adds some padding to the limits. Let's turn this off
+(:numref:`local-gc-content-3`).
 
 .. code-block:: R
     :emphasize-lines: 8
@@ -612,6 +628,7 @@ ggplot adds some padding to the limits. Let's turn this off.
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
 
+.. _local-gc-content-3:
 .. figure:: images/local_gc_content_3.png
    :alt: Local GC content without padding.
 
@@ -620,7 +637,7 @@ ggplot adds some padding to the limits. Let's turn this off.
 
 The labels on the x-axis are a bit difficult to read. To make it easier
 to understand the content of the x-axis let's scale it to use kilobases
-as its units.
+as its units (:numref:`local-gc-content-4`).
 
 .. code-block:: R
     :emphasize-lines: 9
@@ -638,13 +655,14 @@ as its units.
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
 
+.. _local-gc-content-4:
 .. figure:: images/local_gc_content_4.png
    :alt: Local GC content with kilobases as the x axis units.
 
    Local GC content with kilobases as the x axis units.
 
 
-Finally, let us add labels to the x-axis.
+Finally, let us add labels to the x-axis (:numref:`local-gc-content-5`).
 
 .. code-block:: R
     :emphasize-lines: 10
@@ -663,6 +681,7 @@ Finally, let us add labels to the x-axis.
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
 
+.. _local-gc-content-5:
 .. figure:: images/local_gc_content_5.png
    :alt: Local GC content with labelled axis.
 
@@ -749,8 +768,9 @@ of the local GC content across the genome.
     > sd(df$gc_content)
     [1] 1.050728
 
-Below is the final figure and its caption.
+Below is the final figure and its caption (:numref:`local-gc-content-6`).
 
+.. _local-gc-content-6:
 .. figure:: images/local_gc_content_5.png
    :alt: Local GC content with labelled axis.
 
