@@ -370,7 +370,7 @@ of which could be considered to be aesthetic aspects of how to plot the data.
     +                  color=Species)) + geom_point()
 
 In the above the secondary prompt, represented by ``+``, denotes a continuation
-line. In other words the R interprets the above as one line of code.
+line. In other words R interprets the above as one line of code.
 
 .. _ggplot-aesthetic-scatter-plot:
 .. figure:: images/ggplot_aesthetic_scatter_plot.png
