@@ -15,7 +15,13 @@ There are two main purposes of representing data visually:
 
 In this chapter we will look at how both of these can be accomplished using `R
 <https://www.r-project.org/>`_ and its associated `ggplot2 <http://ggplot2.org/>`_
-package.
+package. This choice is based on the fact that ggplot2 is one of the best
+plotting tools available. It is easy to use and has got sensible defaults that
+result in beautiful plots out of the box. An added advantage is that this
+gives us a means to get more familiar with R, which is an awesome tool for
+statistical computing (although this topic is beyond the scope of this book).
+Other tools will be discussed later in the section
+:ref:`other-useful-tools-for-scripting-the-generation-of-figures`.
  
 We will start off by exploring Fisher's `Iris flower data set
 <https://en.wikipedia.org/wiki/Iris_flower_data_set>`_. This will be an
@@ -72,6 +78,9 @@ R comes bundled with a number of data sets. To view these you can use the
     BOD                     Biochemical Oxygen Demand
     CO2                     Carbon Dioxide Uptake in Grass Plants
     ...
+
+If you want to stop displaying the data sets without having to scroll to the
+bottom press the ``q`` button on your keyboard.
 
 We are interested in the Iris flower data set, called ``iris``, let us load
 it.
@@ -355,7 +364,13 @@ of which could be considered to be aesthetic aspects of how to plot the data.
 
 .. code-block:: R
 
-    > ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, size=Petal.Width, color=Species)) + geom_point()
+    > ggplot(iris, aes(x=Sepal.Length,
+    +                  y=Sepal.Width,
+    +                  size=Petal.Width,
+    +                  color=Species)) + geom_point()
+
+In the above the secondary prompt, represented by ``+``, denotes a continuation
+line. In other words the R interprets the above as one line of code.
 
 .. _ggplot-aesthetic-scatter-plot:
 .. figure:: images/ggplot_aesthetic_scatter_plot.png
@@ -364,8 +379,11 @@ of which could be considered to be aesthetic aspects of how to plot the data.
    Scatter plot of Iris sepal length vs width, where the size of each point represents
    the petal width and the colour is used to indicate the species.
 
-By adding these additional aesthetic attributes to the figure we can start to
-discern some structure that was previously hidden.
+The information in the scatterplot is now four dimensional! The x- and y-axis
+show ``Sepal.Length`` and ``Sepal.Width``, the size of the point indicates the
+``Petal.Width`` and the colour shows the ``Species``.  By adding
+``Petal.Width`` and ``Species`` as additional aesthetic attributes to the
+figure we can start to discern structure that was previously hidden.
 
 
 Available "Geoms"
@@ -404,14 +422,14 @@ of these different geoms in action have a look at the
 Scripting data visualisation
 ----------------------------
 
-Now that we have got a basic understanding of how to interact with R and the functionality
-in the ggplot library let's take a step towards automating the figure generation by
+Now that we have a basic understanding of how to interact with R and the functionality
+in the ggplot library, let's take a step towards automating the figure generation by
 recording the steps required to plot the data in a script.
 
 Let us work on the histogram example. In the code below we store the ggplot
 object in the variable ``g`` and make use of ``ggsave()`` to write the plot to
 a file named ``histogram.png``. Save the code below to a file named
-``iris_sepal_length_histogram.R``
+``iris_sepal_length_histogram.R`` using your favorite text editor.
 
 .. code-block:: R
 
@@ -442,7 +460,7 @@ In the extended scatterplot example we found that it was useful to be able to
 visualise which data points belonged to which species. Maybe it would be useful
 to do something similar with the data in our histogram.
 
-In order to be able to achieve this ggplot2 provides the concept of faceting,
+In order to achieve this ggplot2 provides the concept of faceting,
 the ability to split your data by one or more variables. Let us split the
 data by ``Species`` using the ``facet_grid()`` function
 (:numref:`ggplot-faceted-histogram`).
@@ -461,7 +479,7 @@ data by ``Species`` using the ``facet_grid()`` function
 In the above the ``facet_grid(Species ~ .)`` states that we want one
 ``Species`` per row, as opposed to one species per column
 (``facet_grid(. ~ Species)``). Replacing the dot (``.``) with another
-variable would result in a faceting the data into a two dimensional grid.
+variable would result in faceting the data into a two dimensional grid.
 
 .. _ggplot-faceted-histogram:
 .. figure:: images/ggplot_faceted_histogram.png
@@ -529,11 +547,11 @@ intended audience is. Is it the general public, school children or
 plant biologists? The general public may be interested in trends, whereas
 a plant scientist may be interested in a more detailed view.
 
-Secondly, what is the message that you want to convey. Stating this explicitly
+Secondly, what is the message that you want to convey? Stating this explicitly
 will help you when making decisions about the content and the layout of the
 figure.
 
-Thirdly, what medium will be used to display the figure. Will it be displayed
+Thirdly, what medium will be used to display the figure? Will it be displayed
 for a minute on a projector or will it be printed in an article? The audience
 will have less time to absorb details from the former.
 
@@ -654,6 +672,11 @@ as its units (:numref:`local-gc-content-4`).
 
     ggsave("local_gc_content.png", width=89, height=50, units="mm")
 
+In the above ``function(x)x/1000`` is a function definition. The function
+returns the input (``x``) divided by 1000. In this case the function is
+passed anonymously (the function is not given a name) to the ``labels``
+argument of the ``scale_x_continuous()`` function.
+
 
 .. _local-gc-content-4:
 .. figure:: images/local_gc_content_4.png
@@ -702,7 +725,7 @@ in version control, see :doc:`keeping-track-of-your-work` for more details.
 
     nothing added to commit but untracked files present (use "git add" to track)
 
-So we have two untracked files the R script and the PNG file the R script
+So we have two untracked files: the R script and the PNG file the R script
 generates. We do not want to track the latter in version control as it can be
 generated from the script. Let us therefore update our ``.gitignore`` file.
 
@@ -769,6 +792,8 @@ of the local GC content across the genome.
     [1] 1.050728
 
 Below is the final figure and its caption (:numref:`local-gc-content-6`).
+The caption has been added by the tool chain used to build this book, not
+by R.
 
 .. _local-gc-content-6:
 .. figure:: images/local_gc_content_5.png
@@ -777,6 +802,8 @@ Below is the final figure and its caption (:numref:`local-gc-content-6`).
    There is little variation in the local GC content of *Streptomyces
    coelicolor* A3(2). Using a window size of 100 KB and a step size of 50 KB
    the local GC content has a mean of 72.1% and a standard deviation of 1.1%.
+
+.. _other-useful-tools-for-scripting-the-generation-of-figures:
 
 Other useful tools for scripting the generation of figures
 ----------------------------------------------------------
@@ -807,9 +834,9 @@ A general purpose tool for manipulating images on the command line is
 transform your images.  It is a great tool for automating your image
 manipulation.
 
-If you are wanting to visualise data in the web pages it worth investing some
-time looking at the various JavaScript libraries out there for data visualisation.
-One poplar option is `D3.js <https://d3js.org/>`_.
+If you are wanting to visualise data in web pages it is worth investing some
+time looking at the various JavaScript libraries available for data
+visualisation. One poplar option is `D3.js <https://d3js.org/>`_.
 
 
 Key concepts
