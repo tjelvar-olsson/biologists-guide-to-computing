@@ -63,16 +63,14 @@ So to express 208 as binary we could use the bits ``1101100``.
     1  1  0  1 1 0 0
     == == == = = = =
 
-To recap in computing a bit is the smallest unit of information and it can be
-either zero or one. Using several bits we can express integers using the binary
-numeral system.
-
 In computing bits are often grouped together and the most common grouping is to
 bundle 8-bits together, this is known as a byte. One byte can therefore have
 256 unique states. An unsigned 8-bit integer, stored in a byte, can therefore
-represent any integer ranging from 0 to 255. This range may seem familiar to
-people who have used colour pickers to specify RGB values.
+represent any integer ranging from 0 to 255.
 
+To recap, in computing a bit is the smallest unit of information and it can be
+either zero or one, and a byte is eight bits grouped together. Using several
+bits we can express integers using the binary numeral system.
 
 Character encodings
 -------------------
@@ -83,9 +81,11 @@ and write text? This is the subject of character encodings.
 One of the most prevalent character encodings is ASCII (American Standard Code
 for Information Interchange), which was first published in 1963. It has its roots in
 telegraphic codes. Based on the English alphabet it encodes 128 characters
-into 7-bit integers. These characters include: 0-9, a-z, A-Z, the space character,
-punctuation symbols and control codes for operating Teletype machines.
+into 7-bit integers (:numref:`ASCII_Code_Chart-Quick_ref_card`). These
+characters include: 0-9, a-z, A-Z, the space character, punctuation symbols and
+control codes for operating Teletype machines.
 
+.. _ASCII_Code_Chart-Quick_ref_card:
 .. figure:: images/ASCII_Code_Chart-Quick_ref_card.png
    :alt: ASII code chart quick reference card.
 
@@ -126,6 +126,9 @@ ISO-8859-1 encodings.
    A natural number is a whole non-negative number. In computing such a number
    is commonly referred to as an unsigned integer.
 
+So in computers "text" is really just a convention that maps integers to
+characters, or more formally a character encoding.
+
 
 Real numbers
 ------------
@@ -143,8 +146,8 @@ with these.
 One way of storing and working with real numbers is to use the fixed-point number
 representation. A fixed-point number is basically an integer that is scaled by an
 implicit factor. So if the implicit scaling factor was :math:`1/10` and the
-explicit integer stored on the computer was :math:`127` then the real number
-represented would be :math:`12.7`.
+explicit integer was :math:`127` then the real number represented would be
+:math:`12.7`.
 
 The fixed-point number representation has the disadvantage that the range of
 numbers that can be represented is relatively small. Consider an unsigned 8-bit
@@ -157,8 +160,8 @@ with a step size of :math:`0.01`.
 The floating-point number was invented to work around the inherent small range
 limitation of fixed-point number representations.  Floating-point numbers
 basically allow the decimal (radix) point to float.  This means that numbers of
-differing orders of magnitude can be expressed using the same units. It is very
-much similar to scientific notation where the distance to the moon can be
+differing orders of magnitude can be expressed using the same units. It is
+similar to scientific notation where the distance to the moon can be
 expressed as :math:`3.844 * 10^8` and the size of a typical bacterium can be
 expressed as :math:`1.0 * 10^{-6}`. A consequence of this is that the numbers
 that can be expressed are not uniformly spaced, i.e. as the size of the
@@ -182,6 +185,9 @@ in the :doc:`data-analysis` chapter).
 
     >>> 0.6 / 0.2
     2.9999999999999996
+
+In the above a rounding error of :math:`4 * 10^{-16}` has been introduced as
+a consequence of working with floating point representations of numbers.
 
 
 Boolean logic
@@ -264,7 +270,7 @@ based on those decisions.
 
    C is a popular programming language designed by Dennis Ritchie in 1972.
    It is a low-level language, which means that it allows the programmer to
-   work close to the hardware by providing direct access to the systems memory.
+   work close to the hardware by providing direct access to the system's memory.
    One of the most famous C projects is the Linux kernel, which is a massive open
    source project with millions of lines of code and thousands of contributors.
 
