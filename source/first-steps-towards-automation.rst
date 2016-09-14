@@ -2,13 +2,15 @@ First steps towards automation
 ==============================
 
 One of the first steps towards automating repetitive tasks is to become
-familiar with the command line. In this chapter we will accomplish this using
-the command line to extract the UniProt identifiers for all human proteins
-in Swiss-Prot.
+familiar with the command line. In this chapter we will accomplish this by
+using the command line to extract UniProt identifiers for all human proteins in
+Swiss-Prot.
 
 You will get the most benefit from this chapter if you work through the example
-as you go along. You are therefore encouraged to open up a terminal now!
+as you go along. You are therefore encouraged to open up a terminal now
+(:numref:`terminal`)!
 
+.. _terminal:
 .. figure:: images/terminal.png
    :alt: Bash shell running in a Mac Terminal.
 
@@ -35,12 +37,12 @@ First things first, how to find help
 
 Most of the commands on the command line have built in help that can be accessed by
 providing either the argument ``-h`` or ``--help``. For example to access help for
-the ``curl`` command, which we will use later, enter the command below into the shell
+the ``gunzip`` command, which we will use later, enter the command below into the shell
 and press enter:
 
 .. code-block:: none
 
-    $ curl --help
+    $ gunzip --help
 
 More descriptive documentation can usually be found using the ``man`` (manual)
 command. For example to view the manual page of the ``ls`` command you can run
@@ -66,8 +68,8 @@ First of all let us make sure that we are working in our home directory.
     $ cd
 
 The ``cd`` command, short for *change directory*, is used to move between
-directories. If called without a path to a directory of interest it will
-move into your home directory.
+directories. If called without a path to a directory it will move you into your
+home directory.
 
 We can *print* out the name of the current *working directory* using the ``pwd``
 command. Furthermore we can *list* the contents of a directory using the ``ls``
@@ -204,10 +206,23 @@ From now on the text will use the short ``-c`` option rather than the long
           information on the meanings of the various options available to you.
 
 
+.. sidebar:: Tab completion
+
+    Another way to save on typing in the terminal is to use tab completion.
+    Start typing the command that you want to use and hit the tab key. For
+    example, type in ``gu`` and then press the tab key. This will complete
+    the command to ``gunzip`` without you having to do any more typing.
+    If the letters typed into the terminal are not sufficient to specify
+    a unique command it will list all of the possible options.
+
+    You can also use tab completion to fill in the names of existing files and
+    directories.
+
+
 Creating a work flow using pipes
 --------------------------------
 
-Now it is time to introduce one of the greatest features of the command line: piping!
+Now it is time to introduce one of the greatest features of the command line: pipes!
 Pipes are a means to redirect the output from one command into another. The character
 used to represent a pipe is the vertical bar: ``|``.
 
@@ -249,8 +264,8 @@ Examining files, without modifying them
 
 Unix-based systems make a distinction between programs that are used for
 examining files, known as pagers, and programs that are used for editing files,
-known as text editors. The reason for making this distinction is to help users
-avoid making accidental changes to files when they simply want to read them.
+known as text editors. The reason for making this distinction is to help prevent
+accidental changes to files when reading them.
 
 To view the beginning of a file one can use the ``head`` command. Let us examine
 the first lines of the ``uniprot_sprot.fasta.gz`` file by pipeing the output of the
@@ -325,7 +340,7 @@ finished examining the file press "q" to quit ``less``.
     through files one page at a time.  One of the original pager programs was
     called ``more``.  It simply displayed one page of output at a time and when
     one wanted "more" output one simply pressed the space key. A usability
-    issue with the ``more`` program was that it did not allow a user to go back
+    issue with the ``more`` program was that it did not allow users to go back
     up a page. The ``less`` pager was therefore developed to work around this
     issue. It implemented reverse scrolling and a number of other additional
     features not present in ``more``. However, ``less`` also implemented all
@@ -403,10 +418,11 @@ pipeing, it is simply the character surrounding the UniProt identifier. By
 splitting the line by "|" the UniProt id will be available in the second
 fragment.
 
-The command below makes use of the ``\`` character at the end of the first
-line.  This tells bash that the command continues on the next line. You can use
-this syntax in your scripts and in the terminal. Alternatively, you can simply
-include the content of both lines below in a single line, omitting the ``\``.
+The command below makes use of the backslash character (``\``) at the end of
+the first line.  This tells bash that the command continues on the next line.
+You can use this syntax in your scripts and in the terminal. Alternatively, you
+can simply include the content from both lines below in a single line, omitting
+the ``\``.
 
 .. code-block:: none
 
@@ -417,12 +433,19 @@ In the above the ``-d`` option specifies the delimiter to use to split split
 the line, in this instance the pipe symbol (``|``). The ``-f 2`` option
 specifies that we want to extract the second field.
 
+.. note:: Remember to try out these commands on your computer to see the
+          actual output of the commands.
+
 
 Using redirection to create an output file
 ------------------------------------------
 
-Now we will use a different redirection command, ``>``, to save the output to a file
-on disk:
+By default the output from commands are written to the standard output stream.
+Earlier we saw that we could use the pipes to redirect the output to another
+command. However, it is also possible to redirect the output to a file, i.e.
+save the output to a file.  This is achieved using the greater than symbol
+(``>``). You can use the idea of an arrow as a mnemonic, the output is going
+from the command into the file as indicated by the arrow.
 
 .. code-block:: none
 
@@ -435,7 +458,6 @@ Now if you run the ``ls`` command you will see the file
 
 .. code-block:: none
 
-    $ ls
     $ less human_uniprot_ids.txt
 
 .. sidebar:: The ``<`` redirection command
