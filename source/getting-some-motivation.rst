@@ -5,8 +5,8 @@ Why you should care about computing and coding
 ----------------------------------------------
 
 Computers can be powerful allies. They are ideal for automating repetitive tasks.
-Furthermore, they can perform calculations and analysis that would be infeasible
-for the human brain alone.
+Furthermore, they can perform calculations and analysis that are too complex
+for the human brain to process.
 
 These days many parts of the biological sciences are becoming more and more data
 driven. Technological advancements have led to a huge increase in the
@@ -27,10 +27,10 @@ More concretely, learning to program will help you get a better understanding
 of data analysis. It may even expand your mind to allow you to see new
 possibilities available to you.
 
-Furthermore, by getting more familiar with computing your interactions with programmers
-and data analysis folk will improve. So even if you never end up writing a
-script by yourself learning to code will help you express your ideas to people
-that enjoy programming.
+Furthermore, by getting more familiar with computing your interactions with
+programmers and data analysis folk will improve. So even if you discover that
+you don't like programming learning to code will help you express your ideas to
+people that do.
 
 
 What you can expect to learn here
@@ -80,12 +80,12 @@ The chapter also introduces more general programming concepts such as
 variables, functions and loops.
 
 Data visualisation is an important part of scientific investigation.  In
-:doc:`data-visualisation` the statistical scripting language R, a statistical
-scripting language R is used to look at how one can explore data interactively
-from the command line and create scripts that make our the generation of
-figures reproducible. After working through this chapter you will have a gained
-familiarity in working with R and an understanding of how to use R's ggplot2
-package to create beautiful and informative figures.
+:doc:`data-visualisation` the statistical scripting language R is used to look
+at how one can explore data interactively from the command line and create
+scripts that make the generation of figures reproducible. After working through
+this chapter you will have a gained familiarity in working with R and an
+understanding of how to use R's ggplot2 package to create beautiful and
+informative figures.
 
 The best science often involves collaboration. In
 :doc:`collaborating-on-projects` you will learn how to use make use of
