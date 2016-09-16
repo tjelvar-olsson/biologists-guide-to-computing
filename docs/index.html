@@ -29,11 +29,16 @@
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Oswald', sans-serif;
     }
+    .color-background {
+      background: #DAD299; /* fallback for old browsers */
+      background: -webkit-linear-gradient(to left, #DAD299 , #B0DAB9); /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to left, #DAD299 , #B0DAB9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
   </style>
 
   </head>
   <body>
-    <div class="jumbotron">
+    <div class="jumbotron color-background">
       <div class="container">
         <header>
           <h1>Biologist's Guide to Computing</h1>
@@ -140,51 +145,56 @@
 
         <p>Sign up to the newsletter and get the first three chapters for free!</p>
 	<p><a href="http://eepurl.com/cfUACf" class="btn btn-primary">Sign Up!</a></p>
-      </section>
-
-
-      <section>
-        <header><h3>About the author</h3></header>
-
-        <p>
-        Tjelvar Olsson did his undergraduate and PhD in biochemistry.
-        During his PhD he found himself drifting into computing.
-        This process was largely guided by trail and error and was quite
-        painful. At the time there were not many resources for helping
-        biologists make this transition.
-        </p>
-
-        <p>
-        After his PhD he wanted to learn more about professional software
-        development (and chemistry) and got a job as an application
-        scientist at a company that developed software and databases for
-        the pharmaceutical industry. During this time he was fortunate
-        enough to work with great people and learnt lots about coding,
-        programming best practises and software development processes.
-        </p>
-
-        <p>
-        After six years the lure of biology and academia became too much
-        and he got a job as a scientific computing lab manager in a world
-        leading plant research institute. In this role he is constantly
-        coming into contact with people that are in the same position he
-        was in 12 years ago; biologists drifting into computing.
-        </p>
-
-        <p>
-        This book is his attempt to provide a resource for these biologists
-        drifting into computing.
-        </p>
-
+        <br />
       </section>
     </div>  <!-- container -->
 
 
-    <div class="container">
-      <footer>
-        <p>&copy; Tjelvar Olsson</p>
-      </footer>
-    </div>  <!-- container -->
+    <div class="color-background">
+      <div class="container">
+        <section>
+          <header><h3>About the author</h3></header>
+
+          <p>
+          Tjelvar Olsson did his undergraduate and PhD in biochemistry.
+          During his PhD he found himself drifting into computing.
+          This process was largely guided by trail and error and was quite
+          painful. At the time there were not many resources for helping
+          biologists make this transition.
+          </p>
+
+          <p>
+          After his PhD he wanted to learn more about professional software
+          development (and chemistry) and got a job as an application
+          scientist at a company that developed software and databases for
+          the pharmaceutical industry. During this time he was fortunate
+          enough to work with great people and learnt lots about coding,
+          programming best practises and software development processes.
+          </p>
+
+          <p>
+          After six years the lure of biology and academia became too much
+          and he got a job as a scientific computing lab manager in a world
+          leading plant research institute. In this role he is constantly
+          coming into contact with people that are in the same position he
+          was in 12 years ago; biologists drifting into computing.
+          </p>
+
+          <p>
+          This book is his attempt to provide a resource for these biologists
+          drifting into computing.
+          </p>
+
+        </section>
+      </div>  <!-- container -->
+
+
+      <div class="container">
+        <footer>
+          <p>&copy; Tjelvar Olsson</p>
+        </footer>
+      </div>  <!-- container -->
+    </div>  <!-- color-background -->
 
   </body>
 </html>
