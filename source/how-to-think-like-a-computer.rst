@@ -28,14 +28,14 @@ a.k.a. binary.
    latter does not.
 
 
-Take for example the number 208. This number can be represented as two sets
+Take for example the number 108. This number can be represented as two sets
 of hundreds and eight sets of ones (as well as zero sets of tens).
 
 .. math::
 
-    208 &= 200 + 0 + 8 \\
-        &= (2*100) + (0 * 10) + (8 * 1) \\
-        &= (2 * 10^2) + (0 * 10^1) + (8 * 10^0)
+    108 &= 100 + 0 + 8 \\
+        &= (1*100) + (0 * 10) + (8 * 1) \\
+        &= (1 * 10^2) + (0 * 10^1) + (8 * 10^0)
 
 The equations above illustrate the basis of the base-10 numeral system. Note
 that the base of the exponent in each term is ten. This means that one needs
@@ -45,7 +45,7 @@ the base of each exponent is 2.
 
 .. math::
 
-    208 &= 64 + 32 + 0 + 8 + 4 + 0 + 0 \\
+    108 &= 64 + 32 + 0 + 8 + 4 + 0 + 0 \\
         &=  (1*64) + (1*32) + (0*16) + (1*8) + (1*4) + (0*2) + (0*1)  \\
         &=  (1 * 2^6) + (1 * 2^5) + (0 * 2^4) + (1 * 2^3) + (1 * 2^2) + (0 * 2^1) + (0 * 2^0)
 
@@ -53,9 +53,9 @@ the base of each exponent is 2.
 
     In computing the term "Bit" is an abbreviation of the term "Binary digIT".
 
-So to express 208 as binary we could use the bits ``1101100``.
+So to express 108 as binary we could use the bits ``1101100``.
 
-.. table:: Representing the integer 208 in binary.
+.. table:: Representing the integer 108 in binary.
 
     == == == = = = =
     64 32 16 8 4 2 1

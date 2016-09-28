@@ -69,3 +69,5 @@ feedback on early versions of the initial chapters.  Many thanks to Tyler
 McCleary for continued in depth feedback and suggestions for improvements.
 Thanks to Nick Pullen for feedback and discussions on the data visualisation
 chapter. Many thanks to Matthew Hartley for discussions and encouragement.
+
+I'm also grateful for feedback from Lucy Liu.
