@@ -677,6 +677,7 @@ a group that we would like access to. In other words, the purpose of a group
 is to give the user access to a section of interest matched by the regular
 expression.
 
+.. code-block:: python
 
     >>> match.groups()
     ('Q6GZX4',)
