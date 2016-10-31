@@ -37,10 +37,6 @@ Python is a high-level scripting language that is growing in popularity in the
 scientific community. It uses a syntax that is relatively easy to get to grips
 with and which encourages code readability.
 
-Python is used here because it is easy to learn and because it is becoming the
-*de facto* scripting language in the scientific community.
-
-
 Using Python in interactive mode
 --------------------------------
 
@@ -169,7 +165,7 @@ represented using floating point.
     >>> 3 / 2.0
     1.5
 
-.. warning:: In Python 3, the behavour of the division operator has been
+.. warning:: In Python 3, the behaviour of the division operator has been
              changed, and dividing two integers will result in normal division.
 
 One can convert an integer to a floating point number using Python's built-in
@@ -202,7 +198,7 @@ repeatedly to calculate the GC-content. We can achieve this using the concept of
 functions. In other words functions are a means for programmers to avoid repeating
 themselves, thus adhering to the :term:`DRY` principle.
 
-Let us create a simple function that adds to items together.
+Let us create a simple function that adds two items together.
 
 .. code-block:: python
 
@@ -282,7 +278,7 @@ To get the last three elements.
     ['three', 'four', 'five']
 
 It is worth noting that we can use negative indices, where -1 represents the
-last element. So to get all elements except the first and the last one could
+last element. So to get all elements except the first and the last, one could
 slice the list using the indices 1 and -1.
 
 .. code-block:: python
@@ -1136,8 +1132,8 @@ Key concepts
 ------------
 
 - Python is a powerful scripting language that is popular in the scientific community
-- You can explore Python's syntax using it's interactive mode
-- Variables and functions help us to avoid having to repeat ourselves, the :term:`DRY` principle
+- You can explore Python's syntax using its interactive mode
+- Variables and functions help us avoid having to repeat ourselves, the :term:`DRY` principle
 - When naming variables and functions explicit trumps succinct
 - Loops are really powerful, they form the basis of automating repetitive tasks
 - Files are accessed using file handles
