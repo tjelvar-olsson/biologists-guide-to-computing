@@ -1,27 +1,15 @@
 Working remotely
 ================
 
-Introduction
-------------
-
 Sometimes you need to work on a computer different to the one that is in front
 of you. This may be because you are working from home and need to log into your
 work computer. Alternatively it may be because you need to do some work on a
 high-performance computing cluster.
 
 In this chapter we will cover tools for logging into remote machines using the
-SSH (secure shell) protocol. SSH is an open standard that is available on all
+SSH (Secure SHell) protocol. SSH is an open standard that is available on all
 UNIX based systems. In fact it has gained so much traction that Microsoft have
 decided to add support for it in Windows.
-
-.. warning:: All of the remote machines in this chapter are fictional. This
-             means that if you try to run the commands verbatim you will see
-             errors along the lines of the below.
-
-             .. code-block:: none
-
-                $ ssh olssont@bishop
-                ssh: Could not resolve hostname bishop: nodename nor servname provided, or not known
 
 
 Jargon busting
@@ -32,21 +20,25 @@ it requires the use of some networking terminology (as we are logging into the
 remote machine over a network). Let us therefore start off with some jargon busting
 before we get into the practical details.
 
-When a computer is connected to a network it can communicate with other computers on
-the network using various ports. Ports are numbered and a famous one is port 80, which
-is used for HTTP (the HyperText Transfer Protocol) a.k.a. web-browsing.
+A computer can be connected to a network using physical Ethernet cables or in a
+wireless fashion using WiFI. Computers connected to the same network can
+communicate with each other.  This communication takes place over so called
+"ports", which are identified by numbers. A famous port is port 80, which is
+used for HTTP (the HyperText Transfer Protocol) a.k.a. web-browsing. There are many
+other ports. For example port 443 is used for HTTPS and port 22 is used for SSH.
 
 Machines on a network can be identified and accessed via their IP (Internet
-Protocol) address. Your local machine can be accessed via the IP address
-``127.0.0.1``.
+Protocol) address. An IP address that you may have come across is
+``127.0.0.1``, it identifies the local machine that you are working on.
 
 Although very useful, IP addresses can be difficult to remember. In order to overcome
-this internet service providers as well as the people responsible for looking
+this problem, internet service providers as well as the people responsible for looking
 after your organisations network make use of domain name servers (DNS). The purpose
-of a DNS server is to translate unique resource locations (URLs) to IP addresses. A
-DNS server can also be used to provide a means to lookup the IP address of a
-machine given a simpler more memorable name. To illustrate this we can find the
-IP address(es) of Google using the command ``host``.
+of a DNS server is to translate unique resource locations (URLs) to IP addresses.
+
+A DNS server can also be used to lookup the IP address of a machine given a
+simpler more memorable name. To illustrate this we can find the IP address(es)
+of Google's web servers using the command ``host``.
 
 .. code-block:: none
 
@@ -72,17 +64,23 @@ IP address(es) of Google using the command ``host``.
 If you copy and paste one of the IP addresses above into a web browser you
 should see the Google home page.
 
+Throughout the remainder of this chapter we will connect to remote machines
+using their hostname. What happens in practise is that your institutes DNS
+server translates this hostname to an IP address and you send your
+communications over the network to the machine identified by that IP address.
+Furthermore when you communicate with the remote machine you will be using
+a specific port. The default port for the SSH protocol is port 22.
 
 
 Logging in using the Secure Shell protocol
 ------------------------------------------
 
 In its most basic form the ``ssh`` command takes on the form ``ssh hostname``.
-Where ``hostname`` is the name of the remote machine that you want to login to.
+Where ``hostname`` is the name of the remote machine that you want to log in to.
 This assumes that you want to login to the remote machine using the same user
-name as that on the local machine. This is often not the case and it is much
-more common to see the ``ssh`` command in the form ``ssh user@hostname``, where
-``user`` is the Unix user name you want to login as on the remote machine.
+name as that on the local machine. This is often not the case and it is
+common to see the ``ssh`` command in the form ``ssh user@hostname``, where
+``user`` is the Unix user name you want to log in as on the remote machine.
 
 Let us illustrate this with an example. Suppose that one wanted to login to a
 remote computer named ``hpc``, this could for example be the head node on your
@@ -93,7 +91,18 @@ the head node was ``olssont`` then you could log in using the command below.
 
     $ ssh olssont@hpc
 
-If the machine that you are trying to login to has a port open on port 22 (the
+.. warning:: All of the remote machines in this chapter are fictional. This
+             means that if you try to run the commands verbatim you will see
+             errors along the lines of the below.
+
+             .. code-block:: none
+
+                ssh: Could not resolve hostname ...
+
+             When trying these examples make sure that you are trying to connect
+             to a machine that exists on your network.
+
+If the machine that you are trying to log in to has a port 22 open (the 
 default SSH port) you will be prompted for your password.
 
 .. sidebar:: What is a head node?
@@ -121,7 +130,7 @@ use a more explicit name, for example
 
     $ ssh olssont@hpc.awesomeuni.ac.uk
 
-If your password authentication passes login the shell in your terminal will
+If your user name and  password authenticates successfully the shell in your terminal will
 now be from the remote machine. To find out the name of the machine that you
 are logged into you can run the command ``hostname``.
 
@@ -139,7 +148,7 @@ command.
     $ hostname
     olssont-laptop
 
-In the above the ``hostname`` command prints out the host name of the local machine.
+In the above the ``hostname`` command prints out the hostname of the local machine.
 
 By default port 22 is used for the SSH protocol. However, sometimes a machine
 may expose its SSH server on a different port. For example if
@@ -150,25 +159,30 @@ one could login to it using the command below.
 
     $ ssh -p 2222 olssont@bishop
 
+In the above the ``-p`` flag is used to specify the port to connect to.
+
 Sometimes you want to be able to run software that makes use of windowing
-systems (i.e. all software with a graphical user interface). A common
-scientific example to run the statistical software package ``R`` which has
-built in functionality for displaying plots in a graphical window. Most
+systems (i.e. all software with a graphical user interface). For example the
+statistical software package ``R`` has built in functionality for displaying
+plots in a graphical window, which means it requires a windowing system. Most
 Unix-based systems make use of the X11 as their windowing system. We therefore
 need to enable X11-forwarding in SSH to be able to run programs that require
-graphics. This is achieved using the ``-X`` flag.  Below we use this flag to
-login to a machine named ``pawn``.
+graphics. This is achieved using the ``-X`` flag.
 
 .. code-block:: none
 
     $ ssh -X olssont@pawn
+
+In the above we are connecting to a machine named ``pawn`` with X11-forwarding
+enabled.
 
 
 Copying files using Secure Copy
 -------------------------------
 
 Now that we know how to login to a remote machine we need to work out how to
-copy data to it. This is achieved using the ``scp``, *secure copy*, command.
+copy data to and from it. This is achieved using the ``scp``, *secure copy*,
+command.
 
 Suppose that we wanted to copy the file ``mydata.csv`` over to ``olssont``'s
 home directory on the ``hpc`` head node, we could achieve this using the
@@ -179,7 +193,7 @@ command below.
     $ scp mydata.csv olssont@hpc:
 
 Note the colon (``:``) after the host name. It demarcates the end of the host name
-and the beginning of the file specification to copy the file to on the remote machine.
+and the beginning of the location to copy the file to on the remote machine.
 In this instance the latter is left empty and as such the original file name is used
 and the location for the file defaults to ``olssont``'s home directory on the remote
 machine. The command above is equivalent to that below which specifies the home directory
@@ -189,7 +203,7 @@ using a relative path (``~/``).
 
     $ scp mydata.csv olssont@hpc:~/
 
-It is also possible to specify the location using absolute paths. For example
+It is also possible to specify the location using an absolute path. For example
 if we wanted to save the file in the ``/tmp`` directory this could be achieved
 using the command below.
 
@@ -208,7 +222,8 @@ directory) one could use the command below.
 If the SSH server is listening on a port other than 22 one needs to specify the port
 explicitly. Confusingly the argument for this is not the same as for the ``ssh`` command.
 The ``scp`` command uses the argument ``-P``, i.e. it uses upper rather than lower case.
-So if we wanted to copy the data to ``bishop`` one could use the command below.
+So if we wanted to copy the data to ``bishop``, where the SSH server is listening
+on port 2222 one could use the command below.
 
 .. code-block:: none
 
@@ -237,9 +252,11 @@ uses a pair of so called "keys". One of these keys is public and one is private.
 public key is one that you can distribute freely, in this case to all the remote machines
 that you want to be able to login to. However, the private key must never be compromised
 as it is what allows you access to all the remote machines. One way to think about this
-system is to view the public key as a lock and the private key as the key to that lock.
+system is to view the public key as a lock that only the private key can open.
 You can fit the all the machines that you want secure access to with copies of
-the same lock as long as you keep the key to the lock safe.
+the same public key as long as you keep the private key safe.
+
+Enough theory let's try it out.
 
 The first step is to generate a public/private key pair. This is achieved using
 the command ``ssh-keygen``. This will prompt you for the file to save the key
@@ -329,7 +346,7 @@ Managing your login details using SSH config
 Suppose that access to your institutes cluster was setup in a way that required
 you to use the full ``hpc.awesomeuni.ac.uk`` host name, but that you wanted to
 be able to login using the shorter name ``hpc``. You can configure your machine
-to setup access in this by creating the file ``.ssh/config`` file and adding
+to setup access in this fashion by creating the file ``.ssh/config`` file and adding
 the lines below to it.
 
 .. code-block:: none
@@ -347,7 +364,7 @@ name).
     $ ssh hpc
 
 
-Things always start off simple and then they grow in complexity. As you start using
+As you start using
 SSH keys to manage access to various machines you are likely to find yourself
 using multiple key pairs. In this case you will want to be able to specify the name
 of the private key, also known as an identity file, in the ``.ssh/config`` file.
@@ -371,7 +388,7 @@ specification below.
         Port 2222
         IdentityFile ~/.ssh/id_rsa
 
-Again, using the ``.ssh/config`` file in this way means that we do not remember
+Again, using the ``.ssh/config`` file in this way means that we do not need to remember
 port numbers and what options to invoke the ``scp`` and ``ssh`` commands with.
 Copying a file can then be achieved using the concise syntax below.
 
@@ -419,9 +436,9 @@ seconds.
 In the first terminal, running ``top``, you should now see the ``sleep`` program
 running.
 
-Now close the second terminal running the ``sleep`` command. Note that the
-``sleep`` program disappears from the ``top`` display. This is because the
-program was interrupted by the closing of the terminal.
+Now close the second terminal, the one in which you are running the ``sleep``
+command. Note that the ``sleep`` program disappears from the ``top`` display.
+This is because the program was interrupted by the closing of the terminal.
 
 Open a new terminal. This time we will prefix the ``sleep`` command with ``nohup``.
 
