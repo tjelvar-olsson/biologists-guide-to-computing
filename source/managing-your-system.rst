@@ -1,12 +1,10 @@
 Managing your system
 ====================
 
-Introduction
-------------
 
 This chapter will give a brief overview of how to install software on
 Unix-like systems. Different systems operate in different ways and this
-can lead to confusion. This chapter aims to help you an understanding of
+can lead to confusion. This chapter aims to help you get an understanding of
 the basic principles as well as an overview of the most common systems giving
 you a solid foundation to build upon.
 
@@ -14,8 +12,8 @@ you a solid foundation to build upon.
 The file system
 ---------------
 
-The file system on Unix-like systems is built up like a tree starting from
-the root. You can view the content of your root system by typing in ``ls /``.
+The file system on Unix-like systems is built up like a tree starting from,
+the so called, root. You can view the content of your root system by typing in ``ls /``.
 
 On a linux box this may look like the below.
 
@@ -25,11 +23,11 @@ On a linux box this may look like the below.
     bin  dev   etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root
     run  sbin  srv  sys   tmp  usr    var
 
-The files that you have been working on so far have been located in your home
+The files that you have been working with so far have been located in your home
 directory, e.g. ``/home/olssont/``.
 
-However, the programs that you have been running are also files. Software
-fundamental to the operating system is located in ``/bin``. Other software
+However, the programs that you have been running are also files. Programs
+fundamental to the operating system is located in ``/bin``. Other programs
 installed by the systems package manager tend to be located in ``/usr/bin``.
 
 To find out the location of a program you can use the ``which`` command. For
@@ -40,7 +38,7 @@ example, let us find out the location of the ``ls`` program.
     $ which ls
     /bin/ls
 
-We can run the ``ls`` program using this full path, for example to view the content
+We can run the ``ls`` program using this absolute path, for example to view the content
 of the root directory again.
 
 .. code-block:: none
@@ -58,13 +56,16 @@ the shell knows how to translate ``ls`` to ``/bin/ls``. Or more correctly
 how does the shell know to look for the ``ls`` program in the ``/bin`` directory?
 
 The answer lies in the environment variable ``PATH``. This environment variable
-tells the shell the locations to go looking for programs in. We can inspect the
+tells the shell the locations where to go looking for programs. We can inspect the
 content of the ``PATH`` environment variable using the ``echo`` command.
 
 .. code-block:: none
 
     $ echo $PATH
     /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+.. note:: Remember that in bash scripting we need to prefix variable names with a dollar
+          sign (``$``) to access the value the variable is holding.
 
 The ``PATH`` variable basically contains a list of colon (``:``) separated directories.
 When you try to run a program the shell looks in these directories, in order, and uses
@@ -80,7 +81,7 @@ directories you will see a ``command not found`` error issued from your shell.
 The ``root`` user
 -----------------
 
-Now let us have a look at the permissions of the ``/usr/bin`` directory.
+Now let's have a look at the permissions of the ``/usr/bin`` directory.
 In the below we use the ``-l`` flag to list the result in "long" format, i.e.
 to view the permissions etc, and the ``-d`` flag to state that we want to list the
 directory itself rather than its content.
@@ -147,9 +148,9 @@ Using package managers
 ----------------------
 
 All modern Linux distribution come with a so called package manager, which should
-be your first of call when trying to install software. Package managers make it
-easier to install software for two main reasons they deal with the dependencies
-for you and they (usually) provide pre-compiled versions of software that are known
+be your first port of call when trying to install software. Package managers make it
+easier to install software for two main reasons they resolve dependencies
+and they (usually) provide pre-compiled versions of software that are known
 to play nicely with the other software available through the package manager.
 
 There are countless numbers of Linux distributions. However, most main stream
@@ -157,7 +158,7 @@ distributions are derived from either Debian or RedHat.  Debian based Linux
 distributions include amongst others Debian itself, Ubuntu, and Linux Mint. RedHat
 based distributions include RedHat, CentOS and Fedora.
 
-Although Mac's come with the AppStore this is not the place to look for scientific
+Although Mac OSX comes with the AppStore this is not the place to look for scientific
 software. Instead two other options based on the idea of the Linux package managers
 have evolved the first one is `Mac Ports <https://www.macports.org/>`_ and the
 second one is `Homebrew <http://brew.sh/>`_. I would recommend using the latter as
@@ -216,7 +217,7 @@ T-Coffee software, is for example not available. However, on the other hand
 RedHat is a super solid Linux distribution created by Red Hat Inc, the first billion
 dollar open source company.
 
-RedHat based systems use the YUM package manager. To search for software using one can
+RedHat based systems use the YUM package manager. To search for software one can
 use the ``yum search`` command. For example one could use the command below to search
 for the Git version control package.
 
@@ -244,7 +245,7 @@ To uninstall a package one can use the ``yum remove`` command.
 
 RedHat based system also provide groups of software. One group that you will
 want to install is the "Development Tools" group. This includes the Gnu C
-Complieer (gcc) and the "make" tools that are often required to install other
+Compiler (gcc) and the "make" tools that are often required to install other
 software from source code.
 
 .. code-block:: none
@@ -270,7 +271,7 @@ repository. This can be achieved by running the command below.
 Installing software on Mac OSX
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In this section I will illustrate how to install software using the
+This section will illustrate how to install software using the
 `Homebrew <http://brew.sh/>`_ package manager.
 
 First of all we need to install Homebrew itself. This can be achieved using the
@@ -278,7 +279,8 @@ command below, taken from the Homebrew home page.
 
 .. code-block:: none
 
-    $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    $ /usr/bin/ruby -e "$(curl \
+    -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 Homebrew refers to packages as "formulae". That is because each
 package/formulae is a ruby script describing how to install/brew a particular
@@ -311,18 +313,23 @@ To uninstall a formulae one uses the ``brew uninstall`` command.
     $ brew uninstall git
 
 One of the things that you will want to do is to add another "tap" to Homebrew.
-Namely, the ``science`` tab. In Homebrew a "tap" is an additional resource of
+Namely, the ``science`` tap. In Homebrew a "tap" is an additional resource of
 formulae.
 
 .. code-block:: none
 
     $ brew tap homebrew/science
 
-We can now search for and install scientific software such as T-Coffee.
+We can now search for scientific software such as T-Coffee.
 
 .. code-block:: none
 
     $ brew search t-coffee
+
+And install it.
+
+.. code-block:: none
+
     $ brew install t-coffee
 
 
@@ -402,27 +409,28 @@ Python you may need to install ``pip`` manually, see the
 `pip installation notes <https://pip.pypa.io/en/latest/installing/#install-pip>`_
 for more details.
 
-I suggest that you install the ``virtualenv`` package straight away.
+Another really useful package is ``virtualenv``. I suggest installing it straight away.
 
 .. code-block:: none
 
     $ sudo pip install virtualenv
 
-This installs the ``virtualenv`` tool that allows you to create
+Virtualenv is a tool that allows you to create
 virtual Python environments.
 
 .. sidebar:: What is a Python virtual environment?
 
-    A Python virtual environment is essentially a copy of your system's Python
-    programming environment. This means that you can install Python packages
-    into your virtual environment without having to root privileges. It also
+    A Python virtual environment is essentially a local copy of your system's Python.
+    The copy can live in your home directory.
+    This means that you can install Python packages
+    into your virtual environment without having root privileges. It also
     means that any packages that you install do not interfere with your system
     Python and vice versa. Furthermore, if you have multiple virtual
     environment they are all separate from each other. So if you have one
     virtual environment for each project that you are working on their Python
     packages can be of different versions without causing any problems.
 
-Let use ``virtualenv`` to create a virtual environment.
+Let's use ``virtualenv`` to create a virtual environment.
 
 .. code-block:: none
 
@@ -488,9 +496,8 @@ To show why this is useful let us deactivate the virtual environment.
     $ which python
     /usr/bin/python
 
-.. note:: The ``deactivate`` command is also created when you run the
-          ``./env/bin/activate`` script. Running the ``deactivate``
-          command also removes it.
+.. note:: The ``deactivate`` command is created when you run the
+          ``./env/bin/activate`` script.
 
 Now let us create a new clean virtual environment, activate it and list
 its packages.
@@ -503,8 +510,8 @@ its packages.
     pip (6.0.8)
     setuptools (12.0.5)
 
-Now we can replicate the exact same setup as in our first virtual environment,
-i.e. install ``numpy`` version 1.9.2, using the command below.
+Now we can replicate the exact same setup found in our initial virtual environment,
+by running ``pip install -r requirements.text``.
 
 .. code-block:: none
 
@@ -514,11 +521,13 @@ i.e. install ``numpy`` version 1.9.2, using the command below.
     pip (6.0.8)
     setuptools (12.0.5)
 
+This feature allows you make your data analysis more reproducible!
+
 
 Installing R packages
 ---------------------
 
-R is a scripting language that with a strong focus on statistics and data
+R is a scripting language with a strong focus on statistics and data
 visualisation.
 
 There are many packages available for R. These are hosted on
@@ -551,38 +560,19 @@ To install an R package, for example ``ggplot2``, we need to start an R session.
     >
 
 Then one can use the built-in ``install.packages`` function.
-This will prompt you to select a mirror to download from. Select
-one close to you.
+For exampel to install the ``ggplot2`` package one would use the
+command below.
 
 .. code-block:: R
 
     > install.packages("ggplot2")
-    Installing package into ‘/usr/local/lib/R/3.2/site-library’
-    (as ‘lib’ is unspecified)
-    --- Please select a CRAN mirror for use in this session ---
-    HTTPS CRAN mirror
 
-     1: 0-Cloud [https]                2: Austria [https]
-     3: Belgium (Ghent) [https]        4: Chile [https]
-     5: China (Beijing 4) [https]      6: Colombia (Cali) [https]
-     7: France (Lyon 1) [https]        8: France (Lyon 2) [https]
-     9: France (Paris 2) [https]      10: Germany (Münster) [https]
-    11: Iceland [https]               12: Italy (Padua) [https]
-    13: Japan (Tokyo) [https]         14: Mexico (Mexico City) [https]
-    15: New Zealand [https]           16: Russia (Moscow) [https]
-    17: Serbia [https]                18: Spain (A Coruña) [https]
-    19: Spain (Madrid) [https]        20: Switzerland [https]
-    21: UK (Bristol) [https]          22: UK (Cambridge) [https]
-    23: USA (CA 1) [https]            24: USA (KS) [https]
-    25: USA (MI 1) [https]            26: USA (TN) [https]
-    27: USA (TX) [https]              28: USA (WA) [https]
-    29: (HTTP mirrors)
-
-    Selection:
+This will prompt you for the selection of a mirror to download the package
+from. Pick one close to you.
 
 That's it, the ``ggplot2`` package is now available for you to use.
-However, note that you need to load it using the built-in ``library``
-function before you can use it.
+However, you need to load it using the ``library``
+function to use it.
 
 .. code-block:: R
 
@@ -601,7 +591,7 @@ There are a vast number of Perl modules available. These are hosted on
 Traditionally, CPAN hosted packages are installed using the ``cpan`` command.
 However, this can be quite cumbersome as it asks the user a lot of questions
 with regards to how things should be configured. This resulted in people
-developing an easier to use tool to install Perl modules: ``cpanm`` (CPAN
+developing a simpler tool to install Perl modules: ``cpanm`` (CPAN
 Minus). You may be able to install ``cpanm`` using your distributions package
 manager, if not you can install it using ``cpan``.
 
@@ -609,7 +599,7 @@ manager, if not you can install it using ``cpan``.
 
     $ cpan App::cpanminus
 
-If you run the command below you will notice that ``cpan`` prompts you for
+When you run the command above you will notice that ``cpan`` prompts you for
 a lot of information, accepting the defaults is fine. When it prompts you
 to select an approach:
 
@@ -636,16 +626,17 @@ Installing Latex packages
 
 TeX is a collection of programs and packages that allow you to typeset
 documents. LaTeX is a number of macros built on top of TeX.  In
-:doc:`collaborating-on-projects` we discussed Latex and its uses for
-producing laying out the content of our documents.
+:doc:`collaborating-on-projects` we used Latex for producing a PDF version
+of the document.
 
 Confusingly there are many different distributions of TeX, for example the dominant
 distribution of TeX on Windows' is `MiKTeX <http://miktex.org/>`_. On
 Unix based systems the most commonly used TeX distribution is
-`TeX Live <https://www.tug.org/texlive/>`_.
+`TeX Live <https://www.tug.org/texlive/>`_. And on Mac OSX it is
+`MacTeX <https://www.tug.org/mactex/>`_.
 
 In terms of package management Tex Live has got three different concepts: packages,
-collections and schemes. A collection is a set of packages and a scheme group of
+collections and schemes. A collection is a set of packages and a scheme is a group of
 collections and packages. Scheme's can only be selected during the initial install
 of TeX Live, whereas packages can be installed at any point.
 
@@ -653,7 +644,7 @@ One option is to use the ``scheme-full``, which includes everything meaning that
 you are unlikely to need to install anything else. However, this can take a long
 time and take up quite a lot of space on your system.
 
-Another option is to start with a couple of smaller schemes, for example
+Another option is to start with a smaller scheme, for example
 ``scheme-basic``, ``scheme-minimal`` and ``scheme-small``. Other packages and
 collections can then be installed as required.
 
@@ -679,12 +670,12 @@ Automated provisioning
 
 As this chapter highlights managing software installations can be onerous and tedious.
 What makes matters worse is that after you have installed a piece of software it can
-be very easy to forget how you did it. So when you get a new computer you may find
+be very easy to forget how one did it. So when you get a new computer you may find
 yourself spending quite sometime configuring it so that all your analysis pipelines
 work as expected.
 
 Spending time configuring your system may be acceptable if you are the only
-person depending on it. However, if other people depend on the machine as well
+person depending on it. However, if other people depend on the machine
 it is not. For example, you may end up responsible for a scientific web-service.
 In these instances you should look into automating the configuration of
 your system.
@@ -701,7 +692,7 @@ Key concepts
 ------------
 
 - The file system is structured like a tree staring from the root ``/``
-- Programs commonly located in ``/bin``, ``/usr/bin``, ``/usr/local/bin``
+- Programs are commonly located in ``/bin``, ``/usr/bin``, ``/usr/local/bin``
 - The ``PATH`` environment variable defines where your shell looks for programs
 - You need superuser privileges to write to many of default program locations
 - The ``sudo`` command allows you to run another command with superuser privileges if you are in the sudoers list
