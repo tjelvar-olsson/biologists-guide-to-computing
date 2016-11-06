@@ -1,6 +1,12 @@
 Structuring and storing data
 ============================
 
+The biological sciences are becoming more and more data driven.
+However, dealing with large volumes of data can feel overwhelming.
+One way to regain some control is to ensure that there is some structure to
+the data. This chapter introduces important data structures and file formats
+for representing them.
+
 Data structures
 ---------------
 
@@ -33,14 +39,15 @@ identifiers could be stored as a list.
 
 .. code-block:: python
 
-   petri_dishes = ["id_3",
-                   "id_6",
-                   "id_1",
-                   "id_2",
-                   "id_5",
-                   "id_4"]
+   petri_dishes = ["wt_control",
+                   "wt_treated",
+                   "mutant1_control",
+                   "mutant1_treated",
+                   "mutant2_control",
+                   "mutant2_treated"]
 
-In Python one could access ``"id_1"`` using the syntax ``petri_dishes[2]``.
+In Python one can access the third element (``"mutant1_control"``) using the syntax ``petri_dishes[2]``.
+Note that index used is 2, rather than 3.
 This is because Python uses zero-based indexing, i.e. the first element of
 the list would be accessed using index zero, the third element therefore
 has index two.
@@ -59,7 +66,7 @@ identifiers. In other words each entry in a dictionary has a key, the
 identifier, and a value. For example, suppose that you needed to store
 information about the speed of various animals. In this
 case it would make a lot of sense to have a system where you could look up the
-speed information based on the animals name.
+speed information based on the animal's name.
 
 .. code-block:: python
 
@@ -77,7 +84,7 @@ containing lists. In other words the elements of the outer list would represent
 the rows in the spreadsheet and the elements in an inner list would represent
 values of cells at different columns for a specific row.
 
-For example have a look at the table below.
+Let's illustrate this using the table below.
 
 ====  ======  ======
 Time  Height  Weight
@@ -224,14 +231,16 @@ is an example of a three column CSV file containing a header and two data rows.
 Another scenario, when coding, is the ability to store richer data structures,
 such as lists or dictionaries, possibly nested within each other. There are two
 popular file formats for doing this `JavaScript Object Notation
-<http://www.json.org/>`_ (JSON) and `YAML Ain't Markup Language
+<http://www.json.org/>`_ (JSON) and `YAML Ain't Markup a Language
 <http://www.yaml.org/>`_ (YAML).
 
 .. sidebar:: Recursive acronyms
 
     You may ask yourself why the full name of YAML includes the word YAML.
     This is because programmers are fond of :term:`recursion`,
-    procedures whose implementation call themselves. Other famous
+    procedures whose implementation call themselves.
+    YAML is a so called recursive acronym, i.e. the acronym "calls" itself.
+    Other famous
     recursive acronyms include GNU (GNU's Not Unix), curl (C URL Request
     Library) and Fiji (Fiji Is Just ImageJ).
 
@@ -339,7 +348,7 @@ Mutant     Heat shock  16
 =========  ==========  ======
 
 The benefit of structuring your data in a tidy fashion is that it makes it easier
-to work with when you want to visualise and analyse your data.
+to work with when you want to visualise and analyse it.
 
 
 Find a good text editor and learn how to use it
@@ -350,12 +359,16 @@ learning how to make the most of it.
 
 Popular text editors include `Sublime Text <http://www.sublimetext.com/>`_,
 `Geany <http://www.geany.org/Main/HomePage>`_ and `Atom <https://atom.io/>`_.
+I would recommend trying out at least two of them and doing some of your own
+research into text editors. Editing text files will be a core activity throughout
+the rest of this book and you want to be working with a text editor that makes
+you happy!
 
 If you enjoy working on the command line I would highly recommend experimenting
 with command line text editors. Popular choices include `nano
 <http://www.nano-editor.org/>`_, `emacs <https://www.gnu.org/software/emacs/>`_
 and `vim <http://www.vim.org/>`_. The former is easy to learn, whereas the latter
-two give much more power, but are somewhat more difficult to learn.
+two give much more power, but are more difficult to learn.
 
 .. sidebar:: Vim is great!
 
