@@ -1,20 +1,12 @@
 Keeping track of your work
 ==========================
 
-Introduction
-------------
+You are probably used to keeping a record of your experimental work in either
+physical or electronic lab notebooks. These provide a valuable audit trail and
+form part of the process that makes your research reproducible.
 
-In this and the following couple of chapters we will investigate whether or not
-the average size of a protein increases with the number of proteins in a
-genome. Intuitively one might think that as organisms become more complex they
-need a larger variety of proteins and that these proteins themselves become
-larger. However, an organism's "complexity" is a rather subjective concept. We
-will therefore ignore that term and simply try to determine if there is a
-correlation between the number of proteins in a genome and the average size of
-those proteins across all species characterised in SwissProt.
-
-We will do this by developing scripts to analyse the data in the SwissProt
-FASTA file. When developing scripts it is often beneficial to build them up one
+However, developing data analysis scripts present different types of
+challenges. When developing scripts it is often beneficial to build them up one
 step at a time, adding functionality as one goes along. However, as scripts
 become more complex one often accidentally breaks them whilst trying to add
 more functionality. To make things worse it can often be difficult to remember
@@ -28,8 +20,8 @@ basic form you can think of Git as a tool for providing you with an infinite
 undo-button.
 
 
-Overview
---------
+What is Git?
+------------
 
 Git is a version control system. That means that it allows you to track changes
 made to files over time by taking snapshots. Furthermore it allows you to view
