@@ -26,7 +26,7 @@ are organised into a tree (as in a graph). People in the software industry
 often talk about dependency graphs.
 
 The ``make`` program makes use of a file named ``Makefile`` in
-the current directory. Makefiles contain rules. Each rule consists of
+the working directory. A "Makefile" contains rules. Each rule consists of
 a target (the stuff to be created), prerequisites (the stuff needed to
 build the target) and a recipe (the instructions for how to create the
 target from the prerequisites).
@@ -38,7 +38,7 @@ create an automated build process.
 Creating a ``Makefile``
 -----------------------
 
-First of all make sure that you are in the ``S.coelicolor-local-GC-content``
+First of all ensure that you are in the ``S.coelicolor-local-GC-content``
 directory created in :doc:`data-analysis`.
 
 .. code-block:: none
@@ -60,7 +60,7 @@ add the content below to it.
              preceded by a Tab character and not a bunch of white spaces.
 
 In this first rule ``Sco.dna`` is the target. The target has no prerequisites
-and the recipe has one instruction that involves downloading the file using
+and the recipe has one instruction to download the file using
 ``curl``.
 
 Now we can run the ``make`` command.
@@ -156,8 +156,8 @@ Let's also remember to update the rule for cleaning up.
 		rm local_gc_content.csv
 		rm local_gc_content.png
 
-Finally, let's add a rule for building the PDF file and update
-the ``clean`` rule to remove the ``manuscript.pdf`` file.
+Finally, let's add a rule for building the manuscript as a PDF file and update
+the ``clean`` rule to remove it.
 
 .. code-block:: makefile
 	:emphasize-lines: 1-3, 18
