@@ -523,6 +523,7 @@ by running ``pip install -r requirements.text``.
 
 This feature allows you make your data analysis more reproducible!
 
+.. _installing_r_packages:
 
 Installing R packages
 ---------------------

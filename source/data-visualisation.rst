@@ -2,11 +2,8 @@ Data visualisation
 ==================
 
 
-Introduction
-------------
-
 So far we have been learning how to crunch data. Now we will look into
-visualising data.
+how to visualise it.
 
 There are two main purposes of representing data visually:
 
@@ -15,7 +12,7 @@ There are two main purposes of representing data visually:
 
 In this chapter we will look at how both of these can be accomplished using `R
 <https://www.r-project.org/>`_ and its associated `ggplot2 <http://ggplot2.org/>`_
-package. This choice is based on the fact that ggplot2 is one of the best
+package. This choice is based on ggplot2 being one of the best
 plotting tools available. It is easy to use and has got sensible defaults that
 result in beautiful plots out of the box. An added advantage is that this
 gives us a means to get more familiar with R, which is an awesome tool for
@@ -283,6 +280,18 @@ make use of the ggplot2 package to make more visually pleasing and informative
 figures.
 
 
+Installing the ggplot2 package
+------------------------------
+
+If you haven't used it before you will need to install the ggplot2 package.
+Detailed instructions can be found in :ref:`installing_r_packages`. In summary
+you need to run the command below.
+
+.. code-block:: R
+
+    > install.packages("ggplot2")
+
+
 Loading the ggplot2 package
 ---------------------------
 
@@ -369,8 +378,8 @@ of which could be considered to be aesthetic aspects of how to plot the data.
     +                  size=Petal.Width,
     +                  color=Species)) + geom_point()
 
-In the above the secondary prompt, represented by ``+``, denotes a continuation
-line. In other words R interprets the above as one line of code.
+In the above the secondary prompt, represented by the plus character (``+``),
+denotes a continuation line. In other words R interprets the above as one line of code.
 
 .. _ggplot-aesthetic-scatter-plot:
 .. figure:: images/ggplot_aesthetic_scatter_plot.png
@@ -428,7 +437,7 @@ recording the steps required to plot the data in a script.
 
 Let us work on the histogram example. In the code below we store the ggplot
 object in the variable ``g`` and make use of ``ggsave()`` to write the plot to
-a file named ``histogram.png``. Save the code below to a file named
+a file named ``iris_sepal_length_histogram.png``. Save the code below to a file named
 ``iris_sepal_length_histogram.R`` using your favorite text editor.
 
 .. code-block:: R
@@ -456,9 +465,10 @@ directory.
 Faceting
 --------
 
-In the extended scatterplot example we found that it was useful to be able to
-visualise which data points belonged to which species. Maybe it would be useful
-to do something similar with the data in our histogram.
+In the extended scatterplot example (:numref:`ggplot-aesthetic-scatter-plot`)
+we found that it was useful to be able to visualise which data points belonged
+to which species. Maybe it would be useful to do something similar with the
+data in our histogram.
 
 In order to achieve this ggplot2 provides the concept of faceting,
 the ability to split your data by one or more variables. Let us split the
@@ -474,7 +484,7 @@ data by ``Species`` using the ``facet_grid()`` function
          geom_histogram() +
          facet_grid(Species ~ .)
 
-    ggsave('histogram.png')
+    ggsave('iris_sepal_length_histogram.png')
 
 In the above the ``facet_grid(Species ~ .)`` states that we want one
 ``Species`` per row, as opposed to one species per column
@@ -495,11 +505,12 @@ insights about underlying structures and multivariate trends.
 Adding more colour
 ------------------
 
-The faceted histogram plot clearly illustrates that there are differences
-in the distributions of the sepal length between the different Iris species.
+The faceted histogram plot (:numref:`ggplot-faceted-histogram`) clearly
+illustrates that there are differences in the distributions of the sepal length
+between the different Iris species.
 
 However, suppose that the faceted histogram figure was meant to be displayed
-next to the extended scatter plot produced above. To make it easier to make
+next to the extended scatter plot (:numref:`ggplot-aesthetic-scatter-plot`). To make it easier to make
 the mental connection between the two data representations it may be useful
 to colour the histograms by species as well.
 
@@ -516,7 +527,7 @@ fill colour as an aesthetic to the histogram geometric object
          geom_histogram(aes(fill=Species)) +
          facet_grid(Species ~ .)
 
-    ggsave('histogram.png')
+    ggsave('iris_sepal_length_histogram.png')
 
 
 .. _ggplot-faceted-and-coloured-histogram:
@@ -816,7 +827,7 @@ methods that can reproduce the figure without human intervention.
 One take home message from this chapter is that you should automate the
 generation of your figures. This will save you time when you realise that you
 need to alter the style of all the figures when submitting a manuscript for
-publication. It also will make your research more reproducible.
+publication. It will also make your research more reproducible.
 
 Apart from R and ggplot2 there are several tools available for automating the
 generation of your figures.  In Python there is the `matplotlib
