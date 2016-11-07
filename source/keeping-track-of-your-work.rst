@@ -5,8 +5,10 @@ You are probably used to keeping a record of your experimental work in either
 physical or electronic lab notebooks. These provide a valuable audit trail and
 form part of the process that makes your research reproducible.
 
-However, developing data analysis scripts present different types of
-challenges. When developing scripts it is often beneficial to build them up one
+However, keeping track of ones work when developing data analysis scripts
+present different types of challenges from keeping track of laboratory work.
+
+When developing scripts it is often beneficial to build them up one
 step at a time, adding functionality as one goes along. However, as scripts
 become more complex one often accidentally breaks them whilst trying to add
 more functionality. To make things worse it can often be difficult to remember
@@ -44,15 +46,23 @@ e.g. none of my Git repositories can track files located in the parent
 In a Git repository files can be in one of four states: untracked, staged,
 unmodified and modified. When a file is initially created it is in an untracked
 state, meaning that it is not yet under version control. To start tracking the
-file one would add it to Git, the state of the file would then change to
+file one adds it to Git, and the state of the file then changes to
 staged. This means that the file is staged to be included in the next snapshot.
 Multiple files can be in a staged state when one takes a snapshot. To take a
 snapshot one commits all the files that are in the so called "staging area".
-The state of the staged files then change to unmodified.  If we then edit one
-of these files its state will change from unmodified to modified. When one is
-happy with the edits made one would then add the file to the staging area and
-its state would change from modified to staged.
+The state of the files then changes from staged to unmodified, see figure
+:numref:`Git_workflow_illustration`.
 
+
+Any subsequent editing of the files under version control would result in their
+state changing from unmodified to modified.  When one is happy with the edits
+made one would then add the files to the staging area and their state would
+change from modified to staged. At that point one is ready to take another
+snapshot by committing the staged edits. The state of the files then, again,
+change from staged to unmodified. And the cycle continues
+(:numref:`Git_workflow_illustration`).
+
+.. _Git_workflow_illustration:
 .. figure:: images/git-workflow.png
    :alt: Git workflow illustration.
 
@@ -73,7 +83,7 @@ specifically our name and email address.
 .. code-block:: none
 
     git config --global user.name "Tjelvar Olsson"
-    git config --global user.email "tjelvar.olsson@example.com"
+    git config --global user.email "tjelvar@biologistsguide2computing.com"
 
 We will look at the collaboration aspect of git in the
 :doc:`collaborating-on-projects` chapter.
@@ -84,40 +94,43 @@ Initialise the project
 
 The first thing to do is to initialise the project using the ``git init`` command.
 If run with no argument it will setup tracking of files in the current working
-directory. If given an argument, such as ``protein-number-vs-size``, git will
+directory. If given an argument, such as ``protein-count``, git will
 create a new directory with this name and setup tracking of files within it.
 
 .. code-block:: none
 
-    git init protein-number-vs-size
-    cd protein-number-vs-size/
+    git init protein-count
+    cd protein-count/
+
+.. sidebar:: What does ``init`` mean?
+
+    In computing the term ``init`` is often used to abbreviate the word
+    "initialise", i.e a one time event that results in the creation of a new
+    entity.
 
 Use your editor of choice and create the markdown file ``README.md`` and add
 the content below to it.
 
 .. code-block:: none
 
-    # Protein number versus size
+    # Protein count
 
-    Mini-project to investigate whether or not the average size of a protein
-    increases with the number of proteins in a genome.
-
-    Intuitively one might think that as organisms become more complex they need a
-    larger variety of proteins and that these proteins themselves become larger.
-
-    However, the complexity of an organism is a rather subjective concept. Let us
-    therefore ignore that term and simply try to determine if there is a
-    correlation between the number of proteins in a genome and the average size of
-    those proteins across all species.
+    Count the number of proteins of particular species
+    in a SwissProt FASTA file.
 
 
-Files in a Git repository, the project directory, can be in one of four states:
-untracked, unmodified, modified and staged. To view the state one can use the
-command ``git status``.
+As mentioned, files in a Git repository, the project directory, can be in one
+of four states: untracked, unmodified, modified and staged. To view the state
+one can use the command ``git status``.
 
 .. code-block:: none
 
     $ git status
+
+The command below produces the output below.
+
+.. code-block:: none
+
     On branch master
 
     Initial commit
@@ -130,12 +143,17 @@ command ``git status``.
     nothing added to commit but untracked files present (use "git add" to track)
 
 This tells us that the ``README.md`` file is untracked, in other words it is
-not yet under version control in Git.. However, we would like to track it, so
+not yet under version control in Git. However, we would like to track it, so
 we add it to the Git repository using the ``git add`` command.
 
 .. code-block:: none
 
     $ git add README.md
+
+Let's see how this affected the status of the repository.
+
+.. code-block:: none
+
     $ git status
     On branch master
 
@@ -156,6 +174,11 @@ command.
     [master (root-commit) e1dc880] Added readme file.
      1 file changed, 12 insertions(+)
      create mode 100644 README.md
+
+Again, let's see how this affected the status of the repository.
+
+.. code-block:: none
+
     $ git status
     On branch master
     nothing to commit, working directory clean
@@ -208,14 +231,15 @@ of a file by using ``ls -l``.
     -rw-r--r--  1 olssont  1340193827  88 29 Nov 10:45 scripts/get_data.bash
 
 Note the first ten characters, the first specifies the file type and the
-remaining nine relate to the permissions of the file.  There are three modes
+remaining nine relate to the permissions of the file,
+see :numref:`File_permission_illustration`.  There are three modes
 that can  be turned on or off: read (``r``), write (``w``) and execute (``x``).
 Furthermore, these can be specified for the owner (``u``), group (``g``) and
 all users (``a`` or ``o``). The nine characters above state that the owner has
 read and write permissions on the file ``rw-``, whereas both the group and
 all other users only have permission to read the file ``r--``.
 
-
+.. _File_permission_illustration:
 .. figure:: images/file-permissions.png
    :alt: File permissions illustration.
 
@@ -227,6 +251,12 @@ all other users only have permission to read the file ``r--``.
    characters include ``d`` and ``l`` which are used to represent directories
    and symbolic links respectively.
 
+.. sidebar:: What is a symbolic link?
+
+    The legend of :numref:`File_permission_illustration` mentioned symbolic links.
+    A symbolic link is a special type of file that points at another file.
+    These can for example be used to create references to canonical representations
+    of your data.
 
 Let us give the file execute permissions. This is achieved using the ``chmod``
 command, mnemonic "change file modes". The ``chmod`` command can be invoked in
@@ -327,16 +357,20 @@ Improve script for downloading SwissProt FASTA file
 However, the current setup has got an issue in terms of reproducibility.
 Depending on when the SwissProt FASTA file was downloaded one may obtain
 different results. It would therefore be useful to include the date of
-access in the file name. This can be achieved using the ``date`` command,
-which can be configured to create custom output formats using the ``+``
-symbol followed by a string template specifying the desired format. In
-the below ``%Y``, ``%m`` and ``%d`` will be replaced by the year, month
-and day respectively.
+access in the file name. This can be achieved using the ``date`` command.
 
 .. code-block:: none
 
     $ date
     Thu 26 Nov 2015 09:20:32 GMT
+
+The ``date`` command  can be configured to create custom output formats using
+the ``+`` symbol followed by a string template specifying the desired format.
+In the below ``%Y``, ``%m`` and ``%d`` will be replaced by the year, month and
+day respectively.
+
+.. code-block:: none
+
     $ date +'%Y-%m-%d'
     2015-11-26
 
@@ -350,11 +384,23 @@ use the ``echo`` command, which simply prints out the string that it is given.
     $ echo "Today it is $(date +'%d')th"
     Today it is 26th
 
-For this little script we will also introduce the concept of variables.
+It is time to introduce the concept of a variable.
 A variable is basically a means of storing a piece of information using
-a descriptive name. In bash one can assign a variable using the ``=``
-character and the value of the variable can then be accessed by prefixing
-the variable name with a ``$`` character.
+a descriptive name. In bash one can assign a variable using the equals
+character (``=``). Below we create a variable named ``PRIBNOV_BOX`` and
+assign it the value ``TATAAT``.
+
+.. code-block:: none
+
+    $ PRIBNOV_BOX="TATAAT"
+
+The value of the variable can then be accessed by prefixing
+the variable name with the dollar character (``$``).
+
+.. code-block:: none
+
+    $ echo $PRIBNOV_BOX
+    TATAAT
 
 .. sidebar:: Don't Repeat Yourself
 
@@ -372,12 +418,6 @@ the variable name with a ``$`` character.
     repetition is important enough to warrant it's own acronym :term:`DRY` (Don't
     Repeat Yourself).
 
-.. code-block:: none
-
-    $ PRIBNOV_BOX="TATAAT"
-    $ echo $PRIBNOV_BOX
-    TATAAT
-
 We now have all the information we need to improve the script. Edit the
 ``script/get_data.bash`` file to look like the below.
 
@@ -388,11 +428,16 @@ We now have all the information we need to improve the script. Edit the
     FNAME="data/uniprot_sprot.$(date +'%Y-%m-%d').fasta.gz"
     curl --location --output $FNAME http://bit.ly/1l6SAKb
 
-Now we can test that the script is working as expected.
+Let's try running the script.
 
 .. code-block:: none
 
     $ ./scripts/get_data.bash
+
+Now we can check that the script has produced an appropriately named file.
+
+.. code-block:: none
+
     $ ls data/
     uniprot_sprot.2015-11-26.fasta.gz uniprot_sprot.fasta.gz
 
@@ -544,6 +589,14 @@ represent the first and second command line arguments, respectively.
              literal value of the string within the single quotes. For example,
              the command ``echo 'Species: $SPECIES'`` would print the literal
              string ``Species: $SPECIES``.
+             
+             .. code-block:: none
+
+                 $ SPECIES=H.sapiens
+                 $ echo "Species: $SPECIES"
+                 Species: H.sapiens
+                 $ echo 'Species: $SPECIES'
+                 Species: $SPECIES
 
 
 This is a good point to test if things are working as expected.
@@ -599,7 +652,7 @@ looked something along the lines of:
 
 
 Another useful feature of Git is that it allows us to inspect the changes
-between individual and series of commits using the ``git diff`` command.  For
+between commits using the ``git diff`` command.  For
 example to understand what changed in commit ``a672257`` we can compare it to
 the previous commit ``7512894``.
 
@@ -615,6 +668,9 @@ the previous commit ``7512894``.
      FNAME="data/uniprot_sprot.$(date +'%Y-%m-%d').fasta.gz"
      curl --location --output $FNAME http://bit.ly/1l6SAKb
     +chmod 444 $FNAME
+
+In the above we can see that we added the line
+``chmod 444 $FNAME`` to the ``scripts/get_data.bash`` file.
 
 
 Key concepts
@@ -633,8 +689,8 @@ Key concepts
 - Use ``git commit -m "your summary message here"`` to record a snapshot in Git
 - The overhead of using Git whilst programming is minimal
 - The benefits of using Git are great
-- Start using Git in your day-to-day work right now
-- In Unix-like systems files have write, read and execute permissions that can
+- Start using Git in your day-to-day work right now!
+- On Unix-like systems files have write, read and execute permissions that can
   be turned on and off
 - By making a file executable it can be run as an independent program
 - By giving raw data files read only permissions one can ensure that they are
