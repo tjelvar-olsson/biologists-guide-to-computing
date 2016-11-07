@@ -1,9 +1,6 @@
 Collaborating on projects
 =========================
 
-Introduction
-------------
-
 In this chapter you will learn how to work collaboratively on projects using
 Git.
 
@@ -13,7 +10,7 @@ contributions from collaborators is simple, and automatic for all
 non-conflicting changes. Furthermore, as Git is a distributed version control
 system the project becomes stored on many different computers, on yours and your
 collaborators' computers as well as on remote servers, effectively backing up
-your data.
+your code and text files.
 
 .. warning:: Although you can store anything in Git it is bad practise to
              track large files such as genomes and microscopy files in it.
@@ -67,7 +64,7 @@ Now that you have a GitHub/BitBucket account it is time to push the
 
 Go to the web interface of your account and find the button that says something
 along the lines of "New repostiory" or "Create repository".  Give the project
-the name ``S.coelicolor-local-GC-content`` make sure that the backend uses Git
+the name ``S.coelicolor-local-GC-content`` and make sure that the backend uses Git
 (if you are using BitBucket there is an option to use an alternative source
 control management system named Mercurial) and that it is initialised as an
 empty repository (i.e. don't tick any checkboxes to add readme,
@@ -87,11 +84,14 @@ We now need to specify the remote repository. My user name on GitHub is
 ``S.coelicolor-local-GC-content``. To add a remote to my local repository
 (the one on my computer) I use the command below.
 
+.. note:: In the command below ``tjelvar-olsson`` is my GitHub user name.
+
 .. code-block:: none
 
-    $ git remote add origin https://github.com/tjelvar-olsson/S.coelicolor-local-GC-content.git
+    $ git remote add origin \
+    https://github.com/tjelvar-olsson/S.coelicolor-local-GC-content.git
 
-This command adds a remote named ``origin`` to the local repository. However,
+The command adds a remote named ``origin`` to the local repository. However,
 we have not yet *pushed* any data to this remote. Let's do this now.
 
 .. code-block:: none
@@ -124,7 +124,7 @@ need to push an existing project to a newly created repository.
     back to the ``nature`` branch and implement all the suggested changes
     and send it back to the editor. At that point the ``nature`` branch will
     have diverged from the ``master`` branch. The editor of Nature then comes
-    back stating that in spite of all the changes the manuscript it will still
+    back stating that in spite of all the changes the manuscript will still
     be rejected due to the lack of a "wow" factor. At this point one may want
     to submit to Science. However, one wants to incorporate all the changes
     made on the ``master`` and the ``nature`` branch. That is not a problem as
@@ -319,7 +319,7 @@ Now you realise that you have not pushed the changes that you made to the
     $ git push
     To https://github.com/tjelvar-olsson/S.coelicolor-local-GC-content.git
      ! [rejected]        master -> master (fetch first)
-    error: failed to push some refs to 'https://github.com/tjelvar-olsson/S.coelicolor-local-GC-content.git'
+    error: failed to push some refs to 'https://github.com/tjelvar-olsson/...'
     hint: Updates were rejected because the remote contains work that you do
     hint: not have locally. This is usually caused by another repository pushing
     hint: to the same ref. You may want to first integrate the remote changes
@@ -342,7 +342,7 @@ with the text below in the editor.
 
 .. code-block:: none
 
-    Merge branch 'master' of https://github.com/tjelvar-olsson/S.coelicolor-local-GC-content
+    Merge branch 'master' of https://github.com/tjelvar-olsson/...
 
     # Please enter a commit message to explain why this merge is necessary,
     # especially if it merges an updated upstream into a topic branch.
@@ -519,7 +519,7 @@ changes to the remote.
     Password for 'https://tjelvar-olsson@github.com':
     To https://github.com/tjelvar-olsson/S.coelicolor-local-GC-content.git
      ! [rejected]        master -> master (fetch first)
-    error: failed to push some refs to 'https://github.com/tjelvar-olsson/S.coelicolor-local-GC-content.git'
+    error: failed to push some refs to 'https://github.com/tjelvar-olsson/...'
     hint: Updates were rejected because the remote contains work that you do
     hint: not have locally. This is usually caused by another repository pushing
     hint: to the same ref. You may want to first integrate the remote changes
@@ -598,7 +598,7 @@ is conflicting. In the above the first highlighted region contains the changes
 from the ``HEAD`` in your local repository and the second highlighted region
 shows the changes from your friend's commit ``9f41c21``.
 
-Now you need to do is edit the file so that you are happy with it. Your
+Now you need to edit the file so that you are happy with it. Your
 friend's idea of documenting what the command does is a good one so you could
 edit the ``README.md`` file to look like the below.
 
@@ -650,6 +650,20 @@ Now that you have merged the changes you can push to the remote.
     To https://github.com/tjelvar-olsson/S.coelicolor-local-GC-content.git
        9f41c21..857b470  master -> master
 
+Let's go over what just happened.
+
+1. Your friend pulled in your changes from the GitHub remote
+2. Your friend edited the ``README.md`` file
+3. Your friend committed and pushed their changes to the remote
+4. You edited the ``README.md`` file in your local repository
+5. You committed the changes to your local repository
+6. You tried but failed to push to the GitHub remote repository
+7. You pulled the changes from the GitHub remote repository; but the automatic merging failed
+8. You looked at the status of your local repository to find out what state it was in
+9. You resolved the conflicts manually by editing the ``README.md`` file
+10. You added the updated ``README.md`` file to the staging area and committed it
+11. You pushed your manual merge to the GitHub remote repository
+
 That's it, you now have all the tools you need to start collaborating with
 your colleagues using Git! May the force be with you.
 
@@ -664,5 +678,5 @@ Key concepts
 - One way to collaborate using Git is to have multiple people pulling from and pushing to the same remote repository
 - It is only possible to push to a remote if you have all the updates that are on the remote in your local repository
 - When pulling Git will do its best to resolve any conflicts between your local updates and updates from the remote
-- If there are conflicts that Git cannot resolve you fix the conflicts manually
+- If there are conflicts that Git cannot resolve you have to fix them manually
 - By pushing your updates to a remote server such as GitHub you are effectively backing up your project
