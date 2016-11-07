@@ -1,9 +1,6 @@
 Data analysis
 =============
 
-Introduction
-------------
-
 *Streptomyces coelicolor* is a soil-dwelling bacterium with a complex life-cycle
 involving mycelial growth and sporulation. It is of particular interest in that
 it can produce a range of natural products of pharmaceutical relevance. In fact
@@ -40,7 +37,7 @@ with and which encourages code readability.
 Using Python in interactive mode
 --------------------------------
 
-In this section we will make use of Python using its
+To start off with we will make use of Python using its
 `interactive mode <https://docs.python.org/2/tutorial/interpreter.html#interactive-mode>`_,
 which means that we can type Python commands straight into the terminal. In fact
 when working with Python in interactive mode one can think of it as switching
@@ -182,8 +179,8 @@ sequence.
 .. code-block:: python
 
     >>> gc_count = dna_list.count("g") + dna_list.count("c")
-    >>> gc_frac = float(gc_count) / len(dna_list)
-    >>> 100 * gc_frac
+    >>> gc_fraction = float(gc_count) / len(dna_list)
+    >>> 100 * gc_fraction
     38.0
 
 
@@ -406,7 +403,7 @@ the local GC-content of our DNA.
     0.0
 
 Loops are really powerful. They provide a means to iterate over lots of items
-and as such to automate repetitive tasks.
+and can be used to automate repetitive tasks.
 
 
 Creating a sliding window GC-content function
@@ -491,6 +488,10 @@ Note that the script now prints out the GC-content rather than the sequence
     $ python gc_content.py
     38.0
 
+The next piece of code will be a bit more complicated. However, note that
+that it represents the most complicated aspect of this chapter. So if you
+find it difficult, don't give up, it gets easier again later on.
+
 Now let us implement a new function for performing a sliding window analysis.
 Add the code below to the start of the ``gc_content.py`` file.
 
@@ -527,6 +528,11 @@ On line 9, inside the for loop, we generate the ``end`` index by adding the
 ``window_size`` to the ``start`` index. This is followed by a check that the
 generated ``end`` index would not result in a list slice that spanned beyond
 the end of the sequence.
+
+On line 11, inside the ``if`` statment there is a ``break`` clause. The ``break``
+statement is used to break out of the loop immediately. In other words if the
+``end`` variable is greater than the length of the sequence we break out of the
+loop immediately. 
 
 At the end of the for loop we make use of the ``yield`` keyword to pass on the
 ``start`` and ``end`` indices as well as the value resulting from calling the
@@ -703,7 +709,7 @@ will point at the end of the file.
     11701261
 
 When one has finished working with a file handle it is important to remember to
-close the file.
+close it.
 
 .. code-block:: python
 
@@ -854,7 +860,8 @@ create a function for reading in the DNA sequence from the ``Sco.dna`` file.
 Creating a function for reading in the *Streptomyces* sequence
 --------------------------------------------------------------
 
-Now let us create a function that returns a DNA sequence as a list. At this
+Let us create a function that reads in a genome as a string and
+returns the DNA sequence as a list. At this
 point we have a choice of what the input parameter should be. We could give the
 function the name of the file containing the genome or we could give the
 function a file handle of the genome. Personally, I prefer to create functions
@@ -925,7 +932,7 @@ extends the existing ``sequence`` list with all the elements from the
 .. sidebar:: Adding elements to lists ``append()`` vs ``extend()``
 
     There are two main ways of adding elements to a list. The first is
-    using the append method, which adds a single element.
+    the append method, which adds a single element.
 
     .. code-block:: python
 
@@ -1025,6 +1032,8 @@ Edit the end of the ``gc_content.py`` script to make it look like the below.
 On line 35 we open a file handle to write to. On lines 36 and 37 we write a header
 to the CSV file. Lines 38 to 41 then performs the sliding window analysis and
 writes the results as rows, or lines if you prefer, to the CSV file.
+Line 39 calculates the middle of the local sequence by calculating the mean of the
+start and end positions. 
 
 The main new feature introduced in the code snippet above is on line 40 where
 we use Python's built in string formatting functionality. The matching curly
