@@ -45,6 +45,10 @@ Glossary
     Method
         A method refers to a :term:`function` that is part of a :term:`class`.
 
+    Init
+        Abbreviation of the word "initialise". Usually used to represent a one time
+        event that that results in the creation of a new entity. 
+
     Integer
         A whole number, i.e. a number that can be expressed without a fractional component.
 
