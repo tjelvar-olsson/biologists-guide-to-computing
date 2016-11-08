@@ -104,8 +104,6 @@ code below to it.
 
     test_is_description_line()
 
-This is our first piece of Python code so let us explain it in detail.
-
 The first line is a module level "docstring" and it is used to explain the
 intent of the module as a whole.  A "module" is basically a file with a ``.py``
 extension, i.e. a Python file. Modules are used to group related functionality
@@ -182,9 +180,7 @@ the same object. If they are the same object the comparison evaluates to
 
 The ``assert`` keyword is used to insert debugging statements into a program.
 It provides a means to ensure that the state of a program is as expected. If
-the statement being evaluated, in this case ``is_description_line(">This is a
-description line") is True``, evaluates to ``False`` an ``AssertionError`` is
-raised.
+the statement evaluates to ``False`` an ``AssertionError`` is raised.
 
 So, what will happen if we run the code in its current form?
 Well, we have not yet defined the :func:`is_description_line` function, so
@@ -330,7 +326,7 @@ that is built into strings, to check if the string starts with a greater than (`
     test_is_description_line()
 
 In the code above we make use of conditional logic, i.e. ``if`` something is
-``True`` do something otherwise do something ``else``. As mentioned previously
+``True`` the code does something otherwise it does something ``else``. As mentioned previously
 whitespace is important in Python and four spaces are used to indent the lines after
 the ``if`` and ``else`` statements to tell Python which statement(s) belong in the conditional
 code blocks. In this case we only have one statement per conditional, but it is
@@ -348,10 +344,7 @@ Fantastic the code behaves in the way that we want it to behave!
 
 However, the current implementation of the :func:`is_description_line` function
 is a little bit verbose. Do we really need the ``else`` conditional?  What
-would happen if it was not there and the line started with a ">"? The program
-would enter the ``if`` conditional statement and return ``True``. When a
-function returns a value the program exits the function. The subsequent
-``return`` statement would therefore never be reached.
+would happen if it was not there?
 
 The beauty of tests now become more apparent. We can start experimenting with
 the implementation of a function and feel confident that we are not breaking
@@ -380,7 +373,9 @@ Now we can simply run the tests to see what happens.
     Testing the is_description_line() function...
 
 Amazing, we just made a change to our code and we can feel pretty sure that it is
-still working as intended. This is very powerful.
+still working as intended. This is very powerful. Incidentally, the code works
+by virtue of the fact that if the ``return True`` statement is reached the function
+returns ``True`` and exits, as such the second ``return`` statement is not called.
 
 The methodology used in this section is known as Test-Driven Development, often
 referred to as TDD. It involves three steps:
