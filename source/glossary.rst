@@ -4,7 +4,7 @@ Glossary
 .. glossary::
 
     Bit
-        The smallest unit of informaiton, abbreviation of the term Binary digIT.
+        The smallest unit of information in computing, abbreviation of the term Binary digIT.
 
     Blob
         Binary Large OBject, typically a large binary file stored in a database.
@@ -53,8 +53,7 @@ Glossary
         A whole number, i.e. a number that can be expressed without a fractional component.
 
     I/O
-        Input/Output; often used in the context of reading and writing data to
-        memory.   
+        Input/Output; often used in the context of reading and writing data to disk.
 
     Object
         In :term:`object-oriented programming` an object is an instance of a :term:`class`.
@@ -71,10 +70,10 @@ Glossary
         The character used to represent a pipe is the vertical bar: ``|``.
 
     RAM
-        Random Access Memory, fasta access volitile memory.
+        Random Access Memory, fast access volatile memory.
 
     Recursion
-        A procedure whose implementaiton calls itself. Of practical use for problems where
+        A procedure whose implementation calls itself. Of practical use for problems where
         the solution depends on smaller instances of the same problem.
 
     Scope
@@ -126,7 +125,7 @@ Glossary
 
     Test-driven development
         Methodology used in software development that makes use of rapid iterations of development
-        cycles. The develoment cycle includes three steps:
+        cycles. The development cycle includes three steps:
 
             1. Write a test
             2. Write minimal code to make the test pass
