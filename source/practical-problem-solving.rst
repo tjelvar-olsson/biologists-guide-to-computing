@@ -400,10 +400,24 @@ Well done! That was a lot of information. Go make yourself a cup of tea.
 More string processing
 ----------------------
 
-Because both DNA and proteins can be represented as strings of characters many
-aspects of biological data processing involve string manipulations. This
-section will therefore provide a brief summary of how Python can be used for
+Because information about DNA and proteins are often stored in plain text files
+many aspects of biological data processing involves manipulating text. In
+computing text is often referred to as strings of characters. String
+manipulation is is therefore a common task both for processing biological
+sequences and for interpreting sequence identifiers.
+
+This section will provide a brief summary of how Python can be used for
 such string processing.
+
+Start Python in its interactive mode by typing ``python`` into the terminal.
+
+.. code-block:: none
+
+    $ python
+    Python 2.7.10 (default, Jul 14 2015, 19:46:27)
+    [GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>>
 
 
 The Python string object
@@ -469,7 +483,7 @@ which converts the string to lower case.
     >>> "/home/olsson/images/profile.PNG".lower().endswith("png")
     True
 
-Another common use case is to want to search for a particular string within
+Another common use case is to search for a particular string within
 another string. For example one might want to find out if the UniProt
 identifier "Q6GZX4" is present in a FASTA description line. To achieve this one
 can use the ``find()`` method, which returns the index position (zero-based)
@@ -522,9 +536,9 @@ forgotten, it can be extremely difficult to understand what the regular
 expression does and why it is constructed the way it is.
 
 .. warning:: Use regular expression as a last resort. A good rule of thumb is
-             to always try to use regular string operations to implement the
+             to always try to use string operations to implement the
              desired functionality and only switch to regular expressions when
-             the code implemented using regular string operations becomes more
+             the code implemented using these operations becomes more
              difficult to understand than the equivalent regular expression.
 
 To use regular expressions in Python we need to import the :mod:`re` module.
@@ -566,7 +580,7 @@ There are two things to note here:
     to escape the effect of the second (remember that ``\n`` represents a
     newline).
 
-    Raw strings where introduced in Python to make it easier to create regular
+    Raw strings were introduced in Python to make it easier to create regular
     expressions that rely heavily on the use of literal backslashes.
 
 The index of the first matched character can be accessed using the match
@@ -582,7 +596,7 @@ that returns the index of the last character + 1.
     Q6GZX4
 
 In the above we make use of the fact that Python strings support slicing.
-Slicing is a means to access a subsection of a list.  The ``[start:end]``
+Slicing is a means to access a subsection of a sequence.  The ``[start:end]``
 syntax is inclusive for the start index and exclusive for the end index.
 
 .. code-block:: python
@@ -595,8 +609,7 @@ than one thing.  For example a regular expression that could match all the
 patterns ``id0``, ``id1``, ..., ``id9``.
 
 Now suppose that we had a list containing FASTA description lines with these
-types of identifiers. Note that the list also contains a sequence line that we
-never want to match.
+types of identifiers.
 
 .. code-block:: python
 
@@ -605,6 +618,9 @@ never want to match.
     ...                    ">id100 but not this (initially)",
     ...                    "AATCG"]
     ...
+
+Note that the list above also contains a sequence line that we
+never want to match.
 
 Let us loop over the items in this list and print out the lines that match our
 identifier regular expression.
@@ -618,10 +634,9 @@ identifier regular expression.
     >id0 match this
     >id9 and this
 
-There are several things to note in the above. First of all we are using the
-concept of a ``for`` loop to iterate over all the items in the
-``fasta_desc_list``. Secondly, there are two noteworthy aspects of the regular
-expression. The ``[0-9]`` syntax means match any digit. The ``\s`` regular
+There are two noteworthy aspects of the regular
+expression. Firstly, the ``[0-9]`` syntax means match any digit.
+Secondly, the ``\s`` regular
 expression meta character means match any white space character. 
 
 .. sidebar:: The ``[0-9]`` syntax works in Bash too!
@@ -664,11 +679,12 @@ It took me a couple of attempts to get this regular expression right as I
 forgot that ``|`` is a regular expression meta character that needs to be
 escaped using a backslash ``\``.
 
-The regular expression representing the UniProt idendifier ``[A-Z,0-9]*`` is
-enclosed in parenthesis. The parenthesis denote that the UniProt identifier is
-a group that we would like access to. In other words, the purpose of a group
-is to give the user access to a section of interest matched by the regular
-expression.
+The regular expression representing the UniProt idendifier ``[A-Z,0-9]*`` means
+match capital letters (``A-Z``) and digits (``0-9``) zero or more times (``*``).
+The UniProt regular expression is enclosed in parenthesis. The parenthesis
+denote that the UniProt identifier is a group that we would like access to. In
+other words, the purpose of a group is to give the user access to a section of
+interest within the regular expression.
 
 .. code-block:: python
 
@@ -680,7 +696,7 @@ expression.
     'Q6GZX4'
 
 .. note:: There is a difference between the ``groups()`` and the ``group()``
-          method. The former returns a tuple containing all the groups
+          methods. The former returns a tuple containing all the groups
           defined in the regular expression. The latter takes an integer as
           input and returns a specific group. However, confusingly ``group(0)``
           returns everything matched by the regular expression and ``group(1)``
@@ -749,15 +765,15 @@ to your ``fasta_utils.py`` file.
     :lineno-start: 15
     :emphasize-lines: 1-9
 
-    def test_extract_org_name():
-        """Test the extract_org_name() function."""
-        print("Testing the extract_org_name() function...")
+    def test_extract_organism_name():
+        """Test the extract_organism_name() function."""
+        print("Testing the extract_organism_name() function...")
         lines = [">sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2",
             ">sp|Q15942|ZYX_HUMAN Zyxin OS=Homo sapiens GN=ZYX PE=1 SV=1",
             ">sp|Q6QGT3|A1_BPT5 A1 protein OS=Escherichia phage T5 GN=A1 PE=2 SV=1"]
-        org_names = ["Brassica napus", "Homo sapiens", "Escherichia phage T5"]
-        for line, org_name in zip(lines, org_names):
-            assert extract_org_name(line) == org_name
+        organism_names = ["Brassica napus", "Homo sapiens", "Escherichia phage T5"]
+        for line, organism_name in zip(lines, organism_names):
+            assert extract_organism_name(line) == organism_name
 
     test_is_description_line()
 
@@ -785,7 +801,7 @@ add a line to call it. Let's rectify that.
     :emphasize-lines: 2
 
     test_is_description_line()
-    test_extract_org_name()
+    test_extract_organism_name()
 
 Let's try again.
 
@@ -793,23 +809,23 @@ Let's try again.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
+    Testing the extract_organism_name() function...
     Traceback (most recent call last):
       File "fasta_utils.py", line 26, in <module>
-        test_extract_org_name()
-      File "fasta_utils.py", line 23, in test_extract_org_name
-        assert extract_org_name(line) == org_name
-    NameError: global name 'extract_org_name' is not defined
+        test_extract_organism_name()
+      File "fasta_utils.py", line 23, in test_extract_organism_name
+        assert extract_organism_name(line) == organism_name
+    NameError: global name 'extract_organism_name' is not defined
 
 Success! We now have a failing test informing us that we need to create the
-:func:`extract_org_name` function. Let's do that.
+:func:`extract_organism_name` function. Let's do that.
 
 .. code-block:: python
     :linenos:
     :lineno-start: 15
     :emphasize-lines: 1,2
 
-    def extract_org_name(line):
+    def extract_organism_name(line):
         """Return the organism name from a FASTA description line."""
 
 Let's find out where this minimal implementation gets us.
@@ -818,16 +834,16 @@ Let's find out where this minimal implementation gets us.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
+    Testing the extract_organism_name() function...
     Traceback (most recent call last):
       File "fasta_utils.py", line 29, in <module>
-        test_extract_org_name()
-      File "fasta_utils.py", line 26, in test_extract_org_name
-        assert extract_org_name(line) == org_name
+        test_extract_organism_name()
+      File "fasta_utils.py", line 26, in test_extract_organism_name
+        assert extract_organism_name(line) == organism_name
     AssertionError
 
-So the test fails as expected. However, since we are looping over many input
-lines it would be nice to get an idea of which test failed. We can achieve this
+The test fails as expected. However, since we are looping over many input
+lines it would be good to get an idea of which test failed. We can achieve this
 by making use of the fact that we can provide a custom message to be passed to
 the ``AssertionError``. Let us pass it the input line. Note the addition of the
 trailing ``, line`` in line 26.
@@ -837,8 +853,8 @@ trailing ``, line`` in line 26.
     :lineno-start: 25
     :emphasize-lines: 2
 
-        for line, org_name in zip(lines, org_names):
-            assert extract_org_name(line) == org_name, line
+        for line, organism_name in zip(lines, organism_names):
+            assert extract_organism_name(line) == organism_name, line
 
 
 Let's see what we get now.
@@ -847,16 +863,16 @@ Let's see what we get now.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
+    Testing the extract_organism_name() function...
     Traceback (most recent call last):
       File "fasta_utils.py", line 29, in <module>
-        test_extract_org_name()
-      File "fasta_utils.py", line 26, in test_extract_org_name
-        assert extract_org_name(line) == org_name, line
+        test_extract_organism_name()
+      File "fasta_utils.py", line 26, in test_extract_organism_name
+        assert extract_organism_name(line) == organism_name, line
     AssertionError: >sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2
 
 Much better! Let us try to implement a basic regular expression to make this
-first failure pass. First of all we need to make sure we import the :mod:`re`
+pass. First of all we need to make sure we import the :mod:`re`
 module.
 
 .. code-block:: python
@@ -874,10 +890,13 @@ Then we can implement a regular expression to try to extract the organism name.
     :lineno-start: 17
     :emphasize-lines: 1-4
 
-    def extract_org_name(line):
+    def extract_organism_name(line):
         """Return the organism name from a FASTA description line."""
         match = re.search(r"OS=(.*) PE=", line)
         return match.group(1)
+
+Remember the ``.*`` means match any character zero or more times and the
+surrounding parenthesis creates a group.
 
 Let us see what happens now.
 
@@ -885,12 +904,12 @@ Let us see what happens now.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
+    Testing the extract_organism_name() function...
     Traceback (most recent call last):
       File "fasta_utils.py", line 34, in <module>
-        test_extract_org_name()
-      File "fasta_utils.py", line 31, in test_extract_org_name
-        assert extract_org_name(line) == org_name, line
+        test_extract_organism_name()
+      File "fasta_utils.py", line 31, in test_extract_organism_name
+        assert extract_organism_name(line) == organism_name, line
     AssertionError: >sp|Q15942|ZYX_HUMAN Zyxin OS=Homo sapiens GN=ZYX PE=1 SV=1
 
 Progress! We are now seeing a different error message. The issue is that the key after
@@ -901,7 +920,7 @@ the regular expression is ``GN`` rather than ``PE``. Let us try to rectify that.
     :lineno-start: 17
     :emphasize-lines: 3
 
-    def extract_org_name(line):
+    def extract_organism_name(line):
         """Return the organsim name from a FASTA description line."""
         match = re.search(r"OS=(.*) [A-Z]{2}=", line)
         return match.group(1)
@@ -913,12 +932,12 @@ letter ``[A-Z]`` repeated twice ``{2}``. Let's find out if this fixes the issue.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
+    Testing the extract_organism_name() function...
     Traceback (most recent call last):
       File "fasta_utils.py", line 33, in <module>
-        test_extract_org_name()
-      File "fasta_utils.py", line 30, in test_extract_org_name
-        assert extract_org_name(line) == org_name, line
+        test_extract_organism_name()
+      File "fasta_utils.py", line 30, in test_extract_organism_name
+        assert extract_organism_name(line) == organism_name, line
     AssertionError: >sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2
 
 What, back at square one again? As mentioned previously, regular expressions can be painful
@@ -934,8 +953,8 @@ out the value returned by the function instead.
     :lineno-start: 29
     :emphasize-lines: 2
 
-        for line, org_name in zip(lines, org_names):
-            assert extract_org_name(line) == org_name, extract_org_name(line)
+        for line, organism_name in zip(lines, organism_names):
+            assert extract_organism_name(line) == organism_name, extract_organism_name(line)
 
 Now, let's see what is going on.
 
@@ -943,16 +962,17 @@ Now, let's see what is going on.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
+    Testing the extract_organism_name() function...
     Traceback (most recent call last):
       File "fasta_utils.py", line 33, in <module>
-        test_extract_org_name()
-      File "fasta_utils.py", line 30, in test_extract_org_name
-        assert extract_org_name(line) == org_name, extract_org_name(line)
+        test_extract_organism_name()
+      File "fasta_utils.py", line 30, in test_extract_organism_name
+        assert extract_organism_name(line) == organism_name, extract_organism_name(line)
     AssertionError: Brassica napus PE=2
 
 Our regular expression is basically matching too much. The reason for this is that the
-``*`` meta character acts in a "greedy" fashion matching as much as possible. In this case
+``*`` meta character acts in a "greedy" fashion matching as much as possible,
+see :numref:`greedy_vs_non-greedy_regular_expression`. In this case
 the ``PE=2`` is included in the match group as ``[A-Z]{2}`` is matched by the ``SV=`` key
 at the end of the line. The fix is to make the ``*`` meta character act in a "non-greedy"
 fashion. This is achieved by adding a ``?`` suffix to it.
@@ -962,7 +982,7 @@ fashion. This is achieved by adding a ``?`` suffix to it.
     :lineno-start: 17
     :emphasize-lines: 3
 
-    def extract_org_name(line):
+    def extract_organism_name(line):
         """Return the organism name from a FASTA description line."""
         match = re.search(r"OS=(.*?) [A-Z]{2}=", line)
         return match.group(1)
@@ -973,10 +993,11 @@ Let's find out what happens now.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
+    Testing the extract_organism_name() function...
 
 All the tests pass! Well done, time for another cup of tea.
 
+.. _greedy_vs_non-greedy_regular_expression:
 .. figure:: images/greedy-regex.png
    :alt: Greedy vs non-greedy regular expression.
 
@@ -1013,12 +1034,12 @@ Now we can import the module.
 
     >>> import fasta_utils  # doctest: +SKIP
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
+    Testing the extract_organism_name() function...
 
 Note that the tests run just like when we call the ``fasta_utils.py``
 script directly. This is an undesired side effect of the current
 implementation. It would be better if the tests were not run when the module
-was imported.
+is imported.
 
 To improve the behaviour of the :mod:`fasta_utils` module we will make use of a
 special Python attribute called ``__name__``, which provides a string representation
@@ -1043,17 +1064,15 @@ the changes highlighted below.
 
     if __name__ == "__main__":
         test_is_description_line()
-        test_extract_org_name()
+        test_extract_organism_name()
 
 Let us make sure that the tests still run if we run the script directly.
-Note that the command below assumes that you are working in the top level
-directory ``protein-number-vs-size``.
 
 .. code-block:: none
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
+    Testing the extract_organism_name() function...
 
 Now we can reload the module in the interactive prompt we were working in
 earlier to make sure that the tests no longer get executed.
@@ -1062,6 +1081,9 @@ earlier to make sure that the tests no longer get executed.
 
     >>> reload(fasta_utils)  # doctest: +SKIP
     <module 'fasta_utils' from 'fasta_utils.py'>
+
+The test suite is no longer being called upon loading the module and no lines
+logging the progress of the testing suite is being printed to the terminal.
 
 Note that simply calling the ``import fasta_utils`` command again will not
 actually detect the changes that we made to the ``fasta_utils.py`` file,
@@ -1136,7 +1158,7 @@ the item will only occur once in the set.
 
     >>> organisms = set()
     >>> for line in fasta_desc_lines:
-    ...     s = fasta_utils.extract_org_name(line)
+    ...     s = fasta_utils.extract_organism_name(line)
     ...     organisms.add(s)
     ...
     >>> len(organisms)
@@ -1205,15 +1227,15 @@ Add the test below to ``fasta_utils.py``.
     :lineno-start: 32
     :emphasize-lines: 1-4, 9
 
-    def test_org_name2species():
-        print("Testing the org_name2species() function...")
-        assert org_name2species("Methylomonas sp. (strain J)") == "Methylomonas sp."
-        assert org_name2species("Homo sapiens") == "Homo sapiens"
+    def test_organism_name2species():
+        print("Testing the organism_name2species() function...")
+        assert organism_name2species("Methylomonas sp. (strain J)") == "Methylomonas sp."
+        assert organism_name2species("Homo sapiens") == "Homo sapiens"
 
     if __name__ == "__main__":
         test_is_description_line()
-        test_extract_org_name()
-        test_org_name2species()
+        test_extract_organism_name()
+        test_organism_name2species()
 
 Let's find out what error this gives us.
 
@@ -1221,24 +1243,24 @@ Let's find out what error this gives us.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
-    Testing the org_name2species() function...
+    Testing the extract_organism_name() function...
+    Testing the organism_name2species() function...
     Traceback (most recent call last):
       File "fasta_utils.py", line 40, in <module>
-        test_org_name2species()
-      File "fasta_utils.py", line 34, in test_org_name2species
-        assert org_name2species("Methylomonas sp. (strain J)") == "Methylomonas sp."
-    NameError: global name 'org_name2species' is not defined
+        test_organism_name2species()
+      File "fasta_utils.py", line 34, in test_organism_name2species
+        assert organism_name2species("Methylomonas sp. (strain J)") == "Methylomonas sp."
+    NameError: global name 'organism_name2species' is not defined
 
 The error message is telling us that we need to define the
-:func:`org_name2species` function. Add the lines below to define it.
+:func:`organism_name2species` function. Add the lines below to define it.
 
 .. code-block:: python
     :linenos:
     :lineno-start: 32
     :emphasize-lines: 1-2
 
-    def org_name2species(org_name):
+    def organism_name2species(organism_name):
         """Return the species from the FASTA organism name."""
 
 Now we get a new error message when we run the tests.
@@ -1247,13 +1269,13 @@ Now we get a new error message when we run the tests.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
-    Testing the org_name2species() function...
+    Testing the extract_organism_name() function...
+    Testing the organism_name2species() function...
     Traceback (most recent call last):
       File "fasta_utils.py", line 43, in <module>
-        test_org_name2species()
-      File "fasta_utils.py", line 37, in test_org_name2species
-        assert org_name2species("Methylomonas sp. (strain J)") == "Methylomonas sp."
+        test_organism_name2species()
+      File "fasta_utils.py", line 37, in test_organism_name2species
+        assert organism_name2species("Methylomonas sp. (strain J)") == "Methylomonas sp."
     AssertionError
 
 Great, let us add some logic to the function.
@@ -1263,9 +1285,9 @@ Great, let us add some logic to the function.
     :lineno-start: 32
     :emphasize-lines: 3-4
 
-    def org_name2species(org_name):
+    def organism_name2species(organism_name):
         """Return the species from the FASTA organism name."""
-        words = org_name.split()
+        words = organism_name.split()
         return words[0] + " " + words[1]
 
 Above, we split the organism name based on whitespace separators and return the
@@ -1284,8 +1306,8 @@ Time to test the code again.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
-    Testing the org_name2species() function...
+    Testing the extract_organism_name() function...
+    Testing the organism_name2species() function...
 
 Great, the function is working! Let us define a new test to test the function that
 will generate the data structure we described at the beginning of this section.
@@ -1323,8 +1345,8 @@ will generate the data structure we described at the beginning of this section.
 
     if __name__ == "__main__":
         test_is_description_line()
-        test_extract_org_name()
-        test_org_name2species()
+        test_extract_organism_name()
+        test_organism_name2species()
         test_summarise_species_protein_data()
 
 This should all be getting familiar now. Time to run the tests.
@@ -1333,8 +1355,8 @@ This should all be getting familiar now. Time to run the tests.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
-    Testing the org_name2species() function...
+    Testing the extract_organism_name() function...
+    Testing the organism_name2species() function...
     Testing summarise_species_protein_data() function...
     Traceback (most recent call last):
       File "fasta_utils.py", line 70, in <module>
@@ -1359,8 +1381,8 @@ And then we run the tests again.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
-    Testing the org_name2species() function...
+    Testing the extract_organism_name() function...
+    Testing the organism_name2species() function...
     Testing summarise_species_protein_data() function...
     Traceback (most recent call last):
       File "fasta_utils.py", line 74, in <module>
@@ -1380,8 +1402,8 @@ Time to add an implementation.
         """Return data structure summarising the SwissProt organism and protein data."""
         summary = dict()
         for line in fasta_desc_lines:
-            variant_name = extract_org_name(line)
-            species_name = org_name2species(variant_name)
+            variant_name = extract_organism_name(line)
+            species_name = organism_name2species(variant_name)
             variant_dict = summary.get(species_name, dict())
             variant_dict[variant_name] = variant_dict.get(variant_name, 0) + 1
             summary[species_name] = variant_dict
@@ -1413,8 +1435,8 @@ Let's see if it the implementation works as expected.
 
     $ python fasta_utils.py
     Testing the is_description_line() function...
-    Testing the extract_org_name() function...
-    Testing the org_name2species() function...
+    Testing the extract_organism_name() function...
+    Testing the organism_name2species() function...
     Testing summarise_species_protein_data() function...
 
 Hurray!
