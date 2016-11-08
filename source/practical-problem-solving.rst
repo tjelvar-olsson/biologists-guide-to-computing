@@ -1,13 +1,10 @@
 Practical problem solving
 =========================
 
+So far we have been learning about computing and coding.
 
-Introduction
-------------
-
-At this stage of the project it would be useful to get a better understanding
-of the content of the FASTA file. For example how many different species does
-it contain?
+The purpose of this chapter is to introduce some practical techniques for
+tackling data analysis problems.
 
 By briefly inspecting some random FASTA description lines it becomes clear that
 some species include variants. Below are some sample *E. coli* extracts from
@@ -22,7 +19,8 @@ the FASTA file.
 How many variants are there per species? Do all variants contain the same
 number of proteins?
 
-To answer these questions we will make use of the Python scripting language.
+To answer these questions we will make use of the Python scripting language
+and some practical problem solving techniques.
 
 
 Stop and think
@@ -92,7 +90,7 @@ and verifying the results manually. This is terribly inefficient and soon breaks
 down once you have more than one thing to test.
 
 It is much better to write tests that can be run automatically.  Let's examine
-this concept. Create a file named ``scripts/fasta_utils.py`` and add the Python
+this concept. Create a file named ``fasta_utils.py`` and add the Python
 code below to it.
 
 .. code-block:: python
@@ -147,7 +145,7 @@ command followed by the name of the script.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
 
 So far so good? At the moment our :func:`test_is_description_line` function
@@ -194,12 +192,12 @@ Python will raise a ``NameError``. Let us run the code.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 8, in <module>
+      File "fasta_utils.py", line 8, in <module>
         test_is_description_line()
-      File "scripts/fasta_utils.py", line 6, in test_is_description_line
+      File "fasta_utils.py", line 6, in test_is_description_line
         assert is_description_line(">This is a description line") is True
     NameError: global name 'is_description_line' is not defined
 
@@ -232,12 +230,12 @@ run the code.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 11, in <module>
+      File "fasta_utils.py", line 11, in <module>
         test_is_description_line()
-      File "scripts/fasta_utils.py", line 9, in test_is_description_line
+      File "fasta_utils.py", line 9, in test_is_description_line
         assert is_description_line(">This is a description line") is True
     AssertionError
 
@@ -266,7 +264,7 @@ Now, we can run the code again.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
 
 No error message, the code is now working to the specification described in the test.
@@ -295,12 +293,12 @@ Now we can run the code again.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 13, in <module>
+      File "fasta_utils.py", line 13, in <module>
         test_is_description_line()
-      File "scripts/fasta_utils.py", line 11, in test_is_description_line
+      File "fasta_utils.py", line 11, in test_is_description_line
         assert is_description_line("ATCG") is False
     AssertionError
 
@@ -342,7 +340,7 @@ Let us test the code again.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
 
 
@@ -378,7 +376,7 @@ Now we can simply run the tests to see what happens.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
 
 Amazing, we just made a change to our code and we can feel pretty sure that it is
@@ -749,7 +747,7 @@ FASTA header <http://www.uniprot.org/help/fasta-headers>`_ page.
 
 The three FASTA description lines examined above provide an excellent basis for
 creating a test for the function that we want. Add the lines below
-to your ``scripts/fasta_utils.py`` file.
+to your ``fasta_utils.py`` file.
 
 .. code-block:: python
     :linenos:
@@ -780,7 +778,7 @@ Let's make sure that the tests fail.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
 
 What, no error message, what is going on? Ah, we added the test, but forgot to
@@ -798,13 +796,13 @@ Let's try again.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 26, in <module>
+      File "fasta_utils.py", line 26, in <module>
         test_extract_org_name()
-      File "scripts/fasta_utils.py", line 23, in test_extract_org_name
+      File "fasta_utils.py", line 23, in test_extract_org_name
         assert extract_org_name(line) == org_name
     NameError: global name 'extract_org_name' is not defined
 
@@ -823,13 +821,13 @@ Let's find out where this minimal implementation gets us.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 29, in <module>
+      File "fasta_utils.py", line 29, in <module>
         test_extract_org_name()
-      File "scripts/fasta_utils.py", line 26, in test_extract_org_name
+      File "fasta_utils.py", line 26, in test_extract_org_name
         assert extract_org_name(line) == org_name
     AssertionError
 
@@ -852,13 +850,13 @@ Let's see what we get now.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 29, in <module>
+      File "fasta_utils.py", line 29, in <module>
         test_extract_org_name()
-      File "scripts/fasta_utils.py", line 26, in test_extract_org_name
+      File "fasta_utils.py", line 26, in test_extract_org_name
         assert extract_org_name(line) == org_name, line
     AssertionError: >sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2
 
@@ -890,13 +888,13 @@ Let us see what happens now.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 34, in <module>
+      File "fasta_utils.py", line 34, in <module>
         test_extract_org_name()
-      File "scripts/fasta_utils.py", line 31, in test_extract_org_name
+      File "fasta_utils.py", line 31, in test_extract_org_name
         assert extract_org_name(line) == org_name, line
     AssertionError: >sp|Q15942|ZYX_HUMAN Zyxin OS=Homo sapiens GN=ZYX PE=1 SV=1
 
@@ -918,13 +916,13 @@ letter ``[A-Z]`` repeated twice ``{2}``. Let's find out if this fixes the issue.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 33, in <module>
+      File "fasta_utils.py", line 33, in <module>
         test_extract_org_name()
-      File "scripts/fasta_utils.py", line 30, in test_extract_org_name
+      File "fasta_utils.py", line 30, in test_extract_org_name
         assert extract_org_name(line) == org_name, line
     AssertionError: >sp|P01090|2SS2_BRANA Napin-2 OS=Brassica napus PE=2 SV=2
 
@@ -948,13 +946,13 @@ Now, let's see what is going on.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 33, in <module>
+      File "fasta_utils.py", line 33, in <module>
         test_extract_org_name()
-      File "scripts/fasta_utils.py", line 30, in test_extract_org_name
+      File "fasta_utils.py", line 30, in test_extract_org_name
         assert extract_org_name(line) == org_name, extract_org_name(line)
     AssertionError: Brassica napus PE=2
 
@@ -978,7 +976,7 @@ Let's find out what happens now.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
 
@@ -1005,15 +1003,13 @@ example we have already looked at and made use of the :mod:`re` module, which
 groups functionality for working with regular expressions.
 
 In Python any file with a ``.py`` extension is a module. This means that the
-file that we have been creating, ``scripts/fasta_utils.py``, is a module.
+file that we have been creating, ``fasta_utils.py``, is a module.
 
 To make use of the functionality within a module one needs to ``import`` it.
-To import the ``fasta_utils`` module we need to make sure that we are in the
-``scripts`` directory.
+Let's try this out in an interactive session
 
 .. code-block:: none
 
-    $ cd scripts
     $ python
 
 Now we can import the module.
@@ -1024,7 +1020,7 @@ Now we can import the module.
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
 
-Note that the tests run just like when we call the ``scripts/fasta_utils.py``
+Note that the tests run just like when we call the ``fasta_utils.py``
 script directly. This is an undesired side effect of the current
 implementation. It would be better if the tests were not run when the module
 was imported.
@@ -1042,7 +1038,7 @@ attribute is set to the name of the module.
     >>> print(fasta_utils.__name__)  # doctest: +SKIP
     fasta_utils
 
-Using this information we can update the ``scripts/fasta_utils.py`` file with
+Using this information we can update the ``fasta_utils.py`` file with
 the changes highlighted below.
 
 .. code-block:: python
@@ -1060,7 +1056,7 @@ directory ``protein-number-vs-size``.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
 
@@ -1073,7 +1069,7 @@ earlier to make sure that the tests no longer get executed.
     <module 'fasta_utils' from 'fasta_utils.py'>
 
 Note that simply calling the ``import fasta_utils`` command again will not
-actually detect the changes that we made to the ``scripts/fasta_utils.py`` file,
+actually detect the changes that we made to the ``fasta_utils.py`` file,
 which is why we make use of Python's built-in :func:`reload` function. Alternatively,
 one could have exited the Python shell, using Ctrl-D or the :func:`exit` function,
 and then started a new interactive Python session and imported the :mod:`fasta_utils`
@@ -1085,13 +1081,10 @@ Counting the number of unique organisms
 
 We can now use the :mod:`fasta_utils` module to start answering some of the
 biological questions that we posed at the beginning of this chapter. For now
-let us do this using an interactive Python shell. Remember to make sure that you
-are in the ``scripts`` directory when you run the ``python`` command below.
+let us do this using an interactive Python shell.
 
 .. code-block:: none
 
-    $ pwd
-    /home/tjelvar/protein-number-vs-size/scripts
     $ python
     Python 2.7.10 (default, Jul 14 2015, 19:46:27)
     [GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
@@ -1210,7 +1203,7 @@ Secondly, we need a function that given a list of organism names returns the dat
 structure described above.
 
 Let us start by creating a test for converting the organism name into a species.
-Add the test below to ``scripts/fasta_utils.py``.
+Add the test below to ``fasta_utils.py``.
 
 .. code-block:: python
     :linenos:
@@ -1343,15 +1336,15 @@ This should all be getting familiar now. Time to run the tests.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
     Testing the org_name2species() function...
     Testing summarise_species_protein_data() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 70, in <module>
+      File "fasta_utils.py", line 70, in <module>
         test_summarise_species_protein_data()
-      File "scripts/fasta_utils.py", line 50, in test_summarise_species_protein_data
+      File "fasta_utils.py", line 50, in test_summarise_species_protein_data
         summary = summarise_species_protein_data(fasta_desc_lines)
     NameError: global name 'summarise_species_protein_data' is not defined
 
@@ -1369,15 +1362,15 @@ And then we run the tests again.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
     Testing the org_name2species() function...
     Testing summarise_species_protein_data() function...
     Traceback (most recent call last):
-      File "scripts/fasta_utils.py", line 74, in <module>
+      File "fasta_utils.py", line 74, in <module>
         test_summarise_species_protein_data()
-      File "scripts/fasta_utils.py", line 57, in test_summarise_species_protein_data
+      File "fasta_utils.py", line 57, in test_summarise_species_protein_data
         assert len(summary) == 2
     TypeError: object of type 'NoneType' has no len()
 
@@ -1423,7 +1416,7 @@ Let's see if it the implementation works as expected.
 
 .. code-block:: none
 
-    $ python scripts/fasta_utils.py
+    $ python fasta_utils.py
     Testing the is_description_line() function...
     Testing the extract_org_name() function...
     Testing the org_name2species() function...
@@ -1432,7 +1425,7 @@ Let's see if it the implementation works as expected.
 Hurray!
 
 Finally, let us write a separate script to convert an input FASTA file into a
-YAML summary file. Create the file ``scripts/fasta2yaml_summary.py`` and add the
+YAML summary file. Create the file ``fasta2yaml_summary.py`` and add the
 code below to it.
 
 .. code-block:: python
@@ -1468,12 +1461,11 @@ standard library, but it is easily installed using ``pip``.
 The script also makes use of ``sys.stdin`` and ``sys.stdout`` to read from and
 write to the standard input and output streams respectively. This means that we
 can pipe in the content to our script and pipe output from our script. For example
-to examine the YAML output using the ``less`` pager one could use the command below
-from within the scripts directory.
+to examine the YAML output using the ``less`` pager one could use the command below.
 
 .. code-block:: none
 
-    $ gunzip -c ../data/uniprot_sprot.2015-11-26.fasta.gz | python fasta2yaml_summary.py | less
+    $ gunzip -c data/uniprot_sprot.2015-11-26.fasta.gz | python fasta2yaml_summary.py | less
 
 This immediately reveals that there are organisms in the SwissProt FASTA file
 that have few protein associated with them.
@@ -1493,7 +1485,7 @@ that have few protein associated with them.
       Abies balsamea: 3
 
 .. note:: The formatting in the YAML file above was created for us by the call
-          to the ``yaml.dump()`` method in the ``scripts/fasta2yaml_summary.py``
+          to the ``yaml.dump()`` method in the ``fasta2yaml_summary.py``
           script.
 
 Great work! In the next chapter we will have a go at visualising some of this data.
