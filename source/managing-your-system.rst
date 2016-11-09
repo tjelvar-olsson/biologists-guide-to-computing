@@ -384,6 +384,8 @@ requires superuser privileges.
     $ sudo make install
 
 
+.. _installing_python_packages:
+
 Installing Python packages
 --------------------------
 

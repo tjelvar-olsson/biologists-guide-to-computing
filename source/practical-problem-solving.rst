@@ -1197,10 +1197,10 @@ also wanted to find out how many proteins were associated with each variant.
 
 We could achieve this by creating a nested data structure using Python's built
 in dictionary type. At the top level we should have a dictionary
-whose keys were the species, e.g. ``Escherichia coli``. The values of the top
+whose keys were the species, e.g. ``Escherichia coli``. The values in the top
 level dictionary should themselves be dictionaries. The keys of the nested dictionaries
 should be the full organism name, e.g. ``Escherichia coli (strain K12)``. The values
-of the nested dictionary should be an integer representing the number of proteins found
+in the nested dictionary should be an integer representing the number of proteins found
 for that organism. Below is a YAML representation of the data structure that should be
 created from the four entries above.
 
@@ -1309,8 +1309,8 @@ Time to test the code again.
     Testing the extract_organism_name() function...
     Testing the organism_name2species() function...
 
-Great, the function is working! Let us define a new test to test the function that
-will generate the data structure we described at the beginning of this section.
+Great, the function is working! Let us define a new test for the function that
+will generate the nested data structure we described earlier.
 
 .. code-block:: python
     :linenos:
@@ -1373,7 +1373,7 @@ Again we start by defining the function.
     :emphasize-lines: 1-2
 
     def summarise_species_protein_data(fasta_desc_lines):
-        """Return data structure summarising the SwissProt organism and protein data."""
+        """Return data structure summarising the organism and protein data."""
 
 And then we run the tests again.
 
@@ -1399,7 +1399,7 @@ Time to add an implementation.
     :emphasize-lines: 3-10
 
     def summarise_species_protein_data(fasta_desc_lines):
-        """Return data structure summarising the SwissProt organism and protein data."""
+        """Return data structure summarising the organism and protein data."""
         summary = dict()
         for line in fasta_desc_lines:
             variant_name = extract_organism_name(line)
@@ -1422,11 +1422,11 @@ an empty dictionary (``dict()``).
 On line 49 we keep count of the number of times a variant of a species, as defined
 by the full organism name, has been observed. In this instance we
 use the ``get()`` method to get the number of times the variant has been observed
-already and then we add 1 to it. If the variant has never been observed previously
+previously and then we add 1 to it. If the variant has never been observed previously
 it will not be in the dictionary and the ``variant_dict.get(variant_name, 0)`` method
 call will return 0 (the default value specified).
 
-Line 50 creates/updates the nested data structure by adding the
+Line 50 updates the top level dictionary by adding the
 ``variant_dict`` dictionary to the ``summary`` dictionary.
 
 Let's see if it the implementation works as expected.
@@ -1469,16 +1469,19 @@ code below to it.
 
 In the code above we make use of the yaml module to convert our data structure
 to the YAML file format. The PyYAML package is not part of the Python's
-standard library, but it is easily installed using ``pip``.
+standard library, but it is easily installed using ``pip`` (for more detailed
+instructions see :ref:`installing_python_packages`).
 
 .. code-block:: none
 
     $ sudo pip install pyyaml
 
-The script also makes use of ``sys.stdin`` and ``sys.stdout`` to read from and
-write to the standard input and output streams respectively. This means that we
-can pipe in the content to our script and pipe output from our script. For example
-to examine the YAML output using the ``less`` pager one could use the command below.
+The script also makes use of ``sys.stdin`` and ``sys.stdout`` to read from
+the :term:`standard input stream` and write to the :term:`standard output
+stream`, respectively. This means that we can :term:`pipe` in the content to
+our script and pipe output from our script.
+For example to examine the YAML
+output using the ``less`` pager one could use the command below.
 
 .. code-block:: none
 
@@ -1486,6 +1489,10 @@ to examine the YAML output using the ``less`` pager one could use the command be
 
 This immediately reveals that there are organisms in the SwissProt FASTA file
 that have few protein associated with them.
+
+.. note:: 
+
+    Remember the benefits of using pipes was described in :ref:`creating_workflows_using_pipes`.
 
 .. code-block:: none
 
@@ -1505,7 +1512,7 @@ that have few protein associated with them.
           to the ``yaml.dump()`` method in the ``fasta2yaml_summary.py``
           script.
 
-Great work! In the next chapter we will have a go at visualising some of this data.
+Great work!
 
 Key concepts
 ------------
@@ -1518,8 +1525,6 @@ Key concepts
 - Many aspects of biological data processing boil down to string manipulations
 - Regular expressions are a powerful tool for performing string manipulations,
   but use with caution as they can result in confusion
-- Python is a powerful scripting language that is popular both in general and
-  in the scientific computing community
 - Python has many built-in packages for performing complex tasks, in this chapter
   we used the :mod:`re` package for working with regular expressions
 - There are also many third party Python packages that can be installed, in

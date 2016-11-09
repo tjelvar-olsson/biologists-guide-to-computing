@@ -219,6 +219,8 @@ From now on the text will use the short ``-c`` option rather than the long
     directories.
 
 
+.. _creating_workflows_using_pipes:
+
 Creating a work flow using pipes
 --------------------------------
 
