@@ -170,31 +170,48 @@ content below into a file named ``references.bib``.
 .. code-block:: none
 
     @online{S.coelicolor-genome,
-    title = {{S. coelicolor genome}},
-    url = {ftp://ftp.sanger.ac.uk/pub/project/pathogens/S_coelicolor/whole_genome/},
-    urldate = {2016-07-10}
+    title={{S. coelicolor genome}},
+    url={ftp://ftp.sanger.ac.uk/pub/project/pathogens/S_coelicolor/whole_genome/},
+    urldate={2016-07-10}
     }
+
+This is a so called BibTex record. In this particular case it is a BibTex record for
+an online resource, as indicated by the ``@online`` type. You would also use the
+``@online`` type to reference web pages.
+
+The text ``S.coelicolor-genome`` is the "key" assigned to this record. The key could
+have been called anything as long as it is unique. This key will be used within our
+document when citing this record.
+
+Now append the text below to the bottom of the ``references.bib`` file.
+
+.. code-block:: none
+
     @article{Bentley2002,
-    abstract = {Streptomyces coelicolor is a representative of the group of soil-dwelling, filamentous bacteria responsible for producing most natural antibiotics used in human and veterinary medicine. Here we report the 8,667,507 base pair linear chromosome of this organism, containing the largest number of genes so far discovered in a bacterium. The 7,825 predicted genes include more than 20 clusters coding for known or predicted secondary metabolites. The genome contains an unprecedented proportion of regulatory genes, predominantly those likely to be involved in responses to external stimuli and stresses, and many duplicated gene sets that may represent 'tissue-specific' isoforms operating in different phases of colonial development, a unique situation for a bacterium. An ancient synteny was revealed between the central 'core' of the chromosome and the whole chromosome of pathogens Mycobacterium tuberculosis and Corynebacterium diphtheriae. The genome sequence will greatly increase our understanding of microbial life in the soil as well as aiding the generation of new drug candidates by genetic engineering.},
-    author = {Bentley, S D and Chater, K F and Cerde{\~{n}}o-T{\'{a}}rraga, A-M and Challis, G L and Thomson, N R and James, K D and Harris, D E and Quail, M A and Kieser, H and Harper, D and Bateman, A and Brown, S and Chandra, G and Chen, C W and Collins, M and Cronin, A and Fraser, A and Goble, A and Hidalgo, J and Hornsby, T and Howarth, S and Huang, C-H and Kieser, T and Larke, L and Murphy, L and Oliver, K and O'Neil, S and Rabbinowitsch, E and Rajandream, M-A and Rutherford, K and Rutter, S and Seeger, K and Saunders, D and Sharp, S and Squares, R and Squares, S and Taylor, K and Warren, T and Wietzorrek, A and Woodward, J and Barrell, B G and Parkhill, J and Hopwood, D A},
-    doi = {10.1038/417141a},
-    issn = {0028-0836},
-    journal = {Nature},
-    keywords = {Bacterial Proteins,Chromosomes, Bacterial,Corynebacterium diphtheriae,Genes, Bacterial,Genes, Duplicate,Genome, Bacterial,Genomics,Molecular Sequence Data,Multigene Family,Mycobacterium tuberculosis,Protein Isoforms,Streptomyces,Synteny},
-    month = {may},
-    number = {6885},
-    pages = {141--7},
-    pmid = {12000953},
-    title = {{Complete genome sequence of the model actinomycete Streptomyces coelicolor A3(2).}},
-    url = {http://www.ncbi.nlm.nih.gov/pubmed/12000953},
-    volume = {417},
-    year = {2002}
+    title={Complete genome sequence of the model actinomycete
+           Streptomyces coelicolor A3 (2)},
+    author={Bentley, Stephen D and Chater, Keith F and Cerdeno-Tarraga, A-M and
+            Challis, Greg L and Thomson, NR and James, Keith D and
+            Harris, David E and Quail, Michael A and Kieser, H and
+            Harper, David and others},
+    journal={Nature},
+    volume={417},
+    number={6885},
+    pages={141--147},
+    year={2002},
+    publisher={Nature Publishing Group}
     }
 
 
-Do not type in bibliography records by hand. The entire ``Bentley2002``
-record was exported from my `Mendeley <https://www.mendeley.com>`_
-desktop client.
+Do not type in BibTex records by hand. The entire ``Bentley2002``
+record was copied and pasted from `Google Scholar <https://scholar.google.co.uk/>`_.
+Note that in the record above the identifier was changed from ``bentley2002complete``
+(key used by Google Scholar) to ``Bentley2002``.
+
+References managers such as `Mendeley <https://www.mendeley.com>`_ and `Zotero
+<https://www.zotero.org/>`_ can also be used to export BibTex records. More
+suggestions on how to access BitTex records can be found on the
+`Tex StackExchange <http://tex.stackexchange.com/a/207>`_ site.
 
 Now let's add some references to our ``manuscript.md`` file.
 
@@ -233,8 +250,8 @@ of where the bibliographic information is, this is specified using the
 
 "CiteProc" is in fact a generic name for a program that can be used to
 produce citations and bibliographies based on formatting rules using
-the Citation Style Langauge (CSL) syntax. `Zotero <https://www.zotero.org/>`_
-(another free reference manager) provides CSL styles for lots of journals in
+the Citation Style Langauge (CSL) syntax. Zotero
+provides CSL styles for lots of journals in
 the `Zotero Style Repository <https://www.zotero.org/styles>`_.
 
 Let's download Zotero's CSL file for Nature, copy and paste this text into
@@ -473,8 +490,9 @@ Key concepts
 - Markdown can be used to add document structure to plain text files
 - The ``pandoc-citeproc`` filter can be used to add citations and a bibliography
 - The Citation Style Language (CSL) can be used to format the citations and the bibliography
-- Mendeley is a free reference manager that can be used to export ``.bib`` records
-  (try to avoid having to type out ``.bib`` records by hand)
+- You can access BibTex records from Google Scholar
+- Mendeley and Zotero are a free reference managers that can be used to export BibTex records
+  (try to avoid having to type out BibTex records by hand)
 - Zotero provides CSL citation style files for lots and lots of journals
 - It is possible to add YAML meta data to markdown files specifying attributes such
   as title, author and abstract
