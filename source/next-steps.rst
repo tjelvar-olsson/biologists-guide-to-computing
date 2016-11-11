@@ -73,6 +73,12 @@ Geir Kjetil Sandve , Anton Nekrutenko, James Taylor, Eivind Hovig's article
 you can make your research more easily reproducible.
 DOI: `10.1371/journal.pcbi.1003285 <https://dx.doi.org/10.1371/journal.pcbi.1003285>`_
 
+Greg Wilson, Jennifer Bryan, Karen Cranston, Justin Kitzes, Lex
+Nederbragt, Tracy K. Teal's article
+`Good Enough Practices in Scientific Computing <https://arxiv.org/abs/1609.00037>`_
+provides a well informed and opinionated view of tools and practises that
+people performing scientific computing should adopt.
+
 Andrew Hunt and David Thomas'
 `The Pragmatic Programmer <https://pragprog.com/book/tpp/the-pragmatic-programmer>`_
 is a modern classic on software development. This book will teach you programming

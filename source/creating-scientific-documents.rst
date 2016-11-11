@@ -482,6 +482,56 @@ convert the Word document we just created to TeX.
     $ pandoc -f docx -t latex manuscript.docx -o manuscript.tex
 
 
+Alternative plain text approaches
+---------------------------------
+
+There are other methods of creating scientific documents using plain text
+files.
+
+One option is to write them using the LaTeX syntax. This
+is a less intuitive than using markdown. However, it gives you a bit
+more control and flexibility.
+
+A good alternative for people that miss the benefits of a graphical user
+interface (GUI) is `LyX <https://www.lyx.org/>`_. LyX allows you to write and
+format text using an intuitive GUI. It is different from many other word
+processing tools in that it places more focus on the structure of the document
+and less focus on the appearance. The outputs of LyX are also plain text files,
+a derivative of LaTeX files. However, LyX also has built-in functionality for
+exporting files in a variety of file formats including PDF.
+
+
+Using non-plain text file formats
+---------------------------------
+
+This chapter has outlined how you can work with plain text file formats to
+produce scientific documents. However, many people really like using Microsoft
+Word. You might be one of these people. In this case I hope that this
+chapter has given you some food for thought. The purpose of this chapter was
+not to try to force you to change your habits, but to outline alternative
+methods.
+
+There are some disadvantages to using
+Microsoft Word. The biggest one probably being collaborative editing. You tend
+to end up with files named along the lines of ``manuscript_revision3_TO_edits.docx``
+being emailed around. This is not ideal. However, on the other hand if it
+is the tool that you and/or your collaborators are familiar with it is easy
+to work with.
+
+If you and/or your collaborators do not want to use plain text files, but want
+to avoid emailing Word documents around, you may want to consider
+`Google Docs <https://docs.google.com>`_. It is similar to Word and LyX in that
+it has a GUI. Furthermore, it has built in support for collaborative working
+and version control.
+
+For an extended discussion on the pros and cons of various ways of creating
+scientific documents I would recommend reading
+`Good Enough Practices in Scientific Computing <https://arxiv.org/abs/1609.00037>`_.
+One of the key take home messages from this paper is for everyone
+involved to agree on the tools before starting the process of writing.
+
+
+
 Key concepts
 ------------
 
@@ -498,3 +548,4 @@ Key concepts
   as title, author and abstract
 - Using plain text files for scientific documents allows you to make use of
   awesome tools such as Git
+- Speak to your collaborators and agree on the tools that best suit your needs
