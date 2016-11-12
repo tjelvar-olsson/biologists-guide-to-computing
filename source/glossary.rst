@@ -22,7 +22,7 @@ Glossary
 
     Debug
         The activity of identifying and removing a :term:`bug` (defect) from a
-        computer program. 
+        computer program.
 
     DNS
         Domain Name Server a machine that translates URLs to IP addresses.
@@ -38,6 +38,9 @@ Glossary
     HTTP
         HyperText Transfer Protocol, commonly used for web browsing.
 
+    Hypervisor
+        A piece of software that allows you to run a :term:`virtual machine`.
+
     List
         A common data structure representing an ordered collection of elements. Also known
         as an array.
@@ -47,7 +50,7 @@ Glossary
 
     Init
         Abbreviation of the word "initialise". Usually used to represent a one time
-        event that that results in the creation of a new entity. 
+        event that that results in the creation of a new entity.
 
     Integer
         A whole number, i.e. a number that can be expressed without a fractional component.
@@ -90,7 +93,7 @@ Glossary
         ``stdin``. A common way to send data to a program is to :term:`pipe`
         them from the :term:`standard output stream` of another program. In the
         below we use the ``echo`` command to send the string ``foo bar baz`` to
-        the standard input stream of the ``wc`` command. 
+        the standard input stream of the ``wc`` command.
 
         .. code-block:: none
 
@@ -133,3 +136,10 @@ Glossary
 
     URL
         Unique Resource Location
+
+    Virtual machine
+        An operating system running within a :term:`hypervisor` rather than on
+        the physical computer.
+
+    VM
+        See :term:`virtual machine`.

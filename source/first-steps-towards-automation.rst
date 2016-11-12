@@ -25,6 +25,13 @@ On Macs the command line is available through the Terminal application. There
 are a number of terminal emulators available for Linux. If you are using the
 Gnome-based desktop the default is likely to be the Gnome Terminal.
 
+On Windows things are a little bit more complicated. Windows does not come
+bundled with Bash by default. However, a quick way to get up and running
+is to install `Docker Toolbox <https://www.docker.com/products/docker-toolbox>`_
+and start the "Docker Quick Launch" application. This will give you a
+terminal running Bash. For a more detailed discussion see
+:ref:`running_linux_on_a_windows_machine`.
+
 A terminal emulator is an application that gives you access to another program
 known as the shell. The shell allows you to interact with the operating system's
 services and programs. Just like there is a diversity of terminal emulators

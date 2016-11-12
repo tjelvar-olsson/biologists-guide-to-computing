@@ -580,7 +580,7 @@ function to use it.
 .. code-block:: R
 
     > library(ggplot2)
-    
+
 
 Installing Perl modules
 -----------------------
@@ -691,6 +691,92 @@ flows for installing scientific software
 <http://tjelvarolsson.com/blog/how-to-create-automated-and-reproducible-work-flows-for-installing-scientific-software/>`_.
 
 
+.. _running_linux_on_a_windows_machine:
+
+Running Linux on a Windows machine
+----------------------------------
+
+This book is tailored towards people working on a Unix-like operating system.
+In particular the use of the terminal and Bash is prevalent throughout the
+book.
+
+However, lots of people use Windows as their operating system.  You may be one
+of them. What should you do?
+
+I would recommend downloading and installing
+`Docker Toolbox <https://www.docker.com/products/docker-toolbox>`_.
+Once you have installed it
+you should have a "Docker Quick Launch" icon on your desktop. Double click on
+it and you will be dropped into a terminal running Bash.  You can use this
+terminal running Bash to work through most of the material in this book.
+
+However, giving access to a terminal running Bash is not the primary purpose of
+Docker Toolbox. The primary purpose of Docker Toolbox is to give Windows (and
+Mac) users access to a technology known as `Docker
+<https://www.docker.com/products/docker-toolbox>`_.  Docker uses features built
+into the Linux kernel to create so called containerised environments. These
+containerised environments can be used to run self contained versions of Linux
+operating systems.
+
+In order to be able to allow Windows and Mac users to use Docker, the Docker
+Toolbox installs two main components on the computer: `Cygwin
+<https://www.cygwin.com>`_ and `VirtualBox <https://www.virtualbox.org/>`_.
+
+Cygwin is an application that allows you to run Bash and many other Linux
+software components natively on Windows. This is what the Docker Quick Launch
+terminal uses.
+
+VirtualBox is a so called :term:`hypervisor` that lets you run a :term:`virtual
+machine`.  The hypervisor provides an interface that looks like the physical
+hardware on your computer, i.e. the :term:`CPU`, :term:`RAM`, keyboard, mouse,
+etc.  In other words it is like having a virtual computer within a computer.
+This means that you can install another operating system, such as Linux, on the
+virtual computer running inside the hypervisor. The virtual computer is more
+commonly referred to as a virtual machine.
+
+In the case of Docker Toolbox the VirtualBox is running a Linux based virtual
+machine with Docker installed on it. Furthermore one can interact with this
+virtual machine running Docker from the Cygmin terminal (the Docker Quick
+Launch terminal).
+
+Now suppose you wanted to run Ubuntu, you could achieve this using the command
+below.
+
+.. code-block:: none
+
+    $ docker run -it ubuntu
+    [root@048bd4bd961c /]#
+
+This drops you into an Ubuntu environment as the root user within that container.
+
+When you exit out of the container all of your work will be lost. This may not be
+what you want. You may want to be able to save data to your physical machine.
+This can be achieved by mounting a directory as a volume when launching the docker
+container.
+
+First let us create a directory to mount.
+
+.. code-block:: none
+
+    $ mkdir data
+
+Now we can launch docker with that directory mounted as ``/data`` in the container.
+
+.. code-block:: none
+
+    $ docker run -it -v `pwd`/data:/data ubuntu
+    [root@048bd4bd961c /]#
+
+
+Docker is really cool and I would highly recommend you read up on it, but a
+detailed discussion is beyond the scope of this book. Suffice to say that if
+you are working on Windows you can use Docker Toolbox to install both
+Cygwin and VirtualBox. The former gives you access to a terminal running Bash
+on Windows and the latter allows you to run Linux virtual machines on your
+Windows box. A simple way of accessing such Linux virtual machines is to
+use the Docker command above.
+
+
 Key concepts
 ------------
 
@@ -704,3 +790,4 @@ Key concepts
 - It can be easy to forget how you how you configured your machine, do make notes
 - Once you start finding it tedious making notes you should start thinking
   about automating the configuration of your system using a tool such as Ansible
+- If you are working on a Windows machine you can run Linux in a virtual machine

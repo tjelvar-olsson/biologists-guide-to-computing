@@ -205,14 +205,14 @@ truth values. These are sometimes referred to as logic gates.
   0      0         0           0
   1      0         0           1
   0      1         0           1
-  1      1         1           0
+  1      1         1           1
 =====  =====  ===========  ==========
 
 =====  =========
-``x``  ``NOT x`` 
+``x``  ``NOT x``
 =====  =========
-  0        1  
-  1        0  
+  0        1
+  1        0
 =====  =========
 
 Using these axioms more complex logic gates can be built up. For example, by
@@ -253,7 +253,7 @@ with light of wavelength 395 nm ``THEN`` it will emit fluorescence at 509 nm".
           towards a relatively small number of dynamic cycles and stable
           states, known as attractors. The attractors often correspond to
           specific differentiated states of cells in biological systems.
-          
+
 
 
 
