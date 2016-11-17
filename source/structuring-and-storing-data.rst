@@ -106,10 +106,12 @@ The table, excluding the header, could be represented using a list of lists.
 
 
 A graph, sometimes known as a tree, is a data structure that links nodes together
-via edges. This should sound relatively familiar to you as it is the basic
+via edges (:numref:`phylogenetic_tree_and_aspirin_structure`). This should sound relatively familiar to you as it is the basic
 concept behind phylogenetic trees. Each node represents a species and the edges
 represent the inferred evolutionary relationships between the species. Graphs are
 also used to represent 2D connectivities of molecules.
+
+.. _phylogenetic_tree_and_aspirin_structure:
 
 .. figure:: images/graph-examples.png
    :alt: Phylogenetic tree and aspirin structure.
@@ -311,6 +313,46 @@ to the reader. These comments are ignored by programs parsing the files.
     above the hash (``#``) symbol. In some languages comments require a closing
     sequence as well, for example a comment in HTML begins with ``<!--`` and ends
     with ``-->``.
+
+As scientist's we sometimes need to be able to work with graph data, for
+example phylogenetic trees and molecules. These often have their own domain
+specific plain text file formats. For example the
+`Newick format <https://en.wikipedia.org/wiki/Newick_format>`_ is commonly
+used to store phylogenetic trees and there are a multitude of file formats
+for representing molecules including the
+`SMILES <https://en.wikipedia.org/wiki/Simplified_molecular-input_line-entry_system>`_,
+and
+`Molfile <https://en.wikipedia.org/wiki/Chemical_table_file>`_ file formats.
+
+A neat file format for storing and visualising generic graph data is the `DOT
+language <http://www.graphviz.org/content/dot-language>`_. Plain text files
+written in the DOT language can be visualised using the software `Graphviz
+<http://www.graphviz.org/>`_.
+
+Some figures are well suited for being stored as plain text files.
+This is the case when all the content of the graphic can be described
+as mathematical functions. These are so called vector graphics and the
+standard file format for storing them as plain text files is
+`Scalable Vector Graphics <https://en.wikipedia.org/wiki/Scalable_Vector_Graphics>`_.
+A neat feature of these types of
+images is that they can be arbitrarily scaled to different sizes without losing
+any resolution. Hence the word "scalable" in their name.
+
+However, there is another type of graphic that is ill suited to being
+represented as plain text files. These are so called raster images.  In raster
+images the graphic is represented as a grid where each grid point is set to a
+certain intensity. Common file formats include PNG, JPEG, and GIF.  If you are
+dealing with photographs or microscopy images the raw data will be recorded in
+raster form. The reason for storing these types of images as binary blobs,
+rather than plain text files, is that it saves a significant amount of disk
+space. Furthermore, image viewers can load these binary blobs much quicker than
+they could load the same amount of information stored as a plain text file.
+
+However, suppose you needed to generate a figure as a raster image,
+say for example a scatter plot.  Then you should consider writing a script to
+generate the figure. The instructions for generating the figure, i.e. the
+script, can then be stored as a plain text file. This concept will
+be explored in :doc:`data-visualisation`.
 
 
 .. _tidy-data:
