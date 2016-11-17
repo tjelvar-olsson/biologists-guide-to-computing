@@ -268,6 +268,15 @@ each discovery contains a set of key value pairs.
       }
     ]
 
+.. sidebar:: What does it mean to "parse" a file?
+
+    Parsing basically means reading a piece of text and resolving it into syntactic
+    parts. For example an English grammar parser might resolve the text "The large
+    cat sat on the red hat" into nouns (cat, hat) and verbs (sat) and adjectives
+    (large, red). In the context of parsing JSON and YAML files we are
+    resolving the text into types such as integers and strings as well as higher
+    level data structures such as lists and dictionaries.
+
 YAML is similar to JSON in that it is a data serialisation standard. However, it
 places more focus on being human readable. Below is the same data structure
 represented using YAML.
