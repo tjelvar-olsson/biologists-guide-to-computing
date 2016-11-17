@@ -6,6 +6,12 @@ familiar with the command line. In this chapter we will accomplish this by
 using the command line to extract UniProt identifiers for all human proteins in
 Swiss-Prot.
 
+More precisely we will be using a terminal emulator to run Bash.
+A terminal emulator is an application that gives you access to another program
+known as the shell. The shell allows you to interact with the operating system's
+services and programs. The most widely used shell and the default on Mac and
+most Linux based distributions is Bash.
+
 You will get the most benefit from this chapter if you work through the example
 as you go along. You are therefore encouraged to open up a terminal now
 (:numref:`terminal`)!
@@ -34,11 +40,9 @@ machine`. In this scenario you would run BioLinux as a virtual machine.
 For more information on how to run BioLinux as a virtual machine see the
 `BioLinux installation notes <http://environmentalomics.org/bio-linux-installation/>`_.
 
-A terminal emulator is an application that gives you access to another program
-known as the shell. The shell allows you to interact with the operating system's
-services and programs. Just like there is a diversity of terminal emulators
-there are also a number of different shells. The most widely used shell and the
-default on Mac and most Linux based distributions is ``bash``.
+The benefit of learning how to use Linux/Mac and Bash is that most bioinformatics
+software are developed on and designed to run on these platforms. Furthermore,
+the terminal and Bash provides an excellent way of creating analysis pipelines.
 
 
 First things first, how to find help
