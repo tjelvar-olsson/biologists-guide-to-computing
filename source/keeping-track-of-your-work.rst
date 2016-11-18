@@ -259,6 +259,17 @@ all other users only have permission to read the file ``r--``.
     These can for example be used to create references to canonical representations
     of your data.
 
+Let's take a moment to expand on the concept of groups in Unix-like operating
+systems. A user can be part of several groups. However, a file can only
+belong to one group. 
+For example a PhD student could be part of the groups
+``famous-project-leader-group`` and ``awesome-institute-group``. In this
+hypothetical scenario the default group for the PhD student is the
+``famous-project-leader-group``. Any files that the student generates would
+therefore be assigned the group ``famous-project-leader-group``. If the student
+wanted to make a file more widely accessible throughout the institute they
+could change the file's group to ``awesome-institute-group``.
+
 Let us give the file execute permissions. This is achieved using the ``chmod``
 command, mnemonic "change file modes". The ``chmod`` command can be invoked in
 a number of different ways. Here we use the symbolic mode to specify that the
