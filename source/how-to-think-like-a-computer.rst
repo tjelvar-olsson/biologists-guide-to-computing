@@ -233,7 +233,7 @@ and memory. This combined with the fact that it is relatively easy to
 physically implement Boolean logic using relays led to the construction of
 the first computers.
 
-Although you may not want to create your own computer having a basic
+Although you may not want to create your own computer, having a basic
 understanding of Boolean logic will help you when implementing algorithms. For
 example one often needs to make conditional logic statements along the lines of
 "``IF`` the cell contains green fluorescent protein ``AND`` it is illuminated

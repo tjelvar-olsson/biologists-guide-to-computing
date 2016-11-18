@@ -93,9 +93,9 @@ Initialise the project
 ----------------------
 
 The first thing to do is to initialise the project using the ``git init`` command.
-If run with no argument it will setup tracking of files in the current working
+If run with no argument it will set up tracking of files in the current working
 directory. If given an argument, such as ``protein-count``, git will
-create a new directory with this name and setup tracking of files within it.
+create a new directory with this name and set up tracking of files within it.
 
 .. code-block:: none
 

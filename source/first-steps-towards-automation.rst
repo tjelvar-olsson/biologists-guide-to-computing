@@ -444,7 +444,7 @@ the ``\``.
     $ gunzip -c uniprot_sprot.fasta.gz | grep "OS=Homo sapiens" \
     | cut -d '|' -f 2
 
-In the above the ``-d`` option specifies the delimiter to use to split split
+In the above the ``-d`` option specifies the delimiter to use to split
 the line, in this instance the pipe symbol (``|``). The ``-f 2`` option
 specifies that we want to extract the second field.
 
