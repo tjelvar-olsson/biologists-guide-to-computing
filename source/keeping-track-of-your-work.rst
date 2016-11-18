@@ -175,6 +175,12 @@ command.
      1 file changed, 12 insertions(+)
      create mode 100644 README.md
 
+In the above the ``-m`` option allows us to specify a commit message on
+the command line. The commit message should describe the change that
+your are committing. It will be useful when you review the project at
+a later date. It also helps communicate your change to any collaborators
+working on the same project.
+
 Again, let's see how this affected the status of the repository.
 
 .. code-block:: none
@@ -182,11 +188,6 @@ Again, let's see how this affected the status of the repository.
     $ git status
     On branch master
     nothing to commit, working directory clean
-
-.. note:: The ``-m`` option allows us to specify a commit message on
-          the command line. If you do not use this option your default editor
-          will be used, which is likely to be ``vim`` if you have not
-          configured it to be something else.
 
 That's all you need to know to get started with Git. Start by initialising a
 project using ``git init``. Then use ``git add`` and ``git commit`` iteratively
@@ -205,7 +206,7 @@ multiple directories.
 
 .. code-block:: none
 
-    mkdir scripts data
+    $ mkdir scripts data
 
 Using your favorite text editor enter the text below into the file
 ``scripts/get_data.bash``.
@@ -522,14 +523,68 @@ notice that the it complains that it has not got permissions to write to
 the file. This is expected as the ``curl`` command is wanting to overwrite
 the existing read-only file.
 
-This is a good time to add and commit the changes to Git.
+Let's add these changes to the staging area.
 
 .. code-block:: none
 
     $ git add scripts/get_data.bash
-    $ git commit -m "Added command to set permissions of data file to read only."
-    [master a672257] Added command to set permissions of data file to read only.
+
+It is good practise to try to make the commit message no more than
+50 characters long. Sometimes this is not enough. In these cases you
+can create a multi line commit message using a text editor (likely
+to be ``vim`` by default) by omitting the ``-m`` flag.
+
+Let's try this now.
+
+.. code-block:: none
+
+    $ git commit
+
+This should open a text editor with the text below.
+
+.. code-block:: none
+
+
+    # Please enter the commit message for your changes. Lines starting
+    # with '#' will be ignored, and an empty message aborts the commit.
+    # On branch master
+    # Changes to be committed:
+    #       modified:   scripts/get_data.bash
+
+Use your text editor to edit this message to the below.
+
+.. code-block:: none
+
+    Set permissions of data file to read only
+
+    The intention of this change is to prevent accidental deletion or
+    modification of the raw data file.
+
+    # Please enter the commit message for your changes. Lines starting
+    # with '#' will be ignored, and an empty message aborts the commit.
+    # On branch master
+    # Changes to be committed:
+    #       modified:   scripts/get_data.bash
+
+When you save the file you should see the output below in the terminal.
+
+.. code-block:: none
+
+    $ git commit
+    [master ad2a4c5] Set permissions of data file to read only
      1 file changed, 1 insertion(+)
+
+.. sidebar:: Help! I'm stuck in Vim.
+
+    If you tried out the ``git commit`` command you may depeding
+    on the configuration of your computer get thrown into Vim.
+    If you don't know how to use Vim, it can be tricky just to
+    get out of it.
+
+    1. Press the Esc key (this ensure that you are in "normal" mode)
+    2. Press the colon (``:``) key (this puts you in "command-line" mode)
+    3. Enter the text ``q!`` (the command to quit (``q``) without saving (``!``)
+    4. Press the Enter key (this executes the command from step 3)
 
 
 .. sidebar:: What if I want to edit or delete a file that is read only?
