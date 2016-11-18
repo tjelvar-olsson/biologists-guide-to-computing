@@ -581,10 +581,10 @@ When you save the file you should see the output below in the terminal.
     If you don't know how to use Vim, it can be tricky just to
     get out of it.
 
-    1. Press the Esc key (this ensure that you are in "normal" mode)
-    2. Press the colon (``:``) key (this puts you in "command-line" mode)
-    3. Enter the text ``q!`` (the command to quit (``q``) without saving (``!``)
-    4. Press the Enter key (this executes the command from step 3)
+    1. Press the Esc key. This ensure that you are in "normal" mode.
+    2. Press the colon (``:``) key. This puts you in "command-line" mode.
+    3. Enter the text ``q!``. This is the command to quit (``q``) without saving (``!``).
+    4. Press the Enter key. This executes the command from step 3.
 
 
 .. sidebar:: What if I want to edit or delete a file that is read only?
