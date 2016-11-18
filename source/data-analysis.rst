@@ -102,6 +102,11 @@ but more explicit name ``radius``.
 
     >>> radius = 1.5
 
+.. note:: Many modern text editors have auto complete functionality so
+          longer variable names does not necessarily need to mean that
+          there is more typing required. Remember, spend time
+          finding a text editor that works well for you!
+
 
 Determining the GC count of a sequence
 --------------------------------------
@@ -581,7 +586,7 @@ codons from a DNA sequence.
        gct
           aaa
 
-    # Overalpping windows.
+    # Overlapping windows.
     atc
      tcg
       cgc
@@ -913,21 +918,47 @@ Let us implement such a function. Add the lines below to the top of the
         return sequence
 
 There are a couple of new string methods introduced in the above, let's explain
-them now. On line six we use the :func:`split` method to split the string into
+them now.
+
+Let's look at line six first.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 6
+
+            words = line.split()
+
+Here we use the :func:`split` method to split the string into
 a list of words, by default the :func:`split` method splits text based on one
 or more white space characters.
 
-On line seven we use the :func:`join` method to join the words together, in
-this instance there are no characters separating the words to be joined. It is
-worth clarifying this with an example, if we wanted to join the words using a
-comma character one would use the syntax ``",".join(words[:-1])``.
+
+On line seven we use the :func:`join` method to join the words together.
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 7
+
+            seq_string = "".join(words[:-1])
+
+In this instance there are no characters separating the words to be joined. It
+is worth clarifying this with an example, if we wanted to join the words using
+a comma character one would use the syntax ``",".join(words[:-1])``.
 
 On line seven it is also worth noting that we exclude the last word (the
 numerical index) by making use of list slicing ``words[:-1]``.
 
 Finally, on line nine we make use of the list method :func:`extend`, this
 extends the existing ``sequence`` list with all the elements from the
-``seq_list`` list.
+``seq_list`` list. Because ``words`` ``seq_string`` and ``seq_list`` will be
+overwritten when the loop moves on to the next line in the input file. 
+
+.. code-block:: python
+    :linenos:
+    :lineno-start: 9
+
+            sequence.extend(seq_list)
+
 
 .. sidebar:: Adding elements to lists ``append()`` vs ``extend()``
 
@@ -989,7 +1020,8 @@ Let us run the script again.
      $ python gc_content.py
 
 Note that this will produce a lot of output. To find out the number of lines
-that are generated we can make use of piping and the ``wc -l`` command.
+that are generated we can make use of piping and the ``wc -l`` command
+(mnemonic ``wc`` word count, ``-l`` lines) .
 
 .. code-block:: none
 

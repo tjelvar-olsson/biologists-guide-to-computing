@@ -75,6 +75,24 @@ change from staged to unmodified. And the cycle continues
 First time configuration of Git
 -------------------------------
 
+Git may or may not be installed by default on your system. To find out if it is
+try running the command below.
+
+.. code-block:: none
+
+    $ git --version
+
+If Git is installed you will see output along the lines of the below.
+
+.. code-block:: none
+
+    git version 2.6.3
+
+If Git is not installed you will see a ``command not found`` message. In this
+case you will need to install it. If you do not know how to do this you can
+find general instructions on how to install software in
+:doc:`managing-your-system`.
+
 Although we won't go into it in this chapter, Git is fundamentally a collaboration
 tool that helps people work on projects together. This means that we need to give
 Git some information about us for it to be able to keep track of who has done what,
@@ -82,8 +100,8 @@ specifically our name and email address.
 
 .. code-block:: none
 
-    git config --global user.name "Tjelvar Olsson"
-    git config --global user.email "tjelvar@biologistsguide2computing.com"
+    $ git config --global user.name "Tjelvar Olsson"
+    $ git config --global user.email "tjelvar@biologistsguide2computing.com"
 
 We will look at the collaboration aspect of git in the
 :doc:`collaborating-on-projects` chapter.
@@ -224,7 +242,7 @@ file.
 
 However, in order to be able to execute the file, i.e. run it as a program, it
 needs to have "execute permissions". One can view the current set of permissions
-of a file by using ``ls -l``.
+of a file by using ``ls -l`` (mnemonics ``ls`` list, ``-l`` long).
 
 .. code-block:: none
 
@@ -292,6 +310,7 @@ Let us test the script by running it.
 
 
 The file was downloaded to the ``data`` directory, success!
+
 This is a good time to add the script to version control.
 
 .. code-block:: none
@@ -477,7 +496,12 @@ The command above tells us that one line has been removed, the one prefixed by a
 minus sign, and that two lines have been added, the ones prefixed by a plus sign.
 In fact we have modified one line and added one, but the effect is the same.
 
-Let us now add and commit the changes to Git.
+Let us now add and commit the changes to Git.  We need to do this as working
+with Git is a cyclical process. You make changes by editing the files, you add
+the changes that you want to snapshot to the staging area, then you commit the
+staged changes. At this point the cycle starts all over again
+:numref:`Git_workflow_illustration`.
+
 
 .. code-block:: none
 

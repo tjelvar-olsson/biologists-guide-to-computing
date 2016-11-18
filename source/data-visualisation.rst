@@ -122,9 +122,9 @@ and five variables. It is also worth noting that ``Species`` is recorded as
 a Factor data structure. This means that it has categorical data. In this case
 three different species.
 
-In R a data frame is a data structure for storing two-dimensional data, i.e.
-like a spreadsheet with rows and columns. In a data frame each column contains
-the same type of data and each row has values for each column.
+In R a data frame is a data structure for storing two-dimensional data.  In a
+data frame each column contains the same type of data and each row has values
+for each column.
 
 .. sidebar:: What is the difference between vectors, lists and data frames?
 
@@ -195,7 +195,7 @@ A note on statistics in R
 -------------------------
 
 Although this book is not about statistics it is worth mentioning that R is a
-superb tool for doing statistics. It has many built in functions for statisitcal
+superb tool for doing statistics. It has many built in functions for statistical
 computing. For example to calculate the median ``Sepal.Length`` for the ``iris``
 data one can use the built in ``median()`` function.
 
@@ -320,7 +320,7 @@ Let us start with the histogram (:numref:`ggplot-iris-sepal-length-histogram`).
    :alt: Iris sepal length histogram plotted using ggplot.
 
    Histogram of Iris sepal length data generated using R's ggplot2 package.
-   The bin width used is different from the one used by R's built in ``hist()``
+   The default bin width used is different from the one used by R's built in ``hist()``
    function, hence the difference in the appearance of the distribution.
 
 The syntax used may look a little bit strange at first. However, before going
@@ -854,8 +854,8 @@ Key concepts
 ------------
 
 - R and ggplot2 are powerful tools for visualising data
-- R should also be your first port of call for statistical computing (although
-  that is not covered in this book)
+- R should also be your first port of call for statistical computing
+  (statistical computing is not covered in this book)
 - In ggplot2 the visual representation of your data is built up using layers
 - Separating out different aspects of plotting into different layers makes
   it easier to reason about the data and the best way to represent it visually
