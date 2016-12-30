@@ -265,11 +265,12 @@ Finally, we push the changes to GitHub.
     To https://github.com/tjelvar-olsson/S.coelicolor-local-GC-content.git
        bea89f4..5d74b6a  master -> master
 
-It is worth noting that the mean and standard deviation of the local GC content
-is currently hard coded inside the manuscript.  To make this example completely
-automated one would have to write scripts to extract these and use the
-extracted numbers in the manuscript. This is left as an exercise for the
-reader.
+This was quite a short chapter which illustrates that automation does not need
+to be painful!
+
+Note that as well as automating the building of the manuscript the rules in the
+Makefile serve as authoritative documentation that can be used to understand
+how the different components of the project fit together.
 
 
 Key concepts
@@ -282,3 +283,4 @@ Key concepts
 - It is good practice to specify a ``clean`` rule for removing files that are built
   automatically
 - Automation saves you time in the long run
+- Good automation scripts also serve a purpose as technical documentation of a project
