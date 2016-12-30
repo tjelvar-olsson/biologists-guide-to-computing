@@ -171,6 +171,8 @@ In the next chapter, :doc:`keeping-track-of-your-work`, we will look at a
 tool called ``git`` that can be used to track changes to plain text files.
 
 
+.. _useful_plain_text_file_formats:
+
 Useful plain text file formats
 ------------------------------
 

@@ -6,6 +6,24 @@ So far we have been learning about computing and coding.
 The purpose of this chapter is to introduce some practical techniques for
 tackling data analysis problems.
 
+At this point we go back to looking at the Swiss-Prot FASTA file used in
+:doc:`first-steps-towards-automation`. You can download this file using
+the ``curl`` command below.
+
+.. code-block:: none
+
+    $ curl --location --output uniprot_sprot.fasta.gz http://bit.ly/1l6SAKb
+
+The downloaded ``uniprot_sprot.fasta.gz`` file is gzipped. You can view the
+content of this file without permanently unzipping it using the command below.
+
+.. code-block:: none
+
+    $ gunzip -c uniprot_sprot.fasta.gz
+
+If the ``curl`` and ``gunzip`` commands above look unfamiliar you may want to
+review the :doc:`first-steps-towards-automation` chapter.
+
 By briefly inspecting some random FASTA description lines it becomes clear that
 some species include variants. Below are some sample *E. coli* extracts from
 the FASTA file.

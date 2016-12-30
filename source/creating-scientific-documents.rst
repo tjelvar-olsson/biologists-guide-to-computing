@@ -101,6 +101,9 @@ previous command.
 
     $ pandoc -f markdown -t html -s manuscript.md -o manuscript.html
 
+Now use a web browser to view the generated ``manuscript.html`` file.
+
+
 Adding a figure
 ---------------
 
@@ -132,6 +135,13 @@ a caption for the image.
 
 In the above the double asterix (``**``) is used as markup for bold text.
 This will serve as a title for the figure caption.
+
+Now we can build the document again.
+
+.. code-block:: none
+
+    $ pandoc -f markdown -t html -s manuscript.md -o manuscript.html
+
 
 
 Converting the document to PDF
@@ -289,7 +299,7 @@ Adding meta data
 
 To turn this into a research article we need to add a title, authors, an
 abstract and a date. In Pandoc this can be achieved by adding meta data to the
-top of the file, using a YAML syntax (see :doc:`structuring-and-storing-data`
+top of the file, using a YAML syntax (see :ref:`useful_plain_text_file_formats`
 for information on YAML).
 
 Add the header below to the top of the  ``manuscript.md`` file.

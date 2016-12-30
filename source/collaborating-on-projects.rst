@@ -91,8 +91,9 @@ We now need to specify the remote repository. My user name on GitHub is
     $ git remote add origin \
     https://github.com/tjelvar-olsson/S.coelicolor-local-GC-content.git
 
-The command adds a remote named ``origin`` to the local repository. However,
-we have not yet *pushed* any data to this remote. Let's do this now.
+The command adds the GitHub :term:`URL` as a  remote named ``origin`` to the
+local repository. However, we have not yet *pushed* any data to this remote.
+Let's do this now.
 
 .. code-block:: none
 
