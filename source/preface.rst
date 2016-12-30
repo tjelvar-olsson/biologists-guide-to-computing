@@ -57,7 +57,7 @@ Feedback
 
 This book is still a work in progress. I would really appreciate your
 feedback. Please send me an `email <tjelvar@biologistsguide2computing.com>`_ to
-let me know what you think. Alternatively you can contact me via twitter `@tjelvar_olsson
+let me know what you think. Alternatively you can contact me via Twitter `@tjelvar_olsson
 <https://twitter.com/tjelvar_olsson>`_,
 `@bioguide2comp <https://twitter.com/bioguide2comp>`_ or message me via the
 `Facebook page <https://www.facebook.com/biologistsguide2computing>`_.

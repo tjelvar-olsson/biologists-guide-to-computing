@@ -33,7 +33,7 @@ It is much more fun to learn together and you will keep each other motivated.
 Find someone more experienced than you and learn from them. Having a mentor
 to point you in the right direction can be a great time saver.
 
-Connect with me on twitter, my personal account is `@tjelvar_olsson
+Connect with me on Twitter, my personal account is `@tjelvar_olsson
 <https://twitter.com/tjelvar_olsson>`_. I've also set up a more specific
 account relating to this book `@bioguide2comp
 <https://twitter.com/bioguide2comp>`_.  Alternatively you can send me an `email
