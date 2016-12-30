@@ -1,0 +1,19 @@
+@import url("theme.css");
+
+.wy-nav-top,
+.wy-side-nav-search {
+      background: #B0DAB9;
+}
+
+.wy-side-nav-search input[type=text] {
+      border-color: #B0DAB9;
+}
+
+.wy-nav-top a,
+.wy-side-nav-search>a, .wy-side-nav-search .wy-dropdown>a {
+      color: #333;
+}
+
+.wy-side-nav-search>div.version {
+      color: #444;
+}
