@@ -2,8 +2,8 @@ Preface
 =======
 
 
-Who should read this booklet
-----------------------------
+Who should read this book
+-------------------------
 
 **Biologists that need to use the command line.**
 If you want to learn how to use the command line to install and run
@@ -49,16 +49,22 @@ Source code
 -----------
 
 The `source <https://github.com/tjelvar-olsson/biologists-guide-to-computing>`_
-for this booklet is hosted on `GitHub <https://github.com/>`_.
+for this book is hosted on `GitHub <https://github.com/>`_.
 
 
 Feedback
 --------
 
-This booklet is still a work in progress. I would really appreciate your
+This book is still a work in progress. I would really appreciate your
 feedback. Please send me an `email <tjelvar@biologistsguide2computing.com>`_ to
-let me know what you think or you can contact me via twitter `@tjelvar_olsson
-<https://twitter.com/tjelvar_olsson>`_.
+let me know what you think. Alternatively you can contact me via twitter `@tjelvar_olsson
+<https://twitter.com/tjelvar_olsson>`_,
+`@bioguide2comp <https://twitter.com/bioguide2comp>`_ or message me via the
+`Facebook page <https://www.facebook.com/biologistsguide2computing>`_.
+
+If you want to receive updates about this book do sign up to the mailing list.
+You can find the sign up form on the website:
+`biologistsguide2computing.com <http://biologistsguide2computing.com/>`_.
 
 
 Acknowledgements
@@ -70,4 +76,4 @@ McCleary for continued in depth feedback and suggestions for improvements.
 Thanks to Nick Pullen for feedback and discussions on the data visualisation
 chapter. Many thanks to Matthew Hartley for discussions and encouragement.
 
-I'm also grateful for feedback from Lucy Liu.
+I'm also grateful for feedback from Lucy Liu and Morten Grøftehauge.
