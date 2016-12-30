@@ -18,10 +18,9 @@ If you want to learn how to write your own data analysis scripts
 this book is also for you. The book starts off by explaining fundamental
 computing concepts, teaching you how to think like a computer.
 You will then learn how to use Python by creating a script to analyse
-the GC-content of a bacterial genome. There is also a chapter on
-data visualisation that teaches you how to work with R. Furthermore,
-programming best practises are highlighted and explained throughout the
-book.
+the guanine-cytosine (GC) content of a bacterial genome. There is also a
+chapter on data visualisation that teaches you how to work with R. Furthermore,
+programming best practises are highlighted and explained throughout the book.
 
 **Biologists that want to ensure their data analysis is reproducible.**
 If you want to ensure that your data analysis is reproducible this book

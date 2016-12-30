@@ -175,7 +175,7 @@ exponent increases the step size between two representable numbers increases.
     :math:`12.7^{-10}`, :math:`12.7` and :math:`12.7^7` could all be expressed
     by floating the radix point around the significant digits :math:`127`.
 
-All real numbers cannot be represented precisely using floating-point numbers.
+Not all numbers can be represented precisely using floating-point numbers.
 Furthermore, arithmetic operations on floating-point numbers cannot truly
 represent arithmetic operations. This can lead to issues with accuracy. We can
 illustrate this using Python (we will get more details on scripting and Python
@@ -287,7 +287,7 @@ of instructions can be useful when trying to understand concepts such as
 loops. A loop is essentially a set of machine instructions that end with a
 decision to jump back to the beginning of the same set of instructions.
 
-Loops often include a criteria for exiting the loop. If the criteria for
+Loops often include a condition for exiting the loop. If the condition for
 exiting the loop is not defined, or it cannot be reached, the loop will keep
 cycling forever in what is termed an "infinite loop".
 
