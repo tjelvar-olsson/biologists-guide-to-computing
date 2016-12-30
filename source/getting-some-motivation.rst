@@ -37,7 +37,7 @@ What you can expect to learn here
 ---------------------------------
 
 Many books on computing assume that the reader has a basic knowledge of how a
-computer operates and the associated jargon. This booklet attempts not to make any
+computer operates and the associated jargon. This book attempts not to make any
 such assumptions and important concepts are explained in
 :doc:`how-to-think-like-a-computer`. Furthermore, important terms and their
 background are explained throughout in attempt to demystify computing jargon.
