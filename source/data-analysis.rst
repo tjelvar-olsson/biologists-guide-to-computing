@@ -332,7 +332,7 @@ setup of a while loop.
 
 In the code above Python moves through the commands in the while loop executing
 them in order, i.e. printing the value of the ``cycle`` variable and then
-incrementing it. The logic then moves back to the :keyword:`while` statement and
+incrementing it. The logic then moves back to the ``while`` statement and
 the conditional (``cycle < 5``) is re-evaluated. If true the commands in the
 while statment are executed in order again, and so forth until the conditional
 is false. In this example the ``print(cycle)`` command was called five times,
